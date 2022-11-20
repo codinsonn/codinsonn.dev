@@ -44,9 +44,9 @@ const HomeScreen = (props) => {
       <StatusBar style="auto" />
       <Link to="/author">
         <Image
-          src="/img/icon.png"
+          src="/img/CodelyFansLogoPic160x160.jpeg"
           alt="App Icon"
-          tw={['w-20 h-20 mt-0 mb-3 overflow-hidden bg-slate-100', true && 'rounded-full']} // Assign conditional classes with an array
+          tw="w-20 h-20 mt-0 mb-3 overflow-hidden bg-slate-100 rounded-full"
         />
       </Link>
       <H1 tw="text-green-500 pb-3 roboto-bold font-bold text-base">@codinsonn.dev ⚡️</H1>
