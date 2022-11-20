@@ -4,7 +4,7 @@ import React from 'react'
 
 const Head = () => (
   <>
-    <title>My GREEN stack app</title>
+    <title>Thorr ⚡️codinsonn.dev</title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />
     <link rel="manifest" href="/manifest.json" />
     <meta

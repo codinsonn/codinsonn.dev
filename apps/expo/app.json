@@ -10,7 +10,7 @@
     "description": "Personal Website for @codinsonn.dev, built with the GREEN stack, Aetherspace, Expo & Next.js",
     "owner": "thorrstevens",
     "githubUrl": "https://github.com/codinsonn/codinsonn.dev",
-    "scheme": "codinsonn-dot-dev",
+    "scheme": "codinsonn",
     "splash": {
       "image": "../next/public/splash.png",
       "resizeMode": "contain",

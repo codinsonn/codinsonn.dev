@@ -10,7 +10,6 @@ import { View, Text, Image, Pressable } from 'aetherspace/primitives'
 import { H1 } from 'aetherspace/html-elements'
 // Hooks
 import { useDocAddress, useAPICheck } from 'aetherspace/docs'
-import { useAetherContext } from 'aetherspace/context'
 // Utils
 import { getEnvList } from 'aetherspace/utils'
 // Icons
@@ -18,27 +17,23 @@ import { GraphIcon, ReactIcon, ExpoIcon, StorybookIcon, NextIcon } from '../icon
 
 /* --- Schemas --------------------------------------------------------------------------------- */
 
-const PropSchema = ats.schema('HomeScreenProps', {
-  customGreeting: ats.string().nullish().default('Hello GREEN stack 👋', 'A greeting for the user', 'Hello Storybook 👋'), // prettier-ignore
-})
+const PropSchema = ats.schema('HomeScreenProps', {})
 
 /* --- <HomeScreen/> --------------------------------------------------------------------------- */
 
 const HomeScreen = (props) => {
   // Props
-  const { customGreeting } = applySchema(props, PropSchema)
+  applySchema(props, PropSchema)
 
   // Environment
   const appURIs = getEnvList('APP_LINKS').filter((url) => url.includes('http')) || [] // prettier-ignore
 
   // Hooks
-  const { isPhoneSize } = useAetherContext()
   const docsURI = useDocAddress()
   const { healthEndpoint, graphQLEndpoint } = useAPICheck(appURIs)
   const { openLink } = useAetherNav()
 
   // Vars
-  const tapOrClick = isPhoneSize ? 'Tap' : 'Click'
   const ICON_COLOR = '#22c55e'
   const ICON_SIZE = 32
 
@@ -47,16 +42,14 @@ const HomeScreen = (props) => {
   return (
     <View tw="absolute flex flex-1 w-full h-full items-center justify-center">
       <StatusBar style="auto" />
-      <Link to="https://aetherspace-green-stack-starter.vercel.app/author">
+      <Link to="/author">
         <Image
           src="/img/icon.png"
           alt="App Icon"
           tw={['w-20 h-20 mt-0 mb-3 overflow-hidden bg-slate-100', true && 'rounded-full']} // Assign conditional classes with an array
         />
       </Link>
-      <H1 tw="text-green-500 pb-2 roboto-bold font-bold text-base">
-        {customGreeting || "Hello 'GREEN-stack' 👋"}
-      </H1>
+      <H1 tw="text-green-500 pb-3 roboto-bold font-bold text-base">@codinsonn.dev ⚡️</H1>
       <View tw="flex-row">
         <Link href="https://expo.dev/home" tw="px-2">
           <ExpoIcon width={ICON_SIZE} height={ICON_SIZE} fill={ICON_COLOR} />
@@ -75,9 +68,8 @@ const HomeScreen = (props) => {
         </Link>
       </View>
       <Text tw="md:w-2/3 lg:w-1/2 pt-5 pb-3 px-4 text-center text-sm">
-        {`${tapOrClick} the icons to learn more about each part of the stack, or open up `}
-        <Text tw="text-gray-500">features/app-core/screens/HomeScreen.tsx</Text> to start working on
-        your app.
+        {`👾  Dev Memes & JS/React Dreams  🙈  Programmer puns • {...💚 } GREEN stack dev
+👕  Coding Merch  🤖  Laptop Stickers  ☕  Covfefe Mugs  🎓  JS/TS Coding tips and tricks by @codinsonn ⚡`}
       </Text>
       <View tw="flex-row pt-3">
         <Pressable
