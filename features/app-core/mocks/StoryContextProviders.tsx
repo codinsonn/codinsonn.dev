@@ -15,7 +15,13 @@ const StoryContextProviders = ({ children }) => {
   // -- Render --
 
   return (
-    <AetherContextManager assets={{}} icons={{}} twConfig={tailwindConfig} tw="relative">
+    <AetherContextManager
+      assets={{}}
+      icons={{}}
+      twConfig={tailwindConfig}
+      tw="h-full relative"
+      isNextJS
+    >
       {children}
     </AetherContextManager>
   )

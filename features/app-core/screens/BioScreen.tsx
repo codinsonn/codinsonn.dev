@@ -13,11 +13,11 @@ import { GraphIcon, ReactIcon, ExpoIcon, StorybookIcon, NextIcon } from '../icon
 
 /* --- Schemas --------------------------------------------------------------------------------- */
 
-const PropSchema = ats.schema('HomeScreenProps', {})
+const PropSchema = ats.schema('BioScreenProps', {})
 
-/* --- <HomeScreen/> --------------------------------------------------------------------------- */
+/* --- <BioScreen/> --------------------------------------------------------------------------- */
 
-const HomeScreen = (props) => {
+const BioScreen = (props) => {
   // Props
   applySchema(props, PropSchema)
 
@@ -33,14 +33,14 @@ const HomeScreen = (props) => {
   return (
     <View tw="w-full h-full items-center px-4 bg-gray-900 pt-12 md:pt-8">
       <StatusBar style="auto" />
-      <Link to="/author">
+      <Link to="/">
         <Image
           src="/img/CodelyFansLogoPic160x160.jpeg"
           alt="App Icon"
           tw="w-20 h-20 mt-0 mb-3 overflow-hidden bg-slate-100 rounded-full"
         />
       </Link>
-      <H1 tw="text-white pb-3 roboto-bold font-bold text-base ">@codinsonn.dev ⚡️</H1>
+      <H1 tw="text-white pb-3 roboto-bold font-bold text-base ">@codinsonn.dev</H1>
       <View tw="flex-row">
         <Link href="https://expo.dev/home" tw="px-2">
           <ExpoIcon width={ICON_SIZE} height={ICON_SIZE} fill={ICON_COLOR} />
@@ -59,8 +59,7 @@ const HomeScreen = (props) => {
         </Link>
       </View>
       <Text tw="md:w-2/3 lg:w-1/2 pt-5 pb-3 px-4 text-white text-center text-sm">
-        {`👾  Dev Memes & JS/React Dreams  🙈  Programmer puns • {...💚 } GREEN stack dev
-👕  Coding Merch  🤖  Laptop Stickers  ☕  Covfefe Mugs  🎓  JS/TS Coding tips and tricks by @codinsonn ⚡`}
+        {`👾  Dev Memes & GREEN stack dreams  🤖  Helping you take your react skills cross-platform  🚀  Typescript ⚡️ GraphQL ⚡️ React-Native ⚡️ Expo ⚡️ Next.js`}
       </Text>
     </View>
   )
@@ -72,4 +71,4 @@ export const getDocumentationProps = PropSchema
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
-export default HomeScreen
+export default BioScreen
