@@ -1,9 +1,10 @@
 import React from 'react'
 import { StatusBar } from 'expo-status-bar'
+import { z } from 'zod'
 // Navigation
 import { Link, useAetherNav } from 'aetherspace/navigation'
 // Schemas
-import { ats, Infer } from 'aetherspace/schemas'
+import { aetherSchema } from 'aetherspace/schemas'
 import { UserBio } from '../schemas/UserBio.schema'
 // Data
 import { useApiData } from 'aetherspace'
@@ -16,19 +17,19 @@ import * as Icons from '../icons'
 
 /* --- Schemas --------------------------------------------------------------------------------- */
 
-const PropSchema = ats.schema('BioScreenProps', {
+const PropSchema = aetherSchema('BioScreenProps', {
   data: UserBio,
 })
 
 /* --- Types ---------------------------------------------------------------------------------- */
 
-type BioScreenProps = Partial<Infer<typeof PropSchema>>
+type BioScreenProps = Partial<z.infer<typeof PropSchema>>
 
 /* --- <BioScreen/> --------------------------------------------------------------------------- */
 
 const BioScreen = (props: BioScreenProps) => {
   // Data
-  const { data: bioData, isLoading, error } = useApiData<UserBio>('/api/bio/codinsonn') // useScreenData(props)
+  const { data: bioData, isLoading, error } = useApiData<UserBio>('/api/bio/codinsonn')
 
   // Hooks
   const { openLink } = useAetherNav()
@@ -60,7 +61,7 @@ const BioScreen = (props: BioScreenProps) => {
         {bioData.title}
       </H1>
       <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 text-white text-center text-sm">{bioData.bioText}</Text>
-      <View tw="flex-row mt-6 justify-center">
+      <View tw="flex-row mt-6 mobile:mt-4 justify-center">
         {bioData.iconLinks.map((bioIcon) => {
           const Icon = Icons[bioIcon.iconComponent]
           return (
@@ -80,7 +81,7 @@ const BioScreen = (props: BioScreenProps) => {
 
 /* --- Documentation --------------------------------------------------------------------------- */
 
-export const getDocumentationProps = PropSchema
+export const getDocumentationProps = PropSchema.introspect()
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
