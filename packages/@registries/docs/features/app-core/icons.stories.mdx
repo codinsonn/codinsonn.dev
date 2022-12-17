@@ -3,13 +3,7 @@ import { aetherStoryDocs } from 'aetherspace/schemas'
 import { isEmpty } from 'aetherspace/utils/commonUtils'
 // -i- Auto generated with "yarn document-components"
 // Components hooking into the storybook auto-documentation script
-import { default as BackIcon, getDocumentationProps as getBackIconProps } from '../../../../../features/app-core/icons/BackIcon.tsx'
-import { default as ExpoIcon, getDocumentationProps as getExpoIconProps } from '../../../../../features/app-core/icons/ExpoIcon.tsx'
-import { default as GraphIcon, getDocumentationProps as getGraphIconProps } from '../../../../../features/app-core/icons/GraphIcon.tsx'
-import { default as HomeIcon, getDocumentationProps as getHomeIconProps } from '../../../../../features/app-core/icons/HomeIcon.tsx'
-import { default as NextIcon, getDocumentationProps as getNextIconProps } from '../../../../../features/app-core/icons/NextIcon.tsx'
 import { default as ReactIcon, getDocumentationProps as getReactIconProps } from '../../../../../features/app-core/icons/ReactIcon.tsx'
-import { default as StorybookIcon, getDocumentationProps as getStorybookIconProps } from '../../../../../features/app-core/icons/StorybookIcon.tsx'
 // Mocks
 import StoryContextProviders from '../../../../../features/app-core/mocks/StoryContextProviders'
 
@@ -22,121 +16,6 @@ export const createDocs = (Component) => (args) => {
     </StoryContextProviders>
   )
 }
-
-## BackIcon
-
-export const BackIconDocs = createDocs(BackIcon)
-export const BackIconConfig = aetherStoryDocs({ BackIcon }, getBackIconProps)
-
-```typescript
-import BackIcon from 'features/app-core/icons/BackIcon'
-```
-
-
-<Canvas>
-    <Story
-        name="BackIcon"
-        args={BackIconConfig.args}
-        argTypes={BackIconConfig.argTypes}
-    >
-      {BackIconDocs.bind({})}
-    </Story>
-</Canvas>
-
-{!isEmpty(BackIconConfig.args) && <ArgsTable story="BackIcon" />}
-
-
-## ExpoIcon
-
-export const ExpoIconDocs = createDocs(ExpoIcon)
-export const ExpoIconConfig = aetherStoryDocs({ ExpoIcon }, getExpoIconProps)
-
-```typescript
-import ExpoIcon from 'features/app-core/icons/ExpoIcon'
-```
-
-
-<Canvas>
-    <Story
-        name="ExpoIcon"
-        args={ExpoIconConfig.args}
-        argTypes={ExpoIconConfig.argTypes}
-    >
-      {ExpoIconDocs.bind({})}
-    </Story>
-</Canvas>
-
-{!isEmpty(ExpoIconConfig.args) && <ArgsTable story="ExpoIcon" />}
-
-
-## GraphIcon
-
-export const GraphIconDocs = createDocs(GraphIcon)
-export const GraphIconConfig = aetherStoryDocs({ GraphIcon }, getGraphIconProps)
-
-```typescript
-import GraphIcon from 'features/app-core/icons/GraphIcon'
-```
-
-
-<Canvas>
-    <Story
-        name="GraphIcon"
-        args={GraphIconConfig.args}
-        argTypes={GraphIconConfig.argTypes}
-    >
-      {GraphIconDocs.bind({})}
-    </Story>
-</Canvas>
-
-{!isEmpty(GraphIconConfig.args) && <ArgsTable story="GraphIcon" />}
-
-
-## HomeIcon
-
-export const HomeIconDocs = createDocs(HomeIcon)
-export const HomeIconConfig = aetherStoryDocs({ HomeIcon }, getHomeIconProps)
-
-```typescript
-import HomeIcon from 'features/app-core/icons/HomeIcon'
-```
-
-
-<Canvas>
-    <Story
-        name="HomeIcon"
-        args={HomeIconConfig.args}
-        argTypes={HomeIconConfig.argTypes}
-    >
-      {HomeIconDocs.bind({})}
-    </Story>
-</Canvas>
-
-{!isEmpty(HomeIconConfig.args) && <ArgsTable story="HomeIcon" />}
-
-
-## NextIcon
-
-export const NextIconDocs = createDocs(NextIcon)
-export const NextIconConfig = aetherStoryDocs({ NextIcon }, getNextIconProps)
-
-```typescript
-import NextIcon from 'features/app-core/icons/NextIcon'
-```
-
-
-<Canvas>
-    <Story
-        name="NextIcon"
-        args={NextIconConfig.args}
-        argTypes={NextIconConfig.argTypes}
-    >
-      {NextIconDocs.bind({})}
-    </Story>
-</Canvas>
-
-{!isEmpty(NextIconConfig.args) && <ArgsTable story="NextIcon" />}
-
 
 ## ReactIcon
 
@@ -159,35 +38,6 @@ import ReactIcon from 'features/app-core/icons/ReactIcon'
 </Canvas>
 
 {!isEmpty(ReactIconConfig.args) && <ArgsTable story="ReactIcon" />}
-
-
-## StorybookIcon
-
-export const StorybookIconDocs = createDocs(StorybookIcon)
-export const StorybookIconConfig = aetherStoryDocs({ StorybookIcon }, getStorybookIconProps)
-
-```typescript
-import StorybookIcon from 'features/app-core/icons/StorybookIcon'
-```
-
-
-<Canvas>
-    <Story
-        name="StorybookIcon"
-        args={StorybookIconConfig.args}
-        argTypes={StorybookIconConfig.argTypes}
-    >
-      {StorybookIconDocs.bind({})}
-    </Story>
-</Canvas>
-
-{!isEmpty(StorybookIconConfig.args) && <ArgsTable story="StorybookIcon" />}
-
-
-
-
-
-
 
 
 
