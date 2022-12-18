@@ -1,1 +1,7 @@
 export { default as ReactIcon } from './ReactIcon'
+export { default as GithubIcon } from './GithubIcon'
+export { default as RedbubbleIcon } from './RedbubbleIcon'
+export { default as TwitterIcon } from './TwitterIcon'
+export { default as ShopifyIcon } from './ShopifyIcon'
+export { default as BehanceIcon } from './BehanceIcon'
+export { default as DevIcon } from './DevIcon'

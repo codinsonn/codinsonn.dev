@@ -3,7 +3,13 @@ import { aetherStoryDocs } from 'aetherspace/schemas'
 import { isEmpty } from 'aetherspace/utils/commonUtils'
 // -i- Auto generated with "yarn document-components"
 // Components hooking into the storybook auto-documentation script
+import { default as BehanceIcon, getDocumentationProps as getBehanceIconProps } from '../../../../../features/app-core/icons/BehanceIcon.tsx'
+import { default as DevIcon, getDocumentationProps as getDevIconProps } from '../../../../../features/app-core/icons/DevIcon.tsx'
+import { default as GithubIcon, getDocumentationProps as getGithubIconProps } from '../../../../../features/app-core/icons/GithubIcon.tsx'
 import { default as ReactIcon, getDocumentationProps as getReactIconProps } from '../../../../../features/app-core/icons/ReactIcon.tsx'
+import { default as RedbubbleIcon, getDocumentationProps as getRedbubbleIconProps } from '../../../../../features/app-core/icons/RedbubbleIcon.tsx'
+import { default as ShopifyIcon, getDocumentationProps as getShopifyIconProps } from '../../../../../features/app-core/icons/ShopifyIcon.tsx'
+import { default as TwitterIcon, getDocumentationProps as getTwitterIconProps } from '../../../../../features/app-core/icons/TwitterIcon.tsx'
 // Mocks
 import StoryContextProviders from '../../../../../features/app-core/mocks/StoryContextProviders'
 
@@ -16,6 +22,75 @@ export const createDocs = (Component) => (args) => {
     </StoryContextProviders>
   )
 }
+
+## BehanceIcon
+
+export const BehanceIconDocs = createDocs(BehanceIcon)
+export const BehanceIconConfig = aetherStoryDocs({ BehanceIcon }, getBehanceIconProps)
+
+```typescript
+import BehanceIcon from 'features/app-core/icons/BehanceIcon'
+```
+
+
+<Canvas>
+    <Story
+        name="BehanceIcon"
+        args={BehanceIconConfig.args}
+        argTypes={BehanceIconConfig.argTypes}
+    >
+      {BehanceIconDocs.bind({})}
+    </Story>
+</Canvas>
+
+{!isEmpty(BehanceIconConfig.args) && <ArgsTable story="BehanceIcon" />}
+
+
+## DevIcon
+
+export const DevIconDocs = createDocs(DevIcon)
+export const DevIconConfig = aetherStoryDocs({ DevIcon }, getDevIconProps)
+
+```typescript
+import DevIcon from 'features/app-core/icons/DevIcon'
+```
+
+
+<Canvas>
+    <Story
+        name="DevIcon"
+        args={DevIconConfig.args}
+        argTypes={DevIconConfig.argTypes}
+    >
+      {DevIconDocs.bind({})}
+    </Story>
+</Canvas>
+
+{!isEmpty(DevIconConfig.args) && <ArgsTable story="DevIcon" />}
+
+
+## GithubIcon
+
+export const GithubIconDocs = createDocs(GithubIcon)
+export const GithubIconConfig = aetherStoryDocs({ GithubIcon }, getGithubIconProps)
+
+```typescript
+import GithubIcon from 'features/app-core/icons/GithubIcon'
+```
+
+
+<Canvas>
+    <Story
+        name="GithubIcon"
+        args={GithubIconConfig.args}
+        argTypes={GithubIconConfig.argTypes}
+    >
+      {GithubIconDocs.bind({})}
+    </Story>
+</Canvas>
+
+{!isEmpty(GithubIconConfig.args) && <ArgsTable story="GithubIcon" />}
+
 
 ## ReactIcon
 
@@ -38,6 +113,81 @@ import ReactIcon from 'features/app-core/icons/ReactIcon'
 </Canvas>
 
 {!isEmpty(ReactIconConfig.args) && <ArgsTable story="ReactIcon" />}
+
+
+## RedbubbleIcon
+
+export const RedbubbleIconDocs = createDocs(RedbubbleIcon)
+export const RedbubbleIconConfig = aetherStoryDocs({ RedbubbleIcon }, getRedbubbleIconProps)
+
+```typescript
+import RedbubbleIcon from 'features/app-core/icons/RedbubbleIcon'
+```
+
+
+<Canvas>
+    <Story
+        name="RedbubbleIcon"
+        args={RedbubbleIconConfig.args}
+        argTypes={RedbubbleIconConfig.argTypes}
+    >
+      {RedbubbleIconDocs.bind({})}
+    </Story>
+</Canvas>
+
+{!isEmpty(RedbubbleIconConfig.args) && <ArgsTable story="RedbubbleIcon" />}
+
+
+## ShopifyIcon
+
+export const ShopifyIconDocs = createDocs(ShopifyIcon)
+export const ShopifyIconConfig = aetherStoryDocs({ ShopifyIcon }, getShopifyIconProps)
+
+```typescript
+import ShopifyIcon from 'features/app-core/icons/ShopifyIcon'
+```
+
+
+<Canvas>
+    <Story
+        name="ShopifyIcon"
+        args={ShopifyIconConfig.args}
+        argTypes={ShopifyIconConfig.argTypes}
+    >
+      {ShopifyIconDocs.bind({})}
+    </Story>
+</Canvas>
+
+{!isEmpty(ShopifyIconConfig.args) && <ArgsTable story="ShopifyIcon" />}
+
+
+## TwitterIcon
+
+export const TwitterIconDocs = createDocs(TwitterIcon)
+export const TwitterIconConfig = aetherStoryDocs({ TwitterIcon }, getTwitterIconProps)
+
+```typescript
+import TwitterIcon from 'features/app-core/icons/TwitterIcon'
+```
+
+
+<Canvas>
+    <Story
+        name="TwitterIcon"
+        args={TwitterIconConfig.args}
+        argTypes={TwitterIconConfig.argTypes}
+    >
+      {TwitterIconDocs.bind({})}
+    </Story>
+</Canvas>
+
+{!isEmpty(TwitterIconConfig.args) && <ArgsTable story="TwitterIcon" />}
+
+
+
+
+
+
 
 
 
