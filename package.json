@@ -70,6 +70,8 @@
     "deploy:mobile:dev": "yarn workspace expo-app run deploy:update:dev",
     "deploy:mobile:stage": "yarn workspace expo-app run deploy:update:stage",
     "deploy:mobile:prod": "yarn workspace expo-app run deploy:update:prod",
+    "doppler-setup": "doppler setup",
+    "doppler-sync": "doppler secrets download --no-file --format env > apps/next/.env",
     "postinstall": "patch-package"
   }
 }

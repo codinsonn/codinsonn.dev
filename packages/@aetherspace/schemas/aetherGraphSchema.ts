@@ -27,7 +27,7 @@ type ResolverConfigType = {
 
 const SCHEMA_PRIMITIVE_MAPPER = Object.freeze({
   AetherString: 'String',
-  AetherNumber: 'Number',
+  AetherNumber: 'Float',
   AetherBoolean: 'Boolean',
   AetherId: 'String',
   AetherColor: 'String',
@@ -61,7 +61,7 @@ const aetherSchemaDefinitions = (aetherSchema: ResolverSchemaType, prefix = 'typ
   const schemaMap = aetherSchemaPlugin(aetherSchema, {
     // -- Primitives --
     AetherString: createDefinition('String'),
-    AetherNumber: createDefinition('Number'),
+    AetherNumber: createDefinition('Float'),
     AetherBoolean: createDefinition('Boolean'),
     // -- Single values --
     AetherId: createDefinition('String'),

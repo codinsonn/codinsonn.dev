@@ -3,31 +3,32 @@ import { StatusBar } from 'expo-status-bar'
 // Navigation
 import { Link, useAetherNav } from 'aetherspace/navigation'
 // Schemas
-import { ats, applySchema } from 'aetherspace/schemas'
+import { ats, Infer } from 'aetherspace/schemas'
+import { UserBio } from '../schemas/UserBio.schema'
+// Data
+import { useApiData } from 'aetherspace'
 // Primitives
 import { View, Text, Image } from 'aetherspace/primitives'
 // SEO
 import { H1 } from 'aetherspace/html-elements'
 // Icons
-import {
-  BehanceIcon,
-  DevIcon,
-  GithubIcon,
-  ReactIcon,
-  RedbubbleIcon,
-  ShopifyIcon,
-  TwitterIcon,
-} from '../icons'
+import * as Icons from '../icons'
 
 /* --- Schemas --------------------------------------------------------------------------------- */
 
-const PropSchema = ats.schema('BioScreenProps', {})
+const PropSchema = ats.schema('BioScreenProps', {
+  data: UserBio,
+})
+
+/* --- Types ---------------------------------------------------------------------------------- */
+
+type BioScreenProps = Partial<Infer<typeof PropSchema>>
 
 /* --- <BioScreen/> --------------------------------------------------------------------------- */
 
-const BioScreen = (props) => {
-  // Props
-  applySchema(props, PropSchema)
+const BioScreen = (props: BioScreenProps) => {
+  // Data
+  const { data: bioData, isLoading, error } = useApiData<UserBio>('/api/bio/codinsonn') // useScreenData(props)
 
   // Hooks
   const { openLink } = useAetherNav()
@@ -36,6 +37,10 @@ const BioScreen = (props) => {
   const ICON_COLOR = '#FFFFFF'
   const ICON_SIZE = 27
 
+  // -- Guards --
+
+  if (!bioData || isLoading || !!error) return null
+
   // -- Render --
 
   return (
@@ -43,46 +48,31 @@ const BioScreen = (props) => {
       <StatusBar style="auto" />
       <Link to="/">
         <Image
-          src="/img/CodelyFansLogoPic160x160.jpeg"
-          alt="App Icon"
+          src={bioData.imageUrl}
+          alt="Picture of the author"
           tw="w-20 h-20 mt-0 overflow-hidden bg-slate-100 rounded-full"
         />
       </Link>
       <H1
         tw="text-white mb-4 roboto font-bold text-base"
-        onPress={() => openLink('https://www.instagram.com/codinsonn.dev/')}
+        onPress={() => openLink(bioData.titleLink)}
       >
-        @codinsonn.dev
+        {bioData.title}
       </H1>
-      <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 text-white text-center text-sm">
-        {`Dev Memes & GREEN stack dreams { ...💚 } Helping you take your react skills cross-platform 👾 ⚡️ 🤖 Typescript ⚡️ GraphQL ⚡️ React-Native ⚡️ Expo ⚡️ Next.js`}
-      </Text>
+      <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 text-white text-center text-sm">{bioData.bioText}</Text>
       <View tw="flex-row mt-6 justify-center">
-        <Link href="https://twitter.com/codinsonn" tw="px-2 lg:px-3">
-          <TwitterIcon width={ICON_SIZE} height={ICON_SIZE} fill={ICON_COLOR} />
-        </Link>
-        <Link href="https://github.com/sponsors/codinsonn" tw="px-2 lg:px-3">
-          <GithubIcon width={ICON_SIZE} height={ICON_SIZE} fill={ICON_COLOR} />
-        </Link>
-        <Link href="https://dev.to/codinsonn" tw="px-2 lg:px-3 pt-[1px]">
-          <DevIcon width={ICON_SIZE} height={ICON_SIZE} fill={ICON_COLOR} />
-        </Link>
-        <Link
-          href="https://github.com/codinsonn/green-stack-demo#move-fast-and-build-things"
-          tw="px-2 lg:px-3"
-        >
-          <ReactIcon width={ICON_SIZE} height={ICON_SIZE} fill={ICON_COLOR} />
-        </Link>
-        <Link href="https://codelyfans.myshopify.com/" tw="px-2 lg:px-3">
-          <ShopifyIcon width={ICON_SIZE} height={ICON_SIZE} fill={ICON_COLOR} />
-        </Link>
-        <Link href="https://www.redbubble.com/people/AetherspaceOne/shop" tw="px-2 lg:px-3">
-          <RedbubbleIcon width={ICON_SIZE} height={ICON_SIZE} fill={ICON_COLOR} />
-        </Link>
-        {/* TODO: IG Icon */}
-        <Link href="https://www.behance.net/ThorrStevens" tw="px-2 lg:px-3">
-          <BehanceIcon width={ICON_SIZE} height={ICON_SIZE} fill={ICON_COLOR} />
-        </Link>
+        {bioData.iconLinks.map((bioIcon) => {
+          const Icon = Icons[bioIcon.iconComponent]
+          return (
+            <Link
+              key={bioIcon.iconComponent}
+              href={bioIcon.link}
+              tw={['px-2 lg:px-3', bioIcon.extraClasses]}
+            >
+              <Icon width={ICON_SIZE} height={ICON_SIZE} fill={ICON_COLOR} />
+            </Link>
+          )
+        })}
       </View>
     </View>
   )
