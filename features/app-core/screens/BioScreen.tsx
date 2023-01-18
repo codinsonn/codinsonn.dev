@@ -7,7 +7,7 @@ import { Link, useAetherNav } from 'aetherspace/navigation'
 import { aetherSchema } from 'aetherspace/schemas'
 import { UserBio } from '../schemas/UserBio.schema'
 // Data
-import { useApiData } from 'aetherspace'
+import { useGraphQL } from 'aetherspace/hooks'
 // Primitives
 import { View, Text, Image } from 'aetherspace/primitives'
 // SEO
@@ -21,6 +21,38 @@ const PropSchema = aetherSchema('BioScreenProps', {
   data: UserBio,
 })
 
+/* --- GraphQL -------------------------------------------------------------------------------- */
+
+const getUserBioQuery = `
+  query($getUserBioArgs: UserBioInput!) {
+    getUserBio(args: $getUserBioArgs) {
+      slug
+      title
+      titleLink
+      bioText
+      imageUrl
+      iconLinks {
+        id
+        iconKey
+        iconComponent
+        link
+        sortOrder
+        extraClasses
+      }
+    }
+  }
+`
+
+const getUserBioVars = {
+  getUserBioArgs: {
+    slug: 'codinsonn',
+  },
+}
+
+type GetUserBioResponse = {
+  getUserBio: UserBio
+}
+
 /* --- Types ---------------------------------------------------------------------------------- */
 
 type BioScreenProps = Partial<z.infer<typeof PropSchema>>
@@ -29,7 +61,8 @@ type BioScreenProps = Partial<z.infer<typeof PropSchema>>
 
 const BioScreen = (props: BioScreenProps) => {
   // Data
-  const { data: bioData, isLoading, error } = useApiData<UserBio>('/api/bio/codinsonn')
+  const { data, isLoading, error } = useGraphQL<GetUserBioResponse>(getUserBioQuery, getUserBioVars)
+  const { getUserBio: bioData } = data || {}
 
   // Hooks
   const { openLink } = useAetherNav()

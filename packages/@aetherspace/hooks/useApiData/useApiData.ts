@@ -17,12 +17,15 @@ const useApiData = <T, K extends string = string>(endpoint: K, fetcher?: Fetcher
     aetherFetcher = (async () => {
       const fetchEndpoint = `${baseURL}${endpoint}`
       const response = await fetch(fetchEndpoint)
-      const data = (await response.json()) as T
-      return data
+      const data = await response.json()
+      return data as T
     }) as unknown as Fetcher<T, K>
   }
   // Fetch with SWR
-  const { data, isLoading, error } = useSWR<T>(endpoint, aetherFetcher)
+  const { isLoading, error, ...swrResult } = useSWR<T>(endpoint, aetherFetcher)
+  type SwrResponse = T | { data: T }
+  const responseData = swrResult.data as unknown as SwrResponse
+  const data = (responseData as { data: T })?.data || responseData
   // Return
   return { data, isLoading, error }
 }

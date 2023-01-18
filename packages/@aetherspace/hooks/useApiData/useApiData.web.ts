@@ -1,4 +1,4 @@
-import { use, useMemo } from 'react'
+import { use, cache, useMemo } from 'react'
 // Utils
 import { getEnvVar } from '../../utils'
 
@@ -13,11 +13,11 @@ const useApiData = <T, K extends string = string>(endpoint: K, fetcher?: Promise
   let aetherFetcher = fetcher
   if (!aetherFetcher) {
     const baseURL = endpoint.includes('://') ? '' : backendURL
-    aetherFetcher = (async () => {
+    aetherFetcher = cache(async () => {
       const fetchEndpoint = `${baseURL}${endpoint}`
       const response = await fetch(fetchEndpoint)
-      const data = (await response.json()) as T
-      return data
+      const data = await response.json()
+      return data as T
     }) as unknown as Promise<T>
   }
   // @ts-ignore

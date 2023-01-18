@@ -13,11 +13,11 @@ export const IconLinks = aetherSchema('IconLinks', {
   extraClasses: z.string().optional().describe('Extra classes to add to icon'),
 })
 
-export const UserBioInput = aetherSchema('UserBio', {
+export const UserBioInput = aetherSchema('UserBioInput', {
   slug: z.string().describe('Slug of bio to fetch'),
 })
 
-export const UserBio = aetherSchema('GetUserBioResponse', {
+export const UserBio = aetherSchema('UserBio', {
   slug: UserBioInput.shape.slug,
   title: z.string().describe('Title of bio'),
   titleLink: z.string().describe('Link to title'),

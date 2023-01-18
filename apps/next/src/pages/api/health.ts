@@ -1,11 +1,9 @@
 import { writeFileSync } from 'fs'
-import { makeExecutableSchema } from '@graphql-tools/schema'
 import { printSchema } from 'graphql'
 import { z } from 'zod'
 // Schemas
-import { aetherSchema, aetherGraphSchema, ResolverMapType } from 'aetherspace/schemas'
-// Resolvers
-import * as resolvers from 'registries/resolvers.generated'
+import { aetherSchema } from 'aetherspace/schemas'
+import { schema } from 'app/graphql/schema'
 // Middleware
 import { withCors } from 'app/middleware'
 // Utils
@@ -53,10 +51,9 @@ const healthCheck = aetherResolver(async ({ args }) => {
   let didSaveGraphQLSchema: boolean | null = null
   if (process.env.NODE_ENV === 'development' && args.saveGraphQLSchema) {
     try {
-      const schema = aetherGraphSchema(resolvers as unknown as ResolverMapType)
       // Save graphql schema to next root?
       if (process.env.NODE_ENV === 'development') {
-        const schemaDefinitions = printSchema(makeExecutableSchema(schema))
+        const schemaDefinitions = printSchema(schema)
         writeFileSync('./schema.graphql', schemaDefinitions)
         didSaveGraphQLSchema = true
       }
