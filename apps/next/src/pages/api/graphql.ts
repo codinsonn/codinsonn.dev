@@ -1,9 +1,11 @@
 import { ApolloServer } from 'apollo-server-micro'
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core'
+import { writeFileSync } from 'fs'
+import { printSchema } from 'graphql'
 // Types
 import type { NextApiRequest, NextApiResponse } from 'next'
 // Schemas
-import { schemaDefs } from 'app/graphql/schema'
+import { schemaDefs, schema } from 'app/graphql/schema'
 // Resolvers
 import { withCors } from 'app/middleware'
 import { runMiddleWare } from 'aetherspace/utils/serverUtils'
@@ -11,13 +13,21 @@ import { runMiddleWare } from 'aetherspace/utils/serverUtils'
 /* --- Debug ----------------------------------------------------------------------------------- */
 
 // const graphqlHandler = (req: any, res: any) => {
-//   const schema = aetherGraphSchema(resolvers as unknown as ResolverMapType)
+//   const schemaDefs = aetherGraphSchema(resolvers as unknown as ResolverMapType)
 //   return res.status(200).json({
-//     queries: Object.keys(schema.resolvers.Query || {}),
-//     mutations: Object.keys(schema.resolvers.Mutations || {}),
-//     schema: schema.typeDefs,
+//     queries: Object.keys(schemaDefs.resolvers.Query || {}),
+//     mutations: Object.keys(schemaDefs.resolvers.Mutations || {}),
+//     schemaDefs: schemaDefs.typeDefs,
 //   })
 // }
+
+/* --- Save schema ----------------------------------------------------------------------------- */
+
+// Save graphql schema to next root?
+if (process.env.NODE_ENV === 'development') {
+  const schemaDefinitions = printSchema(schema)
+  writeFileSync('./schema.graphql', schemaDefinitions)
+}
 
 /* --- /api/graphql ---------------------------------------------------------------------------- */
 

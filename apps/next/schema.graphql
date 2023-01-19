@@ -46,9 +46,6 @@ type UserBio {
 input HealthCheckArgs {
   """Echoes back the echo argument"""
   echo: String
-
-  """Saves graphql schema to app-next root in development mode"""
-  saveGraphQLSchema: Boolean
 }
 
 type HealthCheckResponse {
@@ -56,9 +53,6 @@ type HealthCheckResponse {
   echo: String
   alive: Boolean!
   kicking: Boolean!
-
-  """true if schema was saved to next-app root in dev mode"""
-  didSaveGraphQLSchema: Boolean
 }
 
 type Query {
