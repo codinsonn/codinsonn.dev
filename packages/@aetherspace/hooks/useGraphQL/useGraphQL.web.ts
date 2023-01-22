@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { graphql, GraphQLSchema } from 'graphql'
 import axios from 'axios'
 // Hooks
@@ -20,6 +20,9 @@ export const useGraphQL = <T>(
   variables: Record<string, unknown> = {},
   options: Options = {}
 ) => {
+  // State
+  const [cachedData, setCachedData] = useState<T | null>(null)
+
   // Props
   const { gqlPath = '/api/graphql' } = options
 
@@ -35,17 +38,30 @@ export const useGraphQL = <T>(
 
   // Fetcher
   const gqlFetcher = async () => {
-    const isServer = typeof window === 'undefined'
+    const isServer = !!options.importSchema || typeof importContextSchema !== 'undefined'
     if (isServer) {
       const importSchema = options.importSchema || importContextSchema?.()
       if (!importSchema) throw new Error('importSchema() function is required on server side')
       const schema = await importSchema
-      const { data } = await graphql({ schema, source: query, variableValues: variables })
-      return data as T
+      try {
+        const { data } = await graphql({ schema, source: query, variableValues: variables })
+        console.log(JSON.stringify(data, null, 2))
+        return data as T
+      } catch (error) {
+        console.log('-!- Error fetching data from executable graphql schema', error)
+        throw error
+      }
     } else {
-      const headers = { 'Content-Type': 'application/json' }
-      const { data } = await axios.post<T>(gqlEndpoint, { query, variables }, { headers })
-      return data
+      if (cachedData) return cachedData
+      try {
+        const headers = { 'Content-Type': 'application/json' }
+        const { data } = await axios.post<T>(gqlEndpoint, { query, variables }, { headers })
+        setCachedData(data as T)
+        return data as T
+      } catch (error) {
+        console.log('-!- Error fetching data from graphql endpoint:', error)
+        throw error
+      }
     }
   }
 

@@ -13,7 +13,7 @@ const useApiData = <T, K extends string = string>(endpoint: K, fetcher?: Promise
   let aetherFetcher = fetcher
   if (!aetherFetcher) {
     const baseURL = endpoint.includes('://') ? '' : backendURL
-    aetherFetcher = cache(async () => {
+    aetherFetcher = (async () => {
       const fetchEndpoint = `${baseURL}${endpoint}`
       const response = await fetch(fetchEndpoint)
       const data = await response.json()
@@ -22,6 +22,7 @@ const useApiData = <T, K extends string = string>(endpoint: K, fetcher?: Promise
   }
   // @ts-ignore
   const data = use<T>(aetherFetcher())
+  console.log('data', data)
   // Return
   return { data, isLoading: false, error: null }
 }

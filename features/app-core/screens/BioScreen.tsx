@@ -75,6 +75,14 @@ const BioScreen = (props: BioScreenProps) => {
 
   if (!bioData || isLoading || !!error) return null
 
+  // -- Test --
+
+  // return (
+  //   <View tw="w-full h-full items-center bg-gray-900 mobile:pt-14 pt-10">
+  //     <Text tw="text-white">Hello World</Text>
+  //   </View>
+  // )
+
   // -- Render --
 
   return (
