@@ -33,17 +33,7 @@ const NextRootLayout = (props: { children: React.ReactNode }) => {
 
   return (
     <RootLayout>
-      <AetherContextManager
-        assets={{}}
-        icons={{}}
-        twConfig={tailwindConfig}
-        // -i- This allows us to support both server and client side graphql requests
-        {...(typeof window === 'undefined' && {
-          importSchema: async () => (await import('app/graphql/schema')).schema,
-        })}
-        isNextJS
-        isAppDir
-      >
+      <AetherContextManager assets={{}} icons={{}} twConfig={tailwindConfig} isNextJS isAppDir>
         {children}
       </AetherContextManager>
     </RootLayout>

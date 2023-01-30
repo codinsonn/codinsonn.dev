@@ -1,13 +1,12 @@
 import React from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { z } from 'zod'
+import useSWR, { preload } from 'swr'
 // Navigation
-import { Link, useAetherNav } from 'aetherspace/navigation'
+import { Link, useAetherNav, fetchAetherProps, AetherPage } from 'aetherspace/navigation'
 // Schemas
 import { aetherSchema } from 'aetherspace/schemas'
 import { UserBio } from '../schemas/UserBio.schema'
-// Data
-import { useGraphQL } from 'aetherspace/hooks'
 // Primitives
 import { View, Text, Image } from 'aetherspace/primitives'
 // SEO
@@ -18,7 +17,9 @@ import * as Icons from '../icons'
 /* --- Schemas --------------------------------------------------------------------------------- */
 
 const PropSchema = aetherSchema('BioScreenProps', {
-  data: UserBio,
+  data: z.object({
+    getUserBio: UserBio,
+  }),
 })
 
 /* --- GraphQL -------------------------------------------------------------------------------- */
@@ -49,19 +50,24 @@ const getUserBioVars = {
   },
 }
 
-type GetUserBioResponse = {
-  getUserBio: UserBio
-}
-
 /* --- Types ---------------------------------------------------------------------------------- */
 
 type BioScreenProps = Partial<z.infer<typeof PropSchema>>
+
+/* --- Data ----------------------------------------------------------------------------------- */
+
+const getAetherProps = async (queryKey = getUserBioQuery) => {
+  const { data } = await fetchAetherProps(queryKey, getUserBioVars)
+  return data
+}
+
+if (typeof window !== 'undefined') preload(getUserBioQuery, getAetherProps)
 
 /* --- <BioScreen/> --------------------------------------------------------------------------- */
 
 const BioScreen = (props: BioScreenProps) => {
   // Data
-  const { data, isLoading, error } = useGraphQL<GetUserBioResponse>(getUserBioQuery, getUserBioVars)
+  const { data } = useSWR(getUserBioQuery, getAetherProps)
   const { getUserBio: bioData } = data || {}
 
   // Hooks
@@ -73,15 +79,7 @@ const BioScreen = (props: BioScreenProps) => {
 
   // -- Guards --
 
-  if (!bioData || isLoading || !!error) return null
-
-  // -- Test --
-
-  // return (
-  //   <View tw="w-full h-full items-center bg-gray-900 mobile:pt-14 pt-10">
-  //     <Text tw="text-white">Hello World</Text>
-  //   </View>
-  // )
+  if (!bioData) return null
 
   // -- Render --
 
@@ -119,6 +117,12 @@ const BioScreen = (props: BioScreenProps) => {
     </View>
   )
 }
+
+/* --- SSR ------------------------------------------------------------------------------------- */
+
+export const PageScreen = () => (
+  <AetherPage PageScreen={BioScreen} fetcher={getAetherProps} fetchKey={getUserBioQuery} />
+)
 
 /* --- Documentation --------------------------------------------------------------------------- */
 

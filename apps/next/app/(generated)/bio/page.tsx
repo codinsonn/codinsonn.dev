@@ -1,2 +1,2 @@
 'use client'
-export { default } from 'app/routes/bio/'
+export { PageScreen as default } from 'app/routes/bio/'
