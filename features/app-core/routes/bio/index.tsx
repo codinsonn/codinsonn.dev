@@ -1,1 +1,1 @@
-export { default } from 'app/screens/BioScreen'
+export { default, PageScreen } from 'app/screens/BioScreen'

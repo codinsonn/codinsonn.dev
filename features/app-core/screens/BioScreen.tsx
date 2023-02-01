@@ -1,12 +1,12 @@
 import React from 'react'
 import { StatusBar } from 'expo-status-bar'
+import { z } from 'zod'
+import useSWR, { preload } from 'swr'
 // Navigation
-import { Link, useAetherNav } from 'aetherspace/navigation'
+import { Link, useAetherNav, fetchAetherProps, AetherPage } from 'aetherspace/navigation'
 // Schemas
-import { ats, Infer } from 'aetherspace/schemas'
+import { aetherSchema } from 'aetherspace/schemas'
 import { UserBio } from '../schemas/UserBio.schema'
-// Data
-import { useApiData } from 'aetherspace'
 // Primitives
 import { View, Text, Image } from 'aetherspace/primitives'
 // SEO
@@ -16,19 +16,59 @@ import * as Icons from '../icons'
 
 /* --- Schemas --------------------------------------------------------------------------------- */
 
-const PropSchema = ats.schema('BioScreenProps', {
-  data: UserBio,
+const PropSchema = aetherSchema('BioScreenProps', {
+  data: z.object({
+    getUserBio: UserBio,
+  }),
 })
+
+/* --- GraphQL --------------------------------------------------------------------------------- */
+
+const getUserBioQuery = `
+  query($getUserBioArgs: UserBioInput!) {
+    getUserBio(args: $getUserBioArgs) {
+      slug
+      title
+      titleLink
+      bioText
+      imageUrl
+      iconLinks {
+        id
+        iconKey
+        iconComponent
+        link
+        sortOrder
+        extraClasses
+      }
+    }
+  }
+`
+
+const getUserBioVars = {
+  getUserBioArgs: {
+    slug: 'codinsonn',
+  },
+}
 
 /* --- Types ---------------------------------------------------------------------------------- */
 
-type BioScreenProps = Partial<Infer<typeof PropSchema>>
+type BioScreenProps = Partial<z.infer<typeof PropSchema>>
+
+/* --- Data ----------------------------------------------------------------------------------- */
+
+const getAetherProps = async (queryKey = getUserBioQuery) => {
+  const { data } = await fetchAetherProps(queryKey, getUserBioVars)
+  return data
+}
+
+if (typeof window !== 'undefined') preload(getUserBioQuery, getAetherProps)
 
 /* --- <BioScreen/> --------------------------------------------------------------------------- */
 
 const BioScreen = (props: BioScreenProps) => {
   // Data
-  const { data: bioData, isLoading, error } = useApiData<UserBio>('/api/bio/codinsonn') // useScreenData(props)
+  const swrCall = useSWR<BioScreenProps['data']>(getUserBioQuery, getAetherProps)
+  const { getUserBio: bioData } = props.data || swrCall.data || {}
 
   // Hooks
   const { openLink } = useAetherNav()
@@ -39,7 +79,7 @@ const BioScreen = (props: BioScreenProps) => {
 
   // -- Guards --
 
-  if (!bioData || isLoading || !!error) return null
+  if (!bioData) return null
 
   // -- Render --
 
@@ -60,7 +100,7 @@ const BioScreen = (props: BioScreenProps) => {
         {bioData.title}
       </H1>
       <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 text-white text-center text-sm">{bioData.bioText}</Text>
-      <View tw="flex-row mt-6 justify-center">
+      <View tw="flex-row mt-6 mobile:mt-4 justify-center">
         {bioData.iconLinks.map((bioIcon) => {
           const Icon = Icons[bioIcon.iconComponent]
           return (
@@ -78,9 +118,15 @@ const BioScreen = (props: BioScreenProps) => {
   )
 }
 
+/* --- SSR ------------------------------------------------------------------------------------- */
+
+export const PageScreen = () => (
+  <AetherPage PageScreen={BioScreen} fetcher={getAetherProps} fetchKey={getUserBioQuery} />
+)
+
 /* --- Documentation --------------------------------------------------------------------------- */
 
-export const getDocumentationProps = PropSchema
+export const getDocumentationProps = PropSchema.introspect()
 
 /* --- Exports --------------------------------------------------------------------------------- */
 

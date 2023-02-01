@@ -44,12 +44,12 @@ const aetherSchemaDefinitions = (aetherSchema: ResolverSchemaType, prefix = 'typ
     const isNullable = [schemaConfig.isOptional, schemaConfig.isNullable].includes(true)
     const requiredState = isNullable ? '' : '!'
     const description = schemaConfig.description ? `"""${schemaConfig.description}"""\n` : ''
-    if (gqlType === 'Schema') {
+    if (gqlType === 'Schema' && schemaConfig?.schemaName) {
       schemaDefinitions = [...schemaDefinitions, ...aetherSchemaDefinitions(schemaConfig)]
       return [description, `${name}: ${schemaConfig.schemaName}${requiredState}`].join('')
     } else if (gqlType === 'Array') {
       const primitiveType = SCHEMA_PRIMITIVE_MAPPER[schemaConfig.schema.aetherType]
-      const arrayEntryType = primitiveType || schemaConfig.schema.schemaName
+      const arrayEntryType = primitiveType || schemaConfig.schema?.schemaName
       if (!primitiveType) {
         schemaDefinitions = [...schemaDefinitions, ...aetherSchemaDefinitions(schemaConfig.schema)]
       }
@@ -73,7 +73,6 @@ const aetherSchemaDefinitions = (aetherSchema: ResolverSchemaType, prefix = 'typ
     AetherObject: createDefinition('Schema'),
     // -- Arraylikes --
     AetherArray: createDefinition('Array'),
-    AetherCollection: createDefinition('Array'),
   })
   // Transform into usable graphql definitions (TODO: Figure out why aetherSchema can be undefined, yet graphql doesn't break?)
   const schemaDef = `

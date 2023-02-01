@@ -1,22 +1,61 @@
+input UserBioInput {
+  """Slug of bio to fetch"""
+  slug: String!
+}
+
+type IconLinks {
+  """Id of icon link"""
+  id: String!
+
+  """Icon key"""
+  iconKey: String
+
+  """Icon component name"""
+  iconComponent: String!
+
+  """Link attached to the icon"""
+  link: String!
+
+  """Sort order of icon"""
+  sortOrder: Float
+
+  """Extra classes to add to icon"""
+  extraClasses: String
+}
+
+type UserBio {
+  """Slug of bio to fetch"""
+  slug: String!
+
+  """Title of bio"""
+  title: String!
+
+  """Link to title"""
+  titleLink: String!
+
+  """Bio text"""
+  bioText: String!
+
+  """Image url"""
+  imageUrl: String!
+
+  """Icon links"""
+  iconLinks: [IconLinks]!
+}
+
 input HealthCheckArgs {
   """Echoes back the echo argument"""
   echo: String
-
-  """Saves graphql schema to app-next root in development mode"""
-  saveGraphQLSchema: Boolean
 }
 
 type HealthCheckResponse {
-  alive: Boolean!
-  kicking: Boolean!
-
   """Echoes back the echo argument"""
   echo: String
-
-  """true if schema was saved to next-app root in dev mode"""
-  didSaveGraphQLSchema: Boolean
+  alive: Boolean!
+  kicking: Boolean!
 }
 
 type Query {
+  getUserBio(args: UserBioInput!): UserBio
   healthCheck(args: HealthCheckArgs): HealthCheckResponse
 }

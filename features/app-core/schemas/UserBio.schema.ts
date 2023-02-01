@@ -1,32 +1,33 @@
+import { z } from 'zod'
 // Schemas
-import { ats, Infer } from 'aetherspace/schemas'
+import { aetherSchema } from 'aetherspace/schemas'
 
 /* --- Schemas --------------------------------------------------------------------------------- */
 
-export const IconLinks = ats.schema('IconLinks', {
-  id: ats.string().docs('id', 'Id of icon link'),
-  iconKey: ats.string().optional().docs('iconKey', 'Icon key'),
-  iconComponent: ats.string().docs('iconComponent', 'Icon component name'),
-  link: ats.string().docs('link', 'Link attached to the icon'),
-  sortOrder: ats.number().optional().docs('sortOrder', 'Sort order of icon'),
-  extraClasses: ats.string().optional().docs('extraClasses', 'Extra classes to add to icon'),
+export const IconLinks = aetherSchema('IconLinks', {
+  id: z.string().describe('Id of icon link'),
+  iconKey: z.string().optional().describe('Icon key'),
+  iconComponent: z.string().describe('Icon component name'),
+  link: z.string().describe('Link attached to the icon'),
+  sortOrder: z.number().optional().describe('Sort order of icon'),
+  extraClasses: z.string().optional().describe('Extra classes to add to icon'),
 })
 
-export const UserBioInput = ats.schema('UserBio', {
-  slug: ats.string().docs('slug', 'Slug of bio to fetch'),
+export const UserBioInput = aetherSchema('UserBioInput', {
+  slug: z.string().describe('Slug of bio to fetch'),
 })
 
-export const UserBio = ats.schema('GetUserBioResponse', {
-  slug: UserBioInput.schema.slug,
-  title: ats.string().docs('title', 'Title of bio'),
-  titleLink: ats.string().docs('titleLink', 'Link to title'),
-  bioText: ats.string().docs('bioText', 'Bio text'),
-  imageUrl: ats.string().docs('imageUrl', 'Image url'),
-  iconLinks: ats.array(IconLinks).docs('iconLinks', 'Icon links'),
+export const UserBio = aetherSchema('UserBio', {
+  slug: UserBioInput.shape.slug,
+  title: z.string().describe('Title of bio'),
+  titleLink: z.string().describe('Link to title'),
+  bioText: z.string().describe('Bio text'),
+  imageUrl: z.string().describe('Image url'),
+  iconLinks: z.array(IconLinks).describe('Icon links'),
 })
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-export type IconLink = Infer<typeof IconLinks>
-export type UserBioInput = Infer<typeof UserBioInput>
-export type UserBio = Infer<typeof UserBio>
+export type IconLink = z.infer<typeof IconLinks>
+export type UserBioInput = z.infer<typeof UserBioInput>
+export type UserBio = z.infer<typeof UserBio>
