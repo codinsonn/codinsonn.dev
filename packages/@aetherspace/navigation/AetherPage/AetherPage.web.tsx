@@ -18,7 +18,19 @@ export const AetherPage = (props: AetherPageProps) => {
 
   // -- Browser --
 
-  if (!isServer) return <PageScreen />
+  if (!isServer) {
+    const $ssrData = document.getElementById('ssr-data')
+    const ssrDataText = $ssrData?.getAttribute('data-ssr')
+    const data = ssrDataText ? JSON.parse(ssrDataText) : null
+    const fallback = data ? { [fetchKey]: data } : {}
+
+    return (
+      <SWRConfig value={{ fallback }}>
+        {!!data && <div id="ssr-data" data-ssr={ssrDataText} />}
+        <PageScreen {...data} />
+      </SWRConfig>
+    )
+  }
 
   // -- Server --
 
@@ -26,7 +38,8 @@ export const AetherPage = (props: AetherPageProps) => {
 
   return (
     <SWRConfig value={{ fallback: { [fetchKey]: data } }}>
-      <PageScreen />
+      {!!data && <div id="ssr-data" data-ssr={JSON.stringify(data)} />}
+      <PageScreen {...data} />
     </SWRConfig>
   )
 }

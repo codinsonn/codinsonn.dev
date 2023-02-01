@@ -22,7 +22,7 @@ const PropSchema = aetherSchema('BioScreenProps', {
   }),
 })
 
-/* --- GraphQL -------------------------------------------------------------------------------- */
+/* --- GraphQL --------------------------------------------------------------------------------- */
 
 const getUserBioQuery = `
   query($getUserBioArgs: UserBioInput!) {
@@ -67,8 +67,8 @@ if (typeof window !== 'undefined') preload(getUserBioQuery, getAetherProps)
 
 const BioScreen = (props: BioScreenProps) => {
   // Data
-  const { data } = useSWR(getUserBioQuery, getAetherProps)
-  const { getUserBio: bioData } = data || {}
+  const swrCall = useSWR<BioScreenProps['data']>(getUserBioQuery, getAetherProps)
+  const { getUserBio: bioData } = props.data || swrCall.data || {}
 
   // Hooks
   const { openLink } = useAetherNav()
