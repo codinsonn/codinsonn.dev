@@ -2,8 +2,8 @@
 
 type AetherPageProps = {
   PageScreen: React.FC<Record<string, any>>
-  fetcher: (fetchKey?: string) => Promise<Record<string, any>>
-  fetchKey: string
+  fetcher: (fetchKey?: string, fetchParams?: unknown) => Promise<Record<string, any>>
+  fetchKey: string | [string, unknown]
 }
 
 /* --- <AetherPage/> --------------------------------------------------------------------------- */

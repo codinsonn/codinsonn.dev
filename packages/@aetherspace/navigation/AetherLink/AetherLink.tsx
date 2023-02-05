@@ -5,7 +5,7 @@ import * as Linking from 'expo-linking'
 import * as WebBrowser from 'expo-web-browser'
 // Context
 import { useAetherContext } from '../../context'
-import { Link as RouterLink, useLink } from 'expo-router'
+import { Link as RouterLink, useLink, useHref } from 'expo-router'
 // Primitives
 import { AetherView, AetherText } from '../../primitives'
 // Utils
@@ -45,9 +45,10 @@ type any$Todo = any
 
 /* --- useAetherNav() -------------------------------------------------------------------------- */
 
-export const useAetherNav = () => {
+export const useAetherNav = (props = {}) => {
   // Hooks
   const { navigate, ...expoNextReactNavRoutingResources } = useRouting()
+  const { params } = useHref()
   const { isAppDir } = useAetherContext()
   const link = useLink()
 
@@ -83,6 +84,7 @@ export const useAetherNav = () => {
 
   return {
     ...expoNextReactNavRoutingResources,
+    params,
     navigate,
     webDomain,
     getDestination,
