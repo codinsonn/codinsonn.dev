@@ -16,7 +16,12 @@ import * as Icons from '../icons'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
+const ParamSchema = aetherSchema('BioScreenParams', {
+  slug: z.string().optional(),
+})
+
 const PropSchema = aetherSchema('BioScreenProps', {
+  params: ParamSchema.optional(),
   data: z.object({
     getUserBio: UserBio,
   }),
@@ -57,7 +62,6 @@ const getAetherProps = async (queryKey, queryVariables) => {
     queryKey || getUserBioQuery,
     queryVariables || getUserBioVars
   )
-  console.warn('-X- getAetherProps():', { queryKey, queryVariables, data })
   return data
 }
 
@@ -68,7 +72,6 @@ const BioScreen = (props: BioScreenProps) => {
   const { params, openLink } = useAetherNav(props)
   const { slug = 'codinsonn' } = params
   const queryParams = getUserBioVars(slug)
-  console.warn('-1- BioScreen:', { params, slug, queryParams })
 
   // Fetch
   const swrCall = useSWR<BioScreenProps['data']>(
@@ -78,8 +81,6 @@ const BioScreen = (props: BioScreenProps) => {
 
   // Data
   const { getUserBio: bioData } = props.data || swrCall.data || {}
-
-  console.warn('-2- BioScreen:', { bioData })
 
   // Vars
   const ICON_COLOR = '#FFFFFF'
@@ -94,7 +95,7 @@ const BioScreen = (props: BioScreenProps) => {
   return (
     <View tw="w-full h-full items-center bg-gray-900 mobile:pt-14 pt-10">
       <StatusBar style="auto" />
-      <Link to="/">
+      <Link to={params?.slug ? '/' : '/bio/codinsonn'}>
         <Image
           src={bioData.imageUrl}
           alt="Picture of the author"
@@ -133,12 +134,12 @@ export const PageScreen = (props: BioScreenProps) => {
   const { params } = useAetherNav(props)
   const { slug = 'codinsonn' } = params
   const queryParams = getUserBioVars(slug)
-  console.warn('-0- BioScreen:', { params, slug, queryParams })
 
   // -- Return --
 
   return (
     <AetherPage
+      {...props}
       PageScreen={BioScreen}
       fetcher={getAetherProps}
       fetchKey={[getUserBioQuery, queryParams]}

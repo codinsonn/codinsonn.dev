@@ -10,9 +10,9 @@ type AetherPageProps = {
 
 export const AetherPage = (props: AetherPageProps) => {
   // Props
-  const { PageScreen } = props
+  const { PageScreen, ...restProps } = props
 
   // -- Browser --
 
-  return <PageScreen />
+  return <PageScreen {...restProps} />
 }
