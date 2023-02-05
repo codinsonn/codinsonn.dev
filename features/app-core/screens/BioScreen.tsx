@@ -29,7 +29,7 @@ const PropSchema = aetherSchema('BioScreenProps', {
 
 type BioScreenProps = Partial<z.infer<typeof PropSchema>>
 
-/* --- GraphQL --------------------------------------------------------------------------------- */
+/* --- GraphQL & Data Fetching ----------------------------------------------------------------- */
 
 const getUserBioQuery = `
   query($getUserBioArgs: UserBioInput!) {
@@ -64,6 +64,8 @@ const getAetherProps = async (queryKey, queryVariables) => {
   )
   return data
 }
+
+export const generateStaticParams = async () => [{ slug: 'codinsonn' }]
 
 /* --- <BioScreen/> --------------------------------------------------------------------------- */
 

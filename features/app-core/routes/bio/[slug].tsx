@@ -1,1 +1,1 @@
-export { default, PageScreen } from 'app/screens/BioScreen'
+export { default, PageScreen, generateStaticParams } from 'app/screens/BioScreen'
