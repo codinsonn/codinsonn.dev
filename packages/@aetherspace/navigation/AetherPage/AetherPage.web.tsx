@@ -16,13 +16,9 @@ export const AetherPage = (props: AetherPageProps) => {
   const { PageScreen, fetcher, fetchKey, ...restProps } = props
   const isServer = typeof window === 'undefined'
 
-  // console.warn('-0?- AetherPage:', restProps)
-
   const fetchKeyString = typeof fetchKey === 'string' ? fetchKey : fetchKey[0]
   const fetchKeyParams = typeof fetchKey === 'string' ? undefined : fetchKey[1]
   const fallbackKey = unstable_serialize([fetchKeyString, fetchKeyParams].filter(Boolean))
-
-  // console.warn('-1- AetherPage:', { fetchKeyString, fetchKeyParams, isServer })
 
   // -- Browser --
 
@@ -31,8 +27,6 @@ export const AetherPage = (props: AetherPageProps) => {
     const ssrDataText = $ssrData?.getAttribute('data-ssr')
     const data = ssrDataText ? JSON.parse(ssrDataText) : null
     const fallback = data ? { [fallbackKey]: data } : {}
-
-    // console.warn('-b- AetherPage:', { fetchKeyString, fetchKeyParams, data, fallback })
 
     return (
       <SWRConfig value={{ fallback }}>
@@ -45,8 +39,6 @@ export const AetherPage = (props: AetherPageProps) => {
   // -- Server --
 
   const data = use(fetcher(fetchKeyString, fetchKeyParams))
-
-  // console.warn('-s- AetherPage:', { fetchKeyString, fetchKeyParams, data })
 
   return (
     <SWRConfig value={{ fallback: { [fallbackKey]: data } }}>

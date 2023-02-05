@@ -1,7 +1,7 @@
 import React from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { z } from 'zod'
-import useSWR, { preload } from 'swr'
+import useSWR from 'swr'
 // Navigation
 import { Link, useAetherNav, fetchAetherProps, AetherPage } from 'aetherspace/navigation'
 // Schemas
