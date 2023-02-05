@@ -43,9 +43,17 @@ interface AetherLinkRouteType extends AetherLinkBaseType {
 type AetherLinkType = AetherLinkToType | AetherLinkHrefType | AetherLinkRouteType
 type any$Todo = any
 
+type LinkPropsType = {
+  [key: string]: unknown
+  params?: Record<string, unknown>
+}
+
 /* --- useAetherNav() -------------------------------------------------------------------------- */
 
-export const useAetherNav = () => {
+export const useAetherNav = (props: LinkPropsType = {}) => {
+  // Props
+  const { params = {} } = props
+
   // Hooks
   const { navigate, ...expoNextReactNavRoutingResources } = useRouting()
 
@@ -80,6 +88,7 @@ export const useAetherNav = () => {
 
   return {
     ...expoNextReactNavRoutingResources,
+    params,
     navigate,
     webDomain,
     getDestination,
