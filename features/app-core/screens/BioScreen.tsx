@@ -60,7 +60,7 @@ const getUserBioVars = (slug = 'codinsonn') => ({
 const getAetherProps = async (queryKey, queryVariables) => {
   const { data } = await fetchAetherProps(
     queryKey || getUserBioQuery,
-    queryVariables || getUserBioVars
+    queryVariables || getUserBioVars()
   )
   return data
 }
