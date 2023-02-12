@@ -151,7 +151,7 @@ export const PageScreen = (props: BioScreenProps) => {
 
 /* --- Documentation --------------------------------------------------------------------------- */
 
-export const getDocumentationProps = PropSchema.introspect()
+// export const getDocumentationProps = PropSchema.introspect()
 
 /* --- Exports --------------------------------------------------------------------------------- */
 

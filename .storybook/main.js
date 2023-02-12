@@ -41,6 +41,15 @@ module.exports = {
         config.resolve.alias['aetherspace/navigation'] = require.resolve('./__mocks__/aetherspaceNavigation.tsx')
         config.resolve.alias['aetherspace/context'] = require.resolve('./__mocks__/aetherspaceContext.tsx')
         config.resolve.extensions.push('.ts', '.tsx')
+        config.resolve.fallback = {
+          os: false,
+          path: false,
+          http: false,
+          https: false,
+          stream: false,
+          crypto: false,
+          zlib: false,
+        }
         // Compatibility
         config.optimization = {
           ...config.optimization,

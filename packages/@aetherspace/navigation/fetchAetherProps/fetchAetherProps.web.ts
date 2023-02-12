@@ -1,6 +1,5 @@
 import { getEnvVar } from 'aetherspace/utils/envUtils'
 import axios from 'axios'
-import { graphql } from 'graphql'
 
 /* --- Constants ------------------------------------------------------------------------------- */
 
@@ -14,7 +13,10 @@ const BASE_URL: string = BACKEND_URL || WEBDOMAIN || ''
 export const fetchAetherProps = async (query: string, variables: any, baseUrl = BASE_URL) => {
   const isServer = typeof window === 'undefined'
   if (isServer) {
-    const { schema } = await import('app/graphql/schema')
+    const [{ schema }, { graphql }] = await Promise.all([
+      import('app/graphql/schema'),
+      import('graphql'),
+    ])
     const { data } = await graphql({ schema, source: query, variableValues: variables })
     return { data }
   } else {
