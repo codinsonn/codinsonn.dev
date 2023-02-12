@@ -65,7 +65,12 @@ const getAetherProps = async (queryKey, queryVariables) => {
   return data
 }
 
-export const generateStaticParams = async () => [{ slug: 'codinsonn' }]
+export const generateStaticParams = async () => {
+  const userSlugsQuery = '{ getUserSlugs { slugs } }'
+  const { data } = await fetchAetherProps(userSlugsQuery, {})
+  const userSlugs = data?.getUserSlugs?.slugs || []
+  return userSlugs.map((slug) => ({ slug }))
+}
 
 /* --- <BioScreen/> --------------------------------------------------------------------------- */
 

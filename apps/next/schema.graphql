@@ -43,6 +43,14 @@ type UserBio {
   iconLinks: [IconLinks]!
 }
 
+input UserBioSlugsInput {
+  formula: String
+}
+
+type UserBioSlugs {
+  slugs: [String]!
+}
+
 input HealthCheckArgs {
   """Echoes back the echo argument"""
   echo: String
@@ -57,5 +65,6 @@ type HealthCheckResponse {
 
 type Query {
   getUserBio(args: UserBioInput!): UserBio
+  getUserSlugs(args: UserBioSlugsInput): UserBioSlugs
   healthCheck(args: HealthCheckArgs): HealthCheckResponse
 }

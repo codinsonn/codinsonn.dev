@@ -11,6 +11,13 @@ import {
   getEnvVar,
 } from 'aetherspace/utils/serverUtils'
 
+/* --- Constants ------------------------------------------------------------------------------- */
+
+const AIRTABLE_API_KEY = getEnvVar('AIRTABLE_API_KEY')
+const AIRTABLE_BIO_BASE = getEnvVar('AIRTABLE_BIO_BASE')
+const airtable = new Airtable({ apiKey: AIRTABLE_API_KEY })
+const base = airtable.base(AIRTABLE_BIO_BASE)
+
 /* --- Config ---------------------------------------------------------------------------------- */
 
 const resolverConfig = {
@@ -23,11 +30,6 @@ const resolverConfig = {
 const getUserBio = aetherResolver(async ({ args }) => {
   // Args
   const { slug } = args
-
-  // Constants
-  const AIRTABLE_API_KEY = getEnvVar('AIRTABLE_API_KEY')
-  const airtable = new Airtable({ apiKey: AIRTABLE_API_KEY })
-  const base = airtable.base('appPKybqZMUZwR4eF')
 
   // Fetch bio info from airtable
   const userBioQuery = { maxRecords: 1, view: 'Grid view', filterByFormula: `{slug} = "${slug}"` }
