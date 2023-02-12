@@ -18,7 +18,6 @@ const collectAssets = () => {
     // Map asset paths to asset keys and turn into barrel file body for 'assets.generated.ts'
     const assetRegistry = assetPaths.reduce((acc, assetPath) => {
       const requirePath = assetPath.replace('/next/public', '/expo/assets/generated')
-      console.log({ assetPath, requirePath })
       fs.cpSync(assetPath, requirePath, { recursive: true })
       const relSrcPath = assetPath.replace('apps/next/public', '')
       const assetKey = getAssetKey(relSrcPath)

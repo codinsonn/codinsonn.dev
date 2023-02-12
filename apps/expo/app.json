@@ -6,13 +6,13 @@
     "privacy": "public",
     "sdkVersion": "47.0.0",
     "orientation": "default",
-    "icon": "../next/public/icon.png",
+    "icon": "../assets/generated/icon.png",
     "description": "Personal Website for @codinsonn.dev, built with the GREEN stack, Aetherspace, Expo & Next.js",
     "owner": "thorrstevens",
     "githubUrl": "https://github.com/codinsonn/codinsonn.dev",
     "scheme": "codinsonn",
     "splash": {
-      "image": "../next/public/splash.png",
+      "image": "../assets/generated/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -27,12 +27,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "../next/public/adaptive-icon.png",
+        "foregroundImage": "../assets/generated/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "../next/public/favicon.png"
+      "favicon": "../assets/generated/favicon.png"
     }
   }
 }
