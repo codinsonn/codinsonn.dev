@@ -1,16 +1,9 @@
-import { getDebuggerURL, getEnvVar } from 'aetherspace/utils/envUtils'
+import { getBaseURL } from 'aetherspace/utils/envUtils'
 import axios from 'axios'
 
-/* --- Constants ------------------------------------------------------------------------------- */
-
-const APP_LINKS: string[] = getEnvVar('APP_LINKS')?.split('|') || []
-const [WEBDOMAIN] = APP_LINKS.filter((link) => link.includes('https://'))
-const BACKEND_URL: string = getEnvVar('BACKEND_URL') || ''
-const BASE_URL: string = getDebuggerURL(3000) || BACKEND_URL || WEBDOMAIN || ''
-
-/* --- fetchAetherProps() ---------------------------------------------------------------------- */
-
-export const fetchAetherProps = async (query: string, variables: any, baseUrl = BASE_URL) => {
+/** --- fetchAetherProps() --------------------------------------------------------------------- */
+/** -i- Fetch initial props from GraphQL, via the executable schema serverside and through post request in browsers & mobile envs */
+export const fetchAetherProps = async (query: string, variables: any, baseUrl = getBaseURL()) => {
   const { data } = await axios.post(`${baseUrl}/api/graphql`, { query, variables })
   return data
 }

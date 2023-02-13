@@ -9,7 +9,7 @@ import { Link as RouterLink, useLink, useHref } from 'expo-router'
 // Primitives
 import { AetherView, AetherText } from '../../primitives'
 // Utils
-import { getEnvVar } from '../../utils'
+import { getAppLinks, getWebDomain } from '../../utils'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
@@ -53,8 +53,8 @@ export const useAetherNav = (props = {}) => {
   const link = useLink()
 
   // Vars
-  const APP_LINKS: string[] = useMemo(() => getEnvVar('APP_LINKS')?.split('|') || [], [])
-  const [webDomain] = APP_LINKS.filter((link) => link.includes('://'))
+  const APP_LINKS = useMemo(getAppLinks, [])
+  const WEB_DOMAIN = useMemo(getWebDomain, [])
 
   // -- Handlers --
 
@@ -71,7 +71,7 @@ export const useAetherNav = (props = {}) => {
     const destination = getDestination(path)
     const isInternalLink = !destination.includes('://') && !destination.includes('api/')
     const isWeb = Platform.OS !== 'web'
-    const webDestination = isInternalLink && isWeb ? `${webDomain}${destination}` : path
+    const webDestination = isInternalLink && isWeb ? `${WEB_DOMAIN}${destination}` : path
     const isBrowserEnv = Platform.OS === 'web' && typeof window !== 'undefined' && !!window.open
     const openURL = isBrowserEnv ? (url: string) => window.open(url, '_blank') : Linking.openURL
     if (isInternalLink && !isBlank && !isAppDir) return navigate({ routeName: destination })
@@ -86,7 +86,8 @@ export const useAetherNav = (props = {}) => {
     ...expoNextReactNavRoutingResources,
     params,
     navigate,
-    webDomain,
+    WEB_DOMAIN,
+    APP_LINKS,
     getDestination,
     openLink,
   }

@@ -3,14 +3,14 @@ import React from 'react'
 import { useMemo } from 'react'
 import { action } from '@storybook/addon-actions'
 import { AetherText, AetherView } from '../../packages/@aetherspace/primitives'
-import { getEnvVar } from '../../packages/@aetherspace/utils'
+import { getAppLinks, getWebDomain } from '../../packages/@aetherspace/utils'
 
 /* --- useAetherNav() -------------------------------------------------------------------------- */
 
 export const useAetherNav = () => {
     // Vars
-    const APP_LINKS = useMemo(() => getEnvVar('APP_LINKS')?.split('|') || [], [])
-    const [webDomain] = APP_LINKS.filter((link) => link.includes('://'))
+    const APP_LINKS = useMemo(getAppLinks, [])
+    const WEB_DOMAIN = useMemo(getWebDomain, [])
 
     // -- Handlers --
 
@@ -31,7 +31,8 @@ export const useAetherNav = () => {
 
     return {
         navigate,
-        webDomain,
+        WEB_DOMAIN,
+        APP_LINKS,
         getDestination,
         openLink,
     }
