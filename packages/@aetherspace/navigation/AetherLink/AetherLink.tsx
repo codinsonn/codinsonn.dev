@@ -43,9 +43,15 @@ interface AetherLinkRouteType extends AetherLinkBaseType {
 type AetherLinkType = AetherLinkToType | AetherLinkHrefType | AetherLinkRouteType
 type any$Todo = any
 
+type ObjectType = Record<string, unknown>
+type LinkPropsType<T extends ObjectType> = {
+  [key: string]: unknown
+  params?: Partial<T>
+}
+
 /* --- useAetherNav() -------------------------------------------------------------------------- */
 
-export const useAetherNav = (props = {}) => {
+export const useAetherNav = <T extends ObjectType = ObjectType>(props: LinkPropsType<T> = {}) => {
   // Hooks
   const { navigate, ...expoNextReactNavRoutingResources } = useRouting()
   const { params } = useHref()
@@ -84,7 +90,7 @@ export const useAetherNav = (props = {}) => {
 
   return {
     ...expoNextReactNavRoutingResources,
-    params,
+    params: params as T,
     navigate,
     WEB_DOMAIN,
     APP_LINKS,

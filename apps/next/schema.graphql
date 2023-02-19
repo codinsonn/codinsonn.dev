@@ -1,9 +1,9 @@
 input UserBioInput {
   """Slug of bio to fetch"""
-  slug: String!
+  slug: String
 }
 
-type IconLinks {
+type IconLink {
   """Id of icon link"""
   id: String!
 
@@ -25,7 +25,7 @@ type IconLinks {
 
 type UserBio {
   """Slug of bio to fetch"""
-  slug: String!
+  slug: String
 
   """Title of bio"""
   title: String!
@@ -40,7 +40,7 @@ type UserBio {
   imageUrl: String!
 
   """Icon links"""
-  iconLinks: [IconLinks]!
+  iconLinks: [IconLink]!
 }
 
 input UserBioSlugsInput {
@@ -64,7 +64,7 @@ type HealthCheckResponse {
 }
 
 type Query {
-  getUserBio(args: UserBioInput!): UserBio
+  getUserBio(args: UserBioInput): UserBio
   getUserSlugs(args: UserBioSlugsInput): UserBioSlugs
   healthCheck(args: HealthCheckArgs): HealthCheckResponse
 }

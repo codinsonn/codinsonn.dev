@@ -9,7 +9,7 @@ import { useAetherContext } from 'aetherspace/context'
 // Primitives
 import { AetherView, AetherText } from '../../primitives'
 // Utils
-import { getAppLinks, getEnvVar, getWebDomain } from '../../utils'
+import { getAppLinks, getWebDomain } from '../../utils'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
@@ -43,14 +43,15 @@ interface AetherLinkRouteType extends AetherLinkBaseType {
 type AetherLinkType = AetherLinkToType | AetherLinkHrefType | AetherLinkRouteType
 type any$Todo = any
 
-type LinkPropsType = {
+type ObjectType = Record<string, unknown>
+type LinkPropsType<T extends ObjectType> = {
   [key: string]: unknown
-  params?: Record<string, unknown>
+  params?: Partial<T>
 }
 
 /* --- useAetherNav() -------------------------------------------------------------------------- */
 
-export const useAetherNav = (props: LinkPropsType = {}) => {
+export const useAetherNav = <T extends ObjectType = ObjectType>(props: LinkPropsType<T> = {}) => {
   // Props
   const { params = {} } = props
 
@@ -88,7 +89,7 @@ export const useAetherNav = (props: LinkPropsType = {}) => {
 
   return {
     ...expoNextReactNavRoutingResources,
-    params,
+    params: params as T,
     navigate,
     WEB_DOMAIN,
     APP_LINKS,

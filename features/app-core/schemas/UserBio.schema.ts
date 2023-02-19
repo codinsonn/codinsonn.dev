@@ -4,7 +4,7 @@ import { aetherSchema } from 'aetherspace/schemas'
 
 /* --- Schemas --------------------------------------------------------------------------------- */
 
-export const IconLinks = aetherSchema('IconLinks', {
+export const IconLink = aetherSchema('IconLink', {
   id: z.string().describe('Id of icon link'),
   iconKey: z.string().optional().describe('Icon key'),
   iconComponent: z.string().describe('Icon component name'),
@@ -14,7 +14,7 @@ export const IconLinks = aetherSchema('IconLinks', {
 })
 
 export const UserBioInput = aetherSchema('UserBioInput', {
-  slug: z.string().describe('Slug of bio to fetch'),
+  slug: z.string().describe('Slug of bio to fetch').default('codinsonn'),
 })
 
 export const UserBio = aetherSchema('UserBio', {
@@ -23,11 +23,46 @@ export const UserBio = aetherSchema('UserBio', {
   titleLink: z.string().describe('Link to title'),
   bioText: z.string().describe('Bio text'),
   imageUrl: z.string().describe('Image url'),
-  iconLinks: z.array(IconLinks).describe('Icon links'),
+  iconLinks: z.array(IconLink).describe('Icon links'),
 })
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-export type IconLink = z.infer<typeof IconLinks>
+export type IconLink = z.infer<typeof IconLink>
 export type UserBioInput = z.infer<typeof UserBioInput>
 export type UserBio = z.infer<typeof UserBio>
+
+export type GetUserBioResponse = {
+  getUserBio: UserBio
+}
+
+/* --- GraphQL --------------------------------------------------------------------------------- */
+
+export const GET_USER_BIO = `
+  query($getUserBioArgs: UserBioInput!) {
+    getUserBio(args: $getUserBioArgs) {
+      slug
+      title
+      titleLink
+      bioText
+      imageUrl
+      iconLinks {
+        id
+        iconKey
+        iconComponent
+        link
+        sortOrder
+        extraClasses
+      }
+    }
+  }
+`
+
+export const getUserBioVars = <T extends UserBioInput = UserBioInput>(args: T) => {
+  const { slug } = UserBioInput.parse(args)
+  return {
+    getUserBioArgs: {
+      slug: slug!,
+    },
+  }
+}

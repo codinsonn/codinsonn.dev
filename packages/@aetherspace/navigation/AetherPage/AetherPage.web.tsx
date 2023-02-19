@@ -39,6 +39,7 @@ export const AetherPage = (props: AetherPageProps) => {
   // -- Server --
 
   const data = use(fetcher(fetchKeyString, fetchKeyParams))
+  console.log({ fetchKeyParams, data })
 
   return (
     <SWRConfig value={{ fallback: { [fallbackKey]: data } }}>

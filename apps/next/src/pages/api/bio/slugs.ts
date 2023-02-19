@@ -2,6 +2,8 @@ import Airtable from 'airtable'
 import { z } from 'zod'
 // Middleware
 import { withCors } from 'app/middleware'
+// Schemas
+import { aetherSchema } from 'aetherspace/schemas'
 // Utils
 import {
   aetherResolver,
@@ -9,7 +11,6 @@ import {
   makeGraphQLResolver,
   getEnvVar,
 } from 'aetherspace/utils/serverUtils'
-import { aetherSchema } from 'aetherspace'
 
 /* --- Constants ------------------------------------------------------------------------------- */
 

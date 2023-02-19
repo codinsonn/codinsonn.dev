@@ -1,6 +1,6 @@
 import { makeExecutableSchema } from '@graphql-tools/schema'
 // Schemas
-import { aetherGraphSchema, ResolverMapType } from 'aetherspace/schemas'
+import { aetherGraphSchema, ResolverMapType } from 'aetherspace/schemas/graphql'
 // Resolvers
 import * as resolvers from 'registries/resolvers.generated'
 

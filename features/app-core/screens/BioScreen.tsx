@@ -6,7 +6,7 @@ import useSWR from 'swr'
 import { Link, useAetherNav, fetchAetherProps, AetherPage } from 'aetherspace/navigation'
 // Schemas
 import { aetherSchema } from 'aetherspace/schemas'
-import { UserBio } from '../schemas/UserBio.schema'
+import { GET_USER_BIO, getUserBioVars, UserBio } from '../schemas/UserBio.schema'
 // Primitives
 import { View, Text, Image } from 'aetherspace/primitives'
 // SEO
@@ -31,39 +31,15 @@ type BioScreenProps = Partial<z.infer<typeof PropSchema>>
 
 /* --- GraphQL & Data Fetching ----------------------------------------------------------------- */
 
-const getUserBioQuery = `
-  query($getUserBioArgs: UserBioInput!) {
-    getUserBio(args: $getUserBioArgs) {
-      slug
-      title
-      titleLink
-      bioText
-      imageUrl
-      iconLinks {
-        id
-        iconKey
-        iconComponent
-        link
-        sortOrder
-        extraClasses
-      }
-    }
-  }
-`
-
-const getUserBioVars = (slug = 'codinsonn') => ({
-  getUserBioArgs: {
-    slug,
-  },
-})
-
 const getAetherProps = async (queryKey, queryVariables) => {
   const { data } = await fetchAetherProps(
-    queryKey || getUserBioQuery,
-    queryVariables || getUserBioVars()
+    queryKey || GET_USER_BIO,
+    queryVariables || getUserBioVars({ slug: 'codinsonn' })
   )
   return data
 }
+
+/* --- SSG ------------------------------------------------------------------------------------- */
 
 export const generateStaticParams = async () => {
   const userSlugsQuery = '{ getUserSlugs { slugs } }'
@@ -78,11 +54,11 @@ const BioScreen = (props: BioScreenProps) => {
   // Nav
   const { params, openLink } = useAetherNav(props)
   const { slug = 'codinsonn' } = params
-  const queryParams = getUserBioVars(slug)
+  const queryParams = getUserBioVars({ slug })
 
   // Fetch
   const swrCall = useSWR<BioScreenProps['data']>(
-    [getUserBioQuery, queryParams],
+    [GET_USER_BIO, queryParams],
     ([gqlQuery, gqlParams]) => getAetherProps(gqlQuery, gqlParams)
   )
 
@@ -139,8 +115,7 @@ const BioScreen = (props: BioScreenProps) => {
 export const PageScreen = (props: BioScreenProps) => {
   // Nav
   const { params } = useAetherNav(props)
-  const { slug = 'codinsonn' } = params
-  const queryParams = getUserBioVars(slug)
+  const queryParams = getUserBioVars(params)
 
   // -- Return --
 
@@ -149,7 +124,7 @@ export const PageScreen = (props: BioScreenProps) => {
       {...props}
       PageScreen={BioScreen}
       fetcher={getAetherProps}
-      fetchKey={[getUserBioQuery, queryParams]}
+      fetchKey={[GET_USER_BIO, queryParams]}
     />
   )
 }
