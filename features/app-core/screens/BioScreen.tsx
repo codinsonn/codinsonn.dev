@@ -66,6 +66,10 @@ const getAetherProps = async (queryKey, queryVariables) => {
 
 export const generateStaticParams = async () => [{ slug: 'codinsonn' }]
 
+/* --- Render Strategy ------------------------------------------------------------------------ */
+
+export const dynamic = 'force-static' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
+
 /* --- <BioScreen/> --------------------------------------------------------------------------- */
 
 const BioScreen = (props: BioScreenProps) => {
@@ -83,13 +87,15 @@ const BioScreen = (props: BioScreenProps) => {
   // Data
   const { getUserBio: bioData } = props.data || swrCall.data || {}
 
+  console.log('BioScreen:', { slug, bioData, props })
+
   // Vars
   const ICON_COLOR = '#FFFFFF'
   const ICON_SIZE = 27
 
   // -- Guards --
 
-  if (!bioData) return null
+  if (!bioData) return <Text>{JSON.stringify({ slug, bioData, props }, null, 4)}</Text>
 
   // -- Render --
 
@@ -135,6 +141,8 @@ export const PageScreen = (props: BioScreenProps) => {
   const { params } = useAetherNav(props)
   const { slug = 'codinsonn' } = (params as BioScreenProps['params']) || {}
   const queryParams = getUserBioVars(slug)
+
+  console.log('PageScreen:', { slug, params, queryParams })
 
   // -- Return --
 

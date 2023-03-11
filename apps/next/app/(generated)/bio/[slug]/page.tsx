@@ -1,2 +1,2 @@
 'use client'
-export { PageScreen as default, generateStaticParams } from 'app/routes/bio/'
+export { default, generateStaticParams } from 'app/routes/bio/'

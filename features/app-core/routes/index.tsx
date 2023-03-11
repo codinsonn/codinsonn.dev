@@ -1,1 +1,1 @@
-export { default, PageScreen } from 'app/screens/BioScreen'
+export { PageScreen as default, dynamic } from 'app/screens/BioScreen'

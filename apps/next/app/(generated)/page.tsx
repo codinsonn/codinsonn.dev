@@ -1,2 +1,2 @@
 'use client'
-export { PageScreen as default } from 'app/routes/'
+export { default, dynamic } from 'app/routes/'

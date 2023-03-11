@@ -22,11 +22,11 @@ export const AetherPage = (props: AetherPageProps) => {
 
   // -- Effects --
 
-  useEffect(() => {
-    // Remove the server-side injected initial data.
-    const $ssrData = document.querySelector('#ssr-data')
-    if ($ssrData) $ssrData.parentElement?.removeChild($ssrData)
-  }, [])
+  // useEffect(() => {
+  //   // Remove the server-side injected initial data.
+  //   const $ssrData = document.querySelector('#ssr-data')
+  //   if ($ssrData) $ssrData.parentElement?.removeChild($ssrData)
+  // }, [])
 
   // -- Browser --
 
@@ -46,7 +46,11 @@ export const AetherPage = (props: AetherPageProps) => {
 
   // -- Server --
 
+  console.log('AetherPage:', { fetchKeyString, fetchKeyParams, fallbackKey })
+
   const data = use(fetcher(fetchKeyString, fetchKeyParams))
+
+  console.log('AetherPage:', { data })
 
   return (
     <SWRConfig value={{ fallback: { [fallbackKey]: data } }}>
