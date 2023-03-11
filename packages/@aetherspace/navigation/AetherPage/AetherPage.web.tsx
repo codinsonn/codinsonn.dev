@@ -1,4 +1,4 @@
-import { use } from 'react'
+import { use, useEffect } from 'react'
 import { SWRConfig, unstable_serialize } from 'swr'
 
 /* --- Types ----------------------------------------------------------------------------------- */
@@ -20,18 +20,26 @@ export const AetherPage = (props: AetherPageProps) => {
   const fetchKeyParams = typeof fetchKey === 'string' ? undefined : fetchKey[1]
   const fallbackKey = unstable_serialize([fetchKeyString, fetchKeyParams].filter(Boolean))
 
+  // -- Effects --
+
+  useEffect(() => {
+    // Remove the server-side injected initial data.
+    const $ssrData = document.querySelector('#ssr-data')
+    if ($ssrData) $ssrData.parentElement?.removeChild($ssrData)
+  }, [])
+
   // -- Browser --
 
   if (!isServer) {
     const $ssrData = document.getElementById('ssr-data')
     const ssrDataText = $ssrData?.getAttribute('data-ssr')
-    const data = ssrDataText ? JSON.parse(ssrDataText) : null
+    const data = ssrDataText ? (JSON.parse(ssrDataText) as Record<string, any>) : null
     const fallback = data ? { [fallbackKey]: data } : {}
 
     return (
       <SWRConfig value={{ fallback }}>
         {!!data && <div id="ssr-data" data-ssr={ssrDataText} />}
-        <PageScreen {...restProps} {...data} />
+        <PageScreen {...restProps} data={data} />
       </SWRConfig>
     )
   }
@@ -43,7 +51,7 @@ export const AetherPage = (props: AetherPageProps) => {
   return (
     <SWRConfig value={{ fallback: { [fallbackKey]: data } }}>
       {!!data && <div id="ssr-data" data-ssr={JSON.stringify(data)} />}
-      <PageScreen {...restProps} {...data} />
+      <PageScreen {...restProps} data={data} />
     </SWRConfig>
   )
 }
