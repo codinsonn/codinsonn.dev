@@ -1,11 +1,10 @@
 import React from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { z } from 'zod'
 import useSWR from 'swr'
 // Navigation
 import { Link, useAetherNav, fetchAetherProps, AetherPage } from 'aetherspace/navigation'
 // Schemas
-import { aetherSchema } from 'aetherspace/schemas'
+import { z, aetherSchema } from 'aetherspace/schemas'
 import { UserBio } from '../schemas/UserBio.schema'
 // Primitives
 import { View, Text, Image } from 'aetherspace/primitives'
@@ -72,7 +71,7 @@ export const generateStaticParams = async () => [{ slug: 'codinsonn' }]
 const BioScreen = (props: BioScreenProps) => {
   // Nav
   const { params, openLink } = useAetherNav(props)
-  const { slug = 'codinsonn' } = params
+  const { slug = 'codinsonn' } = (params as BioScreenProps['params']) || {}
   const queryParams = getUserBioVars(slug)
 
   // Fetch
@@ -134,7 +133,7 @@ const BioScreen = (props: BioScreenProps) => {
 export const PageScreen = (props: BioScreenProps) => {
   // Nav
   const { params } = useAetherNav(props)
-  const { slug = 'codinsonn' } = params
+  const { slug = 'codinsonn' } = (params as BioScreenProps['params']) || {}
   const queryParams = getUserBioVars(slug)
 
   // -- Return --
