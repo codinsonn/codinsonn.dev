@@ -1,8 +1,7 @@
 import React from 'react'
 import { StatusBar } from 'expo-status-bar'
-import useSWR from 'swr'
 // Navigation
-import { Link, useAetherNav, fetchAetherProps, AetherPage } from 'aetherspace/navigation'
+import { Link, useAetherRoute, fetchAetherProps, AetherPage } from 'aetherspace/navigation'
 // Schemas
 import { z, aetherSchema } from 'aetherspace/schemas'
 import { UserBio } from '../schemas/UserBio.schema'
@@ -12,25 +11,30 @@ import { View, Text, Image } from 'aetherspace/primitives'
 import { H1 } from 'aetherspace/html-elements'
 // Icons
 import * as Icons from '../icons'
+// Utils
+import { isEmpty } from 'aetherspace/utils'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
-const ParamSchema = aetherSchema('BioScreenParams', {
-  slug: z.string().optional(),
+const BioParamsSchema = aetherSchema('BioScreenParams', {
+  slug: z
+    .string()
+    .optional()
+    .default('codinsonn')
+    .describe('Slug of the user bio to fetch if data is not in props.'),
 })
 
-const PropSchema = aetherSchema('BioScreenProps', {
-  params: ParamSchema.optional(),
-  data: z.object({
-    getUserBio: UserBio,
-  }),
+const BioScreenSchema = UserBio.extendSchema('BioScreenProps', {
+  params: BioParamsSchema.optional(),
+  segment: z.string().optional(),
 })
 
-type BioScreenProps = Partial<z.infer<typeof PropSchema>>
+export type BioScreenParams = Partial<z.infer<typeof BioParamsSchema>>
+export type BioScreenProps = Partial<z.infer<typeof BioScreenSchema>>
 
 /* --- GraphQL & Data Fetching ----------------------------------------------------------------- */
 
-const getUserBioQuery = `
+const getScreenDataQuery = `
   query($getUserBioArgs: UserBioInput!) {
     getUserBio(args: $getUserBioArgs) {
       slug
@@ -50,59 +54,56 @@ const getUserBioQuery = `
   }
 `
 
-const getUserBioVars = (slug = 'codinsonn') => ({
-  getUserBioArgs: {
-    slug,
-  },
+const getBioScreenDataVars = (params: BioScreenParams = {}) => ({
+  getUserBioArgs: BioParamsSchema.parse(params),
 })
 
-const getAetherProps = async (queryKey, queryVariables) => {
-  const { data } = await fetchAetherProps(
-    queryKey || getUserBioQuery,
-    queryVariables || getUserBioVars
-  )
-  return data
+const getBioScreenProps = async (queryKey: string, queryVariables?: BioScreenParams) => {
+  const queryData = queryKey || getScreenDataQuery
+  const queryInput = queryVariables || getBioScreenDataVars()
+  const { data } = await fetchAetherProps(queryData, queryInput)
+  return data.getUserBio as UserBio
 }
 
-export const generateStaticParams = async () => [{ slug: 'codinsonn' }]
+export const screenConfig = {
+  query: getScreenDataQuery,
+  getGraphqlVars: getBioScreenDataVars,
+  getGraphqlData: getBioScreenProps,
+  paramSchema: BioParamsSchema,
+  propSchema: BioScreenSchema,
+}
 
-/* --- Render Strategy ------------------------------------------------------------------------ */
+/* --- Segments -------------------------------------------------------------------------------- */
 
-export const dynamic = 'force-static' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
+export const dynamic = 'force-dynamic' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
-/* --- <BioScreen/> --------------------------------------------------------------------------- */
+export const generateStaticParams = async (): Promise<BioScreenParams[]> => {
+  return [{ slug: 'codinsonn' }]
+}
 
-const BioScreen = (props: BioScreenProps) => {
-  // Nav
-  const { params, openLink } = useAetherNav(props)
-  const { slug = 'codinsonn' } = (params as BioScreenProps['params']) || {}
-  const queryParams = getUserBioVars(slug)
+/* --- <BioScreen/> ---------------------------------------------------------------------------- */
 
-  // Fetch
-  const swrCall = useSWR<BioScreenProps['data']>(
-    [getUserBioQuery, queryParams],
-    ([gqlQuery, gqlParams]) => getAetherProps(gqlQuery, gqlParams)
-  )
-
+export const BioScreen = (props: BioScreenProps) => {
   // Data
-  const { getUserBio: bioData } = props.data || swrCall.data || {}
-
-  console.log('BioScreen:', { slug, bioData, props })
+  const [bioData, { pathname, openLink }] = useAetherRoute(props, screenConfig)
 
   // Vars
   const ICON_COLOR = '#FFFFFF'
   const ICON_SIZE = 27
 
+  // Flags
+  const isCustomBio = pathname.includes('/bio/')
+
   // -- Guards --
 
-  if (!bioData) return <Text>{JSON.stringify({ slug, bioData, props }, null, 4)}</Text>
+  if (isEmpty(bioData)) return null
 
   // -- Render --
 
   return (
     <View tw="w-full h-full items-center bg-gray-900 mobile:pt-14 pt-10">
       <StatusBar style="auto" />
-      <Link to={params?.slug ? '/' : '/bio/codinsonn'}>
+      <Link to={isCustomBio ? '/' : '/bio/codinsonn'}>
         <Image
           src={bioData.imageUrl}
           alt="Picture of the author"
@@ -136,29 +137,13 @@ const BioScreen = (props: BioScreenProps) => {
 
 /* --- SSR ------------------------------------------------------------------------------------- */
 
-export const PageScreen = (props: BioScreenProps) => {
-  // Nav
-  const { params } = useAetherNav(props)
-  const { slug = 'codinsonn' } = (params as BioScreenProps['params']) || {}
-  const queryParams = getUserBioVars(slug)
-
-  console.log('PageScreen:', { slug, params, queryParams })
-
-  // -- Return --
-
-  return (
-    <AetherPage
-      {...props}
-      PageScreen={BioScreen}
-      fetcher={getAetherProps}
-      fetchKey={[getUserBioQuery, queryParams]}
-    />
-  )
-}
+export const PageScreen = (props: BioScreenProps) => (
+  <AetherPage {...props} screen={BioScreen} screenConfig={screenConfig} />
+)
 
 /* --- Documentation --------------------------------------------------------------------------- */
 
-export const getDocumentationProps = PropSchema.introspect()
+export const getDocumentationProps = BioScreenSchema.introspect()
 
 /* --- Exports --------------------------------------------------------------------------------- */
 

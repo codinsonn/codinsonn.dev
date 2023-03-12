@@ -2,7 +2,13 @@ import React, { useMemo, forwardRef, ComponentProps } from 'react'
 import { Platform, Text } from 'react-native'
 import * as Linking from 'expo-linking'
 import * as WebBrowser from 'expo-web-browser'
-import { Link as RouterLink, useRouter, useSearchParams, useNavigation } from 'expo-router'
+import {
+  Link as RouterLink,
+  useRouter,
+  useSearchParams,
+  usePathname,
+  useNavigation,
+} from 'expo-router'
 // Primitives
 import { AetherView, AetherText } from '../../primitives'
 // Utils
@@ -51,14 +57,15 @@ export const useAetherNav = (props: LinkPropsType = {}) => {
   // Hooks
   const navigation = useNavigation()
   const router = useRouter()
-  const searchParams = useSearchParams()
+  const urlParams = useSearchParams()
+  const pathname = usePathname()
 
   // Vars
   const APP_LINKS: string[] = useMemo(() => getEnvVar('APP_LINKS')?.split('|') || [], [])
   const [webDomain] = APP_LINKS.filter((link) => link.includes('://'))
 
   // Params
-  const params = { ...props.params, ...searchParams }
+  const params = { ...props.params, ...urlParams }
 
   // -- Handlers --
 
@@ -89,6 +96,8 @@ export const useAetherNav = (props: LinkPropsType = {}) => {
 
   return {
     params,
+    urlParams,
+    pathname,
     webDomain,
     getDestination,
     openLink,

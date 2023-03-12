@@ -2,7 +2,7 @@
 import React, { useMemo, forwardRef, ComponentProps } from 'react'
 import { Platform, Text } from 'react-native'
 import NextLink from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import * as Linking from 'expo-linking'
 import * as WebBrowser from 'expo-web-browser'
 // Primitives
@@ -56,14 +56,15 @@ export const useAetherNav = (props: LinkPropsType = {}) => {
   // Hooks
   const router = useRouter()
   const search = useSearchParams()
+  const pathname = usePathname()
 
   // Vars
   const APP_LINKS: string[] = useMemo(() => getEnvVar('APP_LINKS')?.split('|') || [], [])
   const [webDomain] = APP_LINKS.filter((link) => link.includes('://'))
 
   // Params
-  const searchParams = Object.fromEntries(search.entries())
-  const params = { ...routeParams, ...searchParams }
+  const urlParams = Object.fromEntries(search.entries())
+  const params = { ...routeParams, ...urlParams }
 
   // -- Handlers --
 
@@ -94,6 +95,8 @@ export const useAetherNav = (props: LinkPropsType = {}) => {
 
   return {
     params,
+    urlParams,
+    pathname,
     webDomain,
     getDestination,
     openLink,

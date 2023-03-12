@@ -1,2 +1,2 @@
 'use client'
-export { default, generateStaticParams } from 'app/routes/bio/'
+export { default, dynamic, generateStaticParams } from 'app/routes/bio/[slug]'
