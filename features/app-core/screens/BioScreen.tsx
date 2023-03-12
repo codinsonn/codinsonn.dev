@@ -1,7 +1,7 @@
 import React from 'react'
 import { StatusBar } from 'expo-status-bar'
 // Navigation
-import { Link, useAetherRoute, fetchAetherProps, AetherPage } from 'aetherspace/navigation'
+import { Link, useAetherRoute, fetchAetherProps } from 'aetherspace/navigation'
 // Schemas
 import { z, aetherSchema } from 'aetherspace/schemas'
 import { UserBio } from '../schemas/UserBio.schema'
@@ -135,15 +135,9 @@ export const BioScreen = (props: BioScreenProps) => {
   )
 }
 
-/* --- SSR ------------------------------------------------------------------------------------- */
-
-export const PageScreen = (props: BioScreenProps) => (
-  <AetherPage {...props} screen={BioScreen} screenConfig={screenConfig} />
-)
-
 /* --- Documentation --------------------------------------------------------------------------- */
 
-export const getDocumentationProps = BioScreenSchema.introspect()
+// export const getDocumentationProps = BioScreenSchema.introspect()
 
 /* --- Exports --------------------------------------------------------------------------------- */
 

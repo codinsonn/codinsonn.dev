@@ -14,7 +14,7 @@
         "airtable": "^0.11.6",
         "app": "*",
         "encoding": "^0.1.13",
-        "next": "^13.2.3",
+        "next": "^13.2.4",
         "next-fonts": "^1.5.1",
         "next-images": "^1.8.4",
         "next-pwa": "^5.6.0",
