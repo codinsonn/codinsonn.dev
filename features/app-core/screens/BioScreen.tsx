@@ -1,5 +1,4 @@
 import React from 'react'
-import { StatusBar } from 'expo-status-bar'
 // Navigation
 import { Link, useAetherRoute, fetchAetherProps } from 'aetherspace/navigation'
 // Schemas
@@ -75,7 +74,7 @@ export const screenConfig = {
 
 /* --- Segments -------------------------------------------------------------------------------- */
 
-export const dynamic = 'force-static' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
+export const dynamic = 'auto' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
 export const generateStaticParams = async (): Promise<BioScreenParams[]> => {
   return [{ slug: 'codinsonn' }]
@@ -96,13 +95,12 @@ export const BioScreen = (props: BioScreenProps) => {
 
   // -- Guards --
 
-  if (isEmpty(bioData)) return null
+  if (isEmpty(bioData) || !bioData.iconLinks) return null
 
   // -- Render --
 
   return (
     <View tw="w-full h-full items-center bg-gray-900 mobile:pt-14 pt-10">
-      <StatusBar style="auto" />
       <Link to={isCustomBio ? '/' : '/bio/codinsonn'}>
         <Image
           src={bioData.imageUrl}

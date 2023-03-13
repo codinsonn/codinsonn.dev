@@ -75,6 +75,7 @@ const Document = (props: { children: React.ReactNode }) => {
     const reactNativeStyleElement = mainApp.getStyleElement()
     // Get aetherspace styles
     const aetherQueries = getInjectableMediaQueries()
+    console.log({ aetherQueries })
     // Inject styles
     return (
       <>
