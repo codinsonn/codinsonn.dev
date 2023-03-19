@@ -124,23 +124,29 @@ const AetherLink = forwardRef<typeof Text | typeof Text, AetherLinkType>((props,
 
   const onLinkPress = () => openLink(destination, isBlank)
 
+  // -- Render as Web link --
+
+  if (isExternal) {
+    return isText ? (
+      <AetherText {...restProps} {...bindStyles} ref={ref as any$Todo} onPress={onLinkPress}>
+        <a href={destination} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+          {children}
+        </a>
+      </AetherText>
+    ) : (
+      <a href={destination} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+        <AetherView {...bindStyles}>{children}</AetherView>
+      </a>
+    )
+  }
+
   // -- Render as Text --
 
   if (isText) {
     return (
       <AetherText {...restProps} {...bindStyles} ref={ref as any$Todo} onPress={onLinkPress}>
-        {children}
+        <NextLink href={destination}>{children}</NextLink>
       </AetherText>
-    )
-  }
-
-  // -- Render as Web link --
-
-  if (isExternal) {
-    return (
-      <a href={destination} target="_blank" rel="noreferrer">
-        <AetherView {...bindStyles}>{children}</AetherView>
-      </a>
     )
   }
 

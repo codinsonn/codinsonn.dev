@@ -74,7 +74,7 @@ export const screenConfig = {
 
 /* --- Segments -------------------------------------------------------------------------------- */
 
-export const dynamic = 'auto' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
+export const dynamic = 'force-static' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
 export const generateStaticParams = async (): Promise<BioScreenParams[]> => {
   return [{ slug: 'codinsonn' }]
@@ -84,7 +84,7 @@ export const generateStaticParams = async (): Promise<BioScreenParams[]> => {
 
 export const BioScreen = (props: BioScreenProps) => {
   // Data
-  const [bioData, { pathname, openLink }] = useAetherRoute(props, screenConfig)
+  const [bioData, { pathname }] = useAetherRoute(props, screenConfig)
 
   // Vars
   const ICON_COLOR = '#FFFFFF'
@@ -108,12 +108,9 @@ export const BioScreen = (props: BioScreenProps) => {
           tw="w-20 h-20 mt-0 overflow-hidden bg-slate-100 rounded-full"
         />
       </Link>
-      <H1
-        tw="text-white mb-4 roboto font-bold text-base"
-        onPress={() => openLink(bioData.titleLink)}
-      >
-        {bioData.title}
-      </H1>
+      <Link to={bioData.titleLink} tw=" mb-4 mt-4 no-underline" asText>
+        <H1 tw="text-white roboto-bold font-bold text-base">{bioData.title}</H1>
+      </Link>
       <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 text-white text-center text-sm">{bioData.bioText}</Text>
       <View tw="flex-row mt-6 mobile:mt-4 justify-center">
         {bioData.iconLinks.map((bioIcon) => {

@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "license": "MIT",
     "scripts": {
-        "dev": "next",
+        "dev": "NODE_OPTIONS='--inspect' next",
         "lint": "cd ../.. && eslint \"apps/next/**/*.{ts,tsx}\"",
-        "build": "next build",
+        "build": "NODE_OPTIONS='--inspect' next build",
         "deploy": "yarn --cwd ../../ deploy"
     },
     "dependencies": {
