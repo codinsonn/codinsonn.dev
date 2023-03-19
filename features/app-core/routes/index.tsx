@@ -11,6 +11,5 @@ const PageScreen = (props: bioScreen.BioScreenProps) => (
 /* --- Exports --------------------------------------------------------------------------------- */
 
 export const dynamic = bioScreen.dynamic
-// export const generateStaticParams = bioScreen.generateStaticParams
 
 export default PageScreen

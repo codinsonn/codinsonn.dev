@@ -36,11 +36,11 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-        <View tw="w-full h-full items-center">
-          <H1>Hmm, something went wrong</H1>
+        <View tw="w-full h-full min-h-full min-w-full items-center justify-center">
+          <H1 tw="mb-4">Hmm, something went wrong</H1>
           <Pressable
             accessibilityRole="button"
-            tw="p-4 bg-green-700 rounded-md text-white"
+            tw="p-4 bg-slate-800 rounded-md text-white"
             onPress={() => this.setState({ hasError: false })}
           >
             <Text>Try again?</Text>
