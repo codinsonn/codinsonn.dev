@@ -1,6 +1,6 @@
 import React from 'react'
 // Navigation
-import { Link, useAetherRoute, fetchAetherProps } from 'aetherspace/navigation'
+import { Link, useAetherRoute, fetchAetherProps, useAetherNav } from 'aetherspace/navigation'
 // Schemas
 import { z, aetherSchema } from 'aetherspace/schemas'
 import { UserBio } from '../schemas/UserBio.schema'
@@ -18,7 +18,6 @@ import { isEmpty } from 'aetherspace/utils'
 const BioParamsSchema = aetherSchema('BioScreenParams', {
   slug: z
     .string()
-    .optional()
     .default('codinsonn')
     .describe('Slug of the user bio to fetch if data is not in props.'),
 })
@@ -84,7 +83,8 @@ export const generateStaticParams = async (): Promise<BioScreenParams[]> => {
 
 export const BioScreen = (props: BioScreenProps) => {
   // Data
-  const [bioData, { pathname }] = useAetherRoute(props, screenConfig)
+  const [bioData] = useAetherRoute(props, screenConfig)
+  const { pathname } = useAetherNav()
 
   // Vars
   const ICON_COLOR = '#FFFFFF'

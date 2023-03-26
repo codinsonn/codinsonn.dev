@@ -5,7 +5,7 @@ import * as WebBrowser from 'expo-web-browser'
 import {
   Link as RouterLink,
   useRouter,
-  useSearchParams,
+  // useSearchParams,
   usePathname,
   useNavigation,
 } from 'expo-router'
@@ -57,7 +57,7 @@ export const useAetherNav = (props: LinkPropsType = {}) => {
   // Hooks
   const navigation = useNavigation()
   const router = useRouter()
-  const urlParams = useSearchParams()
+  // const urlParams = useSearchParams()
   const pathname = usePathname()
 
   // Vars
@@ -65,7 +65,7 @@ export const useAetherNav = (props: LinkPropsType = {}) => {
   const [webDomain] = APP_LINKS.filter((link) => link.includes('://'))
 
   // Params
-  const params = { ...props.params, ...urlParams }
+  // const params = { ...props.params, ...urlParams }
 
   // -- Handlers --
 
@@ -95,8 +95,8 @@ export const useAetherNav = (props: LinkPropsType = {}) => {
   // -- Return --
 
   return {
-    params,
-    urlParams,
+    // params,
+    // urlParams,
     pathname,
     webDomain,
     getDestination,
