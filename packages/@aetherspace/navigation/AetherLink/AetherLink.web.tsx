@@ -42,9 +42,12 @@ interface AetherLinkRouteType extends AetherLinkBaseType {
 type AetherLinkType = AetherLinkToType | AetherLinkHrefType | AetherLinkRouteType
 type any$Todo = any
 
-type LinkPropsType = {
-  [key: string]: unknown
-  params?: Record<string, unknown>
+/* --- Styles ---------------------------------------------------------------------------------- */
+
+const linkResetStyles = {
+  textDecoration: 'none',
+  color: 'inherit',
+  cursor: 'pointer',
 }
 
 /* --- useAetherNav() -------------------------------------------------------------------------- */
@@ -119,12 +122,12 @@ const AetherLink = forwardRef<typeof Text | typeof Text, AetherLinkType>((props,
   if (isExternal) {
     return isText ? (
       <AetherText {...restProps} {...bindStyles} ref={ref as any$Todo} onPress={onLinkPress}>
-        <a href={destination} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+        <a href={destination} target="_blank" rel="noreferrer" style={linkResetStyles}>
           {children}
         </a>
       </AetherText>
     ) : (
-      <a href={destination} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+      <a href={destination} target="_blank" rel="noreferrer" style={linkResetStyles}>
         <AetherView {...bindStyles}>{children}</AetherView>
       </a>
     )
@@ -135,7 +138,9 @@ const AetherLink = forwardRef<typeof Text | typeof Text, AetherLinkType>((props,
   if (isText) {
     return (
       <AetherText {...restProps} {...bindStyles} ref={ref as any$Todo} onPress={onLinkPress}>
-        <NextLink href={destination}>{children}</NextLink>
+        <NextLink href={destination} style={linkResetStyles}>
+          {children}
+        </NextLink>
       </AetherText>
     )
   }
@@ -143,7 +148,7 @@ const AetherLink = forwardRef<typeof Text | typeof Text, AetherLinkType>((props,
   // -- Render as View wrapped with Next Link --
 
   return (
-    <NextLink href={destination}>
+    <NextLink href={destination} style={linkResetStyles}>
       <AetherView {...bindStyles}>{children}</AetherView>
     </NextLink>
   )
