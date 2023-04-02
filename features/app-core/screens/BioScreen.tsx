@@ -12,6 +12,7 @@ import { H1 } from 'aetherspace/html-elements'
 import * as Icons from '../icons'
 // Utils
 import { isEmpty } from 'aetherspace/utils'
+import BioLink from '../components/BioLink'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
@@ -125,6 +126,14 @@ export const BioScreen = (props: BioScreenProps) => {
             </Link>
           )
         })}
+      </View>
+      <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 flex-column mt-12 px-5">
+        <BioLink
+          title="Talk at Newline.gent -- An intro to aetherspace"
+          linkUrl="https://www.youtube.com/watch?v=njhgS-erQbo"
+          imageUrl="https://i3.ytimg.com/vi/njhgS-erQbo/maxresdefault.jpg"
+        />
+        <View tw="h-5" />
       </View>
     </View>
   )

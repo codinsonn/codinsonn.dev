@@ -47,6 +47,9 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
+    images: {
+        domains: ['i3.ytimg.com'],
+    },
     webpack: (config, { isServer }) => {
         // -i- Run aetherspace automation scripts
         if (!isServer && process.env.NODE_ENV === 'development') withAutomation()
