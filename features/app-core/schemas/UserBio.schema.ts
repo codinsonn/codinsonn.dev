@@ -1,5 +1,5 @@
 // Schemas
-import { z, aetherSchema } from 'aetherspace/schemas'
+import { z, aetherSchema, AetherInput } from 'aetherspace/schemas'
 
 /* --- Schemas --------------------------------------------------------------------------------- */
 
@@ -28,5 +28,5 @@ export const UserBio = aetherSchema('UserBio', {
 /* --- Types ----------------------------------------------------------------------------------- */
 
 export type IconLink = z.infer<typeof IconLinks>
-export type UserBioInput = z.infer<typeof UserBioInput>
+export type UserBioInput = AetherInput<typeof UserBioInput>
 export type UserBio = z.infer<typeof UserBio>

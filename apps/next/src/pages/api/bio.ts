@@ -22,7 +22,7 @@ const resolverConfig = {
 
 const getUserBio = aetherResolver(async ({ args }) => {
   // Args
-  const { slug } = args
+  const { slug } = UserBioInput.parse(args)
 
   // Constants
   const AIRTABLE_API_KEY = getEnvVar('AIRTABLE_API_KEY')

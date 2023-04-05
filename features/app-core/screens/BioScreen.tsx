@@ -2,7 +2,7 @@ import React from 'react'
 // Navigation
 import { Link, useAetherRoute, fetchAetherProps, useAetherNav } from 'aetherspace/navigation'
 // Schemas
-import { z, aetherSchema } from 'aetherspace/schemas'
+import { z, aetherSchema, AetherParams, AetherProps } from 'aetherspace/schemas'
 import { UserBio } from '../schemas/UserBio.schema'
 // Primitives
 import { View, Text, Image } from 'aetherspace/primitives'
@@ -28,8 +28,8 @@ const BioScreenSchema = UserBio.extendSchema('BioScreenProps', {
   segment: z.string().optional(),
 })
 
-export type BioScreenParams = Partial<z.infer<typeof BioParamsSchema>>
-export type BioScreenProps = Partial<z.infer<typeof BioScreenSchema>>
+export type BioScreenParams = AetherParams<typeof BioParamsSchema>
+export type BioScreenProps = AetherProps<typeof BioScreenSchema>
 
 /* --- GraphQL & Data Fetching ----------------------------------------------------------------- */
 

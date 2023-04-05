@@ -1,6 +1,6 @@
 import React from 'react'
 // Schemas
-import { z, aetherSchema } from 'aetherspace/schemas'
+import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
 // Navigation
 import { Link } from 'aetherspace/navigation'
 // Primitives
@@ -16,7 +16,7 @@ const BioLinkProps = aetherSchema('BioLinkProps', {
 
 /* --- <BioLink/> ---------------------------------------------------------------------------- */
 
-export const BioLink = (props: z.infer<typeof BioLinkProps>) => {
+export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
   // Props
   const { title, linkUrl, imageUrl } = props
 
