@@ -10,6 +10,7 @@ import { View, Text, Image } from 'aetherspace/primitives'
 
 const BioLinkProps = aetherSchema('BioLinkProps', {
   title: z.string(),
+  subTitle: z.string().optional(),
   linkUrl: z.string(),
   imageUrl: z.string(),
 })
@@ -18,7 +19,7 @@ const BioLinkProps = aetherSchema('BioLinkProps', {
 
 export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
   // Props
-  const { title, linkUrl, imageUrl } = props
+  const { title, subTitle, linkUrl, imageUrl } = props
 
   // -- Render --
 
@@ -27,13 +28,16 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
       <Image
         src={imageUrl}
         alt="Picture of the author"
-        tw="w-[100px] h-[100px] items-center overflow-hidden"
-        width={100 * (256 / 144)}
+        tw="w-[90px] sm:w-[120px] h-[100px] items-center overflow-hidden"
+        width={100 * (1400 / 1100)}
+        // width={130 * (256 / 144)}
         height={100} // @ts-ignore
         objectFit="cover"
       />
-      <View tw="flex-row flex-grow flex-shrink p-4 whitespace-normal">
-        <Text tw="roboto-bold text-base text-white">{title}</Text>
+      <View tw="flex-col flex-grow flex-shrink px-4 py-2 lg:py-4">
+        <Text tw="roboto-bold text-white text-sm sm:text-base">{title}</Text>
+        <View tw="pt-1" />
+        {subTitle && <Text tw="roboto text-white text-xs">{subTitle}</Text>}
       </View>
     </Link>
   )

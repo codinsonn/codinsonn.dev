@@ -32,6 +32,7 @@ const AetherContextManager = (props: AetherContextType) => {
 
   const contextValue = useMemo(() => {
     const breakpoints = {
+      xs: props.breakpoints?.xs || 400,
       sm: props.breakpoints?.sm || 640,
       md: props.breakpoints?.md || 768,
       lg: props.breakpoints?.lg || 1024,

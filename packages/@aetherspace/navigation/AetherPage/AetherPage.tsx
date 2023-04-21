@@ -2,7 +2,7 @@
 
 type AetherPageProps = {
   params?: Record<string, any>
-  screen: React.FC<Record<string, any>>
+  screen: React.FC<Record<string, any>> | ((props: any) => JSX.Element | null)
   screenConfig: any
 }
 

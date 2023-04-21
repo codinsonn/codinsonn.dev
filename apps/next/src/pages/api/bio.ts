@@ -3,6 +3,8 @@ import Airtable from 'airtable'
 import { UserBioInput, UserBio } from 'app/schemas/UserBio.schema'
 // Middleware
 import { withCors } from 'app/middleware'
+// Mocks
+import { userBioMock } from 'app/mocks/userBio.mock'
 // Utils
 import {
   aetherResolver,
@@ -20,40 +22,47 @@ const resolverConfig = {
 
 /* --- getUserBio() ---------------------------------------------------------------------------- */
 
-const getUserBio = aetherResolver(async ({ args }) => {
-  // Args
-  const { slug } = UserBioInput.parse(args)
+const getUserBio = aetherResolver(async ({ args, handleError }) => {
+  try {
+    // Args
+    const { slug } = UserBioInput.parse(args)
 
-  // Constants
-  const AIRTABLE_API_KEY = getEnvVar('AIRTABLE_API_KEY')
-  const airtable = new Airtable({ apiKey: AIRTABLE_API_KEY })
-  const base = airtable.base('appPKybqZMUZwR4eF')
+    // Constants
+    const AIRTABLE_API_KEY = getEnvVar('AIRTABLE_API_KEY')
+    const airtable = new Airtable({ apiKey: AIRTABLE_API_KEY })
+    const base = airtable.base('appPKybqZMUZwR4eF')
 
-  // Fetch bio info from airtable
-  const userBioQuery = { maxRecords: 1, view: 'Grid view', filterByFormula: `{slug} = "${slug}"` }
-  const userBioResponse = await base('userBio').select(userBioQuery).firstPage()
-  const userFields = userBioResponse[0]?.fields || {}
+    // Fetch bio info from airtable
+    const userBioQuery = { maxRecords: 1, view: 'Grid view', filterByFormula: `{slug} = "${slug}"` }
+    const userBioResponse = await base('userBio').select(userBioQuery).firstPage()
+    const userFields = userBioResponse[0]?.fields || {}
 
-  // Fetch icon links from airtable
-  const userIconsQuery = { view: 'Grid view', filterByFormula: `{user} = "${slug}"` }
-  const userIconsResponse = await base('userIcons').select(userIconsQuery).firstPage()
-  const userIcons = userIconsResponse.map(({ fields: userIconFields }) => ({
-    id: userIconFields.id,
-    iconComponent: userIconFields.iconComponent?.[0],
-    link: userIconFields.link,
-    sortOrder: userIconFields.sortOrder,
-    extraClasses: userIconFields.extraClasses?.[0] || '',
-  }))
+    // Fetch icon links from airtable
+    const userIconsQuery = { view: 'Grid view', filterByFormula: `{user} = "${slug}"` }
+    const userIconsResponse = await base('userIcons').select(userIconsQuery).firstPage()
+    const userIcons = userIconsResponse.map(({ fields: userIconFields }) => ({
+      id: userIconFields.id,
+      iconComponent: userIconFields.iconComponent?.[0],
+      link: userIconFields.link,
+      sortOrder: userIconFields.sortOrder,
+      extraClasses: userIconFields.extraClasses?.[0] || '',
+    }))
 
-  // Result
-  return {
-    slug,
-    title: userFields.title,
-    titleLink: userFields.titleLink,
-    bioText: userFields.bioText,
-    imageUrl: userFields.imageUrl,
-    iconLinks: userIcons,
-  } as UserBio
+    // Result
+    return {
+      slug,
+      title: userFields.title,
+      titleLink: userFields.titleLink,
+      bioText: userFields.bioText,
+      imageUrl: userFields.imageUrl,
+      iconLinks: userIcons,
+    } as UserBio
+  } catch (error) {
+    // -!- Temporary mock for local offline debugging
+    if (process.env.NODE_ENV !== 'production') return userBioMock
+    // Handle error
+    handleError(error)
+  }
 }, resolverConfig)
 
 /* --- GraphQL --------------------------------------------------------------------------------- */

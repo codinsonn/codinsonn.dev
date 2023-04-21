@@ -53,20 +53,20 @@ const getScreenDataQuery = `
   }
 `
 
-const getBioScreenDataVars = (params: BioScreenParams = {}) => ({
+const getBioScreenArgs = (params: BioScreenParams = {}) => ({
   getUserBioArgs: BioParamsSchema.parse(params),
 })
 
 const getBioScreenProps = async (queryKey: string, queryVariables?: BioScreenParams) => {
   const queryData = queryKey || getScreenDataQuery
-  const queryInput = queryVariables || getBioScreenDataVars()
+  const queryInput = queryVariables || getBioScreenArgs() // Use defaults if not defined
   const { data } = await fetchAetherProps(queryData, queryInput)
   return data.getUserBio as UserBio
 }
 
 export const screenConfig = {
   query: getScreenDataQuery,
-  getGraphqlVars: getBioScreenDataVars,
+  getGraphqlVars: getBioScreenArgs,
   getGraphqlData: getBioScreenProps,
   paramSchema: BioParamsSchema,
   propSchema: BioScreenSchema,
@@ -120,7 +120,7 @@ export const BioScreen = (props: BioScreenProps) => {
             <Link
               key={bioIcon.iconComponent}
               href={bioIcon.link}
-              tw={['px-2 lg:px-3', bioIcon.extraClasses]}
+              tw={['px-1 sm:px-2 lg:px-3', bioIcon.extraClasses]}
             >
               <Icon width={ICON_SIZE} height={ICON_SIZE} fill={ICON_COLOR} />
             </Link>
@@ -129,11 +129,36 @@ export const BioScreen = (props: BioScreenProps) => {
       </View>
       <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 flex-column mt-12 px-5">
         <BioLink
-          title="Talk at Newline.gent -- An intro to aetherspace"
+          title="An intro to Aetherspace and the GREEN stack"
+          subTitle="Recorded conference talk at Newline.gent"
           linkUrl="https://www.youtube.com/watch?v=njhgS-erQbo"
-          imageUrl="https://i3.ytimg.com/vi/njhgS-erQbo/maxresdefault.jpg"
+          imageUrl="/img/NewlineTalk.jpeg"
         />
         <View tw="h-5" />
+        <BioLink
+          title="'Move fast & build things', with Zod, Expo & Next.js"
+          subTitle="Summary of the Full-Stack meetup on DEV.to"
+          linkUrl="https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64"
+          imageUrl="/img/FSMeetup.jpeg"
+        />
+        <View tw="h-5" />
+      </View>
+      <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 flex-column mt-2 px-5 items-center">
+        <Text tw="roboto-light text-slate-200 text-center text-sm sm:text-base">
+          Ready for <Text tw="roboto">Organic leads</Text> from Web
+        </Text>
+        <Text tw="roboto-light text-slate-200 text-center text-sm sm:text-base">
+          and <Text tw="roboto">higher conversions</Text> on Mobile?
+        </Text>
+        <View tw="h-2" />
+        <Link
+          href="https://rok.co/@codinsonn"
+          tw="roboto-black text-white underline text-sm"
+          asText
+        >
+          Hire me.
+        </Link>
+        <View tw="h-10 mb-10" />
       </View>
     </View>
   )
