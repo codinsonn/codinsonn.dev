@@ -20,7 +20,6 @@ const getUnit = (classKey: string) => {
 
 /* --- addMediaQuery() ------------------------------------------------------------------------- */
 
-// TODO: FIX UNITS
 export const addMediaQuery = (breakpoint: number, styles: Record<string, unknown>): string => {
   const styleId = `${breakpoint}-${createKey(styles)}` // @ts-ignore
   // Build CSS rules from style object

@@ -1,3 +1,5 @@
+import { ScrollView } from 'react-native'
+
 /* --- Types ----------------------------------------------------------------------------------- */
 
 type AetherPageProps = {
@@ -17,5 +19,9 @@ export const AetherPage = (props: AetherPageProps) => {
 
   // -- Browser --
 
-  return <PageScreen params={params} {...restProps} />
+  return (
+    <ScrollView contentContainerStyle={{ width: '100%', minHeight: '100%' }}>
+      <PageScreen params={params} {...restProps} />
+    </ScrollView>
+  )
 }
