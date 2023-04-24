@@ -112,6 +112,14 @@ export const BioScreen = (props: BioScreenProps) => {
       <Link to={bioData.titleLink} tw=" mb-4 mt-4 no-underline" asText>
         <H1 tw="text-white roboto-bold font-bold text-base">{bioData.title}</H1>
       </Link>
+      {/* -- TEST -- /}
+      <Text tw="text-white hidden xs:flex">xs</Text>
+      <Text tw="text-white hidden sm:flex">sm</Text>
+      <Text tw="text-white hidden md:flex">md</Text>
+      <Text tw="text-white hidden lg:flex">lg</Text>
+      <Text tw="text-white hidden xl:flex">xl</Text>
+      <Text tw="text-white hidden xxl:flex">xxl</Text>
+      {/* -- TEST -- */}
       <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 text-white text-center text-sm">{bioData.bioText}</Text>
       <View tw="flex-row mt-6 mobile:mt-4 justify-center">
         {bioData.iconLinks.map((bioIcon) => {
@@ -120,45 +128,57 @@ export const BioScreen = (props: BioScreenProps) => {
             <Link
               key={bioIcon.iconComponent}
               href={bioIcon.link}
-              tw={['px-1 sm:px-2 lg:px-3', bioIcon.extraClasses]}
+              tw={['px-1 xs:px-2 md:px-3', bioIcon.extraClasses]}
             >
               <Icon width={ICON_SIZE} height={ICON_SIZE} fill={ICON_COLOR} />
             </Link>
           )
         })}
       </View>
-      <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 flex-column mt-12 px-5">
-        <BioLink
-          title="An intro to Aetherspace and the GREEN stack"
-          subTitle="Recorded conference talk at Newline.gent"
-          linkUrl="https://www.youtube.com/watch?v=njhgS-erQbo"
-          imageUrl="/img/NewlineTalk.jpeg"
-        />
-        <View tw="h-5" />
-        <BioLink
-          title="'Move fast & build things', with Zod, Expo & Next.js"
-          subTitle="Summary of the Full-Stack meetup on DEV.to"
-          linkUrl="https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64"
-          imageUrl="/img/FSMeetup.jpeg"
-        />
-        <View tw="h-5" />
+      <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-12 px-5">
+        <View tw="flex relative overflow-hidden">
+          <BioLink
+            title="An intro to Aetherspace and the GREEN stack"
+            subTitle="Recorded conference talk at Newline.gent"
+            linkUrl="https://www.youtube.com/watch?v=njhgS-erQbo"
+            imageUrl="/img/NewlineTalk.jpeg"
+          />
+          <View tw="h-5" />
+          <BioLink
+            title="'Move fast & build things', with Zod, Expo & Next.js"
+            subTitle="Summary of the Full-Stack meetup on DEV.to"
+            linkUrl="https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64"
+            imageUrl="/img/FSMeetup.jpeg"
+          />
+          <View tw="h-5" />
+        </View>
       </View>
-      <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 flex-column mt-2 px-5 items-center">
+      <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-2 px-5 items-center">
         <Text tw="roboto-light text-slate-200 text-center text-sm sm:text-base">
           Ready for <Text tw="roboto">Organic leads</Text> from Web
         </Text>
         <Text tw="roboto-light text-slate-200 text-center text-sm sm:text-base">
-          and <Text tw="roboto">higher conversions</Text> on Mobile?
+          + <Text tw="roboto">Higher conversions</Text> on Mobile?
         </Text>
-        <View tw="h-2" />
-        <Link
-          href="https://rok.co/@codinsonn"
-          tw="roboto-black text-white underline text-sm"
-          asText
-        >
-          Hire me.
-        </Link>
-        <View tw="h-10 mb-10" />
+        <View tw="h-3" />
+        <Text tw="flex-row">
+          <Link
+            href="https://github.com/codinsonn/green-stack-demo#move-fast-and-build-things"
+            tw="roboto text-white text-sm"
+            asText
+          >
+            Free template repo
+          </Link>
+          <Text tw="roboto text-white text-sm">{' / '}</Text>
+          <Link
+            href="https://rok.co/@codinsonn"
+            tw="roboto-black text-white underline text-sm"
+            asText
+          >
+            Hire me.
+          </Link>
+        </Text>
+        <View tw="h-10" />
       </View>
     </View>
   )
