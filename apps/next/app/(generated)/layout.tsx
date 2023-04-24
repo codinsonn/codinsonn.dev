@@ -1,5 +1,7 @@
 'use client'
 import RootLayout from 'app/routes/document'
+// Analytics
+import { Analytics } from '@vercel/analytics/react'
 // Config
 import tailwindConfig from 'app/tailwind.config'
 // Context
@@ -33,6 +35,7 @@ const NextRootLayout = (props: { children: React.ReactNode }) => {
 
   return (
     <RootLayout>
+      <Analytics />
       <AetherContextManager assets={{}} icons={{}} twConfig={tailwindConfig} isNextJS isAppDir>
         {children}
       </AetherContextManager>

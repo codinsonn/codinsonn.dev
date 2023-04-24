@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "@expo/next-adapter": "^5.0.2",
+        "@vercel/analytics": "^1.0.0",
         "aetherspace": "*",
         "airtable": "^0.11.6",
         "app": "*",
