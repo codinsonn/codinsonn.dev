@@ -15,12 +15,12 @@ const config = ({ config }) => {
             fallbackToCacheTimeout: 0,
             // -!- TODO: This URL is supposed to be different per project and won't work if not changed
             // -i- TODO: Figure out your own URL by running 'eas-cli updates:configure'
-            url: 'https://u.expo.dev/0fd0bb82-82d2-4be2-933a-edd5237cc822',
+            url: 'https://u.expo.dev/83944f8e-d6d2-42ce-a6fc-349079657932',
         },
         extra: {
             eas: {
                 // -i- TODO: Figure out your own projectId by running 'eas-cli updates:configure'
-                projectId: '0fd0bb82-82d2-4be2-933a-edd5237cc822',
+                projectId: '83944f8e-d6d2-42ce-a6fc-349079657932',
             },
         },
         runtimeVersion: {

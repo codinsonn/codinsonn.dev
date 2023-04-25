@@ -4,7 +4,7 @@ import axios from 'axios'
 /* --- Constants ------------------------------------------------------------------------------- */
 
 const APP_LINKS: string[] = getEnvVar('APP_LINKS')?.split('|') || []
-const [WEBDOMAIN] = APP_LINKS.filter((link) => link.includes('://'))
+const [WEBDOMAIN] = APP_LINKS.filter((link) => link.includes('http://') || link.includes('https://')) // prettier-ignore
 const BACKEND_URL: string = getEnvVar('BACKEND_URL') || ''
 const BASE_URL: string = BACKEND_URL || WEBDOMAIN || getDebuggerURL(3000) || ''
 
