@@ -10,9 +10,11 @@ import { View, Text, Image } from 'aetherspace/primitives'
 import { H1 } from 'aetherspace/html-elements'
 // Icons
 import * as Icons from '../icons'
+// Components
+import BioLink from '../components/BioLink'
 // Utils
 import { isEmpty } from 'aetherspace/utils'
-import BioLink from '../components/BioLink'
+import { userBioMock } from '../mocks/userBio.mock'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
@@ -26,6 +28,10 @@ const BioParamsSchema = aetherSchema('BioScreenParams', {
 const BioScreenSchema = UserBio.extendSchema('BioScreenProps', {
   params: BioParamsSchema.optional(),
   segment: z.string().optional(),
+}).example({
+  params: { slug: 'codinsonn' },
+  segment: undefined,
+  ...userBioMock,
 })
 
 export type BioScreenParams = AetherParams<typeof BioParamsSchema>
@@ -92,7 +98,7 @@ export const BioScreen = (props: BioScreenProps) => {
   const ICON_SIZE = 27
 
   // Flags
-  const isCustomBio = pathname.includes('/bio/')
+  const isCustomBio = pathname?.includes('/bio/')
 
   // -- Guards --
 
@@ -186,7 +192,7 @@ export const BioScreen = (props: BioScreenProps) => {
 
 /* --- Documentation --------------------------------------------------------------------------- */
 
-// export const getDocumentationProps = BioScreenSchema.introspect()
+export const getDocumentationProps = BioScreenSchema.introspect()
 
 /* --- Exports --------------------------------------------------------------------------------- */
 

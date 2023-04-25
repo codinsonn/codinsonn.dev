@@ -20,7 +20,7 @@ const StoryContextProviders = ({ children }) => {
       icons={{}}
       twConfig={tailwindConfig}
       tw="h-full relative"
-      isNextJS
+      isStorybook
     >
       {children}
     </AetherContextManager>
