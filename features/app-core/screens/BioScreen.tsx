@@ -13,7 +13,8 @@ import * as Icons from '../icons'
 // Components
 import BioLink from '../components/BioLink'
 // Utils
-import { getEnvVar, isEmpty } from 'aetherspace/utils'
+import { isEmpty } from 'aetherspace/utils'
+// Mocks
 import { userBioMock } from '../mocks/userBio.mock'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
@@ -80,7 +81,7 @@ export const screenConfig = {
 
 /* --- Segments -------------------------------------------------------------------------------- */
 
-export const dynamic = 'force-static' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
+export const dynamic = 'auto' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
 export const generateStaticParams = async (): Promise<BioScreenParams[]> => {
   return [{ slug: 'codinsonn' }]
@@ -90,7 +91,7 @@ export const generateStaticParams = async (): Promise<BioScreenParams[]> => {
 
 export const BioScreen = (props: BioScreenProps) => {
   // Data
-  const [bioData, { isLoading, isValidating, error, params }] = useAetherRoute(props, screenConfig)
+  const [bioData] = useAetherRoute(props, screenConfig)
   const { pathname } = useAetherNav()
 
   // Vars
@@ -102,28 +103,7 @@ export const BioScreen = (props: BioScreenProps) => {
 
   // -- Guards --
 
-  if (isLoading) return null
-
-  if (isEmpty(bioData) || !bioData.iconLinks) {
-    return (
-      <View tw="w-full h-full items-center bg-gray-900">
-        <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 text-white text-center text-sm">
-          {JSON.stringify(
-            {
-              bioData: !!bioData,
-              params,
-              APP_LINKS: getEnvVar('APP_LINKS') || 'undefined',
-              BACKEND_URL: getEnvVar('BACKEND_URL') || 'undefined',
-              isValidating,
-              error,
-            },
-            null,
-            4
-          )}
-        </Text>
-      </View>
-    )
-  }
+  if (isEmpty(bioData) || !bioData.iconLinks) return null
 
   // -- Render --
 

@@ -2,9 +2,9 @@ import React from 'react'
 // Schemas
 import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
 // Navigation
-import { Link } from 'aetherspace/navigation'
+import { Link, useAetherNav } from 'aetherspace/navigation'
 // Primitives
-import { View, Text, Image } from 'aetherspace/primitives'
+import { View, Image, Pressable } from 'aetherspace/primitives'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
@@ -21,10 +21,17 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
   // Props
   const { title, subTitle, linkUrl, imageUrl } = props
 
+  // Hooks
+  const { openLink } = useAetherNav()
+
   // -- Render --
 
   return (
-    <View tw="h-[100px] flex-row rounded-md overflow-hidden bg-slate-800">
+    <Pressable
+      accessibilityRole="button"
+      tw="h-[100px] flex-row rounded-md overflow-hidden bg-slate-800"
+      onPress={() => openLink(linkUrl)}
+    >
       <View tw="relative w-[90px] xs:w-[100px] sm:w-[120px] h-[100px]">
         <Link href={linkUrl}>
           <Image
@@ -48,13 +55,13 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
           </Link>
         )}
       </View>
-    </View>
+    </Pressable>
   )
 }
 
 /* --- Documentation --------------------------------------------------------------------------- */
 
-// export const getDocumentationProps = BioLinkSchema.introspect()
+export const getDocumentationProps = BioLinkProps.introspect()
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
