@@ -127,7 +127,9 @@ export const BioScreen = (props: BioScreenProps) => {
       <Text tw="text-white hidden xl:flex">xl</Text>
       <Text tw="text-white hidden xxl:flex">xxl</Text>
       {/* -- TEST -- */}
-      <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 text-white text-center text-sm">{bioData.bioText}</Text>
+      <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 max-w-[600px] text-white text-center text-sm">
+        {bioData.bioText}
+      </Text>
       <View tw="flex-row mt-6 mobile:mt-4 justify-center">
         {bioData.iconLinks.map((bioIcon) => {
           const Icon = Icons[bioIcon.iconComponent]

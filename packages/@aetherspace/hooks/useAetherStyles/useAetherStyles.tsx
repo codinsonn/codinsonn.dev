@@ -36,6 +36,8 @@ const useAetherStyles = <
   const {
     tailwind,
     isWeb,
+    isNextJS,
+    isStorybook,
     breakpoints = {},
     twPrefixes = [],
     mediaPrefixes = [],
@@ -71,7 +73,7 @@ const useAetherStyles = <
       }
       // If we're not solving with Media Queries, add the tailwind class to the list of classes to apply on the front-end
       const didMatchPrefix = twPrefixes.includes(twPrefix)
-      if (didMatchPrefix && !isWeb) return [classes, className].join(' ')
+      if (didMatchPrefix && (!isNextJS || isStorybook)) return [classes, className].join(' ')
       // Otherwise, keep the original string
       return classes
     }, '')

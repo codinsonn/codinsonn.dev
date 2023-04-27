@@ -9,10 +9,10 @@ import { View, Image, Pressable } from 'aetherspace/primitives'
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
 const BioLinkProps = aetherSchema('BioLinkProps', {
-  title: z.string(),
-  subTitle: z.string().optional(),
-  linkUrl: z.string(),
-  imageUrl: z.string(),
+  title: z.string().eg("'Move fast & build things', with Zod, Expo & Next.js"),
+  subTitle: z.string().optional().eg('An intro to Aetherspace and the GREEN stack'),
+  linkUrl: z.string().eg('https://codinsonn.dev'),
+  imageUrl: z.string().eg('https://codinsonn.dev/img/FSMeetup.jpeg'),
 })
 
 /* --- <BioLink/> ---------------------------------------------------------------------------- */
@@ -29,7 +29,7 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
   return (
     <Pressable
       accessibilityRole="button"
-      tw="h-[100px] flex-row rounded-md overflow-hidden bg-slate-800"
+      tw="h-[100px] docs:max-w-[600px] flex-row rounded-md overflow-hidden bg-slate-800"
       onPress={() => openLink(linkUrl)}
     >
       <View tw="relative w-[90px] xs:w-[100px] sm:w-[120px] h-[100px]">
@@ -37,7 +37,7 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
           <Image
             src={imageUrl}
             alt="Picture of the author"
-            tw="w-[90px] xs:w-[100px] sm:w-[120px] h-[100px] items-center overflow-hidden"
+            tw="w-[90px] xs:w-[100px] sm:w-[120px] h-[100px] items-center bg-slate-100 overflow-hidden"
             width={100 * (1400 / 1100)}
             height={100} // @ts-ignore
             objectFit="cover"
