@@ -95,6 +95,7 @@ export const screenConfig = {
   getGraphqlData: getBioScreenProps,
   paramSchema: BioParamsSchema,
   propSchema: BioScreenSchema,
+  refetchOnMount: false,
   backgroundColor: '#111827',
 }
 

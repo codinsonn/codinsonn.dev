@@ -9,6 +9,7 @@ export type AetherScreenConfig = {
   ) => Promise<Record<string, unknown>>
   paramSchema: unknown
   propSchema: unknown
+  refetchOnMount?: boolean
   backgroundColor?: string
 }
 
