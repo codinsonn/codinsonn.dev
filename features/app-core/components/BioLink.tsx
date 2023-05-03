@@ -1,25 +1,21 @@
 import React from 'react'
 // Schemas
-import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
+import { AetherProps } from 'aetherspace/schemas'
 // Navigation
 import { Link, useAetherNav } from 'aetherspace/navigation'
 // Primitives
 import { View, Image, Pressable } from 'aetherspace/primitives'
+import { LinkInBio } from '../schemas/UserBio.schema'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
-const BioLinkProps = aetherSchema('BioLinkProps', {
-  title: z.string().eg("'Move fast & build things', with Zod, Expo & Next.js"),
-  subTitle: z.string().optional().eg('An intro to Aetherspace and the GREEN stack'),
-  linkUrl: z.string().eg('https://codinsonn.dev'),
-  imageUrl: z.string().eg('https://codinsonn.dev/img/FSMeetup.jpeg'),
-})
+const BioLinkProps = LinkInBio.nameSchema('BioLinkProps')
 
 /* --- <BioLink/> ---------------------------------------------------------------------------- */
 
 export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
   // Props
-  const { title, subTitle, linkUrl, imageUrl } = props
+  const { title, subTitle, link, imageUrl } = props
 
   // Hooks
   const { openLink } = useAetherNav()
@@ -30,10 +26,10 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
     <Pressable
       accessibilityRole="button"
       tw="h-[100px] docs:max-w-[600px] flex-row rounded-md overflow-hidden bg-slate-800"
-      onPress={() => openLink(linkUrl)}
+      onPress={() => openLink(link)}
     >
       <View tw="relative w-[90px] xs:w-[100px] sm:w-[120px] h-[100px]">
-        <Link href={linkUrl}>
+        <Link href={link}>
           <Image
             src={imageUrl}
             alt="Picture of the author"
@@ -45,12 +41,12 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
         </Link>
       </View>
       <View tw="flex-shrink self-stretch overflow-hidden px-2 xs:px-3 py-2 xs:py-3">
-        <Link href={linkUrl} tw="roboto-bold text-white flex-shrink text-sm sm:text-base" isText>
+        <Link href={link} tw="roboto-bold text-white flex-shrink text-sm sm:text-base" isText>
           {title}
         </Link>
         <View tw="h-1" />
         {subTitle && (
-          <Link href={linkUrl} tw="roboto text-white flex-shrink text-xs" isText>
+          <Link href={link} tw="roboto text-white flex-shrink text-xs" isText>
             {subTitle}
           </Link>
         )}

@@ -11,10 +11,11 @@
     "owner": "thorrstevens",
     "githubUrl": "https://github.com/codinsonn/codinsonn.dev",
     "scheme": "codinsonn",
+    "backgroundColor": "#111827",
     "splash": {
       "image": "../next/public/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#111827"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

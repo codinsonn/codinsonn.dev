@@ -1,6 +1,13 @@
 import React from 'react'
 // Navigation
-import { Link, useAetherRoute, fetchAetherProps, useAetherNav } from 'aetherspace/navigation'
+import {
+  Link,
+  useAetherRoute,
+  fetchAetherProps,
+  useAetherNav,
+  BASE_URL,
+  BACKEND_URL,
+} from 'aetherspace/navigation'
 // Schemas
 import { z, aetherSchema, AetherParams, AetherProps } from 'aetherspace/schemas'
 import { UserBio } from '../schemas/UserBio.schema'
@@ -14,6 +21,8 @@ import * as Icons from '../icons'
 import BioLink from '../components/BioLink'
 // Utils
 import { isEmpty } from 'aetherspace/utils'
+// Constants
+import { localURI } from 'aetherspace/constants/manifest'
 // Mocks
 import { userBioMock } from '../mocks/userBio.mock'
 
@@ -56,6 +65,15 @@ const getScreenDataQuery = `
         sortOrder
         extraClasses
       }
+      linksInBio {
+        id
+        title
+        subTitle
+        link
+        imageUrl
+        iconComponent
+        isFeatured
+      }
     }
   }
 `
@@ -77,6 +95,7 @@ export const screenConfig = {
   getGraphqlData: getBioScreenProps,
   paramSchema: BioParamsSchema,
   propSchema: BioScreenSchema,
+  backgroundColor: '#111827',
 }
 
 /* --- Segments -------------------------------------------------------------------------------- */
@@ -91,7 +110,7 @@ export const generateStaticParams = async (): Promise<BioScreenParams[]> => {
 
 export const BioScreen = (props: BioScreenProps) => {
   // Data
-  const [bioData] = useAetherRoute(props, screenConfig)
+  const [bioData, { error }] = useAetherRoute(props, screenConfig)
   const { pathname } = useAetherNav()
 
   // Vars
@@ -102,6 +121,16 @@ export const BioScreen = (props: BioScreenProps) => {
   const isCustomBio = pathname?.includes('/bio/')
 
   // -- Guards --
+
+  if (error)
+    return (
+      <View tw="w-full h-full items-center bg-gray-900 mobile:pt-14 pt-10">
+        <H1 tw="text-white roboto-bold font-bold text-base">{`Error: ${error.message}`}</H1>
+        <Text tw="text-white hidden xs:flex">{BASE_URL}</Text>
+        <Text tw="text-white hidden xs:flex">{BACKEND_URL}</Text>
+        <Text tw="text-white hidden xs:flex">{localURI}</Text>
+      </View>
+    )
 
   if (isEmpty(bioData) || !bioData.iconLinks) return null
 
@@ -146,20 +175,21 @@ export const BioScreen = (props: BioScreenProps) => {
       </View>
       <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-12 px-5">
         <View tw="flex relative overflow-hidden">
-          <BioLink
-            title="An intro to Aetherspace and the GREEN stack"
-            subTitle="Recorded conference talk at Newline.gent"
-            linkUrl="https://www.youtube.com/watch?v=njhgS-erQbo"
-            imageUrl="/img/NewlineTalk.jpeg"
-          />
-          <View tw="h-5" />
-          <BioLink
-            title="'Move fast & build things', with Zod, Expo & Next.js"
-            subTitle="Summary of the Full-Stack meetup on DEV.to"
-            linkUrl="https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64"
-            imageUrl="/img/FSMeetup.jpeg"
-          />
-          <View tw="h-5" />
+          {bioData.linksInBio.map((bioLink) => (
+            <>
+              <BioLink
+                key={bioLink.id}
+                id={bioLink.id}
+                title={bioLink.title}
+                subTitle={bioLink.subTitle}
+                link={bioLink.link}
+                imageUrl={bioLink.imageUrl}
+                iconComponent={bioLink.iconComponent}
+                isFeatured={bioLink.isFeatured}
+              />
+              <View tw="h-5" />
+            </>
+          ))}
         </View>
       </View>
       <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-2 px-5 items-center">

@@ -1,17 +1,11 @@
 import { use } from 'react'
 import { SWRConfig, unstable_serialize } from 'swr'
-
-/* --- Types ----------------------------------------------------------------------------------- */
-
-type AetherPageProps = {
-  params?: Record<string, any>
-  screen: React.FC<Record<string, any>> | ((props: any) => JSX.Element | null)
-  screenConfig: any
-}
+// Types
+import { AetherPageProps, AetherScreenConfig } from './AetherPage.types'
 
 /* --- <AetherPage/> --------------------------------------------------------------------------- */
 
-export const AetherPage = (props: AetherPageProps) => {
+export const AetherPage = <SC extends AetherScreenConfig>(props: AetherPageProps<SC>) => {
   // Props
   const { params, screen, screenConfig, ...restProps } = props
   const { query, getGraphqlVars, getGraphqlData } = screenConfig
@@ -42,7 +36,7 @@ export const AetherPage = (props: AetherPageProps) => {
 
   // -- Server --
 
-  const ssrData: Record<string, any> = use(getGraphqlData(query, variables))
+  const ssrData = use(getGraphqlData(query, variables))
 
   return (
     <SWRConfig value={{ fallback: { [fallbackKey]: ssrData } }}>

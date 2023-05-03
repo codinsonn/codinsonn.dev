@@ -3,7 +3,7 @@ input UserBioInput {
   slug: String!
 }
 
-type IconLinks {
+type IconLink {
   """Id of icon link"""
   id: String!
 
@@ -23,6 +23,19 @@ type IconLinks {
   extraClasses: String
 }
 
+type LinkInBio {
+  """Id of link in bio"""
+  id: String!
+  title: String!
+  subTitle: String
+  link: String!
+  imageUrl: String
+
+  """Icon component name"""
+  iconComponent: String
+  isFeatured: Boolean
+}
+
 type UserBio {
   """Slug of bio to fetch"""
   slug: String!
@@ -40,7 +53,10 @@ type UserBio {
   imageUrl: String!
 
   """Icon links"""
-  iconLinks: [IconLinks]!
+  iconLinks: [IconLink]!
+
+  """Links in bio"""
+  linksInBio: [LinkInBio]
 }
 
 input HealthCheckArgs {

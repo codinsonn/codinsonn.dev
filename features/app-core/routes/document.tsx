@@ -47,6 +47,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -ms-overflow-style: scrollbar;
+  /* -- Custom -- */
+  background-color: #111827;
 }
 `
 
