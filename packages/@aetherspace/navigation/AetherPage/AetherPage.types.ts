@@ -15,6 +15,7 @@ export type AetherScreenConfig = {
 
 export type AetherPageProps<SC extends AetherScreenConfig> = {
   params?: Record<string, any>
+  searchParams?: Record<string, any>
   screen: React.FC<Record<string, any>> | ((props: any) => JSX.Element | null)
   screenConfig: SC
 }

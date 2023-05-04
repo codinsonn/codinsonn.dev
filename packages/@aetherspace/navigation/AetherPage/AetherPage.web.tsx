@@ -7,14 +7,14 @@ import { AetherPageProps, AetherScreenConfig } from './AetherPage.types'
 
 export const AetherPage = <SC extends AetherScreenConfig>(props: AetherPageProps<SC>) => {
   // Props
-  const { params, screen, screenConfig, ...restProps } = props
+  const { params: routeParams, searchParams, screen, screenConfig, ...restProps } = props
   const { query, getGraphqlVars, getGraphqlData } = screenConfig
 
   // Screen
   const PageScreen = screen
 
   // Vars
-  const variables = getGraphqlVars(params)
+  const variables = getGraphqlVars({ ...searchParams, ...routeParams })
   const fallbackKey = unstable_serialize([query, variables])
   const isServer = typeof window === 'undefined'
 

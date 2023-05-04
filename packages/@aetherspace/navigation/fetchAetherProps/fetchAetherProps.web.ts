@@ -5,7 +5,7 @@ import { graphql } from 'graphql'
 /* --- Constants ------------------------------------------------------------------------------- */
 
 const APP_LINKS: string[] = getEnvVar('APP_LINKS')?.split('|') || []
-const [WEBDOMAIN] = APP_LINKS.filter((link) => link.includes('://'))
+const [WEBDOMAIN] = APP_LINKS.filter((link) => link.includes('http://') || link.includes('https://')) // prettier-ignore
 export const BACKEND_URL: string = getEnvVar('BACKEND_URL') || ''
 export const BASE_URL: string = BACKEND_URL || WEBDOMAIN || ''
 
@@ -14,9 +14,14 @@ export const BASE_URL: string = BACKEND_URL || WEBDOMAIN || ''
 export const fetchAetherProps = async (query: string, variables: any, baseUrl = BASE_URL) => {
   const isServer = typeof window === 'undefined'
   if (isServer) {
-    const { schema } = await import('app/graphql/schema')
-    const { data } = await graphql({ schema, source: query, variableValues: variables })
-    return { data }
+    try {
+      const { schema } = await import('app/graphql/schema')
+      const { data } = await graphql({ schema, source: query, variableValues: variables })
+      return { data }
+    } catch (error) {
+      console.error('fetchAetherProps()', { error })
+      return { data: {} }
+    }
   } else {
     const isStorybook = getGlobal('IS_STORYBOOK') || false
     const APP_URLS = getEnvList('APP_LINKS').filter((url) => url.includes('http')) || []
