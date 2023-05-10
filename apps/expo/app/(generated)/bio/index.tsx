@@ -1,1 +1,1 @@
-export { default } from 'app/routes/bio/'
+export { default } from 'app/routes/bio/index'

@@ -177,7 +177,7 @@ export const BioScreen = (props: BioScreenProps) => {
       <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-12 px-5">
         <View tw="flex relative overflow-hidden">
           {bioData.linksInBio.map((bioLink) => (
-            <>
+            <View key={bioLink.id} tw="mb-5">
               <BioLink
                 key={bioLink.id}
                 id={bioLink.id}
@@ -188,8 +188,7 @@ export const BioScreen = (props: BioScreenProps) => {
                 iconComponent={bioLink.iconComponent}
                 isFeatured={bioLink.isFeatured}
               />
-              <View tw="h-5" />
-            </>
+            </View>
           ))}
         </View>
       </View>
