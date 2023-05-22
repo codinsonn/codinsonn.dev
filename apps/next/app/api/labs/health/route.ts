@@ -1,14 +1,11 @@
 // Schemas
 import { z, aetherSchema } from 'aetherspace/schemas'
-// Middleware
-import { withCors } from 'app/middleware'
 // Utils
 import {
   aetherResolver,
-  makeNextApiHandler,
   AetherArguments,
   AetherResponse,
-  makeGraphQLResolver,
+  makeNextRouteHandler,
 } from 'aetherspace/utils/serverUtils'
 
 /* --- Schemas --------------------------------------------------------------------------------- */
@@ -32,7 +29,6 @@ const resolverConfig = {
 /* --- healthCheck() --------------------------------------------------------------------------- */
 
 const healthCheck = aetherResolver(async ({ args }) => {
-  console.log('healthCheck()', { args })
   // Return health check response
   return {
     alive: true,
@@ -46,10 +42,12 @@ const healthCheck = aetherResolver(async ({ args }) => {
 export type HealthCheckArgsType = AetherArguments<typeof healthCheck>
 export type HealthCheckResType = AetherResponse<typeof healthCheck>
 
-/* --- GraphQL --------------------------------------------------------------------------------- */
+/* --- Routes ---------------------------------------------------------------------------------- */
 
-export const graphResolver = makeGraphQLResolver(healthCheck) // Make resolver available to GraphQL
+export const GET = makeNextRouteHandler(healthCheck)
 
-/* --- Exports --------------------------------------------------------------------------------- */
+export const POST = makeNextRouteHandler(healthCheck)
 
-export default makeNextApiHandler(healthCheck, { middleware: [withCors] })
+export const PUT = makeNextRouteHandler(healthCheck)
+
+export const PATCH = makeNextRouteHandler(healthCheck)
