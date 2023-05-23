@@ -7,7 +7,7 @@ import type {
   GetStaticPathsContext,
   GetStaticPropsContext,
 } from 'next'
-import { ApolloError } from 'apollo-server-micro'
+import { GraphQLError } from 'graphql'
 import { z } from 'aetherspace/schemas'
 // Schemas
 import '../../schemas/aetherSchemas'
@@ -163,7 +163,7 @@ export const makeGraphQLResolver = <AT, RT, AST extends z.ZodRawShape, RST exten
     } catch (err) {
       // Handle errors
       console.error(err) // @ts-ignore
-      throw new ApolloError(err.message || err.toString())
+      throw new GraphQLError(err.message || err.toString())
     }
   }
   return Object.assign(wrappedResolver, {
