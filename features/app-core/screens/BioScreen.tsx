@@ -157,7 +157,7 @@ export const BioScreen = (props: BioScreenProps) => {
       <Text tw="text-white hidden xl:flex">xl</Text>
       <Text tw="text-white hidden xxl:flex">xxl</Text>
       {/* -- TEST -- */}
-      <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 max-w-[600px] text-white text-center text-sm">
+      <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 max-w-[620px] text-white text-center text-sm">
         {bioData.bioText}
       </Text>
       <View tw="flex-row mt-6 mobile:mt-4 justify-center">
@@ -174,7 +174,7 @@ export const BioScreen = (props: BioScreenProps) => {
           )
         })}
       </View>
-      <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-12 px-5">
+      <View tw="max-w-[620px] w-full lg:w-3/4 xl:w-2/4 mt-12 px-5">
         <View tw="flex relative overflow-hidden">
           {bioData.linksInBio.map((bioLink) => (
             <View key={bioLink.id} tw="mb-5">
