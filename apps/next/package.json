@@ -8,6 +8,11 @@
         "build": "NODE_OPTIONS='--inspect' next build",
         "deploy": "yarn --cwd ../../ deploy"
     },
+    "browser": {
+        "fs": false,
+        "os": false,
+        "path": false
+    },
     "dependencies": {
         "@expo/next-adapter": "^5.0.2",
         "@vercel/analytics": "^1.0.1",
@@ -15,7 +20,7 @@
         "airtable": "^0.11.6",
         "app": "*",
         "encoding": "^0.1.13",
-        "next": "^13.4.2",
+        "next": "^13.4.3",
         "next-fonts": "^1.5.1",
         "next-images": "^1.8.5",
         "next-pwa": "^5.6.0",

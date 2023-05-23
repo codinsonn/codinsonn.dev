@@ -6,6 +6,7 @@ import {
   AetherArguments,
   AetherResponse,
   makeNextRouteHandler,
+  makeGraphQLResolver,
 } from 'aetherspace/utils/serverUtils'
 
 /* --- Schemas --------------------------------------------------------------------------------- */
@@ -48,6 +49,6 @@ export const GET = makeNextRouteHandler(healthCheck)
 
 export const POST = makeNextRouteHandler(healthCheck)
 
-export const PUT = makeNextRouteHandler(healthCheck)
+/* --- GraphQL --------------------------------------------------------------------------------- */
 
-export const PATCH = makeNextRouteHandler(healthCheck)
+export const graphResolver = makeGraphQLResolver(healthCheck)

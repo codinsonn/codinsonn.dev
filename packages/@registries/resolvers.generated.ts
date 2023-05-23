@@ -1,3 +1,3 @@
-// -i- Auto generated with "yarn build-schema"
-export { graphResolver as getUserBio } from '../../apps/next/src/pages/api/bio'
-export { graphResolver as healthCheck } from '../../apps/next/src/pages/api/health'
+// -i- Auto generated with "yarn collect-resolvers" -- /packages/@aetherspace/scripts/collect-resolvers.ts
+export { graphResolver as getUserBio } from 'app/routes/api/bio/[slug]/route'
+export { graphResolver as healthCheck } from 'app/routes/api/health/route'

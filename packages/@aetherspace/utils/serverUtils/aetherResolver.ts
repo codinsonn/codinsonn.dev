@@ -154,7 +154,6 @@ export const makeGraphQLResolver = <AT, RT, AST extends z.ZodRawShape, RST exten
   }
 ) => {
   const wrappedResolver = async (parent, args, context, info) => {
-    console.log('graphResolver()', { parent, args, context, info })
     const config = options?.config || {}
     try {
       // Execute resolver
@@ -207,7 +206,7 @@ export const makeNextApiHandler = <AT, RT, AST, RST>(
   }
 }
 
-/** --- makeNextRouteHandler()@ ---------------------------------------------------------------- */
+/** --- makeNextRouteHandler() ----------------------------------------------------------------- */
 /** -i- Codegen: Build next.js app dir api route from an aether resolver  */
 export const makeNextRouteHandler = (handler) => {
   return async (req: Request, { params }) => {
@@ -223,7 +222,6 @@ export const makeNextRouteHandler = (handler) => {
     }
     // Run handler & return response
     const responseData = await handler({ req, params, args })
-    console.log({ args, query, responseData })
     return NextResponse.json(responseData)
   }
 }
