@@ -1,8 +1,8 @@
 import Airtable from 'airtable'
 // Schemas
-import { UserBioInput, UserBio } from 'app/schemas/UserBio.schema'
+import { UserBioInput, UserBio } from '../schemas/UserBio.schema'
 // Mocks
-import { userBioMock } from 'app/mocks/userBio.mock'
+import { userBioMock } from '../mocks/userBio.mock'
 // Utils
 import { aetherResolver, getEnvVar } from 'aetherspace/utils/serverUtils'
 

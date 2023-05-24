@@ -1,6 +1,7 @@
 import React from 'react'
 import { AetherPage } from 'aetherspace/navigation'
-import * as bioScreen from '../../screens/BioScreen'
+// Screens
+import * as bioScreen from '@app/links-page/screens/BioScreen'
 
 /* --- /bio ------------------------------------------------------------------------------------ */
 

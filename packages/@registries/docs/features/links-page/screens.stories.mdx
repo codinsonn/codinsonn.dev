@@ -3,11 +3,11 @@ import { aetherStoryDocs } from 'aetherspace/schemas'
 import { isEmpty } from 'aetherspace/utils/commonUtils'
 // -i- Auto generated with "yarn document-components"
 // Components hooking into the storybook auto-documentation script
-import { BioLink, getDocumentationProps as getBioLinkProps } from '../../../../../features/app-core/components/BioLink.tsx'
+import { BioScreen, getDocumentationProps as getBioScreenProps } from '../../../../../features/links-page/screens/BioScreen.tsx'
 // Mocks
 import StoryContextProviders from '../../../../../features/app-core/mocks/StoryContextProviders'
 
-<Meta title="features / app-core / components" />
+<Meta title="features / links-page / screens" />
 
 export const createDocs = (Component) => (args) => {
   return (
@@ -17,27 +17,27 @@ export const createDocs = (Component) => (args) => {
   )
 }
 
-## BioLink
+## BioScreen
 
-export const BioLinkDocs = createDocs(BioLink)
-export const BioLinkConfig = aetherStoryDocs({ BioLink }, getBioLinkProps)
+export const BioScreenDocs = createDocs(BioScreen)
+export const BioScreenConfig = aetherStoryDocs({ BioScreen }, getBioScreenProps)
 
 ```typescript
-import { BioLink } from 'features/app-core/components/BioLink'
+import { BioScreen } from 'features/links-page/screens/BioScreen'
 ```
 
 
 <Canvas>
     <Story
-        name="BioLink"
-        args={BioLinkConfig.args}
-        argTypes={BioLinkConfig.argTypes}
+        name="BioScreen"
+        args={BioScreenConfig.args}
+        argTypes={BioScreenConfig.argTypes}
     >
-      {BioLinkDocs.bind({})}
+      {BioScreenDocs.bind({})}
     </Story>
 </Canvas>
 
-{!isEmpty(BioLinkConfig.args) && <ArgsTable story="BioLink" />}
+{!isEmpty(BioScreenConfig.args) && <ArgsTable story="BioScreen" />}
 
 
 
