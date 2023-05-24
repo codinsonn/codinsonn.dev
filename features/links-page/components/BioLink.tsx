@@ -3,9 +3,10 @@ import React from 'react'
 import { AetherProps } from 'aetherspace/schemas'
 // Navigation
 import { Link, useAetherNav } from 'aetherspace/navigation'
+// Schemas
+import { LinkInBio } from '../schemas/UserBio.schema'
 // Primitives
 import { View, Image, Pressable } from 'aetherspace/primitives'
-import { LinkInBio } from '../schemas/UserBio.schema'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 

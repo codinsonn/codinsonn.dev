@@ -1,5 +1,5 @@
 // Resolvers
-import { getUserBio } from 'app/resolvers'
+import { getUserBio } from '../../../../resolvers'
 // Utils
 import { makeNextRouteHandler, makeGraphQLResolver } from 'aetherspace/utils/serverUtils'
 

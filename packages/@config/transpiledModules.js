@@ -5,4 +5,5 @@ module.exports = [
     // - Workspaces -
     'aetherspace',
     'app',
+    '@app/links-page',
 ];
