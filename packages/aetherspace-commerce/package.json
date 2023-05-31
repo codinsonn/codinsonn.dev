@@ -1,0 +1,9 @@
+{
+    "name": "@aetherspace/commerce",
+    "version": "1.0.0",
+    "license": "MIT",
+    "scripts": {
+        "lint": "cd ../.. && eslint \"packages/aetherspace-commerce/**/*.{ts,tsx}\""
+    },
+    "dependencies": {}
+}
