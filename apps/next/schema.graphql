@@ -1,3 +1,13 @@
+input GetShopifyProductsArgs {
+  first: Float
+}
+
+type GetShopifyProductsTestResponse {
+  first: Float
+  GQL_ENDPOINT: String
+  SHOPIFY_STOREFRONT_API_KEY: String
+}
+
 input UserBioInput {
   """Slug of bio to fetch"""
   slug: String!
@@ -72,6 +82,7 @@ type HealthCheckResponse {
 }
 
 type Query {
+  getShopifyProducts(args: GetShopifyProductsArgs): GetShopifyProductsTestResponse
   getUserBio(args: UserBioInput!): UserBio
   healthCheck(args: HealthCheckArgs): HealthCheckResponse
 }
