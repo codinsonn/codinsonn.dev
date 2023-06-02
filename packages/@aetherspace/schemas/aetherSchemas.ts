@@ -250,15 +250,14 @@ const introspectField = <T extends z.ZodTypeAny>(field: T): AetherSchemaType => 
   if (typeof exampleValue !== 'undefined') schema.exampleValue = exampleValue
   else if (defaultValue) schema.exampleValue = defaultValue
   // @ts-ignore
-  const schemaDef = getInnerProp(field, (zodType) => zodType.schema)
-  if (schemaDef) schema.schema = schemaDef
-  // @ts-ignore
   const schemaName = getInnerProp(field, (zodType) => zodType.schemaName)
   if (schemaName) schema.schemaName = schemaName
   // @ts-ignore
+  const schemaDef = getInnerProp(field, (zodType) => zodType.schema)
+  if (schemaDef) schema.schema = schemaDef
+  // @ts-ignore
   const extendedFrom = getInnerProp(field, (zodType) => zodType.extendedFrom)
   if (extendedFrom) schema.extendedFrom = extendedFrom
-  else if (description && ['AetherSchema', 'AetherObject'].includes(schema.aetherType)) schema.schemaName = description // prettier-ignore
   // Check for optionality
   schema.isNullable = field.isNullable()
   schema.isOptional = field.isOptional()
@@ -304,6 +303,7 @@ const assignAetherContext = <
 
 /* --- Wrappers -------------------------------------------------------------------------------- */
 
+// https://github.com/colinhacks/zod/blob/c5763112e2912390f3317d738e4261fa8747494e/src/types.ts#L409-L417
 if (!z.ZodOptional.prototype?.aetherType) {
   const originalCreate = z.ZodOptional.create
   z.ZodOptional.create = function <T extends z.ZodTypeAny>(innerType: T) {
@@ -326,6 +326,7 @@ if (!z.ZodOptional.prototype?.aetherType) {
   }
 }
 
+// https://github.com/colinhacks/zod/blob/c5763112e2912390f3317d738e4261fa8747494e/src/types.ts#L409-L417
 if (!z.ZodNullable.prototype?.aetherType) {
   const originalCreate = z.ZodNullable.create
   z.ZodNullable.create = function <T extends z.ZodTypeAny>(innerType: T) {
@@ -343,6 +344,7 @@ if (!z.ZodNullable.prototype?.aetherType) {
     const innerMostType = getInnerMostType(this)
     const innerMostSchema = innerMostType.introspect?.().schema
     assignAetherContext(this, innerMostType)
+    // if (innerMostSchema) this.schema = innerMostSchema?.schema || innerMostSchema
     if (innerMostSchema) this.schema = innerMostSchema
     return introspectField(this)
   }
@@ -369,6 +371,9 @@ if (!z.ZodDefault.prototype?.aetherType) {
     return introspectField(this)
   }
 }
+
+// TODO: ZodPromise
+// -i- https://github.com/colinhacks/zod/blob/c5763112e2912390f3317d738e4261fa8747494e/src/types.ts#L421-L423
 
 /* --- Primitives ------------------------------------------------------------------------------ */
 
@@ -485,6 +490,9 @@ if (!z.ZodUnion.prototype.aetherType) {
   }
 }
 
+// TODO: ZodIntersection
+// -i- https://github.com/colinhacks/zod/blob/c5763112e2912390f3317d738e4261fa8747494e/src/types.ts#L429-L431
+
 if (!z.ZodArray.prototype.aetherType) {
   z.ZodArray.prototype.aetherType = 'AetherArray'
   z.ZodArray.prototype.example = function (value: any[]) {
@@ -507,7 +515,12 @@ if (!z.ZodObject.prototype.aetherType) {
   z.ZodObject.prototype.nameSchema = function (schemaName: string) {
     this.aetherType = 'AetherSchema'
     this.schemaName = schemaName
-    return this.describe(schemaName)
+    return this
+  }
+  z.ZodObject.prototype.describe = function (description: string) {
+    const This = (this as any).constructor
+    const newSchema = new This({ ...this._def, description })
+    return assignAetherContext(newSchema, this)
   }
   // Allow named extensions
   z.ZodObject.prototype.extendSchema = function (
@@ -569,8 +582,24 @@ if (!z.ZodObject.prototype.aetherType) {
     this.schema = Object.entries(this.shape).reduce((propSchema, [propKey, propDef]) => {
       // @ts-ignore
       if (!propDef.introspect) return propSchema // @ts-ignore
-      const schema = propDef.introspect() // @ts-ignore
-      if (schema.aetherType === 'AetherSchema') schema.schema = getInnerMostType(propDef).introspect() // prettier-ignore
+      const schema = propDef.introspect()
+      if (schema.aetherType === 'AetherSchema') {
+        // @ts-ignore
+        const innerMostType = getInnerMostType(propDef)
+        schema.schema = innerMostType.introspect() // prettier-ignore
+        // -i- This only happens with .nullish(), which calls .nullable().optional() internally
+        if (schema.schema.schema) {
+          // console.log('ZodObject.introspect() - schema.schema.schema -', schema.schemaName)
+          schema.schema = schema.schema.schema
+        }
+      } else if (schema.aetherType === 'AetherObject') {
+        // @ts-ignore
+        const innerMostType = getInnerMostType(propDef)
+        // console.log('ZodObject.introspect() - Unknown Schema -', schema, {
+        //   schemaName: this.schemaName,
+        //   innerMostType,
+        // })
+      }
       if (exampleValues?.[propKey]) schema.exampleValue = exampleValues[propKey]
       return { ...propSchema, [propKey]: schema }
     }, {})

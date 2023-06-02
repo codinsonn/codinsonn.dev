@@ -10,7 +10,7 @@ import {
 } from 'aetherspace/navigation'
 // Schemas
 import { z, aetherSchema, AetherParams, AetherProps } from 'aetherspace/schemas'
-import { UserBio } from '../schemas/UserBio.schema'
+import { TUserBio, UserBio } from '../schemas'
 // Primitives
 import { View, Text, Image } from 'aetherspace/primitives'
 // SEO
@@ -86,7 +86,7 @@ const getBioScreenProps = async (queryKey: string, queryVariables?: BioScreenPar
   const queryData = queryKey || getScreenDataQuery
   const queryInput = queryVariables || getBioScreenArgs() // Use defaults if not defined
   const { data } = await fetchAetherProps(queryData, queryInput)
-  return data.getUserBio as UserBio
+  return data.getUserBio as TUserBio
 }
 
 export const screenConfig = {

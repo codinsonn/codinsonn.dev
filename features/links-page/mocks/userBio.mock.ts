@@ -1,6 +1,6 @@
-import { UserBio } from '../schemas/UserBio.schema'
+import { TUserBio } from '../schemas'
 
-export const userBioMock: UserBio = {
+export const userBioMock: TUserBio = {
   slug: 'codinsonn',
   title: '@codinsonn',
   titleLink: 'https://www.instagram.com/codinsonn.dev/',

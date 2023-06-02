@@ -1,7 +1,8 @@
 import { z, aetherSchema } from 'aetherspace/schemas'
-import { aetherResolver, getEnvVar } from 'aetherspace/utils/serverUtils'
+import { aetherResolver } from 'aetherspace/utils/serverUtils'
 // Schemas
-import { ShopifyProduct } from '../schemas/ShopifyProduct'
+import { ShopifyProduct, TShopifyProduct } from '../schemas/ShopifyProduct'
+import { shopifyGraphQLRequest } from '../utils/serverUtils'
 
 /* --- Schemas --------------------------------------------------------------------------------- */
 
@@ -21,15 +22,20 @@ const GetShopifyProductsResponse = aetherSchema('GetShopifyProductsResponse', {
 
 const GetShopifyProductsTestResponse = aetherSchema('GetShopifyProductsTestResponse', {
   first: z.number().int().nullish(),
-  GQL_ENDPOINT: z.string().nullish(),
+  shopifyProducts: ShopifyProduct.array(),
 })
 
-/* --- Config ---------------------------------------------------------------------------------- */
+/* --- Types ----------------------------------------------------------------------------------- */
 
-const SHOPIFY_STOREFRONT_API_KEY = getEnvVar('SHOPIFY_STOREFRONT_API_KEY')
-const SHOPIFY_STOREFRONT_API_SECRET = getEnvVar('SHOPIFY_STOREFRONT_API_SECRET')
-const SHOPIFY_STOREFRONT_API_TOKEN = getEnvVar('SHOPIFY_STOREFRONT_API_TOKEN')
-const SHOPIFY_STOREFRONT_URL = getEnvVar('SHOPIFY_STOREFRONT_URL')
+type TShopifyProductsGraphQLResponse = {
+  products: {
+    edges: {
+      node: TShopifyProduct
+    }[]
+  }
+}
+
+/* --- Config ---------------------------------------------------------------------------------- */
 
 const resolverConfig = {
   argsSchema: GetShopifyProductsArgs,
@@ -44,13 +50,135 @@ export const getShopifyProducts = aetherResolver(async ({ args }) => {
     // Args
     const { first } = args
 
-    // Vars
-    const GQL_ENDPOINT = `${SHOPIFY_STOREFRONT_URL}/api/2023-03/graphql.json`
+    // -- Request --
+
+    const graphQLResponse = await shopifyGraphQLRequest<TShopifyProductsGraphQLResponse>({
+      variables: { first },
+      query: `
+        query getShopifyProducts($first: Int!) {
+          products(first: $first) {
+            edges {
+              node {
+                id
+                title
+                handle
+                description
+                descriptionHtml
+                productType
+                tags
+                vendor
+                availableForSale
+                createdAt
+                updatedAt
+                publishedAt
+                onlineStoreUrl
+                isGiftCard
+                totalInventory
+                requiresSellingPlan
+                seo {
+                  description
+                  title
+                }
+                priceRange {
+                  maxVariantPrice {
+                    amount
+                  }
+                  minVariantPrice {
+                    amount
+                  }
+                }
+                compareAtPriceRange {
+                  maxVariantPrice {
+                    amount
+                    currencyCode
+                  }
+                  minVariantPrice {
+                    amount
+                    currencyCode
+                  }
+                }
+                options {
+                  id
+                  name
+                  values
+                }
+                images(first: 10) {
+                  edges {
+                    node {
+                      id
+                      altText
+                      url
+                      width
+                      height
+                    }
+                  }
+                }
+                variants(first: 10) {
+                  edges {
+                    node {
+                      id
+                      title
+                      availableForSale
+                      barcode
+                      compareAtPrice {
+                        amount
+                        currencyCode
+                      }
+                      currentlyNotInStock
+                      image {
+                        id
+                        height
+                        altText
+                        width
+                        url
+                      }
+                      price {
+                        amount
+                        currencyCode
+                      }
+                      quantityAvailable
+                      requiresShipping
+                      selectedOptions {
+                        name
+                        value
+                      }
+                      sku
+                      unitPrice {
+                        amount
+                        currencyCode
+                      }
+                      unitPriceMeasurement {
+                        measuredType
+                        quantityUnit
+                        quantityValue
+                        referenceUnit
+                        referenceValue
+                      }
+                      weight
+                      weightUnit
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `,
+    })
+
+    // -- Transform --
+
+    const shopifyProducts = graphQLResponse.products.edges.map((edge) => {
+      const { variants, ...shopifyGQLProduct } = edge.node // @ts-ignore
+      return { ...shopifyGQLProduct, variants: variants.edges.map((edge) => edge.node) }
+    })
+
+    console.log({ shopifyProducts, graphQLResponse })
 
     // Response
     return {
       first,
-      GQL_ENDPOINT,
+      shopifyProducts,
     } as z.infer<typeof GetShopifyProductsTestResponse>
   } catch (error) {
     console.log('getShopifyProducts() error', error)

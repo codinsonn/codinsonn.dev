@@ -1,6 +1,6 @@
 import Airtable from 'airtable'
 // Schemas
-import { UserBioInput, UserBio } from '../schemas/UserBio.schema'
+import { UserBioInput, UserBio, TUserBio } from '../schemas'
 // Mocks
 import { userBioMock } from '../mocks/userBio.mock'
 // Utils
@@ -65,7 +65,7 @@ export const getUserBio = aetherResolver(async ({ args, handleError }) => {
       imageUrl: userFields.imageUrl,
       iconLinks: userIcons,
       linksInBio: userLinks,
-    } as UserBio
+    } as TUserBio
   } catch (error) {
     // -!- Temporary mock for local offline debugging
     if (process.env.NODE_ENV !== 'production') return userBioMock

@@ -2,6 +2,11 @@
     "name": "@aetherspace/commerce",
     "version": "1.0.0",
     "license": "MIT",
+    "browser": {
+        "fs": false,
+        "os": false,
+        "path": false
+    },
     "scripts": {
         "lint": "cd ../.. && eslint \"packages/aetherspace-commerce/**/*.{ts,tsx}\""
     },

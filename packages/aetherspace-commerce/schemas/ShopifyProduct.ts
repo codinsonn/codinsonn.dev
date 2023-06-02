@@ -33,12 +33,13 @@ const d = {
   updatedAt: `The date and time when the product was last modified. A product's updatedAt value can change for different reasons. For example, if an order is placed for a product that has inventory tracking set up, then the inventory adjustment is counted as an update.`,
   variantBySelectedOptions: `Find a product’s variant based on its selected options. This is useful for converting a user’s selection of product options into a single matching variant. If there is not a variant for the selected options, null will be returned.`,
   vendor: `The product’s vendor name.`,
+  variants: `List of the product’s variants.`,
 }
 
 /** --- ShopifyProduct ------------------------------------------------------------------------- */
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/Product */
 export const ShopifyProduct = aetherSchema('ShopifyProduct', {
-  id: z.string().describe(d.id),
+  id: z.string().id().describe(d.id),
   title: z.string().describe(d.title),
   descriptionHtml: z.string().describe(d.descriptionHtml),
   availableForSale: z.boolean().describe(d.availableForSale),
@@ -56,6 +57,7 @@ export const ShopifyProduct = aetherSchema('ShopifyProduct', {
   totalInventory: z.number().int().describe(d.totalInventory),
   updatedAt: z.date().describe(d.updatedAt),
   vendor: z.string().describe(d.vendor),
+  variants: ShopifyProductVariant.array().describe(d.variants),
   /** -i- should use with optional (truncateAt: Int) argument to limit length in GraphQL query */
   description: z.string().describe(d.description),
   /** -i- functionally equivalent to images(first: 1) in GraphQL query */

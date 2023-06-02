@@ -33,7 +33,7 @@ const d = {
 /** --- ShopifyProductVariant ------------------------------------------------------------------ */
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/ProductVariant */
 export const ShopifyProductVariant = aetherSchema('ShopifyProductVariant', {
-  id: z.string().uuid().describe(d.id),
+  id: z.string().id().describe(d.id),
   title: z.string().describe(d.title),
   availableForSale: z.boolean().describe(d.availableForSale),
   barcode: z.string().nullish().describe(d.barcode),

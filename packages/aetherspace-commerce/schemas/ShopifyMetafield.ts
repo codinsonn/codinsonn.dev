@@ -22,7 +22,7 @@ const d = {
 export const ShopifyMetafield = aetherSchema('ShopifyMetafield', {
   createdAt: z.date().describe(d.createdAt),
   description: z.string().nullish().describe(d.description),
-  id: z.string().describe(d.id),
+  id: z.string().id().describe(d.id),
   key: z.string().describe(d.key),
   namespace: z.string().describe(d.namespace),
   type: z.string().describe(d.type),
