@@ -6,4 +6,5 @@ module.exports = [
     'aetherspace',
     'app',
     '@app/links-page',
-];
+    '@aetherspace/commerce',
+]

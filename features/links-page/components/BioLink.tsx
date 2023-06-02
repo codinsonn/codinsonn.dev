@@ -4,7 +4,7 @@ import { AetherProps } from 'aetherspace/schemas'
 // Navigation
 import { Link, useAetherNav } from 'aetherspace/navigation'
 // Schemas
-import { LinkInBio } from '../schemas/UserBio.schema'
+import { LinkInBio } from '../schemas'
 // Primitives
 import { View, Image, Pressable } from 'aetherspace/primitives'
 

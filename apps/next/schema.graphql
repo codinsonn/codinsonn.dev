@@ -1,3 +1,304 @@
+scalar Date
+
+input GetShopifyProductsArgs {
+  first: Float
+}
+
+type ShopifyMoneyV2 {
+  """Decimal money amount."""
+  amount: Float!
+
+  """Currency of the money."""
+  currencyCode: String!
+}
+
+type ShopifyProductPriceRange {
+  """The lowest variant's price."""
+  minVariantPrice: ShopifyMoneyV2!
+
+  """The highest variant's price."""
+  maxVariantPrice: ShopifyMoneyV2!
+}
+
+type ShopifySEO {
+  """The meta description"""
+  description: String
+
+  """The SEO title"""
+  title: String
+}
+
+type ShopifyImage {
+  """A unique ID for the image."""
+  id: ID
+
+  """
+  The original height of the image in pixels. Returns null if the image is not hosted by Shopify.
+  """
+  height: Float
+
+  """
+  The original width of the image in pixels. Returns null if the image is not hosted by Shopify.
+  """
+  width: Float
+
+  """A word or phrase to share the nature or contents of an image."""
+  altText: String
+
+  """
+      The location of the image as a URL.
+  
+  If no transform options are specified, then the original image will be preserved including any pre-applied transforms.
+  
+  All transformation options are considered "best-effort". Any transformation that the original image type doesn't support will be ignored.
+  
+  If you need multiple variations of the same image, then you can use GraphQL aliases.
+  """
+  url: String!
+}
+
+type ShopifySelectedOptionInput {
+  """The name of the option."""
+  name: String!
+
+  """The value of the product option."""
+  value: String!
+}
+
+type ShopifyUnitPriceMeasurement {
+  """The type of unit of measurement for the unit price measurement."""
+  measuredType: String
+
+  """The quantity unit for the unit price measurement."""
+  quantityUnit: String
+
+  """The quantity value for the unit price measurement."""
+  quantityValue: Float!
+
+  """The reference unit for the unit price measurement."""
+  referenceUnit: String
+
+  """The reference value for the unit price measurement."""
+  referenceValue: Float!
+}
+
+type ShopifyMetafield {
+  """The date and time when the storefront metafield was created."""
+  createdAt: Date!
+
+  """The description of a metafield."""
+  description: String
+
+  """Globally unique identifier."""
+  id: String!
+
+  """The unique identifier for the metafield within its namespace."""
+  key: String!
+
+  """
+  The container for a group of metafields that the metafield is associated with.
+  """
+  namespace: String!
+
+  """
+  The type name of the metafield. Refer to the list of supported types: https://shopify.dev/apps/metafields/definitions/types
+  """
+  type: String!
+
+  """The date and time when the metafield was last updated."""
+  updatedAt: Date!
+
+  """
+  The data stored in the metafield. Always stored as a string, regardless of the metafield's type.
+  """
+  value: String!
+}
+
+type ShopifyProductVariant {
+  """A globally-unique ID."""
+  id: String!
+
+  """The product variant’s title."""
+  title: String!
+
+  """Whether the product variant is available for sale."""
+  availableForSale: Boolean!
+
+  """
+  The barcode (for example, ISBN, UPC, or GTIN) associated with the variant.
+  """
+  barcode: String
+
+  """
+  The compare at price of the variant. This can be used to mark a variant as on sale, when compareAtPrice is higher than price.
+  """
+  compareAtPrice: ShopifyMoneyV2
+
+  """
+  Whether a product is out of stock but still available for purchase (used for backorders).
+  """
+  currentlyNotInStock: Boolean!
+
+  """
+  Image associated with the product variant. This field falls back to the product image if no image is available.
+  """
+  image: ShopifyImage
+
+  """The product variant’s price."""
+  price: ShopifyMoneyV2!
+
+  """The total sellable quantity of the variant for online sales channels."""
+  quantityAvailable: Float!
+
+  """
+  Whether a customer needs to provide a shipping address when placing an order for the product variant.
+  """
+  requiresShipping: Boolean!
+
+  """List of product options applied to the variant."""
+  selectedOptions: ShopifySelectedOptionInput!
+
+  """The SKU (stock keeping unit) associated with the variant."""
+  sku: String
+
+  """
+  The unit price value for the variant based on the variant's measurement.
+  """
+  unitPrice: ShopifyMoneyV2
+
+  """The unit price measurement for the variant."""
+  unitPriceMeasurement: ShopifyUnitPriceMeasurement
+
+  """
+  The weight of the product variant in the unit system specified with weight_unit.
+  """
+  weight: Float
+
+  """Unit of measurement for weight."""
+  weightUnit: String!
+
+  """Returns a metafield found by namespace and key."""
+  metafield: ShopifyMetafield
+
+  """
+  The metafields associated with the resource matching the supplied list of namespaces and keys.
+  """
+  metafields: [ShopifyMetafield]
+}
+
+type ShopifyProductOption {
+  """Globally unique identifier."""
+  id: String!
+
+  """The name of the product option."""
+  name: String!
+
+  """The corresponding value to the product option name."""
+  values: [String]!
+}
+
+type ShopifyProduct {
+  """A globally-unique ID"""
+  id: String!
+
+  """The product’s title."""
+  title: String!
+
+  """The description of the product, complete with HTML formatting."""
+  descriptionHtml: String!
+
+  """Indicates if at least one product variant is available for sale."""
+  availableForSale: Boolean!
+
+  """The compare at price of the product across all variants."""
+  compareAtPriceRange: ShopifyProductPriceRange!
+
+  """The date and time when the product was created."""
+  createdAt: Date!
+
+  """
+  A human-friendly unique string for the Product automatically generated from its title. They are used by the Liquid templating language to refer to objects.
+  """
+  handle: String!
+
+  """Whether the product is a gift card."""
+  isGiftCard: Boolean!
+
+  """
+  The URL used for viewing the resource on the shop's Online Store. Returns null if the resource is currently not published to the Online Store sales channel.
+  """
+  onlineStoreUrl: String
+
+  """The price range"""
+  priceRange: ShopifyProductPriceRange!
+
+  """
+  A categorization that a product can be tagged with, commonly used for filtering and searching.
+  """
+  productType: String!
+
+  """The date and time when the product was published to the channel."""
+  publishedAt: Date!
+
+  """Whether the product can only be purchased with a selling plan."""
+  requiresSellingPlan: Boolean!
+
+  """The product's SEO information."""
+  seo: ShopifySEO!
+
+  """
+  A comma separated list of tags that have been added to the product. Additional access scope required for private apps: unauthenticated_read_product_tags.
+  """
+  tags: [String]!
+
+  """The total quantity of inventory in stock for this Product."""
+  totalInventory: Float!
+
+  """
+  The date and time when the product was last modified. A product's updatedAt value can change for different reasons. For example, if an order is placed for a product that has inventory tracking set up, then the inventory adjustment is counted as an update.
+  """
+  updatedAt: Date!
+
+  """The product’s vendor name."""
+  vendor: String!
+
+  """List of the product’s variants."""
+  variants: [ShopifyProductVariant]!
+
+  """
+  Stripped description of the product, single line with HTML tags removed.
+  """
+  description: String!
+
+  """
+      The featured image for the product.
+  
+  This field is functionally equivalent to images(first: 1)
+  """
+  featuredImage: ShopifyImage
+
+  """Returns a metafield found by namespace and key."""
+  metafield: ShopifyMetafield
+
+  """
+  The metafields associated with the resource matching the supplied list of namespaces and keys.
+  """
+  metafields: [ShopifyMetafield]
+
+  """List of product options like size, color, etc."""
+  options: [ShopifyProductOption]!
+
+  """
+  Find a product’s variant based on its selected options. This is useful for converting a user’s selection of product options into a single matching variant. If there is not a variant for the selected options, null will be returned.
+  """
+  variantBySelectedOptions: ShopifyProductVariant
+}
+
+type GetShopifyProductsTestResponse {
+  first: Float
+  shopifyProducts: [ShopifyProduct]!
+}
+
 input UserBioInput {
   """Slug of bio to fetch"""
   slug: String!
@@ -24,15 +325,25 @@ type IconLink {
 }
 
 type LinkInBio {
-  """Id of link in bio"""
+  """Id of card link"""
   id: String!
+
+  """Title of card link"""
   title: String!
+
+  """Subtitle of the card for this link"""
   subTitle: String
+
+  """Card link"""
   link: String!
+
+  """Image url of link"""
   imageUrl: String
 
   """Icon component name"""
   iconComponent: String
+
+  """Is this a featured link?"""
   isFeatured: Boolean
 }
 
@@ -55,7 +366,7 @@ type UserBio {
   """Icon links"""
   iconLinks: [IconLink]!
 
-  """Links in bio"""
+  """Links on bio page"""
   linksInBio: [LinkInBio]
 }
 
@@ -72,6 +383,7 @@ type HealthCheckResponse {
 }
 
 type Query {
+  getShopifyProducts(args: GetShopifyProductsArgs): GetShopifyProductsTestResponse
   getUserBio(args: UserBioInput!): UserBio
   healthCheck(args: HealthCheckArgs): HealthCheckResponse
 }
