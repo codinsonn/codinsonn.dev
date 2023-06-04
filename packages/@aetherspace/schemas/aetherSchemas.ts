@@ -344,7 +344,6 @@ if (!z.ZodNullable.prototype?.aetherType) {
     const innerMostType = getInnerMostType(this)
     const innerMostSchema = innerMostType.introspect?.().schema
     assignAetherContext(this, innerMostType)
-    // if (innerMostSchema) this.schema = innerMostSchema?.schema || innerMostSchema
     if (innerMostSchema) this.schema = innerMostSchema
     return introspectField(this)
   }
@@ -512,15 +511,15 @@ if (!z.ZodArray.prototype.aetherType) {
 
 if (!z.ZodObject.prototype.aetherType) {
   z.ZodObject.prototype.aetherType = 'AetherObject'
-  z.ZodObject.prototype.nameSchema = function (schemaName: string) {
-    this.aetherType = 'AetherSchema'
-    this.schemaName = schemaName
-    return this
-  }
   z.ZodObject.prototype.describe = function (description: string) {
     const This = (this as any).constructor
     const newSchema = new This({ ...this._def, description })
     return assignAetherContext(newSchema, this)
+  }
+  z.ZodObject.prototype.nameSchema = function (schemaName: string) {
+    this.aetherType = 'AetherSchema'
+    this.schemaName = schemaName
+    return this
   }
   // Allow named extensions
   z.ZodObject.prototype.extendSchema = function (
@@ -583,22 +582,12 @@ if (!z.ZodObject.prototype.aetherType) {
       // @ts-ignore
       if (!propDef.introspect) return propSchema // @ts-ignore
       const schema = propDef.introspect()
-      if (schema.aetherType === 'AetherSchema') {
+      if (['AetherSchema', 'AetherObject'].includes(schema.aetherType)) {
         // @ts-ignore
         const innerMostType = getInnerMostType(propDef)
         schema.schema = innerMostType.introspect() // prettier-ignore
         // -i- This only happens with .nullish(), which calls .nullable().optional() internally
-        if (schema.schema.schema) {
-          // console.log('ZodObject.introspect() - schema.schema.schema -', schema.schemaName)
-          schema.schema = schema.schema.schema
-        }
-      } else if (schema.aetherType === 'AetherObject') {
-        // @ts-ignore
-        const innerMostType = getInnerMostType(propDef)
-        // console.log('ZodObject.introspect() - Unknown Schema -', schema, {
-        //   schemaName: this.schemaName,
-        //   innerMostType,
-        // })
+        if (schema.schema.schema) schema.schema = schema.schema.schema
       }
       if (exampleValues?.[propKey]) schema.exampleValue = exampleValues[propKey]
       return { ...propSchema, [propKey]: schema }
