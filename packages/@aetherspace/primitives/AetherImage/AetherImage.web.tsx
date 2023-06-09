@@ -6,7 +6,6 @@ import { Image as RNImage, ImageURISource } from 'react-native'
 import Image from 'next/image'
 // Types
 import { AetherImageType } from './AetherImage.types'
-// Types
 import { Overwrite } from '../../types'
 // Context
 import { useAetherContext } from '../../context/AetherContextManager'
@@ -85,7 +84,7 @@ const AetherImage = forwardRef<typeof Image, AetherImageType>((props, ref) => {
       <Image
         src={src!} // @ts-ignore
         ref={ref}
-        alt={props.alt || ''}
+        alt={props.alt || props.accessibilityLabel || ''}
         {...imgProps}
         quality={quality}
         priority={priority}
