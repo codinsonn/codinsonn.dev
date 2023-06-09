@@ -22,7 +22,7 @@ import BioLink from '../components/BioLink'
 // Utils
 import { isEmpty } from 'aetherspace/utils'
 // Constants
-import { localURI } from 'aetherspace/constants/manifest'
+import { localURL } from 'aetherspace/constants/manifest'
 // Mocks
 import { userBioMock } from '../mocks/userBio.mock'
 
@@ -129,7 +129,7 @@ export const BioScreen = (props: BioScreenProps) => {
         <H1 tw="text-white roboto-bold font-bold text-base">{`Error: ${error.message}`}</H1>
         <Text tw="text-white hidden xs:flex">{BASE_URL}</Text>
         <Text tw="text-white hidden xs:flex">{BACKEND_URL}</Text>
-        <Text tw="text-white hidden xs:flex">{localURI}</Text>
+        <Text tw="text-white hidden xs:flex">{localURL}</Text>
       </View>
     )
 

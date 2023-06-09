@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "license": "MIT",
     "scripts": {
-        "dev": "NODE_OPTIONS='--inspect' next",
+        "dev": "next",
         "lint": "cd ../.. && eslint \"apps/next/**/*.{ts,tsx}\"",
-        "build": "NODE_OPTIONS='--inspect' next build",
+        "build": "next build",
         "deploy": "yarn --cwd ../../ deploy"
     },
     "browser": {
@@ -20,7 +20,8 @@
         "airtable": "^0.11.6",
         "app": "*",
         "encoding": "^0.1.13",
-        "next": "^13.4.3",
+        "expo-asset-web": "npm:expo-asset@8.7.0",
+        "next": "^13.4.4",
         "next-fonts": "^1.5.1",
         "next-images": "^1.8.5",
         "next-pwa": "^5.6.0",
