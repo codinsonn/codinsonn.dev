@@ -1,7 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
-// -i- Based on / inspired by:
-// - https://necolas.github.io/react-native-web/docs/image/
-// - https://nextjs.org/docs/api-reference/next/image
 import React, { useMemo, forwardRef } from 'react'
 import { Image, ImageRequireSource } from 'react-native'
 // Types
@@ -39,6 +35,7 @@ const AetherImage = forwardRef<Image, AetherImageType>((props, ref) => {
       ref={ref}
       source={source!}
       {...bindStyles}
+      alt={componentProps.alt || componentProps.accessibilityLabel || ''}
       accessibilityIgnoresInvertColors
     />
   )

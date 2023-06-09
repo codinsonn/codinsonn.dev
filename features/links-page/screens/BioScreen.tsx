@@ -146,21 +146,15 @@ export const BioScreen = (props: BioScreenProps) => {
           tw="w-20 h-20 mt-0 overflow-hidden bg-slate-100 rounded-full"
         />
       </Link>
-      <Link to={bioData.titleLink} tw=" mb-4 mt-4 no-underline" asText>
+      <Link to={bioData.titleLink} tw="mb-6 mt-2 no-underline" asText>
         <H1 tw="text-white roboto-bold font-bold text-base">{bioData.title}</H1>
       </Link>
-      {/* -- TEST -- /}
-      <Text tw="text-white hidden xs:flex">xs</Text>
-      <Text tw="text-white hidden sm:flex">sm</Text>
-      <Text tw="text-white hidden md:flex">md</Text>
-      <Text tw="text-white hidden lg:flex">lg</Text>
-      <Text tw="text-white hidden xl:flex">xl</Text>
-      <Text tw="text-white hidden xxl:flex">xxl</Text>
-      {/* -- TEST -- */}
+
       <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 max-w-[620px] text-white text-center text-sm">
         {bioData.bioText}
       </Text>
-      <View tw="flex-row mt-6 mobile:mt-4 justify-center">
+
+      <View tw="flex-row mt-8 mb-14 mobile:mt-4 justify-center">
         {bioData.iconLinks.map((bioIcon) => {
           const Icon = Icons[bioIcon.iconComponent]
           return (
@@ -174,7 +168,9 @@ export const BioScreen = (props: BioScreenProps) => {
           )
         })}
       </View>
-      <View tw="max-w-[620px] w-full lg:w-3/4 xl:w-2/4 mt-12 px-5">
+
+      <H1 tw="text-white roboto-bold font-bold text-lg mb-6">Highlighted Links</H1>
+      <View tw="max-w-[620px] w-full lg:w-3/4 xl:w-2/4 px-5">
         <View tw="flex relative overflow-hidden">
           {bioData.linksInBio.map((bioLink) => (
             <View key={bioLink.id} tw="mb-5">
@@ -192,7 +188,8 @@ export const BioScreen = (props: BioScreenProps) => {
           ))}
         </View>
       </View>
-      <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-2 px-5 items-center">
+
+      <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-4 px-5 items-center">
         <Text tw="roboto-light text-slate-200 text-center text-sm sm:text-base">
           Ready for <Text tw="roboto">Organic leads</Text> from Web
         </Text>
