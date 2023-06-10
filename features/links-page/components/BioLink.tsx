@@ -12,7 +12,7 @@ import { View, Image, Pressable } from 'aetherspace/primitives'
 
 const BioLinkProps = LinkInBio.nameSchema('BioLinkProps')
 
-/* --- <BioLink/> ---------------------------------------------------------------------------- */
+/* --- <BioLink/> ------------------------------------------------------------------------------ */
 
 export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
   // Props
@@ -34,10 +34,11 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
           <Image
             src={imageUrl}
             alt="Picture of the author"
-            tw="w-[90px] xs:w-[100px] sm:w-[120px] h-[100px] items-center bg-slate-100 overflow-hidden"
+            tw="w-[90px] xs:w-[100px] sm:w-[120px] min-h-[100px] items-center overflow-hidden"
             width={100 * (1400 / 1100)}
             height={100} // @ts-ignore
             objectFit="cover"
+            transition={1000}
           />
         </Link>
       </View>
