@@ -2,7 +2,7 @@
 // - https://necolas.github.io/react-native-web/docs/image/
 // - https://nextjs.org/docs/api-reference/next/image
 import React, { useMemo, forwardRef, ComponentProps } from 'react'
-import { Image as RNImage, ImageURISource } from 'react-native'
+import { Image as ExpoImage, ImageSource } from 'expo-image'
 import Image from 'next/image'
 // Types
 import { AetherImageType } from './AetherImage.types'
@@ -33,7 +33,7 @@ const AetherImage = forwardRef<typeof Image, AetherImageType>((props, ref) => {
   } = props
 
   // Vars
-  const source = props.source as ImageURISource
+  const source = props.source as ImageSource
   const src = props.src || source?.uri
 
   // Context
@@ -67,7 +67,7 @@ const AetherImage = forwardRef<typeof Image, AetherImageType>((props, ref) => {
       <AetherImageExpo
         {...(bindStyles as Overwrite<
           typeof bindStyles,
-          { style: ComponentProps<typeof RNImage>['style'] }
+          { style: ComponentProps<typeof ExpoImage>['style'] }
         >)}
         src={srcString}
       />
@@ -78,7 +78,7 @@ const AetherImage = forwardRef<typeof Image, AetherImageType>((props, ref) => {
 
   return (
     <AetherView
-      style={bindStyles.style as ComponentProps<typeof RNImage>['style']}
+      style={bindStyles.style as ComponentProps<typeof ExpoImage>['style']}
       nativeID={bindStyles.nativeID}
     >
       <Image

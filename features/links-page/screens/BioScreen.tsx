@@ -169,11 +169,11 @@ export const BioScreen = (props: BioScreenProps) => {
         })}
       </View>
 
-      <H1 tw="text-white roboto-bold font-bold text-lg mb-6">Highlighted Links</H1>
+      <H1 tw="text-white roboto-bold font-bold text-lg mb-6">Featured Links</H1>
       <View tw="max-w-[620px] w-full lg:w-3/4 xl:w-2/4 px-5">
-        <View tw="flex relative overflow-hidden">
+        <View tw="flex relative overflow-hidden gap-y-6">
           {bioData.linksInBio.map((bioLink) => (
-            <View key={bioLink.id} tw="mb-5">
+            <View key={bioLink.id}>
               <BioLink
                 key={bioLink.id}
                 id={bioLink.id}
@@ -189,7 +189,7 @@ export const BioScreen = (props: BioScreenProps) => {
         </View>
       </View>
 
-      <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-4 px-5 items-center">
+      <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-8 px-5 items-center">
         <Text tw="roboto-light text-slate-200 text-center text-sm sm:text-base">
           Ready for <Text tw="roboto">Organic leads</Text> from Web
         </Text>

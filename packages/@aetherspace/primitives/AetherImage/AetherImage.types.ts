@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react'
-import { Image } from 'react-native'
+import { Image } from 'expo-image'
 // Schemas
 import { TAetherStyleProps } from '../../schemas/ats'
 
