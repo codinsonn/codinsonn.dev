@@ -15,12 +15,12 @@ const d = {
 /** --- LinkInBio ------------------------------------------------------------------------------ */
 /** -i- Single source of truth for the actual link cards that renders under the bio icon links */
 export const LinkInBio = aetherSchema('LinkInBio', {
-  id: z.string().id().describe(d.id),
+  id: z.string().id().eg('1').describe(d.id),
   title: z.string().eg("'Move fast & build things', with Zod, Expo & Next.js").describe(d.title),
   subTitle: z.string().optional().eg('An intro to Aetherspace and the GREEN stack').describe(d.subTitle), // prettier-ignore
   link: z.string().eg('https://codinsonn.dev').describe(d.link),
   imageUrl: z.string().optional().eg('https://codinsonn.dev/img/FSMeetup.jpeg').describe(d.imageUrl), // prettier-ignore
-  iconComponent: z.string().optional().describe('Icon component name').describe(d.iconComponent),
+  iconComponent: z.string().optional().describe(d.iconComponent),
   isFeatured: z.boolean().optional().eg(true).describe(d.isFeatured),
 })
 

@@ -83,6 +83,11 @@ type ShopifyUnitPriceMeasurement {
 }
 
 type ShopifyMetafield {
+  """
+  The type name of the metafield. Refer to the list of supported types: https://shopify.dev/apps/metafields/definitions/types
+  """
+  type: String!
+
   """The date and time when the storefront metafield was created."""
   createdAt: Date!
 
@@ -90,7 +95,7 @@ type ShopifyMetafield {
   description: String
 
   """Globally unique identifier."""
-  id: String!
+  id: ID!
 
   """The unique identifier for the metafield within its namespace."""
   key: String!
@@ -99,11 +104,6 @@ type ShopifyMetafield {
   The container for a group of metafields that the metafield is associated with.
   """
   namespace: String!
-
-  """
-  The type name of the metafield. Refer to the list of supported types: https://shopify.dev/apps/metafields/definitions/types
-  """
-  type: String!
 
   """The date and time when the metafield was last updated."""
   updatedAt: Date!
@@ -116,7 +116,7 @@ type ShopifyMetafield {
 
 type ShopifyProductVariant {
   """A globally-unique ID."""
-  id: String!
+  id: ID!
 
   """The product variant’s title."""
   title: String!
@@ -188,7 +188,7 @@ type ShopifyProductVariant {
 
 type ShopifyProductOption {
   """Globally unique identifier."""
-  id: String!
+  id: ID!
 
   """The name of the product option."""
   name: String!
@@ -199,7 +199,7 @@ type ShopifyProductOption {
 
 type ShopifyProduct {
   """A globally-unique ID"""
-  id: String!
+  id: ID!
 
   """The product’s title."""
   title: String!
@@ -306,7 +306,7 @@ input UserBioInput {
 
 type IconLink {
   """Id of icon link"""
-  id: String!
+  id: ID!
 
   """Icon key"""
   iconKey: String
@@ -326,7 +326,7 @@ type IconLink {
 
 type LinkInBio {
   """Id of card link"""
-  id: String!
+  id: ID!
 
   """Title of card link"""
   title: String!
