@@ -8,7 +8,7 @@
         "path": false
     },
     "scripts": {
-        "lint": "cd ../.. && eslint \"packages/aetherspace-commerce/**/*.{ts,tsx}\""
+        "lint": "cd ../.. && eslint \"packages/@aetherspace-commerce/**/*.{ts,tsx}\""
     },
     "dependencies": {}
 }
