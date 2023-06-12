@@ -1,14 +1,12 @@
 import glob from 'glob'
 import fs from 'fs'
+// Utils
+import { excludeDirs, listWorkspaceImports } from './helpers/scriptUtils'
 
 /* --- link-routes ----------------------------------------------------------------------------- */
 
 const linkRoutes = () => {
   try {
-    // General filter helpers
-    const excludeDirs = (pth) => pth.split('/').pop().includes('.')
-    const excludeModules = (pth) => !pth.includes('node_modules')
-
     // Get all route paths in the features & package folders
     const packageRoutePaths = glob.sync('../../packages/**/routes/**/*.{ts,tsx}').filter(excludeDirs) // prettier-ignore
     const featureRoutePaths = glob.sync('../../features/**/routes/**/*.{ts,tsx}').filter(excludeDirs) // prettier-ignore
@@ -26,14 +24,7 @@ const linkRoutes = () => {
     const paramRoutes = allRoutePaths.filter((pth) => pth.includes('].ts')) // e.g. "/**/[slug].tsx"
 
     // Figure out import paths from each workspace
-    const packageConfigPaths = glob.sync('../../packages/**/package.json').filter(excludeModules)
-    const featureConfigPaths = glob.sync('../../features/**/package.json').filter(excludeModules)
-    const packageJSONPaths = [...packageConfigPaths, ...featureConfigPaths]
-    const workspaceImports = packageJSONPaths.reduce((acc, pth) => {
-      const packageJSON = JSON.parse(fs.readFileSync(pth, 'utf8'))
-      const workspaceMatcher = pth.replace('../../', '').replace('/package.json', '')
-      return { ...acc, [workspaceMatcher]: packageJSON.name }
-    }, {}) as Record<string, string>
+    const workspaceImports = listWorkspaceImports()
 
     // Parse & match each route path to a workspace import
     const parsePath = (pth, autoDefault = true) => {
