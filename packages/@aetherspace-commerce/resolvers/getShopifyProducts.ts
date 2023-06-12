@@ -11,16 +11,6 @@ const GetShopifyProductsArgs = aetherSchema('GetShopifyProductsArgs', {
 })
 
 const GetShopifyProductsResponse = aetherSchema('GetShopifyProductsResponse', {
-  products: z.object({
-    edges: z.array(
-      z.object({
-        node: ShopifyProduct,
-      })
-    ),
-  }),
-})
-
-const GetShopifyProductsTestResponse = aetherSchema('GetShopifyProductsTestResponse', {
   first: z.number().int().nullish(),
   shopifyProducts: ShopifyProduct.array(),
 })
@@ -39,7 +29,7 @@ type TShopifyProductsGraphQLResponse = {
 
 const resolverConfig = {
   argsSchema: GetShopifyProductsArgs,
-  responseSchema: GetShopifyProductsTestResponse,
+  responseSchema: GetShopifyProductsResponse,
   // responseSchema: GetShopifyProductsResponse,
 }
 
@@ -173,15 +163,14 @@ export const getShopifyProducts = aetherResolver(async ({ args }) => {
       return { ...shopifyGQLProduct, variants: variants.edges.map((edge) => edge.node) }
     })
 
-    console.log({ shopifyProducts, graphQLResponse })
+    // -- Respond --
 
-    // Response
     return {
       first,
       shopifyProducts,
-    } as z.infer<typeof GetShopifyProductsTestResponse>
+    } as z.infer<typeof GetShopifyProductsResponse>
   } catch (error) {
-    console.log('getShopifyProducts() error', error)
+    console.error('getShopifyProducts() error', error)
     throw error
   }
 }, resolverConfig)
