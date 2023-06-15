@@ -30,7 +30,6 @@ type TShopifyProductsGraphQLResponse = {
 const resolverConfig = {
   argsSchema: GetShopifyProductsArgs,
   responseSchema: GetShopifyProductsResponse,
-  // responseSchema: GetShopifyProductsResponse,
 }
 
 /** --- getShopifyProducts() ------------------------------------------------------------------- */

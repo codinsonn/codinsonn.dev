@@ -13,6 +13,28 @@ import {
   getEnvVar,
 } from 'aetherspace/utils/serverUtils'
 
+/* --- Disclaimers ----------------------------------------------------------------------------- */
+
+// -i- While useful and usable, this health check API route is just a simplified example.
+// -i- It's purpose is to show how to tie schemas, resolvers and API routes together.
+// -i- For that reason, a lot of the code here is more colocated than it should be.
+// -i- See the 'Quickstart' page in the docs for the simplified example and more info:
+
+// -i- https://main--62c9a236ee16e6611d719e94.chromatic.com/?path=/docs/aetherspace-quickstart--page
+// -i- http://localhost:6006?path=/docs/aetherspace-quickstart--page (local docs with `yarn dev:docs`)
+
+// -i- To get the most out of the template when creating API routes and GraphQL resolvers,
+// -i- We recommend you not colocate the schemas and resolver in the same route.ts file.
+
+// -i- Instead, use the `yarn ats add-resolver` command to create a resolver scaffold.
+// -i- This will generate: a schema, a resolver, a route, a fetch util and SWR hook for you
+// -i- and automatically link these all together to save time and enforce best practices.
+
+// -i- You *could* also remove this route and the health check if you want.
+
+// -!- Though it is used in the Expo dev startup script to check if the server is running first.
+// -!- So if you remove it, you will have to remove it from the scripts and turborepo config as well.
+
 /* --- Schemas --------------------------------------------------------------------------------- */
 
 export const HealthCheckArgs = aetherSchema('HealthCheckArgs', {
@@ -64,8 +86,8 @@ const aliveSince = new Date()
 const DOCS_URL = getEnvVar('DOCS_URL')
 const BACKEND_URL = getEnvVar('BACKEND_URL')
 
-/* --- healthCheck() --------------------------------------------------------------------------- */
-
+/** --- healthCheck() -------------------------------------------------------------------------- */
+/** -i- A resolver to check the health status of the server. Includes relevant urls, server time(zone), versions and more in the response. */
 const healthCheck = aetherResolver(async ({ args, req }) => {
   // Args
   const { echo, docsURLs } = args
