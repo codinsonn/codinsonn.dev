@@ -13,7 +13,7 @@ export const {{resolverName}} = aetherResolver(async ({ args, handleError }) => 
     // -- Respond --
 
     return {
-      // Response
+      test: test || 'test' // dummy echo response to test the resolver
     } as T{{ResolverName}}Response
   } catch (err) {
     throw handleErrsor(err)

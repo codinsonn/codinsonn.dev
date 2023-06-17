@@ -75,7 +75,8 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         message: 'What API path would you like to use? (e.g. "/api/my-resolver/[slug]")',
         default: (data) => {
           const workspacePath = workspaceOptions[data.workspaceTarget]
-          return `/api/${workspacePath}/${camelToDash(data.resolverName)}`
+          const workspaceName = workspacePath.split('/')[1]
+          return `/api/${workspaceName}/${camelToDash(data.resolverName)}`
         },
         when: (data) => {
           return ['api route', 'GraphQL'].some((opt) => {
@@ -151,14 +152,13 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
 
       if (requiresApiRoute) {
         // Add API route instructions to the resolver config
-        const apiRoutePath = `${workspacePath}/routes/${apiPath}.ts`
+        const apiRoutePath = `${workspacePath}/routes/${apiPath}/route.ts`
         apiPathStatements.push(`apiPath: '${apiPath}',`)
         const allowedMethodsStringArray = `${allowedMethods.map((m) => `'${m}'`).join(', ')}`
         apiPathStatements.push(`allowedMethods: [${allowedMethodsStringArray}],`)
 
         // Add API route file action data
-        const segments = apiPath.split('/').filter(Boolean)
-        const traversalParts = segments.map((_, i) => (i < segments.length ? '..' : ''))
+        const traversalParts = apiPath.split('/').map(() => '..') // prettier-ignore
         const resolverImportPath = `${traversalParts.join('/')}/resolvers/${resolverName}`
 
         // Figure out API statements
