@@ -1,19 +1,13 @@
-import { z, aetherSchema } from 'aetherspace/schemas'
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
 // Schemas
-import { ShopifyProduct, TShopifyProduct } from '../schemas/ShopifyProduct'
+import {
+  GetShopifyProductsAPIConfig,
+  TGetShopifyProductsResponse,
+} from '../schemas/GetShopifyProductsResolver'
+// Types
+import { TShopifyProduct } from '../schemas/ShopifyProduct'
+// Utils
 import { shopifyGraphQLRequest } from '../utils/serverUtils'
-
-/* --- Schemas --------------------------------------------------------------------------------- */
-
-const GetShopifyProductsArgs = aetherSchema('GetShopifyProductsArgs', {
-  first: z.number().int().default(250),
-})
-
-const GetShopifyProductsResponse = aetherSchema('GetShopifyProductsResponse', {
-  first: z.number().int().nullish(),
-  shopifyProducts: ShopifyProduct.array(),
-})
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
@@ -23,14 +17,6 @@ type TShopifyProductsGraphQLResponse = {
       node: TShopifyProduct
     }[]
   }
-}
-
-/* --- Config ---------------------------------------------------------------------------------- */
-
-const resolverConfig = {
-  argsSchema: GetShopifyProductsArgs,
-  responseSchema: GetShopifyProductsResponse,
-  // responseSchema: GetShopifyProductsResponse,
 }
 
 /** --- getShopifyProducts() ------------------------------------------------------------------- */
@@ -168,9 +154,9 @@ export const getShopifyProducts = aetherResolver(async ({ args }) => {
     return {
       first,
       shopifyProducts,
-    } as z.infer<typeof GetShopifyProductsResponse>
+    } as TGetShopifyProductsResponse
   } catch (error) {
     console.error('getShopifyProducts() error', error)
     throw error
   }
-}, resolverConfig)
+}, GetShopifyProductsAPIConfig)

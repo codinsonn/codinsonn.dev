@@ -18,7 +18,8 @@
         "dev-health-check": "NODE_ENV=development SAVE_GRAPHQL_SCHEMA=true node scripts/dev-health-check",
         "schema-test": "node scripts/schema-test",
         "add-workspace": "cd ../.. && yarn gen aether-workspace",
-        "add-schema": "cd ../.. && yarn gen aether-schema"
+        "add-schema": "cd ../.. && yarn gen aether-schema",
+        "add-resolver": "cd ../.. && yarn gen aether-resolver"
     },
     "dependencies": {
         "@apollo/client": "^3.6.9",

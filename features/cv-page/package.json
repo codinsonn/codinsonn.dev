@@ -1,0 +1,10 @@
+{
+    "name": "cv-page",
+    "version": "0.0.1",
+    "description": "todo: add description",
+    "license": "MIT",
+    "scripts": {
+        "lint": "cd ../.. && eslint \"features/cv-page/**/*.{ts,tsx}\""
+    },
+    "dependencies": {}
+}
