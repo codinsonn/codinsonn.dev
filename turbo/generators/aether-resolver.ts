@@ -2,7 +2,6 @@
 import { PlopTypes } from '@turbo/gen'
 // Utils
 import { listWorkspaceImports } from '../../packages/@aetherspace/scripts/helpers/scriptUtils'
-import { add } from 'lodash'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -158,7 +157,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         apiPathStatements.push(`allowedMethods: [${allowedMethodsStringArray}],`)
 
         // Add API route file action data
-        const traversalParts = apiPath.split('/').map(() => '..') // prettier-ignore
+        const traversalParts = apiPath.split('/').map(() => '..')
         const resolverImportPath = `${traversalParts.join('/')}/resolvers/${resolverName}`
 
         // Figure out API statements

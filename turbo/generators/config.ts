@@ -6,6 +6,7 @@ import { PlopTypes } from '@turbo/gen'
 import { registerAetherWorkspaceGenerator } from './aether-workspace'
 import { registerAetherSchemaGenerator } from './aether-schema'
 import { registerAetherResolverGenerator } from './aether-resolver'
+import { registerAetherRouteGenerator } from './aether-route'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -45,4 +46,5 @@ export default function (plop: PlopTypes.NodePlopAPI) {
   registerAetherWorkspaceGenerator(plop)
   registerAetherSchemaGenerator(plop)
   registerAetherResolverGenerator(plop)
+  registerAetherRouteGenerator(plop)
 }
