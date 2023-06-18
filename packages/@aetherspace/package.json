@@ -19,7 +19,8 @@
         "schema-test": "node scripts/schema-test",
         "add-workspace": "cd ../.. && yarn gen aether-workspace",
         "add-schema": "cd ../.. && yarn gen aether-schema",
-        "add-resolver": "cd ../.. && yarn gen aether-resolver"
+        "add-resolver": "cd ../.. && yarn gen aether-resolver",
+        "add-route": "cd ../.. && yarn gen aether-route"
     },
     "dependencies": {
         "@apollo/client": "^3.6.9",
