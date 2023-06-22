@@ -1,1 +1,1 @@
-export { default } from '@app/links-page/routes/bio/[slug]'
+export { default } from 'links-page/routes/bio/[slug]'

@@ -1,1 +1,1 @@
-export { GET, POST } from '@app/links-page/routes/api/bio/[slug]/route'
+export { GET, POST } from 'links-page/routes/api/bio/[slug]/route'

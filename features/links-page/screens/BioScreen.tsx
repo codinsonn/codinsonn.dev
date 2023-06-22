@@ -15,9 +15,8 @@ import { TUserBio, UserBio } from '../schemas'
 import { View, Text, Image } from 'aetherspace/primitives'
 // SEO
 import { H1 } from 'aetherspace/html-elements'
-// Icons
-import * as Icons from '../icons'
 // Components
+import { AetherIcon } from 'aetherspace/components'
 import BioLink from '../components/BioLink'
 // Utils
 import { isEmpty } from 'aetherspace/utils'
@@ -150,23 +149,20 @@ export const BioScreen = (props: BioScreenProps) => {
         <H1 tw="text-white roboto-bold font-bold text-base">{bioData.title}</H1>
       </Link>
 
-      <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 max-w-[620px] text-white text-center text-sm">
+      <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 max-w-[620px] roboto text-white text-center text-sm">
         {bioData.bioText}
       </Text>
 
       <View tw="flex-row mt-8 mb-14 mobile:mt-4 justify-center">
-        {bioData.iconLinks.map((bioIcon) => {
-          const Icon = Icons[bioIcon.iconComponent]
-          return (
-            <Link
-              key={bioIcon.iconComponent}
-              href={bioIcon.link}
-              tw={['px-1 xs:px-2 md:px-3', bioIcon.extraClasses]}
-            >
-              <Icon width={ICON_SIZE} height={ICON_SIZE} fill={ICON_COLOR} />
-            </Link>
-          )
-        })}
+        {bioData.iconLinks.map((bioIcon) => (
+          <Link
+            key={bioIcon.iconComponent}
+            href={bioIcon.link}
+            tw={['px-1 xs:px-2 md:px-3', bioIcon.extraClasses]}
+          >
+            <AetherIcon name={bioIcon.iconComponent as any} size={ICON_SIZE} fill={ICON_COLOR} />
+          </Link>
+        ))}
       </View>
 
       <H1 tw="text-white roboto-bold font-bold text-lg mb-6">Featured Links</H1>
