@@ -91,8 +91,35 @@ const Document = (props: { children: React.ReactNode }) => {
   return (
     <html>
       <head>
+        {/* - Icons - */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#069570" />
+        <meta name="msapplication-TileColor" content="#069570" />
+        <meta name="theme-color" content="#ffffff" />
+        {/* - Title & Keywords - */}
+        <title>Thorr Stevens | Full-Product Engineer for Startups and ECommerce</title>
+        <meta name="application-name" content="codinsonn.dev" />
+        <meta name="author" content="Thorr Stevens" />
+        <meta name="creator" content="Thorr Stevens" />
+        <meta name="publisher" content="Thorr Stevens" />
+        <meta
+          name="description"
+          content="Thorr Stevens, full-product freelance engineer crafting web and mobile apps in Ghent, Belgium, UK & US for 5+ years. Specialized in React-Native, Expo, Next.js"
+        />
+        <meta
+          name="keywords"
+          content="Thorr Stevens,codinsonn,Aetherspace,GREEN Stack,GraphQL,Expo,Next.js,React-Native,TypeScript,Full-Stack Developer,Engineers for Ghent, UK devs, US freelancer"
+        />
+        <meta name="category" content="software development" />
+        {/* - Styling - */}
         <style type="text/css" dangerouslySetInnerHTML={{ __html: cssReset }} />
         <style type="text/css" dangerouslySetInnerHTML={{ __html: nextReset }} />
+        {/* - Other - */}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="UTF-8" />
       </head>
       <body>
         <RootLayout>{children}</RootLayout>
