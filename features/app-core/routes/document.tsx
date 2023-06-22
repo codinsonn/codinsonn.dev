@@ -91,6 +91,14 @@ const Document = (props: { children: React.ReactNode }) => {
   return (
     <html>
       <head>
+        {/* - Icons - */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#069570" />
+        <meta name="msapplication-TileColor" content="#069570" />
+        <meta name="theme-color" content="#ffffff" />
         {/* - Title & Keywords - */}
         <title>Thorr Stevens | Full-Product Engineer for Startups and ECommerce</title>
         <meta name="application-name" content="codinsonn.dev" />
@@ -106,29 +114,6 @@ const Document = (props: { children: React.ReactNode }) => {
           content="Thorr Stevens,codinsonn,Aetherspace,GREEN Stack,GraphQL,Expo,Next.js,React-Native,TypeScript,Full-Stack Developer,Engineers for Ghent, UK devs, US freelancer"
         />
         <meta name="category" content="software development" />
-        {/* - Open Graph - */}
-        <meta property="og:title" content="Thorr ⚡️ codinsonn.dev" />
-        <meta
-          property="og:description"
-          content="Full-product engineer helping you take React cross-platform with Expo, Next.js, GraphQL, TypeScript, and more."
-        />
-        <meta property="og:url" content="https://codinsonn.dev/" />
-        <meta property="og:site_name" content="codinsonn.dev" />
-        <meta property="og:locale" content="en_US" />
-        <meta
-          property="og:image:url"
-          content="https://miro.medium.com/v2/resize:fit:800/1*w1ShNtHrZUsPeAfQUbCcwQ.png"
-        />
-        <meta property="og:image:width" content="800" />
-        <meta property="og:image:height" content="600" />
-        <meta
-          property="og:image:url"
-          content="https://miro.medium.com/v2/resize:fit:1800/1*w1ShNtHrZUsPeAfQUbCcwQ.png"
-        />
-        <meta property="og:image:width" content="1800" />
-        <meta property="og:image:height" content="1600" />
-        <meta property="og:image:alt" content="Thorr / Codinsonn's personal header" />
-        <meta property="og:type" content="website" />
         {/* - Styling - */}
         <style type="text/css" dangerouslySetInnerHTML={{ __html: cssReset }} />
         <style type="text/css" dangerouslySetInnerHTML={{ __html: nextReset }} />
