@@ -1,5 +1,5 @@
 {
-    "name": "@app/links-page",
+    "name": "links-page",
     "version": "1.0.0",
     "license": "MIT",
     "scripts": {

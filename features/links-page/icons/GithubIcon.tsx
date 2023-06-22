@@ -5,8 +5,7 @@ import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
 /* --- Schema ---------------------------------------------------------------------------------- */
 
 const PropSchema = aetherSchema('GithubIconProps', {
-  width: z.number().default(24).describe('Icon width'),
-  height: z.number().default(24).describe('Icon height'),
+  size: z.number().default(24).describe('Icon dimensions, maps to both width and height'),
   fill: z.string().color().default('#24292f').describe('Icon fill color'),
 })
 
@@ -14,11 +13,10 @@ const PropSchema = aetherSchema('GithubIconProps', {
 
 const GithubIcon = (props: AetherProps<typeof PropSchema>) => {
   // Props
-  const svgProps = PropSchema.parse(props)
-  const { fill } = svgProps
+  const { size, fill, ...svgProps } = PropSchema.applyDefaults(props)
   // Render
   return (
-    <Svg viewBox="0 0 98 94" {...props}>
+    <Svg viewBox="0 0 98 94" width={size} height={size} fill={fill} {...svgProps}>
       <Path
         fillRule="evenodd"
         clipRule="evenodd"

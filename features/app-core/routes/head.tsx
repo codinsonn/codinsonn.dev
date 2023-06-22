@@ -4,7 +4,7 @@ import React from 'react'
 
 const Head = () => (
   <>
-    <title>Thorr ⚡️codinsonn.dev</title>
+    <title>Thorr Stevens | Full-Product Engineer for Startups and eCommerce</title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />
     <link rel="manifest" href="/manifest.json" />
     <meta
