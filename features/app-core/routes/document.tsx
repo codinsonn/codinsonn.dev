@@ -91,8 +91,50 @@ const Document = (props: { children: React.ReactNode }) => {
   return (
     <html>
       <head>
+        {/* - Title & Keywords - */}
+        <title>Thorr Stevens | Full-Product Engineer for Startups and ECommerce</title>
+        <meta name="application-name" content="codinsonn.dev" />
+        <meta name="author" content="Thorr Stevens" />
+        <meta name="creator" content="Thorr Stevens" />
+        <meta name="publisher" content="Thorr Stevens" />
+        <meta
+          name="description"
+          content="Thorr Stevens, full-product freelance engineer crafting web and mobile apps in Ghent, Belgium, UK & US for 5+ years. Specialized in React-Native, Expo, Next.js"
+        />
+        <meta
+          name="keywords"
+          content="Thorr Stevens,codinsonn,Aetherspace,GREEN Stack,GraphQL,Expo,Next.js,React-Native,TypeScript,Full-Stack Developer,Engineers for Ghent, UK devs, US freelancer"
+        />
+        <meta name="category" content="software development" />
+        {/* - Open Graph - */}
+        <meta property="og:title" content="Thorr ⚡️ codinsonn.dev" />
+        <meta
+          property="og:description"
+          content="Full-product engineer helping you take React cross-platform with Expo, Next.js, GraphQL, TypeScript, and more."
+        />
+        <meta property="og:url" content="https://codinsonn.dev/" />
+        <meta property="og:site_name" content="codinsonn.dev" />
+        <meta property="og:locale" content="en_US" />
+        <meta
+          property="og:image:url"
+          content="https://miro.medium.com/v2/resize:fit:800/1*w1ShNtHrZUsPeAfQUbCcwQ.png"
+        />
+        <meta property="og:image:width" content="800" />
+        <meta property="og:image:height" content="600" />
+        <meta
+          property="og:image:url"
+          content="https://miro.medium.com/v2/resize:fit:1800/1*w1ShNtHrZUsPeAfQUbCcwQ.png"
+        />
+        <meta property="og:image:width" content="1800" />
+        <meta property="og:image:height" content="1600" />
+        <meta property="og:image:alt" content="Thorr / Codinsonn's personal header" />
+        <meta property="og:type" content="website" />
+        {/* - Styling - */}
         <style type="text/css" dangerouslySetInnerHTML={{ __html: cssReset }} />
         <style type="text/css" dangerouslySetInnerHTML={{ __html: nextReset }} />
+        {/* - Other - */}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="UTF-8" />
       </head>
       <body>
         <RootLayout>{children}</RootLayout>
