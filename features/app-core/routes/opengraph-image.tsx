@@ -19,10 +19,8 @@ export const contentType = 'image/png'
 
 /* --- Fonts ----------------------------------------------------------------------------------- */
 
-const robotoBlack = fetch(
-  'https://fonts.gstatic.com/s/roboto/v29/KFOlCnqEu92Fr1MmWUlfChc9AMP6lQ.ttf'
-  //'https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap'
-).then((res) => res.arrayBuffer())
+const robotoGoogleFontURL = 'https://fonts.gstatic.com/s/roboto/v29/KFOlCnqEu92Fr1MmWUlfChc9AMP6lQ.ttf' // prettier-ignore
+const robotoBlack = fetch(robotoGoogleFontURL).then((res) => res.arrayBuffer())
 
 /* --- Image Generation ------------------------------------------------------------------------ */
 
@@ -50,7 +48,7 @@ export async function Image() {
           <img
             src="https://codinsonn.dev/_next/image?url=%2Fimg%2FCodelyFansLogoPic160x160.jpeg&w=256&q=75"
             alt="Thorr Stevens, a.k.a. codinsonn.dev"
-            style={{ marginRight: 60, marginTop: 20, borderRadius: 100 }}
+            style={{ marginRight: 66, marginTop: 20, borderRadius: 100 }}
             width="160"
             height="160"
           />

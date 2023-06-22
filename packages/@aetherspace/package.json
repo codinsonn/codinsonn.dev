@@ -12,6 +12,7 @@
         "build": "tsc --project .",
         "link-routes": "node scripts/link-routes",
         "collect-assets": "node scripts/collect-assets",
+        "collect-icons": "node scripts/collect-icons",
         "collect-resolvers": "node scripts/collect-resolvers",
         "documentation-reset": "node scripts/documentation-reset",
         "document-components": "node scripts/document-components",
