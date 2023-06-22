@@ -3,13 +3,13 @@
 // -i- Also keep the React import around, as it breaks Storybook if removed
 import React, { useMemo } from 'react'
 import { z, aetherSchema } from '../../schemas'
-import { REGISTERED_ICONS, REGISTERED_ICON_KEYS } from 'registries/icons.generated'
+import { REGISTERED_ICONS } from 'registries/icons.generated'
 // Primitives
 import { AetherImage, AetherView } from '../../primitives'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-export type AetherIconKey = REGISTERED_ICON_KEYS
+export type AetherIconKey = keyof typeof REGISTERED_ICONS
 
 export type AetherIconRenderer = (props: {
   name: AetherIconKey

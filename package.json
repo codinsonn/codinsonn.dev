@@ -70,6 +70,7 @@
     "eas-cli": "yarn workspace expo-app eas-cli",
     "link-routes": "yarn turbo run aetherspace#link-routes",
     "collect-assets": "yarn turbo run aetherspace#collect-assets",
+    "collect-icons": "yarn turbo run aetherspace#collect-icons",
     "collect-resolvers": "yarn turbo run aetherspace#collect-resolvers",
     "document-components": "yarn turbo run aetherspace#document-components",
     "lint": "turbo run lint",
