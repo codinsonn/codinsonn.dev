@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 // Screens
 import ErrorBoundary from '../screens/ErrorBoundary'

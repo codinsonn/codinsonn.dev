@@ -187,10 +187,10 @@ export const BioScreen = (props: BioScreenProps) => {
 
       <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-8 px-5 items-center">
         <Text tw="roboto-light text-slate-200 text-center text-sm sm:text-base">
-          Ready for <Text tw="roboto">Organic leads</Text> from Web
+          Ready for <Text tw="roboto">Organic leads</Text> from the Web,
         </Text>
         <Text tw="roboto-light text-slate-200 text-center text-sm sm:text-base">
-          + <Text tw="roboto">Higher conversions</Text> on Mobile?
+          *and* <Text tw="roboto">Higher conversions</Text> on Mobile?
         </Text>
         <View tw="h-3" />
         <Text tw="flex-row">

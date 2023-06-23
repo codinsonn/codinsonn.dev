@@ -1,11 +1,9 @@
 /* eslint-disable @next/next/no-head-element */
 import React from 'react'
-import { AppRegistry } from 'react-native'
-import { useServerInsertedHTML } from 'next/navigation'
 // Layouts
 import RootLayout from './layout'
 // Styles
-import { getInjectableMediaQueries } from 'aetherspace/styles'
+import ServerStylesInjector from './ssr-style-injector'
 // Constants
 import { getBaseUrl } from 'aetherspace/utils/envUtils'
 
@@ -63,37 +61,23 @@ div[data-nextjs-scroll-focus-boundary] {
 }
 `
 
+/* --- Metadata -------------------------------------------------------------------------------- */
+
+export const metadata = {
+  metadataBase: getBaseUrl(),
+}
+
 /* --- <Document> ------------------------------------------------------------------------------ */
 
 const Document = (props: { children: React.ReactNode }) => {
   // Props
   const { children } = props
 
-  // -- Serverside Styles --
-
-  useServerInsertedHTML(() => {
-    // Get react-native-web styles
-    const Main = () => <RootLayout>{children}</RootLayout>
-    AppRegistry.registerComponent('Main', () => Main) // @ts-ignore
-    const mainApp = AppRegistry.getApplication('Main')
-    const reactNativeStyleElement = mainApp.getStyleElement()
-    // Get aetherspace styles
-    const aetherQueries = getInjectableMediaQueries()
-    // Inject styles
-    return (
-      <>
-        {reactNativeStyleElement}
-        <style type="text/css" dangerouslySetInnerHTML={{ __html: aetherQueries.css }} />
-      </>
-    )
-  })
-
   // -- Render --
 
   return (
     <html>
       <head>
-        <link rel="canonical" href={getBaseUrl()} />
         {/* - Icons - */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -118,6 +102,7 @@ const Document = (props: { children: React.ReactNode }) => {
         />
         <meta name="category" content="software development" />
         {/* - Styling - */}
+        <ServerStylesInjector>{children}</ServerStylesInjector>
         <style type="text/css" dangerouslySetInnerHTML={{ __html: cssReset }} />
         <style type="text/css" dangerouslySetInnerHTML={{ __html: nextReset }} />
         {/* - Other - */}

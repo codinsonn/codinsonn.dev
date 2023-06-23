@@ -1,3 +1,4 @@
+'use client'
 import { useFonts } from 'expo-font'
 import {
   Roboto_100Thin,
