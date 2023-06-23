@@ -6,6 +6,8 @@ import { useServerInsertedHTML } from 'next/navigation'
 import RootLayout from './layout'
 // Styles
 import { getInjectableMediaQueries } from 'aetherspace/styles'
+// Constants
+import { getBaseUrl } from 'aetherspace/utils/envUtils'
 
 /* --- Styles ---------------------------------------------------------------------------------- */
 
@@ -91,6 +93,7 @@ const Document = (props: { children: React.ReactNode }) => {
   return (
     <html>
       <head>
+        <link rel="canonical" href={getBaseUrl()} />
         {/* - Icons - */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
