@@ -39,9 +39,10 @@ module.exports = {
             },
           ],
         })
-        // Aliases for web support (https://github.com/expo/expo/issues/21469#issuecomment-1576001543)
-        config.resolve.alias['expo-asset'] = 'expo-asset-web'
+        // Transform all direct `react-native` imports to `react-native-web`
         config.resolve.alias['react-native$'] = require.resolve('react-native-web')
+        // Other aliases for web support (https://github.com/expo/expo/issues/21469#issuecomment-1576001543)
+        config.resolve.alias['expo-asset'] = 'expo-asset-web'
         config.resolve.alias['aetherspace/navigation'] = require.resolve('./__mocks__/aetherspaceNavigation.tsx')
         config.resolve.extensions.push('.ts', '.tsx')
         config.resolve.fallback = {
