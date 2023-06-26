@@ -1,12 +1,12 @@
 // -i- Based on: https://github.com/axeldelafosse/expo-next-monorepo-example/blob/main/packages/next/next.config.js
 const { withExpo } = require('@expo/next-adapter')
-const withFonts = require('next-fonts')
-const withImages = require('next-images')
+// const withFonts = require('next-fonts')
+// const withImages = require('next-images')
 
 /* --- Transpiled Modules ---------------------------------------------------------------------- */
 
 const transpiledModules = require('config/transpiledModules')
-const withTM = require('next-transpile-modules')(transpiledModules)
+// const withTM = require('next-transpile-modules')(transpiledModules)
 
 /* --- Automation Scripts ---------------------------------------------------------------------- */
 // -i- This will run the aetherspace automation scripts on local dev builds (comment out what you don't need)
@@ -37,20 +37,20 @@ const withAutomation = () => {
 
 /* --- PWA Config ------------------------------------------------------------------------------ */
 
-const withPWA = require('next-pwa')({
-    // https://github.com/shadowwalker/next-pwa#available-options
-    dest: 'public',
-    disable: process.env.NODE_ENV === 'development',
-    // -i- Enable these to make the app a full PWA with service worker
-    // register: true,
-    // scope: '/app',
-    // sw: 'service-worker.js',
-})
+// const withPWA = require('next-pwa')({
+//     // https://github.com/shadowwalker/next-pwa#available-options
+//     dest: 'public',
+//     disable: process.env.NODE_ENV === 'development',
+//     // -i- Enable these to make the app a full PWA with service worker
+//     // register: true,
+//     // scope: '/app',
+//     // sw: 'service-worker.js',
+// })
 
 /* --- Build Next Config ----------------------------------------------------------------------- */
 
-const projectRoot = __dirname
-const workspaceRoot = `${projectRoot}/../..`
+// const projectRoot = __dirname
+// const workspaceRoot = `${projectRoot}/../..`
 
 // -i- Next specific config, e.g. https://nextjs.org/docs/api-reference/next.config.js/introduction
 /** @type {import('next').NextConfig} */
@@ -58,47 +58,52 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
-    images: {
-        domains: ['i3.ytimg.com'],
-    },
-    webpack: (config, { isServer }) => {
-        // -i- Run aetherspace automation scripts in DEV mode
-        if (!isServer && process.env.NODE_ENV === 'development') withAutomation()
-        // Enable top level await in API handlers
-        config.experiments.topLevelAwait = true
-        // Silence warnings about "unexpected" resolutions (file-loader)
-        config.infrastructureLogging = { level: "error" }
-        // Aliases for web support (https://github.com/expo/expo/issues/21469#issuecomment-1576001543)
-        config.resolve.alias['expo-asset'] = 'expo-asset-web'
-        // Return config
-        return config
-    },
+    // images: {
+    //     domains: ['i3.ytimg.com'],
+    // },
+    // webpack: (config, { isServer }) => {
+    //     // -i- Run aetherspace automation scripts in DEV mode
+    //     if (!isServer && process.env.NODE_ENV === 'development') withAutomation()
+    //     // Enable top level await in API handlers
+    //     config.experiments.topLevelAwait = true
+    //     // Silence warnings about "unexpected" resolutions (file-loader)
+    //     config.infrastructureLogging = { level: "error" }
+    //     // Aliases for web support (https://github.com/expo/expo/issues/21469#issuecomment-1576001543)
+    //     config.resolve.alias['expo-asset'] = 'expo-asset-web'
+    //     // Return config
+    //     return config
+    // },
     // App dir support
     reactStrictMode: true,
+    transpilePackages: transpiledModules,
     experimental: {
-        // appDir: true,
-        // transpilePackages: transpiledModules,
+        forceSwcTransforms: true,
     },
 }
 
-// Apply plugins to next config, avoiding next-compose-plugins:
-// -i- https://github.com/cyrilwanner/next-compose-plugins/issues/59#issuecomment-1209152211
-// -i- https://github.com/cyrilwanner/next-compose-plugins/issues/59#issuecomment-1220739666
-const plugins = [withTM, withFonts, withImages, withPWA, [withExpo, { projectRoot: workspaceRoot }]]
-const withPlugins = (_phase /*, { defaultConfig } */) => {
-    // Build final config
-    const finalConfig = plugins.reduce(
-        (acc, plugin) => {
-            // Handle plugins with options
-            if (Array.isArray(plugin)) return { ...acc, ...plugin[0](acc, plugin[1]) }
-            // Handle plugins without options
-            return { ...acc, ...plugin(acc) }
-        },
-        { ...nextConfig }
-    )
-    // Return final config
-    return finalConfig;
-}
+const withPlugins = withExpo({
+    ...nextConfig,
+    // experimental: {},
+})
+
+// // Apply plugins to next config, avoiding next-compose-plugins:
+// // -i- https://github.com/cyrilwanner/next-compose-plugins/issues/59#issuecomment-1209152211
+// // -i- https://github.com/cyrilwanner/next-compose-plugins/issues/59#issuecomment-1220739666
+// const plugins = [withTM, withFonts, withImages, withPWA, [withExpo, { projectRoot: workspaceRoot }]]
+// const withPlugins = (_phase /*, { defaultConfig } */) => {
+//     // Build final config
+//     const finalConfig = plugins.reduce(
+//         (acc, plugin) => {
+//             // Handle plugins with options
+//             if (Array.isArray(plugin)) return { ...acc, ...plugin[0](acc, plugin[1]) }
+//             // Handle plugins without options
+//             return { ...acc, ...plugin(acc) }
+//         },
+//         { ...nextConfig }
+//     )
+//     // Return final config
+//     return finalConfig;
+// }
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
