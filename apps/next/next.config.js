@@ -78,6 +78,7 @@ const nextConfig = {
     experimental: {
         // appDir: true,
         // transpilePackages: transpiledModules,
+        forceSwcTransforms: true,
     },
 }
 
