@@ -10,6 +10,7 @@ module.exports = {
         './docs/Quickstart.stories.mdx',
         './docs/Schemas.stories.mdx',
         './docs/Automation.stories.mdx',
+        './docs/Icons.stories.mdx',
         './docs/Deployment.stories.mdx',
         './other/License.stories.mdx',
         // -- Other documentation --
@@ -25,6 +26,10 @@ module.exports = {
       { name: '@storybook/addon-docs', options: { transcludeMarkdown: true } },
       '@a110/storybook-expand-all',
       'aetherspace/docs/addons',
+    ],
+    staticDirs: [
+      './public',
+      '../apps/next/public',
     ],
     webpackFinal: (config) => {
         // Add TS & react-native-web support
