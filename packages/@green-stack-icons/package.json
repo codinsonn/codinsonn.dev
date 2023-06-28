@@ -1,0 +1,18 @@
+{
+    "name": "@green-stack/icons",
+    "version": "0.0.1",
+    "description": "Icons for the GREEN stack, which render on the server, browser and mobile",
+    "license": "UNLICENSED",
+    "scripts": {
+        "lint": "cd ../.. && eslint \"packages/@green-stack-icons/**/*.{ts,tsx}\"",
+        "lint:icons:fix": "cd ../.. && eslint \"packages/@green-stack-icons/icons/**/*.{ts,tsx}\" --fix --quiet",
+        "regenerate": "npx ts-node ./scripts/regenerate-icons.ts && yarn lint:icons:fix"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@svgr/core": "^8.0.0",
+        "@svgr/plugin-jsx": "^8.0.1",
+        "@svgr/plugin-prettier": "^8.0.1",
+        "@svgr/plugin-svgo": "^8.0.1"
+    }
+}

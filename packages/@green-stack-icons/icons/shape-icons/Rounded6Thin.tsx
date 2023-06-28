@@ -1,0 +1,47 @@
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
+import type { SvgProps } from "react-native-svg"
+
+/* --- Types ----------------------------------------------------------------------------------- */
+
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+
+/* --- <Rounded6Thin/> ------------------------------------------------------------------------- */
+
+export const Rounded6Thin = ({
+  size = 24,
+  fill = '#333333',
+  ...svgProps
+}: IconProps) => (
+  <Svg
+    width={size}
+    height={size}
+    fill="none"
+    viewBox="0 0 24 24"
+    {...svgProps}
+  >
+    <Path
+      stroke={fill}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeMiterlimit={10}
+      d="M12 22.5c5.52 0 10-4.48 10-10s-4.48-10-10-10-10 4.48-10 10 4.48 10 10 10ZM8.6 14.7v-.05"
+    />
+    <Path
+      stroke={fill}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeMiterlimit={10}
+      d="M14.2 7.8c-.6-.5-1.3-.8-2.2-.8-1.9 0-3.4 1.5-3.4 3.4v4.3"
+    />
+    <Path d="M15.4 14.6v.05A3.374 3.374 0 0 1 12 18c-1.88 0-3.37-1.47-3.4-3.35v.05c0-1.9 1.5-3.4 3.4-3.4s3.4 1.5 3.4 3.4" />
+    <Path
+      stroke={fill}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeMiterlimit={10}
+      d="M15.4 14.6v.05A3.374 3.374 0 0 1 12 18c-1.88 0-3.37-1.47-3.4-3.35v.05c0-1.9 1.5-3.4 3.4-3.4s3.4 1.5 3.4 3.4"
+    />
+  </Svg>
+)
+
