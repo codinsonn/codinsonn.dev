@@ -34,3 +34,6 @@ doppler.yaml
 
 # Storybook
 build-storybook.log
+
+# Assets
+packages/@green-stack-icons/assets/shape-icons

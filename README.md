@@ -137,7 +137,7 @@ This starter monorepo has three types of workspaces:
 │       └── components/ ➡️ Molecules / Atoms / Common UI used in 'screens/'
 │       └── graphql/ ➡️ Shared code for the GraphQL API client (optional)
 │       └── resolvers/ ➡️ Shared resolvers used in both in API routes or GraphQL API
-│       └── screens/ ➡️ Page templates used in App.tsx and next.js's 'pages/' directory
+│       └── screens/ ➡️ Page templates used in App.tsx and next.js's 'app/' directory
 │       └── routes/ ➡️ Write-once routing for both web & mobile (see 'app/(generated)/' in expo & next)
 │       └── package.json ➡️ config required by yarn-workspaces, lists dependencies that don't fit anywhere else
 │   └── {app-feature}/ 👉 Code shared across apps, ideally same structure as 'features/app-core'
@@ -154,6 +154,41 @@ This starter monorepo has three types of workspaces:
 ├── package.json  ➡️ Root yarn-workspaces configuration + helper scripts, core developer only dependencies
 └── turbo.json  ➡️ Monorepo config, manages dependencies in build scripts + caching of tasks
 ```
+
+-i- Auto linking routes with 'yarn link-routes' ...
+-----------------------------------------------------------------
+ ✅ /bio/   -- Generated from "../../features/app-core/routes/bio/index.tsx"
+      └── /apps/expo/app/(generated)/bio/index.tsx
+      └── /apps/next/app/(generated)/bio/page.tsx
+ ✅ /   -- Generated from "../../features/app-core/routes/index.tsx"
+      └── /apps/expo/app/(generated)/index.tsx
+      └── /apps/next/app/(generated)/page.tsx
+ ✅ /links/   -- Generated from "../../features/app-core/routes/links/index.tsx"
+      └── /apps/expo/app/(generated)/links/index.tsx
+      └── /apps/next/app/(generated)/links/page.tsx
+ ✅ /cv/[slug]/   -- Generated from "../../features/cv-page/routes/cv/[slug]/index.tsx"
+      └── /apps/expo/app/(generated)/cv/[slug]/index.tsx
+      └── /apps/next/app/(generated)/cv/[slug]/page.tsx
+ ✅ /cv/   -- Generated from "../../features/cv-page/routes/cv/index.tsx"
+      └── /apps/expo/app/(generated)/cv/index.tsx
+      └── /apps/next/app/(generated)/cv/page.tsx
+ ✅ /bio/[slug]/   -- Generated from "../../features/links-page/routes/bio/[slug].tsx"
+      └── /apps/expo/app/(generated)/bio/[slug]/index.tsx
+      └── /apps/next/app/(generated)/bio/[slug]/page.tsx
+--- 
+
+ ✅ /   -- Head from "../../features/app-core/routes/head.tsx"
+      └── /apps/next/app/(generated)/head.tsx
+--- 
+
+ ✅ /api/aetherspace/commerce/shopify/products/   -- API Route from "../../packages/@aetherspace-commerce/routes/api/aetherspace/commerce/shopify/products/route.ts"
+      └── /apps/next/app/(generated)/api/aetherspace/commerce/shopify/products/route.ts
+ ✅ /api/graphql/   -- API Route from "../../features/app-core/routes/api/graphql/route.ts"
+      └── /apps/next/app/(generated)/api/graphql/route.ts
+ ✅ /api/health/   -- API Route from "../../features/app-core/routes/api/health/route.ts"
+      └── /apps/next/app/(generated)/api/health/route.ts
+ ✅ /api/bio/[slug]/   -- API Route from "../../features/links-page/routes/api/bio/[slug]/route.ts"
+      └── /apps/next/app/(generated)/api/bio/[slug]/route.ts
 
 ```
 💡 `{app-feature}`, `{app-name}` & `{comp-lib}` are just placeholders and you **can** have multiple of these

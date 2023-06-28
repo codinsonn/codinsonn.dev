@@ -9,6 +9,7 @@ module.exports = [
     // - Packages -
     'registries',
     'aetherspace',
+    '@green-stack/icons',
     '@aetherspace/commerce',
     // - Features -
     'app',

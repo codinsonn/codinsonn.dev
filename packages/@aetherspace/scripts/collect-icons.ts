@@ -31,7 +31,7 @@ const collectResolvers = () => {
       const importPath = iconRegistryPath.replace('.tsx', '')
       const importType = iconRegistryPath.includes('features') ? 'features' : 'packages'
       const importWorkspace = findTargetString(importPath, `${importType}/$target$/icons/registry`)
-      const importAlias = `${dashToCamel(importWorkspace!)}Icons`
+      const importAlias = `${dashToCamel(importWorkspace!).replace('@', '')}Icons`
       iconRegistryImports.push(`import { iconRegistry as ${importAlias} } from '${importPath}'`)
       iconRegistryExports.push(`...${importAlias},`)
     })

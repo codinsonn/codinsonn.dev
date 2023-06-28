@@ -25,7 +25,7 @@ const AETHER_ICON_KEYS = Object.keys(REGISTERED_ICONS) as [AetherIconKey, ...Aet
 /* --- Descriptions ---------------------------------------------------------------------------- */
 
 const d = {
-  name: `Icon name, as registered through an exported through an 'iconRegistry' in a '{workspace}/icons/register.ts' file`,
+  name: `Icon name, as registered through an exported 'iconRegistry' in a '{workspace}/icons/register.tsx' file`,
   size: `Icon size, in pixels (Encapsulates both width & height of icon)`,
   fill: `Icon fill color, in hex or rgba`,
   url: `Icon URL, for remote .svg or image icons, using this ignores the 'name' prop`,
