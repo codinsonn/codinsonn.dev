@@ -8,7 +8,10 @@
         "lint:icons:fix": "cd ../.. && eslint \"packages/@green-stack-icons/icons/**/*.{ts,tsx}\" --fix --quiet",
         "regenerate": "npx ts-node ./scripts/regenerate-icons.ts && yarn lint:icons:fix"
     },
-    "dependencies": {},
+    "dependencies": {
+        "@nandorojo/heroicons": "^0.0.5",
+        "@nandorojo/iconic": "^0.0.1"
+    },
     "devDependencies": {
         "@svgr/core": "^8.0.0",
         "@svgr/plugin-jsx": "^8.0.1",
