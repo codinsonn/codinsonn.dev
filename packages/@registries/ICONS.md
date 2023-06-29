@@ -2,16 +2,38 @@
 
 There’s many different ways to use icons and icon sets in Aetherspace. Here’s the full list by order of recommendation:
 
-1. SVG components using `react-native-svg`  
+1. Third party SVG component icon libraries, like `@nandorojo/iconic` or `@nandorojo/heroicons`  
+→ SSR support, fast & easy, no layout shift on web, limited options
+2. Custom SVG components using `react-native-svg`  
 → SSR support, can [convert from .svg file](https://transform.tools/svg-to-react-native), but could be more time-consuming
-2. Third party icon libraries, such as `@expo/vector-icons`  
-→ Fast & easy, but needs icon font to be preloaded, possible display delay on web
-3. Image icons through src urls  
-→ Straight forward, easy to implement, not super optimised, display delay on web
+3. Third party iconfont libraries, such as `@expo/vector-icons`  
+→ Fast & easy, needs icon font preloaded, layout shift on web, locked out of SWC
+4. Image icons through src urls  
+→ Straight forward, easy to implement, not super optimised, layout shift on web  
+
+## SVG icon libraries with `@green-stack/icons`
+
+[Solito Docs: Expo + Next.js Icon recipes](https://solito.dev/recipes/icons)
+
+With the mergeable or copy-pastable `@green-stack/icons` package, you can use any of the following icon libraries in web or mobile, without any downsides:
+- `@nandorojo/iconic` ([NPM](https://github.com/nandorojo/react-native-iconic))
+- `@nandorojo/heroicons` ([NPM](https://github.com/nandorojo/react-native-heroicons))
+
+We'll be gathering more similar SVG icon libraries with react-native support under `/packages/@green-stack-icons`. Which functions mostly as a collection of these cross-platform enabled iconsets gathered in one place... But it also has a handy script for turning your own folder of `.svg` icons into your own custom set of React-Native SVG components:
+
+```bash
+yarn workspace @green-stack/icons regenerate
+```
+
+1. Drop your `.svg` files in `/packages/@green-stack-icons/assets/{your-icon-set-name}/`
+2. Run `yarn workspace @green-stack/icons regenerate` to create icon components from your `.svg` files
+3. Import your icon components from `@green-stack/icons/{your-icon-set-name}/{your-icon-name}`
+
+OR, register them for use with `<AetherIcon/>`:
 
 ## Better DX with `AetherIcon`
 
-> Whichever you choose, or even when choosing multiple methods, you can improve your DX or apply the icons dynamicly using Aetherspace’s icon registry pattern and `AetherIcon` component.
+> Whichever of the 4 strategies you choose, or even when choosing multiple methods, you can improve your DX or apply the icons dynamicly using Aetherspace’s icon registry pattern and `AetherIcon` component.
 
 This will enable:
 
@@ -86,19 +108,17 @@ The AetherIcon way of working is fully optional and only exists to keep your fea
 
 If you prefer skipping this and work with the icons directly, we have more simple examples below:
 
-## Using Icon Components
+## Creating your own custom Icon Components
 
 [SVG to React Native](https://transform.tools/svg-to-react-native)
 
-> Use tools like [https://transform.tools](https://transform.tools) to drop in your .svg files and generate a usable React-Native component from that upload.
-> 
+> Adjacent to using third party SVG icon libraries, use tools like [https://transform.tools](https://transform.tools) or [SVGR](https://react-svgr.com/playground/?native=true&typescript=true) to drop in your .svg files and generate a usable React-Native component from that upload.
 
 ![TransformToolsExampleRNSVG.png](/.storybook/public/TransformToolsExampleRNSVG.png)
 
-→ Save to e.g. `/features/{workspace}/icons/MySvgComponent.tsx` (and edit it if you wish)
+→ Save to e.g. `/features/{workspace}/icons/MySvgComponent.tsx` and edit it to your liking
 
 > Using your Icon Component:
-> 
 
 ```tsx
 import MySvgComponent from '../icons/SvgCompont'
@@ -134,6 +154,7 @@ Downsides of using icon fonts under the hood:
 
 - You’ll need to preload your icon font somehow, easy on mobile but harder on web
 - Meaning you might not see the icon immediately if the icon font isn’t loaded yet
+- Cannot use Next.js’s SWC compiler when using any of the @expo/vector-icons (no loader for importing .ttf files)
 
 Example usage:
 
@@ -164,7 +185,7 @@ const useLoadFonts = () => {
     /* ... */
     // - Icon Fonts -
     AntDesign: require('@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/AntDesign.ttf'),
-		// -!- important: always double check this path (^) for your icon fonts
+    // -!- important: always double check this path (^) for your icon fonts
   }
 
   const [fontsLoaded, fontsError] = useFonts(fontsToLoad)
@@ -194,8 +215,8 @@ import { ComponentProps } from 'react'
 /** --- iconRegistry --------------------------------------------------------------------------- */
 /** -i- Register any icons by preferred AetherIcon "name" key */
 export const iconRegistry = {
-	// Register any icons from e.g. AntDesign you want by
-	// registering them by strings 👇 array (readonly) + render function
+  // Register any icons from e.g. AntDesign you want by
+  // registering them by strings 👇 array (readonly) + render function
   ...registerIconRenderer(['caretup'] as const, ({ name, size, fill, ...restIconProps }) => (
     <AntDesign
       name={name as ComponentProps<typeof AntDesign>['name']}
