@@ -26,7 +26,9 @@ const StorybookLinkTransformer = (props) => {
 
   useEffect(() => {
     transformLinks({
-      '/.storybook/public/TransformToolsExampleRNSVG.png': '/TransformToolsExampleRNSVG.png', // prettier-ignore
+      '/.storybook/public/TransformToolsExampleRNSVG.png': '/TransformToolsExampleRNSVG.png',
+      '?path=/packages/@aetherspace/navigation/README.md': '?path=/docs/aetherspace-universal-routing--page', // prettier-ignore
+      '?path=/packages/@registries/ICONS.md': '?path=/docs/aetherspace-icon-management--page',
       '?path=/packages/@registries/README.md': '?path=/docs/aetherspace-automation--page',
       '?path=/packages/@aetherspace/schemas/README.md': '?path=/docs/aetherspace-single-sources-of-truth--page', // prettier-ignore
       '?path=/.github/workflows/README.md': '?path=/docs/aetherspace-deployment--page',

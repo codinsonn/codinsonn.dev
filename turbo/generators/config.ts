@@ -29,6 +29,8 @@ export default function (plop: PlopTypes.NodePlopAPI) {
     function (answers, config: AppendActionConfig, plop: PlopTypes.NodePlopAPI) {
       const targetPath = plop.getPlopfilePath().replace('/turbo/generators', '')
       const absolutePath = path.join(targetPath, config.path)
+      // Check if file exists, create it if it doesn't yet
+      if (fs.existsSync(absolutePath) === false) fs.writeFileSync(absolutePath, '')
       // Check for last empty line
       const existingContent = fs.readFileSync(absolutePath, 'utf8')
       let newContent = existingContent.replace(/^(.*\S)[\r\n]*$/gm, `$1\n${config.template}`)

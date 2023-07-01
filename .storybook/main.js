@@ -9,6 +9,7 @@ module.exports = {
         '../README.stories.mdx',
         './docs/Quickstart.stories.mdx',
         './docs/Schemas.stories.mdx',
+        './docs/UniversalRouting.stories.mdx',
         './docs/Automation.stories.mdx',
         './docs/Icons.stories.mdx',
         './docs/Deployment.stories.mdx',

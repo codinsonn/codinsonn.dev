@@ -1,4 +1,4 @@
-# Schemas 📐
+# Schemas as Single Sources of Truth 📐
 
 ```ts
 import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
