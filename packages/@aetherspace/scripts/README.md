@@ -214,6 +214,6 @@ const withAutomation = () => {
 ## Learn more:
 
 - [Managing Routes in Aetherspace](/packages/@aetherspace/navigation/README.md)
-- [Managing Icons in GREEN stack Expo + Next.js monorepos](/packages/@registries/ICONS.md)
+- [Managing Icons in GREEN stack Expo + Next.js monorepos](/packages/@aetherspace/components/AetherIcon/README.md)
 - [Single Sources of Truth for your Web & Mobile apps](/packages/@aetherspace/schemas/README.md)
 - [Deploy your web & mobile apps + documentation with Github Actions](/.github/workflows/README.md)

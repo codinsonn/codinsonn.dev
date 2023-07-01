@@ -80,4 +80,4 @@ All you need to do is create a new project by importing your repository in their
 ## Learn more about Aetherspace:
 
 - [Single Sources of Truth for your Web & Mobile apps](/packages/@aetherspace/schemas/README.md)
-- [Automation based on Single Sources of Truth and the File System](/packages/@registries/README.md)
+- [Automation based on Single Sources of Truth and the File System](/packages/@aetherspace/scripts/README.md)

@@ -155,6 +155,7 @@ This starter monorepo has three types of workspaces:
 └── turbo.json  ➡️ Monorepo config, manages dependencies in build scripts + caching of tasks
 ```
 
+```shell
 -i- Auto linking routes with 'yarn link-routes' ...
 -----------------------------------------------------------------
  ✅ /bio/   -- Generated from "../../features/app-core/routes/bio/index.tsx"
@@ -191,8 +192,8 @@ This starter monorepo has three types of workspaces:
       └── /apps/next/app/(generated)/api/bio/[slug]/route.ts
 
 ```
-💡 `{app-feature}`, `{app-name}` & `{comp-lib}` are just placeholders and you **can** have multiple of these
-```
+
+> 💡 `{app-feature}`, `{app-name}` & `{comp-lib}` are just placeholders and you **can** have multiple of these
 
 #### 📦 Keep your apps seperate with `/apps/*` & `/features/*` workspaces:
 
@@ -227,7 +228,7 @@ Here's a list of what you can start doing out of the box:
 
 - Link pages and screens cross platform with the `<Link>` component from `aetherspace/navigation`
 - Use tailwind to style UI responsively on web / mobile with `<AetherView tw="sm:px-2">` / `tailwind-rn`
-- Add illustrations or [icons with `react-native-svg`](/packages/@registries/ICONS.md)
+- Add illustrations or [icons with `react-native-svg`](/packages/@aetherspace/components/AetherIcon/README.md)
 - Bring the power of GraphQL to JSON or REST apis with `aetherResolver()` and schemas as single sources of truth.
 - Document your components and APIs with Storybook.
 - Deploy to vercel by importing your repo in their UI ([view live example](https://aetherspace-green-stack-starter.vercel.app/))
@@ -347,7 +348,7 @@ If your project has required dependencies / SDKs / libraries that are either not
 
 #### How does automatic docgen work?
 
-See the README on [Automation](/packages/@registries/README.md) or the [Anouncement post](https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64) 
+See the README on [Automation](/packages/@aetherspace/scripts/README.md) or the [Anouncement post](https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64) 
 
 #### I have a question about the license.
 
