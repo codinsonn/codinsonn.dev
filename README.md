@@ -227,10 +227,10 @@ Here's a list of what you can start doing out of the box:
 
 - Link pages and screens cross platform with the `<Link>` component from `aetherspace/navigation`
 - Use tailwind to style UI responsively on web / mobile with `<AetherView tw="sm:px-2">` / `tailwind-rn`
-- Add illustrations or icons with `react-native-svg`
+- Add illustrations or [icons with `react-native-svg`](/packages/@registries/ICONS.md)
 - Bring the power of GraphQL to JSON or REST apis with `aetherResolver()` and schemas as single sources of truth.
 - Document your components and APIs with Storybook.
-- Deploy to vercel with `yarn deploy` or `vercel --prod --no-clipboard` ([view live](https://aetherspace-green-stack-starter.vercel.app/))
+- Deploy to vercel by importing your repo in their UI ([view live example](https://aetherspace-green-stack-starter.vercel.app/))
 - Deploy to netlify [via this guide](https://www.netlify.com/blog/2020/11/30/how-to-deploy-next.js-sites-to-netlify/) ([view live](https://aetherspace-green-stack-starter.netlify.app/))
 
 Possible next steps:

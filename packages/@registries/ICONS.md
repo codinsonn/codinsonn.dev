@@ -234,5 +234,5 @@ export const iconRegistry = {
 
 ## Continue learning:
 
-- [Automation based on Schemas: Storybook & GraphQL](/packages/@registries/README.md)
+- [Automations based on Schemas and the Filesystem](/packages/@registries/README.md)
 - [Single Sources of Truth for your Web & Mobile apps](/packages/@aetherspace/schemas/README.md)
