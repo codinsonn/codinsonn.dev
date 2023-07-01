@@ -4,7 +4,7 @@
 
 ## Kickstart for Web & Mobile with Aetherspace
 
-Generate a new repo from the [Aetherspace template](https://github.com/Aetherspace/green-stack-starter) and (optionally) include all branches.
+Generate a new repo from the [Aetherspace template](https://github.com/Aetherspace/green-stack-starter-demo) and (optionally) include all branches.
 
 Github will then generate a copy of the template repo for you to customize.
 It comes out of the box with setup for:
@@ -13,7 +13,7 @@ It comes out of the box with setup for:
 - Expo mobile app (Android & iOS with Expo and react-native)
 - A REST & GraphQL API (with Apollo Server & Next.js API routes)
 - Documentation for both Aetherspace and the example components
-- [Automation](/packages/@registries/README.md) scripts to automatically generate API & component documentation
+- [Automation](/packages/@aetherspace/scripts/README.md) scripts to automatically generate API & component documentation
 - Github actions for mobile deployments, linting your code & building your documentation
 
 **When you're ready to start developing, run `yarn install` to install all dependencies, followed by:**
@@ -240,5 +240,5 @@ Performing these 6 steps has provided us with a bunch of value in little time:
 ## Learn more:
 
 - [Single Sources of Truth for your Web & Mobile apps](/packages/@aetherspace/schemas/README.md)
-- [Writing flexible data resolvers with Schemas]() (TODO)
-- [Automation based on Schemas: Storybook & GraphQL](/packages/@registries/README.md)
+- [Writing flexible data resolvers with Schemas](/packages/@aetherspace/navigation/AetherPage/README.md)
+- [Automation based on Schemas: Storybook & GraphQL](/packages/@aetherspace/scripts/README.md)

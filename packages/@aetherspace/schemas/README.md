@@ -188,7 +188,7 @@ Check out the Storybook 'Controls' addon tab or the ArgTables in 'Docs' pages if
 
 For GraphQL, with the automation script and introspection enabled, you can see the generated schema and it's documentation in the GraphQL Playground.
 
-> 💡 If you'd like to know more or just how this all works under the hood, definitely check out the [automation script docs](/packages/@registries/README.md)
+> 💡 If you'd like to know more or just how this all works under the hood, definitely check out the [automation script docs](/packages/@aetherspace/scripts/README.md)
 
 <br/>
 
@@ -296,4 +296,4 @@ const RequiredSchema = OptionalSchema.requiredSchema('RequiredTopic')
 
 - Read the [official zod docs at zod.dev](https://zod.dev/) (or watch an [intro video](https://www.youtube.com/watch?v=L6BE-U3oy80))
 - [Writing flexible data resolvers with Schemas]() (TODO)
-- [Automation based on Schemas: Storybook & GraphQL](/packages/@registries/README.md)
+- [Automation based on Schemas: Storybook & GraphQL](/packages/@aetherspace/scripts/README.md)

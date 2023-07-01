@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
-/* --- Transform links ------------------------------------------------------------------------- */
-
+/** --- transformLinks() ----------------------------------------------------------------------- */
+/** -i- Replace certain Markdown links so they work in Storybook as well as Github */
 const transformLinks = (replaceMap: Record<string, string>) => {
   const $allLinks = Array.from(document.querySelectorAll('a[href]'))
   const $allSrcs = Array.from(document.querySelectorAll('img[src]'))
@@ -26,11 +26,14 @@ const StorybookLinkTransformer = (props) => {
 
   useEffect(() => {
     transformLinks({
+      // - Images -
       '/.storybook/public/TransformToolsExampleRNSVG.png': '/TransformToolsExampleRNSVG.png',
-      '?path=/packages/@aetherspace/navigation/README.md': '?path=/docs/aetherspace-universal-routing--page', // prettier-ignore
-      '?path=/packages/@registries/ICONS.md': '?path=/docs/aetherspace-icon-management--page',
-      '?path=/packages/@registries/README.md': '?path=/docs/aetherspace-automation--page',
-      '?path=/packages/@aetherspace/schemas/README.md': '?path=/docs/aetherspace-single-sources-of-truth--page', // prettier-ignore
+      // - Hrefs -
+      '?path=/packages/@aetherspace/navigation/README.md': '?path=/docs/aetherspace-universal-routing--page',
+      '?path=/packages/@aetherspace/navigation/AetherPage/README.md': '?path=/docs/aetherspace-graphql-data-fetching--page',
+      '?path=/packages/@aetherspace/components/AetherIcon/README.md': '?path=/docs/aetherspace-icon-management--page',
+      '?path=/packages/@aetherspace/scripts/README.md': '?path=/docs/aetherspace-automation--page',
+      '?path=/packages/@aetherspace/schemas/README.md': '?path=/docs/aetherspace-single-sources-of-truth--page',
       '?path=/.github/workflows/README.md': '?path=/docs/aetherspace-deployment--page',
     })
   }, [])
