@@ -29,6 +29,7 @@ const StorybookLinkTransformer = (props) => {
       // - Images -
       '/.storybook/public/TransformToolsExampleRNSVG.png': '/TransformToolsExampleRNSVG.png',
       // - Hrefs -
+      '?path=/packages/@aetherspace/README.md': '?path=/docs/aetherspace-quickstart--page',
       '?path=/packages/@aetherspace/core/README.md': '?path=/docs/aetherspace-core-concepts--page',
       '?path=/packages/@aetherspace/navigation/README.md': '?path=/docs/aetherspace-universal-routing--page',
       '?path=/packages/@aetherspace/navigation/AetherPage/README.md': '?path=/docs/aetherspace-graphql-data-fetching--page',

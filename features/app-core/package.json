@@ -6,10 +6,12 @@
         "lint": "cd ../.. && eslint \"features/app-core/**/*.{ts,tsx}\""
     },
     "dependencies": {
-        "links-page": "*",
+        "@vercel/analytics": "^1.0.1",
         "@aetherspace/commerce": "*",
         "@expo-google-fonts/roboto": "^0.2.3",
+        "airtable": "^0.12.1",
         "cors": "^2.8.5",
+        "links-page": "*",
         "registries": "*",
         "swr": "^2.0.0"
     }

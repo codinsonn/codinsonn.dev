@@ -15,9 +15,7 @@
     },
     "dependencies": {
         "@expo/next-adapter": "^5.0.2",
-        "@vercel/analytics": "^1.0.1",
         "aetherspace": "*",
-        "airtable": "^0.12.1",
         "app": "*",
         "encoding": "^0.1.13",
         "expo-asset-web": "npm:expo-asset@8.7.0",

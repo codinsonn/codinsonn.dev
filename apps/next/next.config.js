@@ -76,7 +76,6 @@ const nextConfig = {
     // App dir support
     reactStrictMode: true,
     experimental: {
-        // appDir: true,
         // transpilePackages: transpiledModules,
     },
 }

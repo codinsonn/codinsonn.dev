@@ -76,6 +76,10 @@ export const AetherIcon = (props: TAetherIconProps) => {
     )
   }
 
+  // -- No Icon? --
+
+  if (!name) return null
+
   // -- Icon Renderer --
 
   const IconRenderer = REGISTERED_ICONS[name!] as AetherIconRenderer
