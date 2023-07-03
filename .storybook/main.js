@@ -8,6 +8,7 @@ module.exports = {
         // -- Aetherspace docs --
         '../README.stories.mdx',
         './docs/Quickstart.stories.mdx',
+        './docs/CoreConcepts.stories.mdx',
         './docs/Schemas.stories.mdx',
         './docs/UniversalRouting.stories.mdx',
         './docs/GraphQL.stories.mdx',
