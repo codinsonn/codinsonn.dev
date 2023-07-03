@@ -29,12 +29,14 @@ const StorybookLinkTransformer = (props) => {
       // - Images -
       '/.storybook/public/TransformToolsExampleRNSVG.png': '/TransformToolsExampleRNSVG.png',
       // - Hrefs -
+      '?path=/packages/@aetherspace/core/README.md': '?path=/docs/aetherspace-core-concepts--page',
       '?path=/packages/@aetherspace/navigation/README.md': '?path=/docs/aetherspace-universal-routing--page',
       '?path=/packages/@aetherspace/navigation/AetherPage/README.md': '?path=/docs/aetherspace-graphql-data-fetching--page',
       '?path=/packages/@aetherspace/components/AetherIcon/README.md': '?path=/docs/aetherspace-icon-management--page',
       '?path=/packages/@aetherspace/scripts/README.md': '?path=/docs/aetherspace-automation--page',
       '?path=/packages/@aetherspace/schemas/README.md': '?path=/docs/aetherspace-single-sources-of-truth--page',
       '?path=/.github/workflows/README.md': '?path=/docs/aetherspace-deployment--page',
+      '?path=/LICENSE.md': '?path=/docs/aetherspace-license--page',
     })
   }, [])
 

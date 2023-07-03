@@ -12,7 +12,7 @@
     "lint": "cd ../.. && eslint \"apps/expo/**/*.{ts,tsx}\"",
     "expo-cli": "npx expo",
     "eas-cli": "npx eas-cli",
-    "deploy:publish": "EXPO_PUBLISH=true npx expo publish --release-channel starter-preview-main",
+    "deploy:publish": "EXPO_PUBLISH=true npx expo publish --release-channel main",
     "deploy:update:auto": "npx eas-cli update --auto",
     "deploy:update:dev": "npx eas-cli update --branch dev",
     "deploy:update:stage": "npx eas-cli update --branch stage",

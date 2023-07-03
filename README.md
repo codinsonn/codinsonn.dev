@@ -36,6 +36,7 @@ Run with Storybook docs: `yarn dev:docs`
 
 > 🐦 [Anouncement post](https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64)  
 > ⚡️ [Quickstart example](https://main--63e8ae7f443d84f16518d4e5.chromatic.com/?path=/story/aetherspace-quickstart--page)  
+> 📚 [Core Concepts](/packages/@aetherspace/core/README.md)
 
 ### Table of contents
 
@@ -346,9 +347,21 @@ If your project has required dependencies / SDKs / libraries that are either not
 
 ## Frequently Asked Questions 🤔
 
+#### What's the benefit of using this over X-solution?
+
+See the [Core Concepts](/packages/@aetherspace/core/README.md) section
+
+#### How can I apply the same navigation and deeplinks between web and mobile?
+
+Deeplinks on mobile come out of the box with Expo-Router, which Aetherspace's [Universal Routing](/packages/@aetherspace/navigation/README.md) uses under the hood.
+
 #### How does automatic docgen work?
 
 See the README on [Automation](/packages/@aetherspace/scripts/README.md) or the [Anouncement post](https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64) 
+
+#### How should I manage my icons?
+
+See the [Icon Management](/packages/@aetherspace/components/AetherIcon/README.md) README
 
 #### I have a question about the license.
 

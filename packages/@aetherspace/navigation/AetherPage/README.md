@@ -2,7 +2,7 @@
 
 As you may have guessed, the G in GREEN stack stands for GraphQL. It is an essential part of the stack, and is used to fetch data for all pages of the app you're building with Aetherspace.
 
-## Why GraphQL?
+## Why GraphQL?  
 
 #### Self-documenting API:
 
@@ -27,7 +27,7 @@ This avoids causing disruptions or requiring versioning.
 
 On top of that, the way to create a GraphQL API in Aetherspace can also be used to create a REST API, free of effort or vice versa.
 
-## Creating GraphQL Resolvers
+# Creating GraphQL Resolvers
 
 ### With Schemas and just functions™️
 
