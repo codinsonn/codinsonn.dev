@@ -5,8 +5,10 @@ import { AetherProps } from 'aetherspace/schemas'
 import { Link, useAetherNav } from 'aetherspace/navigation'
 // Schemas
 import { LinkInBio } from '../schemas'
+// Styles
+import { twStyled } from 'aetherspace/styles' 
 // Primitives
-import { View, Image, Pressable } from 'aetherspace/primitives'
+import { Image } from 'aetherspace/primitives'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
@@ -24,12 +26,11 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
   // -- Render --
 
   return (
-    <Pressable
+    <StLinkWrapper
       accessibilityRole="button"
-      tw="h-[100px] docs:max-w-[600px] flex-row rounded-md overflow-hidden bg-slate-800"
       onPress={() => openLink(link)}
     >
-      <View tw="relative w-[90px] xs:w-[100px] sm:w-[120px] h-[100px]">
+      <StImageWrapper>
         <Link href={link}>
           <Image
             src={imageUrl}
@@ -41,21 +42,37 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
             transition={1000}
           />
         </Link>
-      </View>
-      <View tw="flex-shrink self-stretch overflow-hidden px-2 xs:px-4 py-2 xs:py-3">
+      </StImageWrapper>
+      <StTextWrappers>
         <Link href={link} tw="roboto-bold text-white flex-shrink text-sm sm:text-base" isText>
           {title}
         </Link>
-        <View tw="h-1" />
+        <StSpacing tw="h-1" />
         {subTitle && (
           <Link href={link} tw="roboto text-white flex-shrink text-xs" isText>
             {subTitle}
           </Link>
         )}
-      </View>
-    </Pressable>
+      </StTextWrappers>
+    </StLinkWrapper>
   )
 }
+
+/* --- Styles ---------------------------------------------------------------------------------- */
+
+const StLinkWrapper = twStyled.Pressable`
+  h-[100px] docs:max-w-[600px] flex-row rounded-md overflow-hidden bg-slate-800
+`
+
+const StImageWrapper = twStyled.View`
+  relative w-[90px] xs:w-[100px] sm:w-[120px] h-[100px]
+`
+
+const StTextWrappers = twStyled.View`
+  flex-shrink self-stretch overflow-hidden px-2 xs:px-4 py-2 xs:py-3
+`
+
+const StSpacing = twStyled.View``
 
 /* --- Documentation --------------------------------------------------------------------------- */
 
