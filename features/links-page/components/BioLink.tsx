@@ -26,7 +26,7 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
   // -- Render --
 
   return (
-    <StLinkWrapper accessibilityRole="button" onPress={() => openLink(link)}>
+    <StLinkWrapper role="button" onPress={() => openLink(link)}>
       <StImageWrapper>
         <Link href={link}>
           <Image
