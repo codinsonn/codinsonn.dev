@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <WindowsFilled/> ------------------------------------------------------------------------ */
 
@@ -14,13 +14,7 @@ export const WindowsFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M8.12 10.53c-1.44-.05-3.11.5-4.06.88h-.01L2 20.09c3.38-1.37 5.54-1.26 6.88-.91.49.13.91.3 1.3.49l1.85-7.8c-1.21-.56-2.11-1.28-3.91-1.34Z"
@@ -42,4 +36,3 @@ export const WindowsFilled = ({
     />
   </Svg>
 )
-

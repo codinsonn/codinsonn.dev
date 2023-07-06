@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path, Circle } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <Train2Filled/> ------------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const Train2Filled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path fill={fill} d="M4 5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3H4V5Z" />
     <Path stroke={stroke} strokeLinejoin="round" d="M20 8H4M12 8V2" />
     <Path
@@ -36,4 +30,3 @@ export const Train2Filled = ({
     <Circle cx={16} cy={16} r={1} fill={fill} />
   </Svg>
 )
-

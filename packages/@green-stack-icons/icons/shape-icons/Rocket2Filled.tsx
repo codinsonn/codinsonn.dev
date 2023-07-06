@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <Rocket2Filled/> ------------------------------------------------------------------------ */
 
@@ -14,13 +14,7 @@ export const Rocket2Filled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M14.51 17.36c-5.55 2.03-5.55 2.03-7.73-.15-2.17-2.17-2.17-2.17-.15-7.73 2.19-2.19 5.82-4.75 9-6.23 2.58-1.21 4.87-1.71 5.85-.74 2.18 2.18-2.99 10.87-6.97 14.85Z"
@@ -50,4 +44,3 @@ export const Rocket2Filled = ({
     />
   </Svg>
 )
-

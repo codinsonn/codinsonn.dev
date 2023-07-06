@@ -1,35 +1,22 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <WifiSignal2Filled/> -------------------------------------------------------------------- */
 
-export const WifiSignal2Filled = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+export const WifiSignal2Filled = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       fillRule="evenodd"
       d="M12 3a1 1 0 0 1 1 1v14a1 1 0 0 1-2 0V4a1 1 0 0 1 1-1Z"
       clipRule="evenodd"
     />
-    <Path
-      fill={fill}
-      d="M4 20a2 2 0 0 1 2-2h12a2 2 0 1 1 0 4H6a2 2 0 0 1-2-2Z"
-    />
+    <Path fill={fill} d="M4 20a2 2 0 0 1 2-2h12a2 2 0 1 1 0 4H6a2 2 0 0 1-2-2Z" />
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -38,4 +25,3 @@ export const WifiSignal2Filled = ({
     />
   </Svg>
 )
-

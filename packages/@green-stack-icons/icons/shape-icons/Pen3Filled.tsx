@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <Pen3Filled/> --------------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const Pen3Filled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -33,12 +27,6 @@ export const Pen3Filled = ({
       d="M4.48 15.99 2 22l6.01-2.48-3.53-3.53Z"
       clipRule="evenodd"
     />
-    <Path
-      stroke={stroke}
-      strokeLinejoin="round"
-      strokeMiterlimit={10}
-      d="m4.48 15.99 3.53 3.53"
-    />
+    <Path stroke={stroke} strokeLinejoin="round" strokeMiterlimit={10} d="m4.48 15.99 3.53 3.53" />
   </Svg>
 )
-

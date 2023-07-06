@@ -1,30 +1,16 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <ScissorCuttingThin/> ------------------------------------------------------------------- */
 
-export const ScissorCuttingThin = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
-    <Path
-      stroke={fill}
-      strokeLinejoin="round"
-      d="M23 13h-2M20 13h-2M17 13h-2M14 13h-2M11 13H9"
-    />
+export const ScissorCuttingThin = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
+    <Path stroke={fill} strokeLinejoin="round" d="M23 13h-2M20 13h-2M17 13h-2M14 13h-2M11 13H9" />
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -38,4 +24,3 @@ export const ScissorCuttingThin = ({
     />
   </Svg>
 )
-

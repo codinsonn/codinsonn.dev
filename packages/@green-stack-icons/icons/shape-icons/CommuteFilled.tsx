@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <CommuteFilled/> ------------------------------------------------------------------------ */
 
@@ -14,23 +14,14 @@ export const CommuteFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       fillRule="evenodd"
       d="M2 20a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Z"
       clipRule="evenodd"
     />
-    <Path
-      fill={fill}
-      d="M2 3h10.77C17.87 3 22 7.13 22 12.23c0 .42-.34.77-.77.77H2"
-    />
+    <Path fill={fill} d="M2 3h10.77C17.87 3 22 7.13 22 12.23c0 .42-.34.77-.77.77H2" />
     <Path stroke={stroke} d="M2 13h9L9.12 9.13A2.004 2.004 0 0 0 7.32 8H2" />
     <Path
       stroke={stroke}
@@ -56,4 +47,3 @@ export const CommuteFilled = ({
     <Path stroke={stroke} strokeLinejoin="round" d="M5 13V8" />
   </Svg>
 )
-

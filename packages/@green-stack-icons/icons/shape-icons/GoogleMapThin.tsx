@@ -1,25 +1,15 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <GoogleMapThin/> ------------------------------------------------------------------------ */
 
-export const GoogleMapThin = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+export const GoogleMapThin = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -34,11 +24,6 @@ export const GoogleMapThin = ({
       strokeMiterlimit={10}
       d="M20.31 6.01c0 2.22-4 9.99-4 9.99s-4-7.77-4-9.99c0-2.22 1.79-4.01 4-4.01s4 1.8 4 4.01Z"
     />
-    <Path
-      stroke={fill}
-      strokeMiterlimit={10}
-      d="M16.31 6.48a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z"
-    />
+    <Path stroke={fill} strokeMiterlimit={10} d="M16.31 6.48a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z" />
   </Svg>
 )
-

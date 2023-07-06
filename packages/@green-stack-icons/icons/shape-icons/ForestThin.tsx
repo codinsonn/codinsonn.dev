@@ -1,30 +1,16 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <ForestThin/> --------------------------------------------------------------------------- */
 
-export const ForestThin = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
-    <Path
-      stroke={fill}
-      strokeLinecap="round"
-      d="M9.72 17H9v5h1v-4.8l-.28-.2ZM16 18h-1v4h1v-4Z"
-    />
+export const ForestThin = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
+    <Path stroke={fill} strokeLinecap="round" d="M9.72 17H9v5h1v-4.8l-.28-.2ZM16 18h-1v4h1v-4Z" />
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -39,4 +25,3 @@ export const ForestThin = ({
     />
   </Svg>
 )
-

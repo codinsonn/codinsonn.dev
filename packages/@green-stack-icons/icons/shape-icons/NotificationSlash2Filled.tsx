@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <NotificationSlash2Filled/> ------------------------------------------------------------- */
 
@@ -13,17 +13,8 @@ export const NotificationSlash2Filled = ({
   fill = '#333333',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
-    <Path
-      fill={fill}
-      d="M12 22c-1.93 0-3.5-1.57-3.5-3.5V18h7v.5c0 1.93-1.57 3.5-3.5 3.5Z"
-    />
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
+    <Path fill={fill} d="M12 22c-1.93 0-3.5-1.57-3.5-3.5V18h7v.5c0 1.93-1.57 3.5-3.5 3.5Z" />
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -32,4 +23,3 @@ export const NotificationSlash2Filled = ({
     />
   </Svg>
 )
-

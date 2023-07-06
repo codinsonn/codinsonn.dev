@@ -1,29 +1,16 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <Car5Thin/> ----------------------------------------------------------------------------- */
 
-export const Car5Thin = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
-    <Path
-      stroke={fill}
-      d="M6 4h12l2 5 2 3v5s-6.075 1-10 1-10-1-10-1v-5l2-3 2-5Z"
-    />
+export const Car5Thin = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
+    <Path stroke={fill} d="M6 4h12l2 5 2 3v5s-6.075 1-10 1-10-1-10-1v-5l2-3 2-5Z" />
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -38,4 +25,3 @@ export const Car5Thin = ({
     />
   </Svg>
 )
-

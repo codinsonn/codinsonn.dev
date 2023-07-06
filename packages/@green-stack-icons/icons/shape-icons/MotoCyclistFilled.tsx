@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path, Circle } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <MotoCyclistFilled/> -------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const MotoCyclistFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M15 11V6H9v5s-.743 1.165-1 2c-.217.705-.229 2.088-.181 3.109.023.508.45.891.96.891h.554L10 13a1 1 0 0 1 .615-.923 1.5 1.5 0 1 1 2.77 0A1 1 0 0 1 14 13l.667 4h.555c.509 0 .936-.383.96-.891.047-1.02.035-2.404-.182-3.109-.257-.835-1-2-1-2Z"
@@ -37,12 +31,7 @@ export const MotoCyclistFilled = ({
     />
     <Path stroke={stroke} strokeLinejoin="round" d="M13 20v-1a1 1 0 1 0-2 0v1" />
     <Path fill={fill} d="M13 21v-2a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0Z" />
-    <Path
-      stroke={stroke}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M9 10h6M8 12h8"
-    />
+    <Path stroke={stroke} strokeLinecap="round" strokeLinejoin="round" d="M9 10h6M8 12h8" />
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -67,4 +56,3 @@ export const MotoCyclistFilled = ({
     <Circle cx={12} cy={11.5} r={1.5} fill={fill} />
   </Svg>
 )
-

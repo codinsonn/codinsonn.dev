@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <WrenchAndScrewdriverFilled/> ----------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const WrenchAndScrewdriverFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="m15.127 11.638-2.572 2c-.59.46-1.159.946-1.702 1.458l6.026 6.026a3 3 0 0 0 4.242-4.243l-4.946-4.947a4.993 4.993 0 0 1-1.048-.294Z"
@@ -57,4 +51,3 @@ export const WrenchAndScrewdriverFilled = ({
     />
   </Svg>
 )
-

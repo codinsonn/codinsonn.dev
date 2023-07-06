@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <FileAdd2Filled/> ----------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const FileAdd2Filled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path fill={fill} d="M21 14V7l-5-5H3v20h10v-5h3v-3h5Z" />
     <Path
       fill={fill}
@@ -32,4 +26,3 @@ export const FileAdd2Filled = ({
     <Path fill={fill} d="M21 8h-6V2h1l5 5v1Z" />
   </Svg>
 )
-

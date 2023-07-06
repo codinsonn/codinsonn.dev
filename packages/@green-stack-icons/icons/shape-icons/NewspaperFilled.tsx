@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <NewspaperFilled/> ---------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const NewspaperFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -41,10 +35,6 @@ export const NewspaperFilled = ({
       strokeMiterlimit={10}
       d="M9 5H5v5h4V5Z"
     />
-    <Path
-      fill={fill}
-      d="M9 5H5v5h4V5ZM21 22c-1.1 0-2-.9-2-2V9h4v11c0 1.1-.9 2-2 2Z"
-    />
+    <Path fill={fill} d="M9 5H5v5h4V5ZM21 22c-1.1 0-2-.9-2-2V9h4v11c0 1.1-.9 2-2 2Z" />
   </Svg>
 )
-

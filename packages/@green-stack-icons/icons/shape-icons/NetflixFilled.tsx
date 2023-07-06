@@ -1,25 +1,15 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <NetflixFilled/> ------------------------------------------------------------------------ */
 
-export const NetflixFilled = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+export const NetflixFilled = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M20 22c-1.38-.14-2.76-.25-4.14-.31C11.9 14.93 7.95 8.66 4 2.02 5.38 2.01 6.76 2 8.15 2 12.09 8.55 16.06 14.93 20 22Z"
@@ -30,4 +20,3 @@ export const NetflixFilled = ({
     />
   </Svg>
 )
-

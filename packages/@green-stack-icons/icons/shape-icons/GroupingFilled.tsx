@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <GroupingFilled/> ----------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const GroupingFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path fill={fill} d="M14 5H5v9h9V5Z" />
     <Path stroke={stroke} d="M14 10h-4v4" />
     <Path fill={fill} d="M19 10h-9v9h9v-9Z" />
@@ -36,4 +30,3 @@ export const GroupingFilled = ({
     />
   </Svg>
 )
-

@@ -1,25 +1,15 @@
 import * as React from 'react'
 import Svg, { Rect, Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <DisplayFilled/> ------------------------------------------------------------------------ */
 
-export const DisplayFilled = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+export const DisplayFilled = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Rect width={12} height={8} x={10} y={11} fill={fill} rx={1} />
     <Path
       fill={fill}
@@ -29,4 +19,3 @@ export const DisplayFilled = ({
     />
   </Svg>
 )
-

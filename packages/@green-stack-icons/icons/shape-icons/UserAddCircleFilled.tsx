@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <UserAddCircleFilled/> ------------------------------------------------------------------ */
 
@@ -14,13 +14,7 @@ export const UserAddCircleFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M22 12c0 1.02-.15 2.01-.44 2.94A5.013 5.013 0 0 0 17 12c-2.76 0-5 2.24-5 5 0 2.03 1.21 3.77 2.94 4.56-.93.29-1.92.44-2.94.44-5.52 0-10-4.48-10-10S6.48 2 12 2s10 4.48 10 10Z"
@@ -54,12 +48,6 @@ export const UserAddCircleFilled = ({
       strokeMiterlimit={10}
       d="M17 22a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"
     />
-    <Path
-      stroke={stroke}
-      strokeLinejoin="round"
-      strokeMiterlimit={10}
-      d="M14 17h6M17 14v6"
-    />
+    <Path stroke={stroke} strokeLinejoin="round" strokeMiterlimit={10} d="M14 17h6M17 14v6" />
   </Svg>
 )
-

@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Circle, Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <PowerButton2Filled/> ------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const PowerButton2Filled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Circle cx={12} cy={12} r={10} fill={fill} />
     <Path
       stroke={stroke}
@@ -31,4 +25,3 @@ export const PowerButton2Filled = ({
     <Path stroke={stroke} strokeLinecap="round" d="M12 6v5" />
   </Svg>
 )
-

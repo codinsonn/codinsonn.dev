@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <Folder4Filled/> ------------------------------------------------------------------------ */
 
@@ -14,25 +14,9 @@ export const Folder4Filled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
-    <Path
-      fill={fill}
-      fillRule="evenodd"
-      d="M19 10H5L2 20V4h8l2 2h7v4Z"
-      clipRule="evenodd"
-    />
-    <Path
-      fill={fill}
-      fillRule="evenodd"
-      d="M5 10h17l-3 10H2l3-10Z"
-      clipRule="evenodd"
-    />
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
+    <Path fill={fill} fillRule="evenodd" d="M19 10H5L2 20V4h8l2 2h7v4Z" clipRule="evenodd" />
+    <Path fill={fill} fillRule="evenodd" d="M5 10h17l-3 10H2l3-10Z" clipRule="evenodd" />
     <Path
       stroke={stroke}
       strokeLinecap="round"
@@ -42,4 +26,3 @@ export const Folder4Filled = ({
     />
   </Svg>
 )
-

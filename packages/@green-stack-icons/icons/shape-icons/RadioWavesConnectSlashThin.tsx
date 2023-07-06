@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path, Circle } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <RadioWavesConnectSlashThin/> ----------------------------------------------------------- */
 
@@ -13,13 +13,7 @@ export const RadioWavesConnectSlashThin = ({
   fill = '#333333',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -36,4 +30,3 @@ export const RadioWavesConnectSlashThin = ({
     />
   </Svg>
 )
-

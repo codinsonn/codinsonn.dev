@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <FireFilled/> --------------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const FireFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M12 22c-2.72 0-7.43-2.67-7.95-7.01-.36-3.04 1.46-5.39 1.96-6 .41 2.11 1.52 3.71 2.94 4 .26.05.59.07.98 0-.11-2.32.07-6.66 2.93-9.99.31-.37.8-.7 1.14-1 .24 2.64.98 4.12 1.8 5 1.11 1.19 2.79 2 3.68 4.28.04.09.15.37.24.72.62 2.38.32 5.88-1.96 7.99C15.85 21.76 13.35 22 13 22h-1Z"
@@ -38,4 +32,3 @@ export const FireFilled = ({
     />
   </Svg>
 )
-

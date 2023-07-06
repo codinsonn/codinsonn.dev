@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <NotificationTickFilled/> --------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const NotificationTickFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M12.58 5.22c.27-.34.42-.76.42-1.22 0-1.1-.9-2-2-2s-2 .9-2 2c0 .46.15.88.42 1.22M11.41 19H8.55A2.5 2.5 0 0 0 13 21a5.093 5.093 0 0 1-1.59-2H8.55h2.86Z"
@@ -40,4 +34,3 @@ export const NotificationTickFilled = ({
     <Path stroke={stroke} strokeMiterlimit={10} d="m13.6 16.35 1.8 1.8 3-3" />
   </Svg>
 )
-

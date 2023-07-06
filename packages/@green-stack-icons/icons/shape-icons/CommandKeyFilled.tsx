@@ -1,31 +1,16 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <CommandKeyFilled/> --------------------------------------------------------------------- */
 
-export const CommandKeyFilled = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
-    <Path
-      fill={fill}
-      fillRule="evenodd"
-      d="M7 7h10v10H7V7Zm2 2v6h6V9H9Z"
-      clipRule="evenodd"
-    />
+export const CommandKeyFilled = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
+    <Path fill={fill} fillRule="evenodd" d="M7 7h10v10H7V7Zm2 2v6h6V9H9Z" clipRule="evenodd" />
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -34,4 +19,3 @@ export const CommandKeyFilled = ({
     />
   </Svg>
 )
-

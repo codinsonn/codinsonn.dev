@@ -18,7 +18,7 @@ const ICON_PROPS = `{\n  size = 24,\n  fill = '#333333',\n  stroke = '#FFFFFF',\
 /* --- Templates ------------------------------------------------------------------------------- */
 
 const ICON_REGISTRY = `
-import * as icons from './index'
+{{imports}}
 
 /** --- iconRegistry --------------------------------------------------------------------------- */
 /** -i- Register any icons by preferred AetherIcon "name" key */
@@ -35,10 +35,11 @@ const generateIcons = async () => {
 
   // Index files
   const barrelFilesMap = {} as Record<string, string[]>
+  const iconImportsMap = {} as Record<string, string[]>
   const iconRegistryMap = {} as Record<string, string[]>
 
   // Loop through all icon files
-  iconFiles.map(async (iconFile, i) => {
+  iconFiles.map(async (iconFile) => {
     // Figure out names from file path
     const folderParts = iconFile.replace('./assets/', '').split('/')
     const [iconSvgFilename, ...iconGroupParts] = [...folderParts].reverse()
@@ -48,7 +49,7 @@ const generateIcons = async () => {
 
     // Figure out target file paths
     const targetFolder = `./icons/${iconGroupFolderName}`
-    const targetIndexFilename = `${targetFolder}/index.ts`
+    const targetBarrelFilename = `${targetFolder}/all.ts`
     const targetRegistryFilename = `${targetFolder}/registry.tsx`
     const targetIconFilename = `${targetFolder}/${iconName}.tsx`
 
@@ -71,9 +72,11 @@ const generateIcons = async () => {
     const nameDivider = `\n/* --- <${iconName}/> ${'-'.repeat(100 - iconName.length - 3 - 12)} */\n`
     tsxCode = tsxCode.replace(`"react"`, `'react'`)
     tsxCode = tsxCode.replace(`"react-native-svg"`, `'react-native-svg'`)
-    tsxCode = tsxCode.replace(/import type { .* } from "react-native-svg"/, 'import type { SvgProps } from "react-native-svg"')
+    tsxCode = tsxCode.replace(/import type { .* } from "react-native-svg"/,'import type { SvgProps } from "react-native-svg"') // prettier-ignore
     tsxCode = tsxCode.replaceAll(`const ${iconName} = (props: SvgProps) => (`, `${PROPS_TYPE}${nameDivider}\nexport const ${iconName} = (${ICON_PROPS}) => (`) // prettier-ignore
     tsxCode = tsxCode.replace(`xmlns="http://www.w3.org/2000/svg"\n    `, '')
+    tsxCode = tsxCode.replaceAll(`xmlSpace="preserve"\n    `, '')
+    tsxCode = tsxCode.replace(/style=\{\{[\s\S]*?\}\}/g, '')
     tsxCode = tsxCode.replace(`width={24}`, `width={size}`)
     tsxCode = tsxCode.replace(`height={24}`, `height={size}`)
     tsxCode = tsxCode.replace(`{...props}`, `{...svgProps}`)
@@ -90,31 +93,38 @@ const generateIcons = async () => {
     tsxCode = tsxCode.replaceAll(`export default ${iconName};`, '')
     tsxCode = tsxCode.replaceAll(`;\n`, '\n')
     if (!tsxCode.includes('{stroke}')) tsxCode = tsxCode.replaceAll(`  stroke = '#FFFFFF',\n`, '')
+    if (!tsxCode.includes('{fill}')) tsxCode = tsxCode.replaceAll(`    {...svgProps}`, `    fill={fill}\n    {...svgProps}`) // prettier-ignore
 
     // Write icon file
     fs.mkdirSync(targetFolder, { recursive: true })
     fs.writeFileSync(targetIconFilename, tsxCode)
 
     // Add to index file
-    if (!barrelFilesMap[targetIndexFilename]) barrelFilesMap[targetIndexFilename] = []
-    barrelFilesMap[targetIndexFilename].push(`export { ${iconName} } from './${iconName}'`)
+    if (!barrelFilesMap[targetBarrelFilename]) barrelFilesMap[targetBarrelFilename] = []
+    barrelFilesMap[targetBarrelFilename].push(`export { ${iconName} } from './${iconName}'`)
+
+    // Add to icon imports
+    if (!iconImportsMap[targetRegistryFilename]) iconImportsMap[targetRegistryFilename] = []
+    iconImportsMap[targetRegistryFilename].push(`// import { ${iconName} } from './${iconName}'`)
 
     // Add to icon registry
     if (!iconRegistryMap[targetRegistryFilename]) iconRegistryMap[targetRegistryFilename] = []
-    iconRegistryMap[targetRegistryFilename].push(`  '${iconFilename}': icons.${iconName},`)
+    iconRegistryMap[targetRegistryFilename].push(`  //'${iconFilename}': ${iconName},`)
   })
 
-  // Write index files
-  Object.keys(barrelFilesMap).map((targetIndexFilename) => {
-    const barrelFiles = barrelFilesMap[targetIndexFilename]
+  // Write all.ts files
+  Object.keys(barrelFilesMap).map((targetBarrelFilename) => {
+    const barrelFiles = barrelFilesMap[targetBarrelFilename]
     const barrelCode = `${barrelFiles.join('\n')}\n`
-    fs.writeFileSync(targetIndexFilename, barrelCode)
+    fs.writeFileSync(targetBarrelFilename, barrelCode)
   })
 
   // Write icon registry files
   Object.keys(iconRegistryMap).map((targetRegistryFilename) => {
+    const iconImports = iconImportsMap[targetRegistryFilename]
     const iconRegistry = iconRegistryMap[targetRegistryFilename]
-    const iconRegistryCode = ICON_REGISTRY.replace('{{icons}}', iconRegistry.join('\n'))
+    let iconRegistryCode = ICON_REGISTRY.replace('{{imports}}', iconImports.join('\n'))
+    iconRegistryCode = iconRegistryCode.replace('{{icons}}', iconRegistry.join('\n'))
     fs.writeFileSync(targetRegistryFilename, iconRegistryCode)
   })
 }

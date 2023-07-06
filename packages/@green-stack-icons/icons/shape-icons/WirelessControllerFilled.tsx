@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <WirelessControllerFilled/> ------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const WirelessControllerFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M21.55 13.67C21.37 11.04 19.199 9 16.577 9H7.433C4.81 9 2.64 11.04 2.46 13.67L2 19.56v.14C2 20.96 3.01 22 4.261 22c.8 0 1.53-.42 1.951-1.11l1.51-2.08c.391-.51.981-.81 1.612-.81h5.342c.63 0 1.231.3 1.601.81l1.51 2.08c.421.69 1.162 1.11 1.952 1.11C20.989 22 22 20.96 22 19.7v-.14l-.45-5.89Z"
@@ -47,4 +41,3 @@ export const WirelessControllerFilled = ({
     />
   </Svg>
 )
-

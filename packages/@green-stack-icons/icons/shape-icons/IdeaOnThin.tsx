@@ -1,25 +1,15 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <IdeaOnThin/> --------------------------------------------------------------------------- */
 
-export const IdeaOnThin = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+export const IdeaOnThin = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path d="M11 2C8.66 2 5.71 3.72 5.76 8.16l-3.72 4.82c-.11.14.02.32.22.32l2.48 1.23c.13.92.61 3.6.87 4.94.09.42 4.19.1 4.19.1L11 22" />
     <Path
       stroke={fill}
@@ -44,4 +34,3 @@ export const IdeaOnThin = ({
     />
   </Svg>
 )
-

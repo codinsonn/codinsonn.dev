@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <SpotifyFilled/> ------------------------------------------------------------------------ */
 
@@ -14,13 +14,7 @@ export const SpotifyFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M21.97 12.81c-.45 5.51-5.27 9.6-10.78 9.16-5.5-.45-9.6-5.27-9.16-10.78.45-5.5 5.27-9.6 10.78-9.16 5.5.45 9.6 5.28 9.16 10.78Z"
@@ -39,4 +33,3 @@ export const SpotifyFilled = ({
     />
   </Svg>
 )
-

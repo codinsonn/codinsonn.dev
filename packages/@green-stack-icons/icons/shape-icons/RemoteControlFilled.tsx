@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <RemoteControlFilled/> ------------------------------------------------------------------ */
 
@@ -14,13 +14,7 @@ export const RemoteControlFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -39,11 +33,6 @@ export const RemoteControlFilled = ({
       clipRule="evenodd"
     />
     <Path stroke={stroke} strokeLinecap="square" d="M12 8v2M13 9h-2" />
-    <Path
-      stroke={stroke}
-      d="M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"
-      clipRule="evenodd"
-    />
+    <Path stroke={stroke} d="M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" clipRule="evenodd" />
   </Svg>
 )
-

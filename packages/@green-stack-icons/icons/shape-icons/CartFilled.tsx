@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <CartFilled/> --------------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const CartFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M17.5 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM10.5 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
@@ -41,4 +35,3 @@ export const CartFilled = ({
     />
   </Svg>
 )
-

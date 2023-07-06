@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <AirplayFilled/> ------------------------------------------------------------------------ */
 
@@ -14,13 +14,7 @@ export const AirplayFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -39,13 +33,7 @@ export const AirplayFilled = ({
       d="M8 12c0-2.212 1.788-4 4-4 2.212 0 4 1.788 4 4a3.985 3.985 0 0 1-2.963 3.857 1 1 0 0 1-1.037-.34 1 1 0 0 1-1.037.34A3.985 3.985 0 0 1 8 12Zm4 2.264a.996.996 0 0 1 .523-.34A1.985 1.985 0 0 0 14 12c0-1.108-.892-2-2-2s-2 .892-2 2c0 .925.623 1.697 1.477 1.924.214.056.394.18.523.34Z"
       clipRule="evenodd"
     />
-    <Path
-      stroke={stroke}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M5 22h14l-7-8-7 8Z"
-    />
+    <Path stroke={stroke} strokeLinecap="round" strokeLinejoin="round" d="M5 22h14l-7-8-7 8Z" />
     <Path fill={fill} d="M5 22h14l-7-8-7 8Z" />
   </Svg>
 )
-

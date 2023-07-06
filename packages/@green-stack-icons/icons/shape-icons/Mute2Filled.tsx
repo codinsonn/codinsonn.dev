@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <Mute2Filled/> -------------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const Mute2Filled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path fill={fill} d="M6 8H2v8h4V8ZM6 16V8l6-5v18l-6-5Z" />
     <Path
       stroke={stroke}
@@ -43,4 +37,3 @@ export const Mute2Filled = ({
     />
   </Svg>
 )
-

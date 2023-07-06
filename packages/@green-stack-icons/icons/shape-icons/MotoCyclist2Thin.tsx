@@ -1,41 +1,17 @@
 import * as React from 'react'
 import Svg, { Circle, Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <MotoCyclist2Thin/> --------------------------------------------------------------------- */
 
-export const MotoCyclist2Thin = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
-    <Circle
-      cx={19}
-      cy={18}
-      r={3}
-      stroke={fill}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Circle
-      cx={5}
-      cy={18}
-      r={3}
-      stroke={fill}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+export const MotoCyclist2Thin = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
+    <Circle cx={19} cy={18} r={3} stroke={fill} strokeLinecap="round" strokeLinejoin="round" />
+    <Circle cx={5} cy={18} r={3} stroke={fill} strokeLinecap="round" strokeLinejoin="round" />
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -55,20 +31,7 @@ export const MotoCyclist2Thin = ({
       strokeLinejoin="round"
       d="M8 6.5 9 7l-2 4-1-.5 2-4Z"
     />
-    <Circle
-      cx={9}
-      cy={4}
-      r={1}
-      stroke={fill}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      stroke={fill}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="m19 15-2-5h-2"
-    />
+    <Circle cx={9} cy={4} r={1} stroke={fill} strokeLinecap="round" strokeLinejoin="round" />
+    <Path stroke={fill} strokeLinecap="round" strokeLinejoin="round" d="m19 15-2-5h-2" />
   </Svg>
 )
-

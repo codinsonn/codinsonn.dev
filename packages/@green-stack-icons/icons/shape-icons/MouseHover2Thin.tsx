@@ -1,25 +1,15 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <MouseHover2Thin/> ---------------------------------------------------------------------- */
 
-export const MouseHover2Thin = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+export const MouseHover2Thin = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -36,4 +26,3 @@ export const MouseHover2Thin = ({
     <Path stroke={fill} strokeLinecap="round" d="M17.368 17.226 20.124 22" />
   </Svg>
 )
-

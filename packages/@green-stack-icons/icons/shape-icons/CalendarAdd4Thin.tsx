@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Rect, Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <CalendarAdd4Thin/> --------------------------------------------------------------------- */
 
@@ -14,22 +14,8 @@ export const CalendarAdd4Thin = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
-    <Rect
-      width={20}
-      height={18}
-      x={2}
-      y={4}
-      stroke={fill}
-      strokeLinejoin="round"
-      rx={2}
-    />
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
+    <Rect width={20} height={18} x={2} y={4} stroke={fill} strokeLinejoin="round" rx={2} />
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -55,4 +41,3 @@ export const CalendarAdd4Thin = ({
     />
   </Svg>
 )
-

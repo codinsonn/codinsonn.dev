@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <PrintFilled/> -------------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const PrintFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -28,12 +22,7 @@ export const PrintFilled = ({
       clipRule="evenodd"
     />
     <Path stroke={stroke} strokeMiterlimit={10} d="M2 7h20" />
-    <Path
-      fill={fill}
-      fillRule="evenodd"
-      d="M18 17v-3H6v3H2V7h20v10h-4Z"
-      clipRule="evenodd"
-    />
+    <Path fill={fill} fillRule="evenodd" d="M18 17v-3H6v3H2V7h20v10h-4Z" clipRule="evenodd" />
     <Path stroke={stroke} strokeMiterlimit={10} d="M4 10h3M2 17h4v-3h12v3h4" />
     <Path
       fill={fill}
@@ -43,4 +32,3 @@ export const PrintFilled = ({
     />
   </Svg>
 )
-

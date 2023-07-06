@@ -1,25 +1,15 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <RotateLockFilled/> --------------------------------------------------------------------- */
 
-export const RotateLockFilled = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+export const RotateLockFilled = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -32,10 +22,6 @@ export const RotateLockFilled = ({
       d="M23.054 10h-6.108L20 14.887 23.054 10ZM8 9a3 3 0 0 1 6 0v3a1 1 0 1 1-2 0V9a1 1 0 1 0-2 0v3a1 1 0 1 1-2 0V9Z"
       clipRule="evenodd"
     />
-    <Path
-      fill={fill}
-      d="M7 12a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z"
-    />
+    <Path fill={fill} d="M7 12a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-4Z" />
   </Svg>
 )
-

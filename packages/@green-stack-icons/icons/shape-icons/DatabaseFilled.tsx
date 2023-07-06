@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <DatabaseFilled/> ----------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const DatabaseFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M2 19c0 1.66 4.48 3 10 3s10-1.34 10-3v-5c0 1.66-4.48 3-10 3S2 15.66 2 14v5Z"
@@ -51,10 +45,6 @@ export const DatabaseFilled = ({
       strokeLinejoin="round"
       d="M22 4.5C22 5.88 17.52 7 12 7S2 5.88 2 4.5"
     />
-    <Path
-      fill={fill}
-      d="M12 7c5.523 0 10-1.12 10-2.5S17.523 2 12 2 2 3.12 2 4.5 6.477 7 12 7Z"
-    />
+    <Path fill={fill} d="M12 7c5.523 0 10-1.12 10-2.5S17.523 2 12 2 2 3.12 2 4.5 6.477 7 12 7Z" />
   </Svg>
 )
-

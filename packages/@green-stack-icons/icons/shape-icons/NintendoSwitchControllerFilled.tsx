@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <NintendoSwitchControllerFilled/> ------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const NintendoSwitchControllerFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M2 6a4 4 0 0 1 4-4h4v20H6a4 4 0 0 1-4-4V6ZM14 2h4a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4h-4V2Z"
@@ -35,4 +29,3 @@ export const NintendoSwitchControllerFilled = ({
     />
   </Svg>
 )
-

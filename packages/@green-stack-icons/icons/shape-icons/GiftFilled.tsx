@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <GiftFilled/> --------------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const GiftFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M19 22H5c-.55 0-1-.45-1-1v-9h16v9c0 .55-.45 1-1 1ZM22 12H2V9c0-.55.45-1 1-1h18c.55 0 1 .45 1 1v3ZM12 8c1.81-.01 3.23-.36 4.13-.66 1.16-.38 2.15-.87 2.98-1.64.39-.36.72-.78.84-1.27.13-.55-.03-1.14-.4-1.58-.37-.44-.93-.73-1.53-.82-.48-.07-.99-.02-1.41.21-.36.2-.64.51-.86.84-.47.71-.69 1.52-1.09 2.26-.54 1-1.35 1.64-1.79 2-.33.29-.64.51-.87.66Z"
@@ -32,4 +26,3 @@ export const GiftFilled = ({
     <Path stroke={stroke} strokeLinejoin="round" d="M12 8v14M22 12H2" />
   </Svg>
 )
-

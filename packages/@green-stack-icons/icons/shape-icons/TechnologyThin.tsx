@@ -1,25 +1,15 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <TechnologyThin/> ----------------------------------------------------------------------- */
 
-export const TechnologyThin = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+export const TechnologyThin = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -33,12 +23,7 @@ export const TechnologyThin = ({
       d="M5 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM17 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
       clipRule="evenodd"
     />
-    <Path
-      stroke={fill}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M6 7h2.767l2.648 4H16"
-    />
+    <Path stroke={fill} strokeLinecap="round" strokeLinejoin="round" d="M6 7h2.767l2.648 4H16" />
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -46,12 +31,7 @@ export const TechnologyThin = ({
       d="M6.848 12.457a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM12 16a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM20.5 16.576a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
       clipRule="evenodd"
     />
-    <Path
-      stroke={fill}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M9 15.075h2"
-    />
+    <Path stroke={fill} strokeLinecap="round" strokeLinejoin="round" d="M9 15.075h2" />
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -80,4 +60,3 @@ export const TechnologyThin = ({
     />
   </Svg>
 )
-

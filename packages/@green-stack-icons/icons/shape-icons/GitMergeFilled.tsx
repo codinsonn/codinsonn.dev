@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path, Circle } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <GitMergeFilled/> ----------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const GitMergeFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -41,4 +35,3 @@ export const GitMergeFilled = ({
     <Circle cx={18} cy={14} r={3} fill={fill} />
   </Svg>
 )
-

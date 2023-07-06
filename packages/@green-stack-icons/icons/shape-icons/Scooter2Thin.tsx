@@ -1,25 +1,15 @@
 import * as React from 'react'
 import Svg, { Path, Circle } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <Scooter2Thin/> ------------------------------------------------------------------------- */
 
-export const Scooter2Thin = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+export const Scooter2Thin = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -32,14 +22,7 @@ export const Scooter2Thin = ({
       strokeLinejoin="round"
       d="M10 18a2 2 0 1 1 4 0v2a2 2 0 1 1-4 0v-2Z"
     />
-    <Circle
-      cx={12}
-      cy={5}
-      r={3}
-      stroke={fill}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+    <Circle cx={12} cy={5} r={3} stroke={fill} strokeLinecap="round" strokeLinejoin="round" />
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -48,4 +31,3 @@ export const Scooter2Thin = ({
     />
   </Svg>
 )
-

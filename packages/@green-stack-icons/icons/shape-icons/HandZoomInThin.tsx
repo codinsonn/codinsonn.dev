@@ -1,31 +1,16 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <HandZoomInThin/> ----------------------------------------------------------------------- */
 
-export const HandZoomInThin = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
-    <Path
-      stroke={fill}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M4 12c-1-4 1-9 6-8"
-    />
+export const HandZoomInThin = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
+    <Path stroke={fill} strokeLinecap="round" strokeLinejoin="round" d="M4 12c-1-4 1-9 6-8" />
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -41,4 +26,3 @@ export const HandZoomInThin = ({
     />
   </Svg>
 )
-

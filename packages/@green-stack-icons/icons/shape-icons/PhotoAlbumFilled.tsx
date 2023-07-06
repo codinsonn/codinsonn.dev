@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <PhotoAlbumFilled/> --------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const PhotoAlbumFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M16.41 5.59C16.04 5.21 15.53 5 15 5H5c-.53 0-1.04.21-1.41.59C3.22 5.97 3 6.47 3 7v6c0 .53.21 1.04.59 1.41.38.37.88.59 1.41.59h2v-4c0-.53.21-1.04.59-1.41C7.96 9.21 8.47 9 9 9h8V7c0-.53-.21-1.04-.59-1.41Z"
@@ -46,4 +40,3 @@ export const PhotoAlbumFilled = ({
     />
   </Svg>
 )
-

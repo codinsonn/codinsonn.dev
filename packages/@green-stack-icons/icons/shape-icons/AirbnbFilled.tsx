@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <AirbnbFilled/> ------------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const AirbnbFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M6.98 22c1.38 0 2.79-.9 3.84-1.96L11.85 19l1.04 1.04C13.94 21.1 15.34 22 16.73 22c8.99 0 1.61-11.37-2.38-18.53-1.1-1.96-3.91-1.96-5 0C5.14 11-1.23 22 6.98 22Z"
@@ -38,4 +32,3 @@ export const AirbnbFilled = ({
     />
   </Svg>
 )
-

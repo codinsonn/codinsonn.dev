@@ -1,25 +1,15 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <PaypalFilled/> ------------------------------------------------------------------------- */
 
-export const PaypalFilled = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+export const PaypalFilled = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M9.72 11.41h1.83c2.19 0 4.46-1.85 5.17-4.2l.05-.18.01-.03h1.76c1.14 0 2.12.48 2.76 1.35.72.97.89 2.32.47 3.68l-.05.18c-.71 2.35-2.98 4.2-5.17 4.2h-5.38l-1.39 4.58C9.59 21.6 9.03 22 8.42 22c-.13 0-.27-.02-.4-.06a1.434 1.434 0 0 1-.95-1.79l2.65-8.74Z"
@@ -30,4 +20,3 @@ export const PaypalFilled = ({
     />
   </Svg>
 )
-

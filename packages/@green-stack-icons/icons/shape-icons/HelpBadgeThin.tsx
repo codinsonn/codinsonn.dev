@@ -1,25 +1,15 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <HelpBadgeThin/> ------------------------------------------------------------------------ */
 
-export const HelpBadgeThin = ({
-  size = 24,
-  fill = '#333333',
-  ...svgProps
-}: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+export const HelpBadgeThin = ({ size = 24, fill = '#333333', ...svgProps }: IconProps) => (
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       stroke={fill}
       strokeLinecap="round"
@@ -34,12 +24,6 @@ export const HelpBadgeThin = ({
       strokeMiterlimit={10}
       d="M12.01 15v-.5c.03-.75.99-1.04 2.03-2.3.37-.46.65-.79.82-1.35.29-.9.06-1.67 0-1.83-.06-.23-.34-1.02-1.14-1.56-.66-.44-1.3-.46-1.58-.46-.24 0-.78 0-1.36.3-.5.26-.8.6-.95.8-.59.72-.77 1.53-.83 1.96"
     />
-    <Path
-      stroke={fill}
-      strokeLinecap="round"
-      strokeMiterlimit={10}
-      d="M11.99 18h.02"
-    />
+    <Path stroke={fill} strokeLinecap="round" strokeMiterlimit={10} d="M11.99 18h.02" />
   </Svg>
 )
-

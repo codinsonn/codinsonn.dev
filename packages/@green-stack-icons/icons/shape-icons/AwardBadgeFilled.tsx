@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <AwardBadgeFilled/> --------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const AwardBadgeFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M12.02 14.06 14 22l2-4 4 2-3-7.98c-.83-.04-1.52.65-1.48 1.48v.01c.07 1.33-1.57 2.01-2.47 1.02-.27-.3-.66-.46-1.03-.47ZM10.95 14.53c-.9.99-2.54.31-2.47-1.02v-.01c.04-.83-.65-1.52-1.48-1.48L4 20l4-2 2 4 1.98-7.94c-.37.01-.76.17-1.03.47Z"
@@ -38,4 +32,3 @@ export const AwardBadgeFilled = ({
     />
   </Svg>
 )
-

@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <ShoppingBagFilled/> -------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const ShoppingBagFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       d="M6 2 3 6v14c0 .53.21 1.04.59 1.41.38.37.88.59 1.41.59h14c.53 0 1.04-.21 1.41-.59.37-.38.59-.88.59-1.41V6l-3-4H6Z"
@@ -37,4 +31,3 @@ export const ShoppingBagFilled = ({
     />
   </Svg>
 )
-

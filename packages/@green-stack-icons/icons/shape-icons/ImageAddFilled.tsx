@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <ImageAddFilled/> ----------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const ImageAddFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -48,18 +42,7 @@ export const ImageAddFilled = ({
       strokeMiterlimit={10}
       d="M7 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
     />
-    <Path
-      fill={fill}
-      fillRule="evenodd"
-      d="M23 20h-6v-2h6v2Z"
-      clipRule="evenodd"
-    />
-    <Path
-      fill={fill}
-      fillRule="evenodd"
-      d="M19 22v-6h2v6h-2Z"
-      clipRule="evenodd"
-    />
+    <Path fill={fill} fillRule="evenodd" d="M23 20h-6v-2h6v2Z" clipRule="evenodd" />
+    <Path fill={fill} fillRule="evenodd" d="M19 22v-6h2v6h-2Z" clipRule="evenodd" />
   </Svg>
 )
-

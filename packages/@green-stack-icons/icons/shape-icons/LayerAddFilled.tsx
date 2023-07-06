@@ -1,10 +1,10 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import type { SvgProps } from "react-native-svg"
+import type { SvgProps } from 'react-native-svg'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number; }
+type IconProps = SvgProps & { fill?: string; stroke?: string; size?: number }
 
 /* --- <LayerAddFilled/> ----------------------------------------------------------------------- */
 
@@ -14,13 +14,7 @@ export const LayerAddFilled = ({
   stroke = '#FFFFFF',
   ...svgProps
 }: IconProps) => (
-  <Svg
-    width={size}
-    height={size}
-    fill="none"
-    viewBox="0 0 24 24"
-    {...svgProps}
-  >
+  <Svg width={size} height={size} fill="none" viewBox="0 0 24 24" {...svgProps}>
     <Path
       fill={fill}
       fillRule="evenodd"
@@ -40,12 +34,6 @@ export const LayerAddFilled = ({
       d="M11.486 1.143a1 1 0 0 1 1.028 0l10 6a1 1 0 0 1 0 1.714l-10 6a1 1 0 0 1-1.028 0l-10-6a1 1 0 0 1 0-1.714l10-6ZM3.944 8 12 12.834 20.056 8 12 3.166 3.944 8Z"
       clipRule="evenodd"
     />
-    <Path
-      stroke={stroke}
-      strokeLinejoin="round"
-      strokeMiterlimit={10}
-      d="M8.5 8h7M12 4.5v7"
-    />
+    <Path stroke={stroke} strokeLinejoin="round" strokeMiterlimit={10} d="M8.5 8h7M12 4.5v7" />
   </Svg>
 )
-
