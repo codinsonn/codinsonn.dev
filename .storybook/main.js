@@ -36,9 +36,9 @@ module.exports = {
       '../packages/@aetherspace/assets',
       '../apps/next/public',
     ],
-    typesript: {
-      reactDocgen: 'react-docgen-typescript-plugin',
-    },
+    // typesript: {
+    //   reactDocgen: 'react-docgen-typescript-plugin',
+    // },
     webpackFinal: (config) => {
         // Add TS & react-native-web support
         config.module.rules.push({
