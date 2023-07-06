@@ -1,7 +1,7 @@
-// import { AetherspaceLogo } from './AetherspaceLogo'
+import { AetherspaceLogo } from './AetherspaceLogo'
 
 /** --- iconRegistry --------------------------------------------------------------------------- */
 /** -i- Register any icons by preferred AetherIcon "name" key */
 export const iconRegistry = {
-  //AetherspaceLogo: AetherspaceLogo,
+  'aetherspace-logo': AetherspaceLogo,
 } as const

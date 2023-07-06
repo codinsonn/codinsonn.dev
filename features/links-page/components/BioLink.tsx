@@ -6,7 +6,7 @@ import { Link, useAetherNav } from 'aetherspace/navigation'
 // Schemas
 import { LinkInBio } from '../schemas'
 // Styles
-import { twStyled } from 'aetherspace/styles' 
+import { twStyled } from 'aetherspace/styles'
 // Primitives
 import { Image } from 'aetherspace/primitives'
 
@@ -26,10 +26,7 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
   // -- Render --
 
   return (
-    <StLinkWrapper
-      accessibilityRole="button"
-      onPress={() => openLink(link)}
-    >
+    <StLinkWrapper accessibilityRole="button" onPress={() => openLink(link)}>
       <StImageWrapper>
         <Link href={link}>
           <Image

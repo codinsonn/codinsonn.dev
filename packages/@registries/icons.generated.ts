@@ -1,6 +1,7 @@
 // -i- Auto generated with 'yarn ats collect-icons'
 import { iconRegistry as cvPageIcons } from '../../features/cv-page/icons/registry'
 import { iconRegistry as linksPageIcons } from '../../features/links-page/icons/registry'
+import { iconRegistry as aetherspaceIcons } from '../../packages/@aetherspace/icons/registry'
 import { iconRegistry as greenStackIconsIcons } from '../../packages/@green-stack-icons/icons/registry'
 
 /* --- Exports --------------------------------------------------------------------------------- */
@@ -8,5 +9,6 @@ import { iconRegistry as greenStackIconsIcons } from '../../packages/@green-stac
 export const REGISTERED_ICONS = {
     ...cvPageIcons,
     ...linksPageIcons,
+    ...aetherspaceIcons,
     ...greenStackIconsIcons,
 } as const // prettier-ignore
