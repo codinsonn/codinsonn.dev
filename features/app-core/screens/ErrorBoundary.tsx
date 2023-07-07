@@ -1,3 +1,4 @@
+/* eslint-disable react-native-a11y/has-valid-accessibility-descriptors */
 import { H1 } from 'aetherspace/html-elements'
 import { Pressable, Text, View } from 'aetherspace/primitives'
 import React from 'react'
@@ -39,7 +40,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
         <View tw="w-full h-full min-h-full min-w-full items-center justify-center">
           <H1 tw="mb-4">Hmm, something went wrong</H1>
           <Pressable
-            accessibilityRole="button"
+            role="button"
             tw="p-4 bg-slate-800 rounded-md text-white"
             onPress={() => this.setState({ hasError: false })}
           >
