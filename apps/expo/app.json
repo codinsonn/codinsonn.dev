@@ -33,7 +33,7 @@
       }
     },
     "web": {
-      "favicon": "../next/public/favicon.png"
+      "favicon": "../next/public/favicon.ico"
     }
   }
 }
