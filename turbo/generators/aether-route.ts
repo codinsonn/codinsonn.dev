@@ -107,6 +107,10 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
             routePathDivider,
           },
         },
+        {
+          type: 'open-files-in-vscode',
+          paths: [screenRoutePath, `${workspacePath}/screens/${ScreenName}.tsx`],
+        },
       ]
     },
   })

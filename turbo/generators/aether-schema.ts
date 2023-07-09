@@ -106,6 +106,10 @@ export const registerAetherSchemaGenerator = (plop: PlopTypes.NodePlopAPI) => {
           path: `${workspacePath}/schemas/index.ts`,
           template: `export * from './${schemaName}'\n`,
         },
+        {
+          type: 'open-files-in-vscode',
+          paths: [`${workspacePath}/schemas/${schemaName}.ts`],
+        },
       ] as PlopTypes.ActionType[]
 
       // -- Generate --

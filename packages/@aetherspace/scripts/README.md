@@ -186,6 +186,18 @@ yarn ats add-resolver # add a new data resolver to your REST & graphql API
 
 > And more to come soon 👀
 
+### Autocomplete Quick Tip:
+
+If you plan on running any of the scripts or generators manually, especially if you're using autocomplete in your terminal (e.g. using [fig](https://fig.io/)) you may want to add the following to your `~/.bashrc` or `~/.zshrc`:
+
+```shell-script
+# Aetherspace
+alias ats="yarn workspace aetherspace"
+alias aether-cli="yarn workspace aetherspace"
+```
+
+Simply typing `ats ` will then autocomplete all the available scripts and generators for you. No more need to remember the exact script name or even specify yarn or the workspace manually.
+
 ## Relative 'src' strings for Expo images 📸
 
 The `assets.generated.ts` file contains a modularised list of all assets located under `apps/next/public/` folder. The `collect-assets` script turns the img file paths into export keys for those resources.

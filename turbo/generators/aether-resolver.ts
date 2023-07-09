@@ -240,6 +240,13 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           pattern: /^(.*\S)[\r\n]*$/,
         },
         ...extraActions,
+        {
+          type: 'open-files-in-vscode',
+          paths: [
+            `${workspacePath}/schemas/${resolverSchemaName}.ts`,
+            `${workspacePath}/resolvers/${resolverName}.ts`,
+          ],
+        },
       ]
     },
   })
