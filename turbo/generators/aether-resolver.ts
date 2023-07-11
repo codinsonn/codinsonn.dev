@@ -127,12 +127,8 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       const allowPUT = allowedMethods.includes('PUT')
       const hasGraphResolver = generatables.includes('graphResolver')
 
-      const jsDocResolverTitle = `/** --- ${resolverName} ${'-'.repeat(
-        LINES - resolverName.length
-      )} */`
-      const jsDocResolverDescription = `/** -i- ${
-        resolverDescription || 'TODO: Add description'
-      } */`
+      const jsDocResolverTitle = `/** --- ${resolverName} ${'-'.repeat(LINES - resolverName.length)} */` // prettier-ignore
+      const jsDocResolverDescription = `/** -i- ${resolverDescription || 'TODO: Add description'} */` // prettier-ignore
       const jsDocResolverHeader = `${jsDocResolverTitle}\n${jsDocResolverDescription}`
 
       const apiStatements = [] as string[]

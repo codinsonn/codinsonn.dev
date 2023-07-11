@@ -11,7 +11,7 @@ const d = {
 /** --- ShopifyMoneyV2 ------------------------------------------------------------------------- */
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/MoneyV2 */
 export const ShopifyMoneyV2 = aetherSchema('ShopifyMoneyV2', {
-  amount: z.number().describe(d.amount),
+  amount: z.number().coerce().describe(d.amount),
   currencyCode: ShopifyCurrencyCode.describe(d.currencyCode),
 })
 

@@ -5,7 +5,7 @@ import { ShopifyProduct } from './ShopifyProduct'
 /** --- GetShopifyProductsArgs ----------------------------------------------------------------- */
 /** -i- The arguments to the getShopifyProduct() resolver */
 export const GetShopifyProductsArgs = aetherSchema('GetShopifyProductsArgs', {
-  first: z.number().int().default(250),
+  first: z.number().int().default(20),
 })
 
 /** -i- The arguments to the getShopifyProduct() resolver */

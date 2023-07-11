@@ -43,7 +43,7 @@ export const ShopifyProductVariant = aetherSchema('ShopifyProductVariant', {
   price: ShopifyMoneyV2.describe(d.price),
   quantityAvailable: z.number().int().describe(d.quantityAvailable),
   requiresShipping: z.boolean().describe(d.requiresShipping),
-  selectedOptions: ShopifySelectedOption.describe(d.selectedOptions),
+  selectedOptions: ShopifySelectedOption.array().describe(d.selectedOptions),
   sku: z.string().nullish().describe(d.sku),
   unitPrice: ShopifyMoneyV2.nullish().describe(d.unitPrice),
   unitPriceMeasurement: ShopifyUnitPriceMeasurement.nullish().describe(d.unitPriceMeasurement),

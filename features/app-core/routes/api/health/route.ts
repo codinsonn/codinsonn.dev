@@ -48,28 +48,28 @@ export const HealthCheckResponse = HealthCheckArgs.extendSchema('HealthCheckResp
   alive: z.boolean().describe('Indicates if the server is alive'),
   kicking: z.boolean().describe('Indicates if the server is kicking'),
   // URLS
-  requestURL: z.string().optional().describe('The request URL'),
-  baseURL: z.string().optional().describe('The base URL'),
-  apiURL: z.string().optional().describe('The path all API routes are under'),
-  graphURL: z.string().optional().describe('The GraphQL URL'),
-  docsURL: z.string().optional().describe('The docs URL'),
-  port: z.number().optional().describe('The port the server is running on'),
-  debugPort: z.number().optional().describe('The debug port the server is running on'),
+  requestURL: z.string().nullish().describe('The request URL'),
+  baseURL: z.string().nullish().describe('The base URL'),
+  apiURL: z.string().nullish().describe('The path all API routes are under'),
+  graphURL: z.string().nullish().describe('The GraphQL URL'),
+  docsURL: z.string().nullish().describe('The docs URL'),
+  port: z.number().nullish().describe('The port the server is running on'),
+  debugPort: z.number().nullish().describe('The debug port the server is running on'),
   // TIME & DATES
   now: z.date().describe('The current server time'),
   aliveSince: z.date().describe('Time since the server or lambda has started'),
   aliveTime: z.number().describe('Time since the server or lambda has started in milliseconds'),
-  timezone: z.string().optional().describe('The timezone of the server'),
+  timezone: z.string().nullish().describe('The timezone of the server'),
   // VERSIONS
-  nodeVersion: z.string().optional().describe('The node version'),
-  v8Version: z.string().optional().describe('The v8 version'),
+  nodeVersion: z.string().nullish().describe('The node version'),
+  v8Version: z.string().nullish().describe('The v8 version'),
   // SYSTEM
-  systemArch: z.string().optional().describe('The system architecture'),
-  systemPlatform: z.string().optional().describe('The system platform'),
-  systemRelease: z.string().optional().describe('The system release'),
-  systemFreeMemory: z.number().optional().describe('The system free memory in bytes'),
-  systemTotalMemory: z.number().optional().describe('The system total memory in bytes'),
-  systemLoadAverage: z.number().array().optional().describe('The system load average'),
+  systemArch: z.string().nullish().describe('The system architecture'),
+  systemPlatform: z.string().nullish().describe('The system platform'),
+  systemRelease: z.string().nullish().describe('The system release'),
+  systemFreeMemory: z.number().nullish().describe('The system free memory in bytes'),
+  systemTotalMemory: z.number().nullish().describe('The system total memory in bytes'),
+  systemLoadAverage: z.number().array().nullish().describe('The system load average'),
 })
 
 /* --- Config ---------------------------------------------------------------------------------- */
@@ -88,7 +88,7 @@ const BACKEND_URL = getEnvVar('BACKEND_URL')
 
 /** --- healthCheck() -------------------------------------------------------------------------- */
 /** -i- A resolver to check the health status of the server. Includes relevant urls, server time(zone), versions and more in the response. */
-const healthCheck = aetherResolver(async ({ args, req }) => {
+const healthCheck = aetherResolver(async ({ args, req, withDefaults }) => {
   // Args
   const { echo, docsURLs } = args
 
@@ -112,7 +112,7 @@ const healthCheck = aetherResolver(async ({ args, req }) => {
 
   // -- Return --
 
-  return {
+  return withDefaults({
     // ARGS
     echo,
     // STATUS
@@ -125,7 +125,7 @@ const healthCheck = aetherResolver(async ({ args, req }) => {
     apiURL,
     graphURL,
     docsURL,
-    port: process.env.PORT && Number(process.env.PORT),
+    port: process.env.PORT ? Number(process.env.PORT) : null,
     debugPort: process.debugPort && Number(process.debugPort),
     // TIME & DATES
     now: new Date(),
@@ -142,7 +142,7 @@ const healthCheck = aetherResolver(async ({ args, req }) => {
     systemFreeMemory: OS.freemem(),
     systemTotalMemory: OS.totalmem(),
     systemLoadAverage: OS.loadavg(),
-  } as z.infer<typeof HealthCheckResponse>
+  })
 }, resolverConfig)
 
 /* --- Types ----------------------------------------------------------------------------------- */

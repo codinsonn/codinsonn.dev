@@ -6,7 +6,7 @@ input GetShopifyProductsArgs {
 
 type ShopifyMoneyV2 {
   """Decimal money amount."""
-  amount: Float!
+  amount: Float
 
   """Currency of the money."""
   currencyCode: String!
@@ -156,7 +156,7 @@ type ShopifyProductVariant {
   requiresShipping: Boolean!
 
   """List of product options applied to the variant."""
-  selectedOptions: ShopifySelectedOptionInput!
+  selectedOptions: [ShopifySelectedOptionInput]!
 
   """The SKU (stock keeping unit) associated with the variant."""
   sku: String
@@ -214,7 +214,7 @@ type ShopifyProduct {
   compareAtPriceRange: ShopifyProductPriceRange!
 
   """The date and time when the product was created."""
-  createdAt: Date!
+  createdAt: Date
 
   """
   A human-friendly unique string for the Product automatically generated from its title. They are used by the Liquid templating language to refer to objects.
@@ -238,7 +238,7 @@ type ShopifyProduct {
   productType: String!
 
   """The date and time when the product was published to the channel."""
-  publishedAt: Date!
+  publishedAt: Date
 
   """Whether the product can only be purchased with a selling plan."""
   requiresSellingPlan: Boolean!
@@ -257,7 +257,7 @@ type ShopifyProduct {
   """
   The date and time when the product was last modified. A product's updatedAt value can change for different reasons. For example, if an order is placed for a product that has inventory tracking set up, then the inventory adjustment is counted as an update.
   """
-  updatedAt: Date!
+  updatedAt: Date
 
   """The product’s vendor name."""
   vendor: String!

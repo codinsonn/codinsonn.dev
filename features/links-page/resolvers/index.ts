@@ -1,1 +1,1 @@
-export * from './getUserBio'
+export { getUserBioFromAirtable as getUserBio } from './getUserBioFromAirtable'

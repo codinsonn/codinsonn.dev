@@ -10,8 +10,8 @@ const d = {
 /** --- ShopifySEO ---------------------------------------------------------------------------- */
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/SEO */
 export const ShopifySEO = aetherSchema('ShopifySEO', {
-  description: z.string().optional().describe(d.description),
-  title: z.string().optional().describe(d.title),
+  description: z.string().nullish().describe(d.description),
+  title: z.string().nullish().describe(d.title),
 })
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/SEO */
