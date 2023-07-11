@@ -1,9 +1,6 @@
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
 // Schemas
-import {
-  GetShopifyProductsAPIConfig,
-  TGetShopifyProductsResponse,
-} from '../schemas/GetShopifyProductsResolver'
+import { GetShopifyProductsAPIConfig } from '../schemas/GetShopifyProductsResolver'
 // Types
 import { TShopifyProduct } from '../schemas/ShopifyProduct'
 // Utils
@@ -21,10 +18,10 @@ type TShopifyProductsGraphQLResponse = {
 
 /** --- getShopifyProducts() ------------------------------------------------------------------- */
 /** -i- Resolver to get products from the Shopify GraphQL API */
-export const getShopifyProducts = aetherResolver(async ({ args }) => {
+export const getShopifyProducts = aetherResolver(async ({ args, parseArgs, withDefaults }) => {
   try {
     // Args
-    const { first } = args
+    const { first } = parseArgs(args)
 
     // -- Request --
 
@@ -58,9 +55,11 @@ export const getShopifyProducts = aetherResolver(async ({ args }) => {
                 priceRange {
                   maxVariantPrice {
                     amount
+                    currencyCode
                   }
                   minVariantPrice {
                     amount
+                    currencyCode
                   }
                 }
                 compareAtPriceRange {
@@ -145,16 +144,17 @@ export const getShopifyProducts = aetherResolver(async ({ args }) => {
     // -- Transform --
 
     const shopifyProducts = graphQLResponse.products.edges.map((edge) => {
-      const { variants, ...shopifyGQLProduct } = edge.node // @ts-ignore
-      return { ...shopifyGQLProduct, variants: variants.edges.map((edge) => edge.node) }
+      const { variants: variantsRaw, ...shopifyGQLProduct } = edge.node // @ts-ignore
+      const variants = variantsRaw.edges.map((edge) => edge.node)
+      return { ...shopifyGQLProduct, variants }
     })
 
     // -- Respond --
 
-    return {
+    return withDefaults({
       first,
       shopifyProducts,
-    } as TGetShopifyProductsResponse
+    })
   } catch (error) {
     console.error('getShopifyProducts() error', error)
     throw error

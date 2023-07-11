@@ -13,9 +13,9 @@ const resolverConfig = {
   responseSchema: UserBio,
 }
 
-/* --- getUserBio() ---------------------------------------------------------------------------- */
+/* --- getUserBioFromAirtable() ---------------------------------------------------------------- */
 
-export const getUserBio = aetherResolver(async ({ args, handleError }) => {
+export const getUserBioFromAirtable = aetherResolver(async ({ args, handleError }) => {
   try {
     // Args
     const { slug } = UserBioInput.parse(args)
@@ -23,18 +23,18 @@ export const getUserBio = aetherResolver(async ({ args, handleError }) => {
     // Constants
     const AIRTABLE_API_KEY = getEnvVar('AIRTABLE_API_KEY')
     const airtable = new Airtable({ apiKey: AIRTABLE_API_KEY })
-    const base = airtable.base('appPKybqZMUZwR4eF')
+    const airtableBase = airtable.base('appPKybqZMUZwR4eF')
 
-    // Determines Airtable queries
+    // Build Airtable queries
     const userBioQuery = { maxRecords: 1, view: 'Grid view', filterByFormula: `{slug} = "${slug}"` }
     const userIconsQuery = { view: 'Grid view', filterByFormula: `{user} = "${slug}"` }
     const userLinksQuery = { view: 'Grid view', filterByFormula: `{user} = "${slug}"` }
 
     // Fetch bio info from airtable
     const [userBioResponse, userIconsResponse, linksInBioResponse] = await Promise.all([
-      base('userBio').select(userBioQuery).firstPage(),
-      base('userIcons').select(userIconsQuery).firstPage(),
-      base('userLinks').select(userLinksQuery).firstPage(),
+      airtableBase('userBio').select(userBioQuery).firstPage(),
+      airtableBase('userIcons').select(userIconsQuery).firstPage(),
+      airtableBase('userLinks').select(userLinksQuery).firstPage(),
     ])
 
     // Extract fields from responses

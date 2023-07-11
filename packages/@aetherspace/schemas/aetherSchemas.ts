@@ -90,6 +90,14 @@ declare module 'zod' {
     introspect(): AetherSchemaType<number>
   }
 
+  interface ZodBigInt {
+    aetherType: 'AetherNumber'
+    example(value: bigint): z.ZodBigInt
+    eg(value: bigint): z.ZodBigInt
+    ex(value: bigint): z.ZodBigInt
+    introspect(): AetherSchemaType<bigint>
+  }
+
   interface ZodBoolean {
     aetherType: 'AetherBoolean'
     example(value: boolean): z.ZodBoolean
@@ -402,7 +410,7 @@ if (!z.ZodString.prototype?.aetherType) {
   z.ZodString.prototype.aetherType = 'AetherString'
   z.ZodString.prototype.describe = function (description: string) {
     const This = (this as any).constructor
-    const newSchema = new This({ ...this._def, description })
+    const newSchema = new This({ ...this._def, description, coerce: true })
     return assignAetherContext(newSchema, this)
   }
   z.ZodString.prototype.id = function () {
@@ -429,7 +437,7 @@ if (!z.ZodNumber.prototype.aetherType) {
   z.ZodNumber.prototype.aetherType = 'AetherNumber'
   z.ZodNumber.prototype.describe = function (description: string) {
     const This = (this as any).constructor
-    const newSchema = new This({ ...this._def, description })
+    const newSchema = new This({ ...this._def, description, coerce: true })
     return assignAetherContext(newSchema, this)
   }
   z.ZodNumber.prototype.example = function (value: number) {
@@ -443,11 +451,29 @@ if (!z.ZodNumber.prototype.aetherType) {
   }
 }
 
+if (!z.ZodBigInt.prototype.aetherType) {
+  z.ZodBigInt.prototype.aetherType = 'AetherNumber'
+  z.ZodBigInt.prototype.describe = function (description: string) {
+    const This = (this as any).constructor
+    const newSchema = new This({ ...this._def, description, coerce: true })
+    return assignAetherContext(newSchema, this)
+  }
+  z.ZodBigInt.prototype.example = function (value: bigint) {
+    this.exampleValue = value
+    return this
+  }
+  z.ZodBigInt.prototype.eg = z.ZodBigInt.prototype.example
+  z.ZodBigInt.prototype.ex = z.ZodBigInt.prototype.example
+  z.ZodBigInt.prototype.introspect = function () {
+    return introspectField(this)
+  }
+}
+
 if (!z.ZodBoolean.prototype.aetherType) {
   z.ZodBoolean.prototype.aetherType = 'AetherBoolean'
   z.ZodBoolean.prototype.describe = function (description: string) {
     const This = (this as any).constructor
-    const newSchema = new This({ ...this._def, description })
+    const newSchema = new This({ ...this._def, description, coerce: true })
     return assignAetherContext(newSchema, this)
   }
   z.ZodBoolean.prototype.example = function (value: boolean) {
@@ -461,13 +487,11 @@ if (!z.ZodBoolean.prototype.aetherType) {
   }
 }
 
-/* --- Advanced -------------------------------------------------------------------------------- */
-
 if (!z.ZodDate.prototype.aetherType) {
   z.ZodDate.prototype.aetherType = 'AetherDate'
   z.ZodDate.prototype.describe = function (description: string) {
     const This = (this as any).constructor
-    const newSchema = new This({ ...this._def, description })
+    const newSchema = new This({ ...this._def, description, coerce: true })
     return assignAetherContext(newSchema, this)
   }
   z.ZodDate.prototype.example = function (value: Date) {
@@ -483,6 +507,8 @@ if (!z.ZodDate.prototype.aetherType) {
     return introspectField(this)
   }
 }
+
+/* --- Advanced -------------------------------------------------------------------------------- */
 
 if (!z.ZodEnum.prototype.aetherType) {
   z.ZodEnum.prototype.aetherType = 'AetherEnum'
@@ -639,7 +665,7 @@ if (!z.ZodObject.prototype.aetherType) {
   z.ZodObject.prototype.applyDefaults = function <D extends Record<string, unknown>>(data: D) {
     const thisSchema = this.extend({})
     const result = thisSchema.safeParse(data)
-    if (!result.success) console.warn(result.error) // @ts-ignore
+    if (!result.success) console.warn(JSON.stringify(result.error, null, 2)) // @ts-ignore
     return { ...data, ...result.data } as D & (typeof thisSchema)['_type']
   }
   // Allow Introspection
