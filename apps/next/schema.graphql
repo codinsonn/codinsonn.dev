@@ -54,15 +54,15 @@ type ShopifyImage {
   
   If you need multiple variations of the same image, then you can use GraphQL aliases.
   """
-  url: String
+  url: String!
 }
 
 type ShopifySelectedOptionInput {
   """The name of the option."""
-  name: String
+  name: String!
 
   """The value of the product option."""
-  value: String
+  value: String!
 }
 
 type ShopifyUnitPriceMeasurement {
@@ -73,56 +73,56 @@ type ShopifyUnitPriceMeasurement {
   quantityUnit: String
 
   """The quantity value for the unit price measurement."""
-  quantityValue: Float
+  quantityValue: Float!
 
   """The reference unit for the unit price measurement."""
   referenceUnit: String
 
   """The reference value for the unit price measurement."""
-  referenceValue: Float
+  referenceValue: Float!
 }
 
 type ShopifyMetafield {
   """
   The type name of the metafield. Refer to the list of supported types: https://shopify.dev/apps/metafields/definitions/types
   """
-  type: String
+  type: String!
 
   """The date and time when the storefront metafield was created."""
-  createdAt: Date
+  createdAt: Date!
 
   """The description of a metafield."""
   description: String
 
   """Globally unique identifier."""
-  id: ID
+  id: ID!
 
   """The unique identifier for the metafield within its namespace."""
-  key: String
+  key: String!
 
   """
   The container for a group of metafields that the metafield is associated with.
   """
-  namespace: String
+  namespace: String!
 
   """The date and time when the metafield was last updated."""
-  updatedAt: Date
+  updatedAt: Date!
 
   """
   The data stored in the metafield. Always stored as a string, regardless of the metafield's type.
   """
-  value: String
+  value: String!
 }
 
 type ShopifyProductVariant {
   """A globally-unique ID."""
-  id: ID
+  id: ID!
 
   """The product variant’s title."""
-  title: String
+  title: String!
 
   """Whether the product variant is available for sale."""
-  availableForSale: Boolean
+  availableForSale: Boolean!
 
   """
   The barcode (for example, ISBN, UPC, or GTIN) associated with the variant.
@@ -137,7 +137,7 @@ type ShopifyProductVariant {
   """
   Whether a product is out of stock but still available for purchase (used for backorders).
   """
-  currentlyNotInStock: Boolean
+  currentlyNotInStock: Boolean!
 
   """
   Image associated with the product variant. This field falls back to the product image if no image is available.
@@ -148,12 +148,12 @@ type ShopifyProductVariant {
   price: ShopifyMoneyV2!
 
   """The total sellable quantity of the variant for online sales channels."""
-  quantityAvailable: Float
+  quantityAvailable: Float!
 
   """
   Whether a customer needs to provide a shipping address when placing an order for the product variant.
   """
-  requiresShipping: Boolean
+  requiresShipping: Boolean!
 
   """List of product options applied to the variant."""
   selectedOptions: [ShopifySelectedOptionInput]!
@@ -188,10 +188,10 @@ type ShopifyProductVariant {
 
 type ShopifyProductOption {
   """Globally unique identifier."""
-  id: ID
+  id: ID!
 
   """The name of the product option."""
-  name: String
+  name: String!
 
   """The corresponding value to the product option name."""
   values: [String]!
@@ -199,16 +199,16 @@ type ShopifyProductOption {
 
 type ShopifyProduct {
   """A globally-unique ID"""
-  id: ID
+  id: ID!
 
   """The product’s title."""
-  title: String
+  title: String!
 
   """The description of the product, complete with HTML formatting."""
-  descriptionHtml: String
+  descriptionHtml: String!
 
   """Indicates if at least one product variant is available for sale."""
-  availableForSale: Boolean
+  availableForSale: Boolean!
 
   """The compare at price of the product across all variants."""
   compareAtPriceRange: ShopifyProductPriceRange!
@@ -219,10 +219,10 @@ type ShopifyProduct {
   """
   A human-friendly unique string for the Product automatically generated from its title. They are used by the Liquid templating language to refer to objects.
   """
-  handle: String
+  handle: String!
 
   """Whether the product is a gift card."""
-  isGiftCard: Boolean
+  isGiftCard: Boolean!
 
   """
   The URL used for viewing the resource on the shop's Online Store. Returns null if the resource is currently not published to the Online Store sales channel.
@@ -235,13 +235,13 @@ type ShopifyProduct {
   """
   A categorization that a product can be tagged with, commonly used for filtering and searching.
   """
-  productType: String
+  productType: String!
 
   """The date and time when the product was published to the channel."""
   publishedAt: Date
 
   """Whether the product can only be purchased with a selling plan."""
-  requiresSellingPlan: Boolean
+  requiresSellingPlan: Boolean!
 
   """The product's SEO information."""
   seo: ShopifySEO!
@@ -252,7 +252,7 @@ type ShopifyProduct {
   tags: [String]!
 
   """The total quantity of inventory in stock for this Product."""
-  totalInventory: Float
+  totalInventory: Float!
 
   """
   The date and time when the product was last modified. A product's updatedAt value can change for different reasons. For example, if an order is placed for a product that has inventory tracking set up, then the inventory adjustment is counted as an update.
@@ -260,7 +260,7 @@ type ShopifyProduct {
   updatedAt: Date
 
   """The product’s vendor name."""
-  vendor: String
+  vendor: String!
 
   """List of the product’s variants."""
   variants: [ShopifyProductVariant]!
@@ -268,7 +268,7 @@ type ShopifyProduct {
   """
   Stripped description of the product, single line with HTML tags removed.
   """
-  description: String
+  description: String!
 
   """
       The featured image for the product.
@@ -301,21 +301,21 @@ type GetShopifyProductsResponse {
 
 input UserBioInput {
   """Slug of bio to fetch"""
-  slug: String
+  slug: String!
 }
 
 type IconLink {
   """Id of icon link"""
-  id: ID
+  id: ID!
 
   """Icon key"""
   iconKey: String
 
   """Icon component name"""
-  iconComponent: String
+  iconComponent: String!
 
   """Link attached to the icon"""
-  link: String
+  link: String!
 
   """Sort order of icon"""
   sortOrder: Float
@@ -326,16 +326,16 @@ type IconLink {
 
 type LinkInBio {
   """Id of card link"""
-  id: ID
+  id: ID!
 
   """Title of card link"""
-  title: String
+  title: String!
 
   """Subtitle of the card for this link"""
   subTitle: String
 
   """Card link"""
-  link: String
+  link: String!
 
   """Image url of link"""
   imageUrl: String
@@ -349,19 +349,19 @@ type LinkInBio {
 
 type UserBio {
   """Slug of bio to fetch"""
-  slug: String
+  slug: String!
 
   """Title of bio"""
-  title: String
+  title: String!
 
   """Link to title"""
-  titleLink: String
+  titleLink: String!
 
   """Bio text"""
-  bioText: String
+  bioText: String!
 
   """Image url"""
-  imageUrl: String
+  imageUrl: String!
 
   """Icon links"""
   iconLinks: [IconLink]!
@@ -386,13 +386,13 @@ type HealthCheckResponse {
   docsURLs: [String]
 
   """The status of the server"""
-  status: String
+  status: String!
 
   """Indicates if the server is alive"""
-  alive: Boolean
+  alive: Boolean!
 
   """Indicates if the server is kicking"""
-  kicking: Boolean
+  kicking: Boolean!
 
   """The request URL"""
   requestURL: String
@@ -416,13 +416,13 @@ type HealthCheckResponse {
   debugPort: Float
 
   """The current server time"""
-  now: Date
+  now: Date!
 
   """Time since the server or lambda has started"""
-  aliveSince: Date
+  aliveSince: Date!
 
   """Time since the server or lambda has started in milliseconds"""
-  aliveTime: Float
+  aliveTime: Float!
 
   """The timezone of the server"""
   timezone: String
@@ -454,6 +454,6 @@ type HealthCheckResponse {
 
 type Query {
   getShopifyProducts(args: GetShopifyProductsArgs): GetShopifyProductsResponse
-  getUserBio(args: UserBioInput): UserBio
+  getUserBio(args: UserBioInput!): UserBio
   healthCheck(args: HealthCheckArgs): HealthCheckResponse
 }

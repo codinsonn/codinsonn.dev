@@ -20,6 +20,7 @@ const ATS_TO_TYPE = Object.freeze({
 const TYPE_TO_ATS = Object.freeze({
   boolean: 'AetherBoolean',
   number: 'AetherNumber',
+  bigint: 'AetherNumber',
   string: 'AetherString',
   date: 'AetherDate',
   object: 'AetherSchema',
@@ -74,6 +75,7 @@ declare module 'zod' {
 
   interface ZodString {
     aetherType: 'AetherString' | 'AetherId' | 'AetherColor'
+    coerce(): z.ZodString
     id(): z.ZodString
     color(): z.ZodString
     example(value: string): z.ZodString
@@ -84,6 +86,7 @@ declare module 'zod' {
 
   interface ZodNumber {
     aetherType: 'AetherNumber'
+    coerce(): z.ZodNumber
     example(value: number): z.ZodNumber
     eg(value: number): z.ZodNumber
     ex(value: number): z.ZodNumber
@@ -92,6 +95,7 @@ declare module 'zod' {
 
   interface ZodBigInt {
     aetherType: 'AetherNumber'
+    coerce(): z.ZodBigInt
     example(value: bigint): z.ZodBigInt
     eg(value: bigint): z.ZodBigInt
     ex(value: bigint): z.ZodBigInt
@@ -100,6 +104,7 @@ declare module 'zod' {
 
   interface ZodBoolean {
     aetherType: 'AetherBoolean'
+    coerce(): z.ZodBoolean
     example(value: boolean): z.ZodBoolean
     eg(value: boolean): z.ZodBoolean
     ex(value: boolean): z.ZodBoolean
@@ -109,6 +114,7 @@ declare module 'zod' {
   interface ZodDate {
     aetherType: 'AetherDate'
     schema?: { minDate?: Date; maxDate?: Date }
+    coerce(): z.ZodDate
     example(value: Date): z.ZodDate
     eg(value: Date): z.ZodDate
     ex(value: Date): z.ZodDate
@@ -408,9 +414,14 @@ if (!z.ZodDefault.prototype?.aetherType) {
 
 if (!z.ZodString.prototype?.aetherType) {
   z.ZodString.prototype.aetherType = 'AetherString'
+  z.ZodString.prototype.coerce = function () {
+    const This = (this as any).constructor
+    const newSchema = new This({ ...this._def, coerce: true })
+    return assignAetherContext(newSchema, this)
+  }
   z.ZodString.prototype.describe = function (description: string) {
     const This = (this as any).constructor
-    const newSchema = new This({ ...this._def, description, coerce: true })
+    const newSchema = new This({ ...this._def, description })
     return assignAetherContext(newSchema, this)
   }
   z.ZodString.prototype.id = function () {
@@ -435,9 +446,14 @@ if (!z.ZodString.prototype?.aetherType) {
 
 if (!z.ZodNumber.prototype.aetherType) {
   z.ZodNumber.prototype.aetherType = 'AetherNumber'
+  z.ZodNumber.prototype.coerce = function () {
+    const This = (this as any).constructor
+    const newSchema = new This({ ...this._def, coerce: true })
+    return assignAetherContext(newSchema, this)
+  }
   z.ZodNumber.prototype.describe = function (description: string) {
     const This = (this as any).constructor
-    const newSchema = new This({ ...this._def, description, coerce: true })
+    const newSchema = new This({ ...this._def, description })
     return assignAetherContext(newSchema, this)
   }
   z.ZodNumber.prototype.example = function (value: number) {
@@ -453,9 +469,14 @@ if (!z.ZodNumber.prototype.aetherType) {
 
 if (!z.ZodBigInt.prototype.aetherType) {
   z.ZodBigInt.prototype.aetherType = 'AetherNumber'
+  z.ZodBigInt.prototype.coerce = function () {
+    const This = (this as any).constructor
+    const newSchema = new This({ ...this._def, coerce: true })
+    return assignAetherContext(newSchema, this)
+  }
   z.ZodBigInt.prototype.describe = function (description: string) {
     const This = (this as any).constructor
-    const newSchema = new This({ ...this._def, description, coerce: true })
+    const newSchema = new This({ ...this._def, description })
     return assignAetherContext(newSchema, this)
   }
   z.ZodBigInt.prototype.example = function (value: bigint) {
@@ -471,9 +492,14 @@ if (!z.ZodBigInt.prototype.aetherType) {
 
 if (!z.ZodBoolean.prototype.aetherType) {
   z.ZodBoolean.prototype.aetherType = 'AetherBoolean'
+  z.ZodBoolean.prototype.coerce = function () {
+    const This = (this as any).constructor
+    const newSchema = new This({ ...this._def, coerce: true })
+    return assignAetherContext(newSchema, this)
+  }
   z.ZodBoolean.prototype.describe = function (description: string) {
     const This = (this as any).constructor
-    const newSchema = new This({ ...this._def, description, coerce: true })
+    const newSchema = new This({ ...this._def, description })
     return assignAetherContext(newSchema, this)
   }
   z.ZodBoolean.prototype.example = function (value: boolean) {
@@ -489,9 +515,14 @@ if (!z.ZodBoolean.prototype.aetherType) {
 
 if (!z.ZodDate.prototype.aetherType) {
   z.ZodDate.prototype.aetherType = 'AetherDate'
+  z.ZodDate.prototype.coerce = function () {
+    const This = (this as any).constructor
+    const newSchema = new This({ ...this._def, coerce: true })
+    return assignAetherContext(newSchema, this)
+  }
   z.ZodDate.prototype.describe = function (description: string) {
     const This = (this as any).constructor
-    const newSchema = new This({ ...this._def, description, coerce: true })
+    const newSchema = new This({ ...this._def, description })
     return assignAetherContext(newSchema, this)
   }
   z.ZodDate.prototype.example = function (value: Date) {
