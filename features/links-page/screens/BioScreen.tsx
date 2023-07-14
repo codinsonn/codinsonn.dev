@@ -85,6 +85,8 @@ const getBioScreenProps = async (queryKey: string, queryVariables?: BioScreenPar
   const queryData = queryKey || getScreenDataQuery
   const queryInput = queryVariables || getBioScreenArgs() // Use defaults if not defined
   const { data } = await fetchAetherProps(queryData, queryInput)
+  // const response = await fetchAetherProps(queryData, queryInput)
+  // const data = response.data satisfies TUserBio
   return data.getUserBio as TUserBio
 }
 
