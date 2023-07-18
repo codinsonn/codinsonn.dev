@@ -8,8 +8,13 @@
         "os": false,
         "path": false
     },
+    "aetherspace": {
+        "relatedWorkspaces": ["config"],
+        "requiredEnvVars": []
+    },
     "scripts": {
         "build": "tsc --project .",
+        "check-workspaces": "IS_DEEP_CHECK=true node scripts/check-workspaces",
         "link-routes": "node scripts/link-routes",
         "collect-assets": "node scripts/collect-assets",
         "collect-icons": "node scripts/collect-icons",

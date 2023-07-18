@@ -3,6 +3,10 @@
     "version": "0.0.1",
     "description": "todo: add description",
     "license": "MIT",
+    "aetherspace": {
+        "relatedWorkspaces": ["aetherspace"],
+        "requiredEnvVars": []
+    },
     "scripts": {
         "lint": "cd ../.. && eslint \"features/cv-page/**/*.{ts,tsx}\""
     },

@@ -7,6 +7,10 @@
         "os": false,
         "path": false
     },
+    "aetherspace": {
+        "relatedWorkspaces": ["aetherspace"],
+        "requiredEnvVars": []
+    },
     "scripts": {
         "lint": "cd ../.. && eslint \"packages/@aetherspace-commerce/**/*.{ts,tsx}\""
     },

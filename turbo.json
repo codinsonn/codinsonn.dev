@@ -11,6 +11,16 @@
         "**/*.ts"
       ]
     },
+    "aetherspace#check-workspaces": {
+      "dependsOn": ["aetherspace#build"],
+      "outputs": ["../@registries/transpiledWorkspaces.generated.js"],
+      "inputs": [
+        "../../features/**/*.tsx",
+        "../../features/**/*.ts",
+        "../../packages/**/*.tsx",
+        "../../packages/**/*.ts"
+      ]
+    },
     "aetherspace#link-routes": {
       "dependsOn": ["aetherspace#build"],
       "outputs": ["../../apps/**/app/(generated)/**"],
