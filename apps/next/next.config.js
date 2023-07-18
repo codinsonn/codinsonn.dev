@@ -11,6 +11,9 @@ const withTM = require('next-transpile-modules')(transpiledModules)
 /* --- Automation Scripts ---------------------------------------------------------------------- */
 // -i- This will run the aetherspace automation scripts on local dev builds (comment out what you don't need)
 const withAutomation = () => {
+    // -i- Check for missing dependencies and env vars in all workspaces
+    console.log('\n')
+    require('aetherspace/scripts/check-workspaces')
     // -i- Rebuild routing from '/routes/' folders in '/features/' & '/packages/'
     console.log('\n')
     require('aetherspace/scripts/link-routes')

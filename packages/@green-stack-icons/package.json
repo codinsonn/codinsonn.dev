@@ -3,6 +3,10 @@
     "version": "0.0.1",
     "description": "Icons for the GREEN stack, which render on the server, browser and mobile",
     "license": "UNLICENSED",
+    "aetherspace": {
+        "relatedWorkspaces": [],
+        "requiredEnvVars": []
+    },
     "scripts": {
         "lint": "cd ../.. && eslint \"packages/@green-stack-icons/**/*.{ts,tsx}\"",
         "lint:icons:fix": "cd ../.. && eslint \"packages/@green-stack-icons/icons/**/*.{ts,tsx}\" --fix --quiet",

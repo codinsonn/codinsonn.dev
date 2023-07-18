@@ -173,6 +173,21 @@ const withAutomation = () => {
 }
 ```
 
+## Workspace helpers
+
+To check for missing env vars and automate which workspaces need transpilation in Next.js, we designed the `check-workspaces` script:
+
+```shell-script
+yarn check-workspaces
+```
+
+It will:
+- Warn you of missing env vars per workspace
+- Warn you of missing related dependencies per workspace
+- Created a `transpiledWorkspaces.generated.js` file at `/packages/@registries/` for use in Next.js config
+
+If run manually, it'll also update the env vars and related workspaces it checks for in package.json files per workspace
+
 ## Turborepo Generators
 
 To skip the boilerplate and get straight to the fun stuff, we've created a few interactive generators to help you get started:

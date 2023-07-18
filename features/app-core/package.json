@@ -2,6 +2,15 @@
     "name": "app",
     "version": "1.0.0",
     "license": "MIT",
+    "aetherspace": {
+        "relatedWorkspaces": [
+            "aetherspace"
+        ],
+        "requiredEnvVars": [
+            "DOCS_URL",
+            "BACKEND_URL"
+        ]
+    },
     "scripts": {
         "lint": "cd ../.. && eslint \"features/app-core/**/*.{ts,tsx}\""
     },
