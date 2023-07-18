@@ -10,6 +10,11 @@ import { isEmpty } from '../utils/commonUtils'
 const KNOWN_ENV_VARS = ['NODE_ENV', 'TZ', 'PORT', 'MAX_TRIES', 'IS_DEEP_CHECK']
 const SKIPPED_WORKSPACES = ['aetherspace', 'config', 'registries']
 
+/* --- Templates ------------------------------------------------------------------------------- */
+
+const template = `// -i- Auto generated with "yarn check-workspaces"
+module.exports = {{workspaces}}\n`
+
 /* --- check-workspaces ------------------------------------------------------------------------ */
 
 const checkWorkspaces = async (isDeepCheck = true) => {
@@ -37,7 +42,7 @@ const checkWorkspaces = async (isDeepCheck = true) => {
       if (isDeepCheck) {
         // Get the related package JSON config
         const packageJSON = workspaceConfigs[workspacePath]
-        const shouldSkip = false // SKIPPED_WORKSPACES.includes(workspacePackage)
+        const shouldSkip = SKIPPED_WORKSPACES.includes(workspacePackage)
         // Get all the lines of code from the workspace
         const workspaceFiles = allWsFiles.filter((filePath) => filePath.includes(`${workspacePath}/`))
         const fileContents = workspaceFiles.map((filePath) => fs.readFileSync(filePath, 'utf8'))
@@ -70,7 +75,7 @@ const checkWorkspaces = async (isDeepCheck = true) => {
         // Save the updated package.json?
         const hasChangedRelations = existingRelations.join('-') !== relatedWorkspaces.join('-')
         const hasChangedEnvVars = prevRequiredEnvVars.join('-') !== requiredEnvVars.join('-')
-        const hasChanged = !shouldSkip && (hasChangedRelations || hasChangedEnvVars)
+        const hasChanged = !shouldSkip && isDev && (hasChangedRelations || hasChangedEnvVars)
         if (hasChanged) {
             if (!packageJSON.aetherspace) packageJSON.aetherspace = { relatedWorkspaces, requiredEnvVars } // prettier-ignore
             packageJSON.aetherspace.relatedWorkspaces = relatedWorkspaces
@@ -118,8 +123,10 @@ const checkWorkspaces = async (isDeepCheck = true) => {
       return true
     }))
 
-    // Results
-    console.log(workspaceMap)
+    // Save transpiledWorkspaces.generated.js to /packages/registries/ workspace
+    const transpiledWorkspacesPath = '../../packages/@registries/transpiledWorkspaces.generated.js'
+    const transpiledWorkspaces = template.replace('{{workspaces}}', JSON.stringify(workspacePackages, null, 2)) // prettier-ignore
+    fs.writeFileSync(transpiledWorkspacesPath, transpiledWorkspaces, 'utf8')
   } catch (err) {
     console.log(err)
     console.error(err)
