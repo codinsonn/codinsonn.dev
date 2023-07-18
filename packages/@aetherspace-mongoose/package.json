@@ -1,0 +1,18 @@
+{
+    "name": "@aetherspace/mongoose",
+    "version": "0.0.1",
+    "description": "The official aetherspace package for using mongoose and mongodb",
+    "license": "",
+    "scripts": {
+        "lint": "cd ../.. && eslint \"features/@aetherspace-mongoose/**/*.{ts,tsx}\""
+    },
+    "dependencies": {
+        "mongoose": "^7.3.4"
+    },
+    "aetherspace": {
+        "relatedWorkspaces": [],
+        "requiredEnvVars": [
+            "MONGODB_URI"
+        ]
+    }
+}
