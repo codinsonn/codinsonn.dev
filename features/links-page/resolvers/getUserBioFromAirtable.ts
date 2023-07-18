@@ -13,6 +13,11 @@ const resolverConfig = {
   responseSchema: UserBio,
 }
 
+/* --- Constants ------------------------------------------------------------------------------- */
+
+const AIRTABLE_API_KEY = getEnvVar('AIRTABLE_API_KEY')
+const AIRTABLE_BIO_BASE = getEnvVar('AIRTABLE_BIO_BASE')
+
 /* --- getUserBioFromAirtable() ---------------------------------------------------------------- */
 
 export const getUserBioFromAirtable = aetherResolver(async ({ args, handleError }) => {
@@ -21,9 +26,8 @@ export const getUserBioFromAirtable = aetherResolver(async ({ args, handleError 
     const { slug } = UserBioInput.parse(args)
 
     // Constants
-    const AIRTABLE_API_KEY = getEnvVar('AIRTABLE_API_KEY')
     const airtable = new Airtable({ apiKey: AIRTABLE_API_KEY })
-    const airtableBase = airtable.base('appPKybqZMUZwR4eF')
+    const airtableBase = airtable.base(AIRTABLE_BIO_BASE)
 
     // Build Airtable queries
     const userBioQuery = { maxRecords: 1, view: 'Grid view', filterByFormula: `{slug} = "${slug}"` }

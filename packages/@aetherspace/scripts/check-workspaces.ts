@@ -7,7 +7,7 @@ import { isEmpty } from '../utils/commonUtils'
 
 /* --- Constants ------------------------------------------------------------------------------- */
 
-const KNOWN_ENV_VARS = ['NODE_ENV', 'TZ', 'PORT', 'MAX_TRIES', 'IS_DEEP_CHECK']
+const KNOWN_ENV_VARS = ['NODE_ENV', 'TZ', 'PORT', 'MAX_TRIES', 'IS_DEEP_CHECK', 'ENDPOINT', 'HEALTH_ENDPOINT', 'GRAPHQL_ENDPOINT', 'TIME_INCREMENT'] // prettier-ignore
 const SKIPPED_WORKSPACES = ['aetherspace', 'config', 'registries']
 
 /* --- Templates ------------------------------------------------------------------------------- */
