@@ -8,8 +8,15 @@
         "path": false
     },
     "aetherspace": {
-        "relatedWorkspaces": ["aetherspace"],
-        "requiredEnvVars": []
+        "relatedWorkspaces": [
+            "aetherspace"
+        ],
+        "requiredEnvVars": [
+            "SHOPIFY_STOREFRONT_API_KEY",
+            "SHOPIFY_STOREFRONT_API_SECRET",
+            "SHOPIFY_STOREFRONT_API_TOKEN",
+            "SHOPIFY_STOREFRONT_URL"
+        ]
     },
     "scripts": {
         "lint": "cd ../.. && eslint \"packages/@aetherspace-commerce/**/*.{ts,tsx}\""

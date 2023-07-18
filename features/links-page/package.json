@@ -3,8 +3,12 @@
     "version": "1.0.0",
     "license": "MIT",
     "aetherspace": {
-        "relatedWorkspaces": ["aetherspace"],
-        "requiredEnvVars": []
+        "relatedWorkspaces": [
+            "aetherspace"
+        ],
+        "requiredEnvVars": [
+            "AIRTABLE_API_KEY"
+        ]
     },
     "scripts": {
         "lint": "cd ../.. && eslint \"features/links-page/**/*.{ts,tsx}\""

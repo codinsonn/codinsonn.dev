@@ -9,8 +9,17 @@
         "path": false
     },
     "aetherspace": {
-        "relatedWorkspaces": ["config"],
-        "requiredEnvVars": []
+        "relatedWorkspaces": [
+            "config"
+        ],
+        "requiredEnvVars": [
+            "ENDPOINT",
+            "HEALTH_ENDPOINT",
+            "GRAPHQL_ENDPOINT",
+            "TIME_INCREMENT",
+            "APP_LINKS",
+            "BACKEND_URL"
+        ]
     },
     "scripts": {
         "build": "tsc --project .",
