@@ -2,7 +2,8 @@
     "name": "aetherspace",
     "main": "index.ts",
     "version": "1.0.0",
-    "license": "MIT",
+    "private": true,
+    "license": "SEE LICENSE IN LICENSE.md",
     "browser": {
         "fs": false,
         "os": false,
@@ -14,7 +15,9 @@
         ],
         "requiredEnvVars": [
             "APP_LINKS",
-            "BACKEND_URL"
+            "BACKEND_URL",
+            "EXPO_ACCESS_TOKEN",
+            "CHROMATIC_PROJECT_TOKEN"
         ]
     },
     "scripts": {

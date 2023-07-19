@@ -108,9 +108,14 @@ const checkWorkspaces = async (isDeepCheck = true) => {
         console.warn(`-!- ⚠️ Missing env vars for '/${workspacePath}/':`, missingEnvVars.join(', '))
         console.warn(`-i- Please add these through a secret manager (like doppler.com) or another env var config like .env`) // prettier-ignore
         console.warn(`-i- You may need to prefix them with NEXT_PUBLIC_ or EXPO_PUBLIC_ depending on the target`) // prettier-ignore
-        if (isDev && !hasEnvFile) {
-          console.warn(`-!- Couldn't detect a .env file in /apps/next/ - you may need to create one, see .example.env`) // prettier-ignore
-        }
+        if (isDev && !hasEnvFile) console.warn(`-!- Couldn't detect a .env file in /apps/next/ - you may need to create one, see .example.env`) // prettier-ignore
+        // Log CI env var warnings?
+        const missingExpoToken = missingEnvVars.includes('EXPO_ACCESS_TOKEN')
+        const missingChromaticToken = missingEnvVars.includes('CHROMATIC_PROJECT_TOKEN')
+        const missingCItokens = missingExpoToken || missingChromaticToken
+        if (missingExpoToken) console.log('-i- EXPO_ACCESS_TOKEN is used for automatically deploying your app to Expo from CI, get it from expo.dev') // prettier-ignore
+        if (missingChromaticToken) console.log('-i- CHROMATIC_PROJECT_TOKEN is used for visual Storybook regression testing in CI, get it from chromatic.com/start') // prettier-ignore
+        if (missingCItokens) console.log(`-i- If you don't plan on using CI for these, remove them from the "aetherspace" field in this package's package.json`) // prettier-ignore
       }
       if (missingWorkspaces.length) {
         console.warn(`-!- ⚠️ Missing related workspaces for '/${workspacePath}': ${missingWorkspaces.join(', ')}`) // prettier-ignore
