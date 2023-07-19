@@ -11,7 +11,9 @@
         "mongoose": "^7.3.4"
     },
     "aetherspace": {
-        "relatedWorkspaces": [],
+        "relatedWorkspaces": [
+            "aetherspace"
+        ],
         "requiredEnvVars": [
             "MONGODB_URI"
         ]

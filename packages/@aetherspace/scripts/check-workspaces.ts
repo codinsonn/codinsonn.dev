@@ -48,9 +48,11 @@ const checkWorkspaces = async (isDeepCheck = true) => {
         const fileContents = workspaceFiles.map((filePath) => fs.readFileSync(filePath, 'utf8'))
         const allLinesOfCode = fileContents.map((content) => content.split('\n')).flat()
         // Rebuild the related workspaces list
-        const allImportLines = allLinesOfCode.filter((line) => line.includes(` from '`))
+        const filterByRelevancy = (line) => line.includes(` from '`) && !line.includes(`./`)
+        const allImportLines = allLinesOfCode.filter(filterByRelevancy)
         const allImportPaths = allImportLines.map((line) => line.split(` from '`)[1].split(`'`)[0])
-        const newRelatedWorkspaces = workspacePackages.filter((wsPkg) => allImportPaths.includes(wsPkg)) // prettier-ignore
+        const containsWorkspaces = (wsPkg) => allImportPaths.some((path) => path.includes(`${wsPkg}/`))
+        const newRelatedWorkspaces = workspacePackages.filter(containsWorkspaces)
         // Rebuild the required env vars list
         const allProcessEnvLines = allLinesOfCode.filter((line) => line.includes('process.env.'))
         const allProcessEnvVars = allProcessEnvLines.map((line) => line.match(/process\.env\.([A-Z0-9_]+)/)?.[1]) // prettier-ignore

@@ -5,7 +5,10 @@
     "license": "MIT",
     "aetherspace": {
         "relatedWorkspaces": [
-            "aetherspace"
+            "aetherspace",
+            "registries",
+            "app",
+            "links-page"
         ],
         "requiredEnvVars": [
             "DOCS_URL",

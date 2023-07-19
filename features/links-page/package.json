@@ -5,7 +5,8 @@
     "license": "MIT",
     "aetherspace": {
         "relatedWorkspaces": [
-            "aetherspace"
+            "aetherspace",
+            "@aetherspace/mongoose"
         ],
         "requiredEnvVars": [
             "AIRTABLE_API_KEY",
