@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 /* --- Constants ------------------------------------------------------------------------------- */
 
-const ATS_TO_TYPE = Object.freeze({
+export const ATS_TO_TYPE = Object.freeze({
   AetherBoolean: 'boolean',
   AetherNumber: 'number',
   AetherString: 'string',
@@ -17,7 +17,7 @@ const ATS_TO_TYPE = Object.freeze({
   AetherId: 'string',
 })
 
-const TYPE_TO_ATS = Object.freeze({
+export const TYPE_TO_ATS = Object.freeze({
   boolean: 'AetherBoolean',
   number: 'AetherNumber',
   bigint: 'AetherNumber',
@@ -44,7 +44,7 @@ export type AetherSchemaType<T = any> = {
   extendedFrom?: string
   isOptional?: boolean
   isNullable?: boolean
-  schema: AetherSchemaType | Record<string, any>
+  schema: AetherSchemaType | Record<string, AetherSchemaType>
 }
 
 export type SchemaPluginMap = {
