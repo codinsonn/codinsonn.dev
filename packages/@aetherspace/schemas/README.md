@@ -6,7 +6,7 @@ import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
 
 A core feature of Aetherspace as a starter template is taking what works and making it better. `aetherSchema()` is a tiny wrapper around `zod.object()`. You can use it to define your datastructures just once for the entire monorepo.
 
-> `zod` is a schema validation library built with Typescript in mind. By extending it with `aetherSchema()`, we can leverage it's powerful features to create single sources of truth for GraphQL, Next.js and Storybook as well.
+> `zod` is a schema validation library built with Typescript in mind. By extending it with `aetherSchema()`, we can leverage its powerful features to create single sources of truth for GraphQL, Next.js and Storybook as well.
 
 <br/>
 

@@ -23,14 +23,14 @@ type AetherSchemaInput<Z extends z.ZodRawShape> = z.ZodObject<Z>
 //             aetherType: 'AetherString',
 //             isNullable: false,
 //             isOptional: false,
-//             description: 'The description from { someString: z.string().describe(...) }',
+//             description: 'Description from { someString: z.string().describe(...) }',
 //             ...
 //         },
 //         someNumber: {
 //             aetherType: 'AetherNumber',
 //             isNullable: true,
 //             isOptional: true,
-//             description: 'The description from { someNumber: z.number().nullable().optional().describe(...) }',
+//             description: 'Description from { someNumber: z.number().nullish().describe(...) }',
 //         },
 //         ...
 //     }
@@ -63,7 +63,8 @@ type AetherSchemaInput<Z extends z.ZodRawShape> = z.ZodObject<Z>
 // ⇣⇣⇣⇣⇣⇣⇣⇣ Resulting model from `aetherSchemaToMongoose(...)` ⇣⇣⇣⇣⇣⇣⇣⇣
 
 // type SchemaDoc = Document & z.infer<SomeMongoCollectionSchema>
-// const SomeMongoModel: Model<SchemaDoc> = model<SchemaDoc>('SomeMongoCollection', mongooseSchema)
+// type SchemaModel = Model<SchemaDoc> & { aetherSchema: typeof SomeMongoCollectionSchema }
+// const SomeMongoModel: SchemaModel = model<SchemaDoc>('SomeMongoCollection', mongooseSchema)
 
 // -i- https://mongoosejs.com/docs/guide.html#definition
 // -i- https://mongoosejs.com/docs/guide.html#models
@@ -78,10 +79,14 @@ export const aetherSchemaToMongoose = <Z extends z.ZodRawShape>(schema: AetherSc
 
   // Define resulting Interface
   type SchemaDoc = Document & z.infer<AetherSchemaInput<Z>>
+  type SchemaModel = Model<SchemaDoc> & { aetherSchema: typeof schema }
 
   // Check for existing model before creating a new one
-  const existingModel: Model<SchemaDoc> = mongoose.models[schema.schemaName]
-  if (existingModel) return existingModel
+  const existingModel = mongoose.models[schema.schemaName] as SchemaModel
+  if (existingModel) {
+    existingModel.aetherSchema = schema
+    return existingModel
+  }
 
   // prettier-ignore
   const createMongooseField = <T>(baseMongooseType: T) => (schemaKey, schemaConfig) => {
@@ -122,7 +127,12 @@ export const aetherSchemaToMongoose = <Z extends z.ZodRawShape>(schema: AetherSc
   // Create mongoose Schema from SchemaDefinition
   const mongooseSchema: Schema<SchemaDoc> = new Schema<SchemaDoc>(mongooseSchemaDefinition)
 
-  // Return mongoose model
-  const schemaModel: Model<SchemaDoc> = model<SchemaDoc>(schema.schemaName, mongooseSchema)
+  // Build mongoose model
+  const schemaModel = model<SchemaDoc>(schema.schemaName, mongooseSchema) as SchemaModel
+
+  // Attach schema to model
+  schemaModel.aetherSchema = schema
+
+  // Return model
   return schemaModel
 }
