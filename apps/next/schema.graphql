@@ -468,11 +468,27 @@ input SyncUserBiosFromAirtableArgs {
   authKey: String!
 }
 
+type MongoBulkWriteResult {
+  insertedCount: Float
+  matchedCount: Float
+  modifiedCount: Float
+  deletedCount: Float
+  upsertedCount: Float
+}
+
 type SyncUserBiosFromAirtableResponse {
   success: Boolean!
   syncedCount: Float!
   syncedSlugs: [String]!
-  syncedData: [UserBio]!
+
+  """The bulk write result from bulk mongodb write operations"""
+  syncedIcons: MongoBulkWriteResult!
+
+  """The bulk write result from bulk mongodb write operations"""
+  syncedLinks: MongoBulkWriteResult!
+
+  """The bulk write result from bulk mongodb write operations"""
+  syncedBios: MongoBulkWriteResult!
 }
 
 type Query {

@@ -19,5 +19,5 @@ export const bulkUpsertMany = async <T, M extends Model<any>>(
     },
   }))
   // @ts-ignore
-  return (await model.bulkWrite(bulkOps)) as BulkWriteResult<T>
+  return await model.bulkWrite(bulkOps)
 }

@@ -5,6 +5,7 @@ import { LinkInBio } from './LinkInBio'
 /* --- Descriptions ---------------------------------------------------------------------------- */
 
 const d = {
+  id: `Id of bio`,
   slug: `Slug of bio to fetch`,
   title: `Title of bio`,
   titleLink: `Link to title`,
@@ -26,6 +27,7 @@ export type TUserBioInput = AetherInput<typeof UserBioInput>
 /** --- UserBio -------------------------------------------------------------------------------- */
 /** -i- Single Source of Truth for link-in-bio page's overall user data structure */
 export const UserBio = aetherSchema('UserBio', {
+  id: z.string().id().optional().describe(d.id),
   slug: UserBioInput.shape.slug,
   title: z.string().describe(d.title),
   titleLink: z.string().describe(d.titleLink),
