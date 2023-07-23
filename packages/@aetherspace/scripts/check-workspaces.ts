@@ -13,7 +13,7 @@ const SKIPPED_WORKSPACES = ['aetherspace', 'config', 'registries']
 /* --- Templates ------------------------------------------------------------------------------- */
 
 const template = `// -i- Auto generated with "yarn check-workspaces"
-module.exports = {{workspaces}}\n`
+module.exports = {{exports}}\n`
 
 /* --- check-workspaces ------------------------------------------------------------------------ */
 
@@ -34,6 +34,7 @@ const checkWorkspaces = async (isDeepCheck = true) => {
 
     // Loop through each workspace and track its imports and env var uses
     const workspaceMap = {}
+    let workspaceResolutions = {} as Record<string, string | boolean>
     // prettier-ignore
     await Promise.all(workspacePaths.map(async (workspacePath) => {
       const workspacePackage = workspaceImports[workspacePath]
@@ -91,7 +92,12 @@ const checkWorkspaces = async (isDeepCheck = true) => {
         const packageJSON = workspaceConfigs[workspacePath]
         const relatedWorkspaces = packageJSON?.aetherspace?.relatedWorkspaces || []
         const requiredEnvVars = packageJSON?.aetherspace?.requiredEnvVars || []
-        workspaceMap[workspacePath] = { workspacePackage, relatedWorkspaces, requiredEnvVars }
+        workspaceMap[workspacePath] = {
+          ...packageJSON.aetherspace,
+          workspacePackage,
+          relatedWorkspaces,
+          requiredEnvVars,
+        }
       }
 
       // Check for missing env vars
@@ -103,6 +109,10 @@ const checkWorkspaces = async (isDeepCheck = true) => {
       const { relatedWorkspaces } = workspaceMap[workspacePath]
       const workspaceIdentifiers = [...workspacePaths, ...workspacePackages]
       const missingWorkspaces = relatedWorkspaces.filter((ws) => !workspaceIdentifiers.includes(ws))
+
+      // Check for resolutions to add to next.config.js
+      const aetherspace = workspaceMap[workspacePath]
+      workspaceResolutions = { ...workspaceResolutions, ...aetherspace?.resolutions }
 
       // Warn of any missing env vars or related workspaces
       if (missingEnvVars.length || missingWorkspaces.length) console.warn(`\n-!- --- /${workspacePath}/ ${'-'.repeat(45 - workspacePath.length - 2)} -!-`) // prettier-ignore
@@ -126,14 +136,19 @@ const checkWorkspaces = async (isDeepCheck = true) => {
       }
       if (missingEnvVars.length || missingWorkspaces.length) console.warn(`-!- ${'-'.repeat(50)} -!-\n`) // prettier-ignore
 
-      // Return the workspace map
+      // No errors? Resolve promise
       return true
     }))
 
     // Save transpiledWorkspaces.generated.js to /packages/registries/ workspace
     const transpiledWorkspacesPath = '../../packages/@registries/transpiledWorkspaces.generated.js'
-    const transpiledWorkspaces = template.replace('{{workspaces}}', JSON.stringify(workspacePackages, null, 2)) // prettier-ignore
+    const transpiledWorkspaces = template.replace('{{exports}}', JSON.stringify(workspacePackages, null, 2)) // prettier-ignore
     fs.writeFileSync(transpiledWorkspacesPath, transpiledWorkspaces, 'utf8')
+
+    // Save workspaceResolutions.generated.js to /packages/registries/ workspace
+    const workspaceResolutionsPath = '../../packages/@registries/workspaceResolutions.generated.js'
+    const workspaceResolutionsFile = template.replace('{{exports}}', JSON.stringify(workspaceResolutions, null, 2)) // prettier-ignore
+    fs.writeFileSync(workspaceResolutionsPath, workspaceResolutionsFile, 'utf8')
   } catch (err) {
     console.log(err)
     console.error(err)

@@ -13,7 +13,10 @@
     },
     "aetherspace#check-workspaces": {
       "dependsOn": ["aetherspace#build"],
-      "outputs": ["../@registries/transpiledWorkspaces.generated.js"],
+      "outputs": [
+        "../@registries/transpiledWorkspaces.generated.js",
+        "../@registries/workspaceResolutions.generated.js"
+      ],
       "inputs": [
         "../../apps/next/.env",
         "../../features/**/package.json",
