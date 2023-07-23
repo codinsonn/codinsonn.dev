@@ -4,12 +4,6 @@
     "private": true,
     "license": "SEE LICENSE IN LICENSE.md",
     "description": "The official aetherspace package for using mongoose and mongodb",
-    "scripts": {
-        "lint": "cd ../.. && eslint \"packages/@aetherspace-mongoose/**/*.{ts,tsx}\""
-    },
-    "dependencies": {
-        "mongoose": "^7.3.4"
-    },
     "aetherspace": {
         "relatedWorkspaces": [
             "aetherspace"
@@ -17,5 +11,11 @@
         "requiredEnvVars": [
             "MONGODB_URI"
         ]
+    },
+    "scripts": {
+        "lint": "cd ../.. && eslint \"packages/@aetherspace-mongoose/**/*.{ts,tsx}\""
+    },
+    "dependencies": {
+        "mongoose": "^7.4.0"
     }
 }

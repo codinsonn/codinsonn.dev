@@ -6,7 +6,8 @@
     "aetherspace": {
         "relatedWorkspaces": [
             "aetherspace",
-            "@aetherspace/mongoose"
+            "@aetherspace/mongoose",
+            "@aetherspace/airtable"
         ],
         "requiredEnvVars": [
             "AIRTABLE_API_KEY",

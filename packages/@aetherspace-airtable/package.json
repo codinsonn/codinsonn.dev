@@ -1,0 +1,19 @@
+{
+    "name": "@aetherspace/airtable",
+    "version": "0.0.1",
+    "private": true,
+    "license": "SEE LICENSE IN LICENSE.md",
+    "description": "Official Aetherspace Airtable plugin with helpers and utilities to retrieve data from Airtable.",
+    "aetherspace": {
+        "relatedWorkspaces": [
+            "aetherspace"
+        ],
+        "requiredEnvVars": []
+    },
+    "scripts": {
+        "lint": "cd ../.. && eslint \"packages/@aetherspace-airtable/**/*.{ts,tsx}\""
+    },
+    "dependencies": {
+        "airtable": "^0.12.1"
+    }
+}
