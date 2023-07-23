@@ -1,7 +1,8 @@
 {
     "name": "@aetherspace/commerce",
+    "private": true,
+    "license": "See LICENSE.md",
     "version": "1.0.0",
-    "license": "MIT",
     "browser": {
         "fs": false,
         "os": false,

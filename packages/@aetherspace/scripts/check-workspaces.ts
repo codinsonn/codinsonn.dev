@@ -48,9 +48,11 @@ const checkWorkspaces = async (isDeepCheck = true) => {
         const fileContents = workspaceFiles.map((filePath) => fs.readFileSync(filePath, 'utf8'))
         const allLinesOfCode = fileContents.map((content) => content.split('\n')).flat()
         // Rebuild the related workspaces list
-        const allImportLines = allLinesOfCode.filter((line) => line.includes(` from '`))
+        const filterByRelevancy = (line) => line.includes(` from '`) && !line.includes(`./`)
+        const allImportLines = allLinesOfCode.filter(filterByRelevancy)
         const allImportPaths = allImportLines.map((line) => line.split(` from '`)[1].split(`'`)[0])
-        const newRelatedWorkspaces = workspacePackages.filter((wsPkg) => allImportPaths.includes(wsPkg)) // prettier-ignore
+        const containsWorkspaces = (wsPkg) => allImportPaths.some((path) => path.includes(`${wsPkg}/`))
+        const newRelatedWorkspaces = workspacePackages.filter(containsWorkspaces)
         // Rebuild the required env vars list
         const allProcessEnvLines = allLinesOfCode.filter((line) => line.includes('process.env.'))
         const allProcessEnvVars = allProcessEnvLines.map((line) => line.match(/process\.env\.([A-Z0-9_]+)/)?.[1]) // prettier-ignore
@@ -108,9 +110,14 @@ const checkWorkspaces = async (isDeepCheck = true) => {
         console.warn(`-!- ⚠️ Missing env vars for '/${workspacePath}/':`, missingEnvVars.join(', '))
         console.warn(`-i- Please add these through a secret manager (like doppler.com) or another env var config like .env`) // prettier-ignore
         console.warn(`-i- You may need to prefix them with NEXT_PUBLIC_ or EXPO_PUBLIC_ depending on the target`) // prettier-ignore
-        if (isDev && !hasEnvFile) {
-          console.warn(`-!- Couldn't detect a .env file in /apps/next/ - you may need to create one, see .example.env`) // prettier-ignore
-        }
+        if (isDev && !hasEnvFile) console.warn(`-!- Couldn't detect a .env file in /apps/next/ - you may need to create one, see .example.env`) // prettier-ignore
+        // Log CI env var warnings?
+        const missingExpoToken = missingEnvVars.includes('EXPO_ACCESS_TOKEN')
+        const missingChromaticToken = missingEnvVars.includes('CHROMATIC_PROJECT_TOKEN')
+        const missingCItokens = missingExpoToken || missingChromaticToken
+        if (missingExpoToken) console.log('-i- EXPO_ACCESS_TOKEN is used for automatically deploying your app to Expo from CI, get it from expo.dev') // prettier-ignore
+        if (missingChromaticToken) console.log('-i- CHROMATIC_PROJECT_TOKEN is used for visual Storybook regression testing in CI, get it from chromatic.com/start') // prettier-ignore
+        if (missingCItokens) console.log(`-i- If you don't plan on using CI for these, remove them from the "aetherspace" field in this package's package.json`) // prettier-ignore
       }
       if (missingWorkspaces.length) {
         console.warn(`-!- ⚠️ Missing related workspaces for '/${workspacePath}': ${missingWorkspaces.join(', ')}`) // prettier-ignore

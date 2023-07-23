@@ -1,8 +1,9 @@
 {
     "name": "@green-stack/icons",
     "version": "0.0.1",
+    "private": true,
+    "license": "SEE LICENSE IN LICENSE.md",
     "description": "Icons for the GREEN stack, which render on the server, browser and mobile",
-    "license": "UNLICENSED",
     "aetherspace": {
         "relatedWorkspaces": [],
         "requiredEnvVars": []

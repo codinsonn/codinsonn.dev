@@ -4,6 +4,7 @@ import { z, aetherSchema } from 'aetherspace/schemas'
 
 const d = {
   id: `Id of card link`,
+  user: `Slug of the user this card link belongs to`,
   title: `Title of card link`,
   subTitle: `Subtitle of the card for this link`,
   link: `Card link`,
@@ -16,6 +17,7 @@ const d = {
 /** -i- Single source of truth for the actual link cards that renders under the bio icon links */
 export const LinkInBio = aetherSchema('LinkInBio', {
   id: z.string().id().eg('1').describe(d.id),
+  user: z.string().optional().eg('codinsonn').describe(d.id),
   title: z.string().eg("'Move fast & build things', with Zod, Expo & Next.js").describe(d.title),
   subTitle: z.string().optional().eg('An intro to Aetherspace and the GREEN stack').describe(d.subTitle), // prettier-ignore
   link: z.string().eg('https://codinsonn.dev').describe(d.link),

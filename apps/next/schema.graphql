@@ -308,6 +308,9 @@ type IconLink {
   """Id of icon link"""
   id: ID!
 
+  """Id of icon link"""
+  user: String
+
   """Icon key"""
   iconKey: String
 
@@ -327,6 +330,9 @@ type IconLink {
 type LinkInBio {
   """Id of card link"""
   id: ID!
+
+  """Id of card link"""
+  user: String
 
   """Title of card link"""
   title: String!
@@ -348,6 +354,9 @@ type LinkInBio {
 }
 
 type UserBio {
+  """Id of bio"""
+  id: ID
+
   """Slug of bio to fetch"""
   slug: String!
 
@@ -452,8 +461,39 @@ type HealthCheckResponse {
   systemLoadAverage: [Float]
 }
 
+input SyncUserBiosFromAirtableArgs {
+  """
+  Auth key for the syncUserBiosFromAirtable() resolver, first 8 chars of the AIRTABLE_API_KEY
+  """
+  authKey: String!
+}
+
+type MongoBulkWriteResult {
+  insertedCount: Float
+  matchedCount: Float
+  modifiedCount: Float
+  deletedCount: Float
+  upsertedCount: Float
+}
+
+type SyncUserBiosFromAirtableResponse {
+  success: Boolean!
+  syncedCount: Float!
+  syncedSlugs: [String]!
+
+  """The bulk write result from bulk mongodb write operations"""
+  syncedIcons: MongoBulkWriteResult!
+
+  """The bulk write result from bulk mongodb write operations"""
+  syncedLinks: MongoBulkWriteResult!
+
+  """The bulk write result from bulk mongodb write operations"""
+  syncedBios: MongoBulkWriteResult!
+}
+
 type Query {
   getShopifyProducts(args: GetShopifyProductsArgs): GetShopifyProductsResponse
   getUserBio(args: UserBioInput!): UserBio
   healthCheck(args: HealthCheckArgs): HealthCheckResponse
+  syncUserBiosFromAirtable(args: SyncUserBiosFromAirtableArgs!): SyncUserBiosFromAirtableResponse
 }

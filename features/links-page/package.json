@@ -1,10 +1,13 @@
 {
     "name": "links-page",
     "version": "1.0.0",
+    "private": true,
     "license": "MIT",
     "aetherspace": {
         "relatedWorkspaces": [
-            "aetherspace"
+            "aetherspace",
+            "@aetherspace/mongoose",
+            "@aetherspace/airtable"
         ],
         "requiredEnvVars": [
             "AIRTABLE_API_KEY",

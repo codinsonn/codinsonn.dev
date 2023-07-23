@@ -1,8 +1,9 @@
 {
     "name": "cv-page",
     "version": "0.0.1",
-    "description": "todo: add description",
+    "private": true,
     "license": "MIT",
+    "description": "todo: add description",
     "aetherspace": {
         "relatedWorkspaces": ["aetherspace"],
         "requiredEnvVars": []
