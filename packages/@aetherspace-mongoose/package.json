@@ -10,7 +10,16 @@
         ],
         "requiredEnvVars": [
             "MONGODB_URI"
-        ]
+        ],
+        "resolutions": {
+            "@mongodb-js/zstd": false,
+            "@aws-sdk/credential-providers": false,
+            "snappy": false,
+            "aws4": false,
+            "mongodb-client-encryption": false,
+            "kerberos": false,
+            "supports-color": false
+        }
     },
     "scripts": {
         "lint": "cd ../.. && eslint \"packages/@aetherspace-mongoose/**/*.{ts,tsx}\""

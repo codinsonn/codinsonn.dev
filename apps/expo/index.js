@@ -4,6 +4,7 @@
 import 'expo/build/Expo.fx';
 import 'expo/build/Expo.fx.web';
 import { activateKeepAwakeAsync } from 'expo-keep-awake';
+import 'react-native-get-random-values';
 
 /* --- Start ----------------------------------------------------------------------------------- */
 // -i- Expo Router setup

@@ -6,6 +6,10 @@ const withImages = require('next-images')
 // https://github.com/Automattic/mongoose/issues/13212#issuecomment-1518012851
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin')
 
+/* --- Generated Resolutions ------------------------------------------------------------------- */
+
+const workspaceResolutions = require('registries/workspaceResolutions.generated.js')
+
 /* --- Transpiled Modules ---------------------------------------------------------------------- */
 
 const transpiledModules = require('config/transpiledModules')
@@ -77,14 +81,10 @@ const nextConfig = {
         // Aliases for web support (https://github.com/expo/expo/issues/21469#issuecomment-1576001543)
         config.resolve.alias['expo-asset'] = 'expo-asset-web'
         // Disable optional mongodb dependencies & warnings about them
-        // TODO: Make this dynamic
-        config.resolve.alias['@mongodb-js/zstd'] = false
-        config.resolve.alias['@aws-sdk/credential-providers'] = false
-        config.resolve.alias['snappy'] = false
-        config.resolve.alias['aws4'] = false
-        config.resolve.alias['mongodb-client-encryption'] = false
-        config.resolve.alias['kerberos'] = false
-        config.resolve.alias['supports-color'] = false
+        config.resolve.alias = {
+            ...config.resolve.alias,
+            ...workspaceResolutions,
+        }
         config.plugins.push(new FilterWarningsPlugin({
             exclude: [/the request of a dependency is an expression/],
         }))
