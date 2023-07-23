@@ -16,6 +16,6 @@ export const {{resolverName}} = aetherResolver(async ({ args, parseArgs, withDef
       test: test || 'test' // dummy echo response to test the resolver
     })
   } catch (err) {
-    throw handleErrsor(err)
+    throw handleError(err)
   }
 }, {{ResolverName}}APIConfig)
