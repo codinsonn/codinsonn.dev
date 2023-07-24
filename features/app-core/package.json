@@ -24,7 +24,6 @@
         "@expo-google-fonts/roboto": "^0.2.3",
         "cors": "^2.8.5",
         "links-page": "*",
-        "registries": "*",
-        "swr": "^2.2.0"
+        "registries": "*"
     }
 }
