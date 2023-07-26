@@ -162,7 +162,7 @@ export const BioScreen = (props: BioScreenProps) => {
             href={bioIcon.link}
             tw={['px-1 xs:px-2 md:px-3', bioIcon.extraClasses]}
           >
-            <AetherIcon name={bioIcon.iconComponent as any} size={ICON_SIZE} fill={ICON_COLOR} />
+            <AetherIcon name={bioIcon.iconComponent} size={ICON_SIZE} fill={ICON_COLOR} />
           </Link>
         ))}
       </View>
