@@ -54,36 +54,42 @@ export const syncUserBiosFromAirtable = aetherResolver(
         {} as Record<string, string>
       )
 
-      const userIcons = userIconRecords.map((record) => ({
-        id: record.fields.id, // @ts-ignore
-        user: USER_IDS_TO_SLUGS[record.fields.user[0]],
-        iconComponent: record.fields.iconComponent?.[0],
-        link: record.fields.link,
-        sortOrder: record.fields.sortOrder,
-        extraClasses: record.fields.extraClasses?.[0] || '',
-      }))
+      const userIcons = userIconRecords.map((record) => {
+        return IconLinkModel.aetherSchema.applyDefaults({
+          id: record.fields.id, // @ts-ignore
+          linkIconKey: record.fields.linkIconKey?.[0],
+          linkUrl: record.fields.linkUrl,
+          extraClasses: record.fields.extraClasses?.[0] || '',
+          sortOrder: record.fields.sortOrder,
+          userSlug: USER_IDS_TO_SLUGS[record.fields.userSlug![0]],
+        })
+      })
 
-      const linksInBio = linksInBioRecords.map((record) => ({
-        id: record.fields.id, // @ts-ignore
-        user: USER_IDS_TO_SLUGS[record.fields.user[0]],
-        title: record.fields.title,
-        subTitle: record.fields.subTitle,
-        link: record.fields.link,
-        imageUrl: record.fields.imageUrl,
-        iconComponent: record.fields.iconComponent?.[0] || '',
-        isFeatured: record.fields.isFeatured,
-      }))
+      const linksInBio = linksInBioRecords.map((record) => {
+        return LinkInBioModel.aetherSchema.applyDefaults({
+          id: record.fields.id, // @ts-ignore
+          linkUrl: record.fields.linkUrl,
+          linkTitle: record.fields.linkTitle,
+          linkIconKey: record.fields.linkIconKey?.[0] || '',
+          subTitle: record.fields.subTitle,
+          imageUrl: record.fields.imageUrl,
+          isFeatured: record.fields.isFeatured,
+          userSlug: USER_IDS_TO_SLUGS[record.fields.userSlug![0]],
+        })
+      })
 
-      const userBios = userBioRecords.map((record) => ({
-        ...record.fields,
-        iconLinks: userIcons.filter((icon) => icon.user === record.fields.slug),
-      }))
+      const userBios = userBioRecords.map((record) => {
+        return UserBioModel.aetherSchema.applyDefaults({
+          ...record.fields,
+          iconLinks: userIcons.filter((icon) => icon.userSlug === record.fields.slug),
+        })
+      })
 
       // -- Sync --
 
       const [syncedIcons, syncedLinks, syncedBios] = await Promise.all([
-        bulkUpsertMany(IconLinkModel, userIcons, (doc) => ({ user: doc.user, id: doc.id })),
-        bulkUpsertMany(LinkInBioModel, linksInBio, (doc) => ({ user: doc.user, id: doc.id })),
+        bulkUpsertMany(IconLinkModel, userIcons, (doc) => ({ userSlug: doc.userSlug, id: doc.id })),
+        bulkUpsertMany(LinkInBioModel, linksInBio, (doc) => ({ userSlug: doc.userSlug, id: doc.id })), // prettier-ignore
         bulkUpsertMany(UserBioModel, userBios, (doc) => ({ slug: doc.slug })),
       ])
 

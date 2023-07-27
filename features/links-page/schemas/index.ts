@@ -1,4 +1,6 @@
+export * from './BaseLinkData'
+export * from './UserBio'
 export * from './IconLink'
 export * from './LinkInBio'
-export * from './UserBio'
+export * from './SocialLinkData'
 export * from './SyncUserBiosFromAirtableResolver'
