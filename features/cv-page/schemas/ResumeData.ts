@@ -1,4 +1,6 @@
 import { z, aetherSchema } from 'aetherspace/schemas'
+// Schemas
+import { ResumeCardData } from './ResumeCardData'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
 
@@ -13,6 +15,7 @@ const d = {
 export const ResumeData = aetherSchema('ResumeData', {
   id: z.string().id().describe(d.id),
   slug: z.string().describe(d.slug),
+  generalData: ResumeCardData,
 }).describe(d.ResumeData)
 
 /** -i- Single Source of Truth for the cv-page screen data */

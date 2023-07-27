@@ -305,49 +305,72 @@ input UserBioInput {
 }
 
 type IconLink {
-  """Id of icon link"""
-  id: ID!
+  """the unique identifier for this link"""
+  id: ID
 
-  """Id of icon link"""
-  user: String
+  """the url of the link"""
+  linkUrl: String!
 
-  """Icon key"""
-  iconKey: String
+  """an optional name for the link"""
+  linkTitle: String
 
-  """Icon component name"""
-  iconComponent: String!
+  """the icon key for the link"""
+  linkIconKey: String
 
-  """Link attached to the icon"""
-  link: String!
-
-  """Sort order of icon"""
+  """the sort order of the link"""
   sortOrder: Float
+
+  """
+  the user id of the user this link belongs to, used for database retrieval
+  """
+  userId: String
+
+  """
+  the user slug of the user this link belongs to, used for database retrieval
+  """
+  userSlug: String
+
+  """the type of link this is (e.g. custom or social platform key)"""
+  socialLinkType: String
+
+  """the username for the platform, if linkType is a social platform"""
+  platformUsername: String
 
   """Extra classes to add to icon"""
   extraClasses: String
 }
 
 type LinkInBio {
-  """Id of card link"""
-  id: ID!
+  """the unique identifier for this link"""
+  id: ID
 
-  """Id of card link"""
-  user: String
+  """the url of the link"""
+  linkUrl: String!
 
-  """Title of card link"""
-  title: String!
+  """an optional name for the link"""
+  linkTitle: String
+
+  """the icon key for the link"""
+  linkIconKey: String
+
+  """the sort order of the link"""
+  sortOrder: Float
+
+  """
+  the user id of the user this link belongs to, used for database retrieval
+  """
+  userId: String
+
+  """
+  the user slug of the user this link belongs to, used for database retrieval
+  """
+  userSlug: String
 
   """Subtitle of the card for this link"""
   subTitle: String
 
-  """Card link"""
-  link: String!
-
   """Image url of link"""
   imageUrl: String
-
-  """Icon component name"""
-  iconComponent: String
 
   """Is this a featured link?"""
   isFeatured: Boolean

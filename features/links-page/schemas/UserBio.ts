@@ -38,4 +38,4 @@ export const UserBio = aetherSchema('UserBio', {
 })
 
 /** -i- Single Source of Truth for link-in-bio page's overall user data structure */
-export type TUserBio = z.infer<typeof UserBio>
+export type TUserBio = AetherInput<typeof UserBio>
