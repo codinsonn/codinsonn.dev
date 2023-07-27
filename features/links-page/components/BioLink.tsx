@@ -18,7 +18,7 @@ const BioLinkProps = LinkInBio.nameSchema('BioLinkProps')
 
 export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
   // Props
-  const { title, subTitle, link, imageUrl } = props
+  const { linkTitle, subTitle, linkUrl, imageUrl } = props
 
   // Hooks
   const { openLink } = useAetherNav()
@@ -26,9 +26,9 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
   // -- Render --
 
   return (
-    <StLinkWrapper role="button" onPress={() => openLink(link)}>
+    <StLinkWrapper role="button" onPress={() => openLink(linkUrl)}>
       <StImageWrapper>
-        <Link href={link}>
+        <Link href={linkUrl}>
           <Image
             src={imageUrl}
             alt="Picture of the author"
@@ -41,12 +41,12 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
         </Link>
       </StImageWrapper>
       <StTextWrappers>
-        <Link href={link} tw="roboto-bold text-white flex-shrink text-sm sm:text-base" isText>
-          {title}
+        <Link href={linkUrl} tw="roboto-bold text-white flex-shrink text-sm sm:text-base" isText>
+          {linkTitle}
         </Link>
         <StSpacing tw="h-1" />
         {subTitle && (
-          <Link href={link} tw="roboto text-white flex-shrink text-xs" isText>
+          <Link href={linkUrl} tw="roboto text-white flex-shrink text-xs" isText>
             {subTitle}
           </Link>
         )}

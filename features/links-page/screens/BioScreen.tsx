@@ -58,19 +58,18 @@ const getScreenDataQuery = `
       imageUrl
       iconLinks {
         id
-        iconKey
-        iconComponent
-        link
+        linkUrl
+        linkIconKey
         sortOrder
         extraClasses
       }
       linksInBio {
         id
-        title
+        linkUrl
+        linkTitle
         subTitle
-        link
         imageUrl
-        iconComponent
+        linkIconKey
         isFeatured
       }
     }
@@ -158,11 +157,11 @@ export const BioScreen = (props: BioScreenProps) => {
       <View tw="flex-row mt-8 mb-14 mobile:mt-4 justify-center">
         {bioData.iconLinks.map((bioIcon) => (
           <Link
-            key={bioIcon.iconComponent}
-            href={bioIcon.link}
+            key={bioIcon.linkIconKey}
+            href={bioIcon.linkUrl}
             tw={['px-1 xs:px-2 md:px-3', bioIcon.extraClasses]}
           >
-            <AetherIcon name={bioIcon.iconComponent} size={ICON_SIZE} fill={ICON_COLOR} />
+            <AetherIcon name={bioIcon.linkIconKey} size={ICON_SIZE} fill={ICON_COLOR} />
           </Link>
         ))}
       </View>
@@ -170,16 +169,16 @@ export const BioScreen = (props: BioScreenProps) => {
       <H1 tw="text-white roboto-bold font-bold text-lg mb-6">Featured Links</H1>
       <View tw="max-w-[620px] w-full lg:w-3/4 xl:w-2/4 px-5">
         <View tw="flex relative overflow-hidden gap-y-6">
-          {bioData.linksInBio.map((bioLink) => (
+          {bioData.linksInBio?.map((bioLink) => (
             <View key={bioLink.id}>
               <BioLink
                 key={bioLink.id}
                 id={bioLink.id}
-                title={bioLink.title}
+                linkUrl={bioLink.linkUrl}
+                linkTitle={bioLink.linkTitle}
                 subTitle={bioLink.subTitle}
-                link={bioLink.link}
                 imageUrl={bioLink.imageUrl}
-                iconComponent={bioLink.iconComponent}
+                linkIconKey={bioLink.linkIconKey}
                 isFeatured={bioLink.isFeatured}
               />
             </View>

@@ -1,5 +1,4 @@
 import { z, aetherSchema } from 'aetherspace/schemas'
-import { UserBio } from './UserBio'
 import { MongoBulkWriteResult } from '@aetherspace/mongoose/schemas'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
