@@ -1,12 +1,12 @@
-import Airtable from 'airtable'
 // Schemas
 import { SyncUserBiosFromAirtableAPIConfig } from '../schemas/SyncUserBiosFromAirtableResolver' // prettier-ignore
 // Models
+import { UserBioTable, UserIconsTable, LinksInBioTable } from '../schemas/tables'
 import { UserBioModel, IconLinkModel, LinkInBioModel } from '../schemas/models'
 // Utils
 import { aetherResolver, getEnvVar } from 'aetherspace/utils/serverUtils'
-import { fetchAllAirtableRecords } from '@aetherspace/airtable/utils'
 import { dbConnect, bulkUpsertMany } from '@aetherspace/mongoose/utils'
+import { TMongoBulkWriteResult } from '@aetherspace/mongoose/schemas'
 
 /* --- Constants ------------------------------------------------------------------------------- */
 
@@ -27,17 +27,12 @@ export const syncUserBiosFromAirtable = aetherResolver(
       if (authKey !== AIRTABLE_API_KEY.slice(0, 8)) throw new Error('Invalid authKey')
       if (!AIRTABLE_BIO_BASE) throw new Error('AIRTABLE_BIO_BASE is not set')
 
-      // -- Constants --
-
-      const airtable = new Airtable({ apiKey: AIRTABLE_API_KEY })
-      const airtableBase = airtable.base(AIRTABLE_BIO_BASE)
-
       // -- Fetch --
 
       const [userIconRecords, userBioRecords, linksInBioRecords] = await Promise.all([
-        fetchAllAirtableRecords(airtableBase, 'userIcons', IconLinkModel.aetherSchema),
-        fetchAllAirtableRecords(airtableBase, 'userBio', UserBioModel.aetherSchema),
-        fetchAllAirtableRecords(airtableBase, 'userLinks', LinkInBioModel.aetherSchema),
+        UserIconsTable.fetchAllRecords(),
+        UserBioTable.fetchAllRecords(),
+        LinksInBioTable.fetchAllRecords(),
       ])
 
       // -- Connect --
@@ -46,27 +41,19 @@ export const syncUserBiosFromAirtable = aetherResolver(
 
       // -- Transform --
 
-      const USER_IDS_TO_SLUGS = userBioRecords.reduce(
-        (acc, record) => ({
-          ...acc,
-          [record.id]: record.fields.slug,
-        }),
-        {} as Record<string, string>
-      )
-
       const userIcons = userIconRecords.map((record) => {
-        return IconLinkModel.aetherSchema.applyDefaults({
+        return IconLinkModel.aetherSchema.parse({
           id: record.fields.id, // @ts-ignore
           linkIconKey: record.fields.linkIconKey?.[0],
           linkUrl: record.fields.linkUrl,
           extraClasses: record.fields.extraClasses?.[0] || '',
           sortOrder: record.fields.sortOrder,
-          userSlug: USER_IDS_TO_SLUGS[record.fields.userSlug![0]],
+          userSlug: record.fields.userSlug![0],
         })
       })
 
       const linksInBio = linksInBioRecords.map((record) => {
-        return LinkInBioModel.aetherSchema.applyDefaults({
+        return LinkInBioModel.aetherSchema.parse({
           id: record.fields.id, // @ts-ignore
           linkUrl: record.fields.linkUrl,
           linkTitle: record.fields.linkTitle,
@@ -74,12 +61,12 @@ export const syncUserBiosFromAirtable = aetherResolver(
           subTitle: record.fields.subTitle,
           imageUrl: record.fields.imageUrl,
           isFeatured: record.fields.isFeatured,
-          userSlug: USER_IDS_TO_SLUGS[record.fields.userSlug![0]],
+          userSlug: record.fields.userSlug![0],
         })
       })
 
       const userBios = userBioRecords.map((record) => {
-        return UserBioModel.aetherSchema.applyDefaults({
+        return UserBioModel.aetherSchema.parse({
           ...record.fields,
           iconLinks: userIcons.filter((icon) => icon.userSlug === record.fields.slug),
         })
@@ -95,10 +82,15 @@ export const syncUserBiosFromAirtable = aetherResolver(
 
       // -- Respond --
 
+      const countBulkEdits = (bulkEditResults: TMongoBulkWriteResult) => {
+        const { insertedCount, matchedCount, modifiedCount, upsertedCount } = bulkEditResults
+        return insertedCount + modifiedCount || matchedCount + upsertedCount
+      }
+
       const syncedSlugs = userBios.map(({ slug }) => slug)
-      const syncedBiosCount = (syncedBios.insertedCount + syncedBios.modifiedCount) || syncedBios.matchedCount // prettier-ignore
-      const syncedIconsCount = (syncedIcons.insertedCount + syncedIcons.modifiedCount) || syncedIcons.matchedCount // prettier-ignore
-      const syncedLinksCount = (syncedLinks.insertedCount + syncedLinks.modifiedCount) || syncedLinks.matchedCount // prettier-ignore
+      const syncedBiosCount = countBulkEdits(syncedBios)
+      const syncedIconsCount = countBulkEdits(syncedIcons)
+      const syncedLinksCount = countBulkEdits(syncedLinks)
       const syncedCount = syncedBiosCount + syncedIconsCount + syncedLinksCount
 
       return withDefaults({

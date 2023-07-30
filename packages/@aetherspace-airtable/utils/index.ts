@@ -1,2 +1,5 @@
 export * from './fetchAllAirtableRecords'
 export * from './searchAirtableRecords'
+export * from './findOneAirtableRecord'
+export * from './aetherQueryToFilterFormula'
+export * from './parseRecord'
