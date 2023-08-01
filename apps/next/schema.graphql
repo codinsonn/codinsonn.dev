@@ -1,5 +1,414 @@
 scalar Date
 
+input GetResumeDataByUserSlugArgs {
+  """
+  the unique slug for a user's resume. Can be used to find and retrieve the resume data with
+  """
+  slug: String!
+}
+
+type ResumeCardData {
+  profileImgUrl: String
+  displayName: String!
+  functionTitle: String!
+  location: String!
+  pronouns: String!
+  website: String
+  about: String
+}
+
+type SocialLinkData {
+  """the unique identifier for this link"""
+  id: ID
+
+  """the url of the link"""
+  linkUrl: String!
+
+  """an optional name for the link"""
+  linkTitle: String
+
+  """the icon key for the link"""
+  linkIconKey: String
+
+  """the sort order of the link"""
+  sortOrder: Float
+
+  """
+  the user id of the user this link belongs to, used for database retrieval
+  """
+  userId: String
+
+  """
+  the user slug of the user this link belongs to, used for database retrieval
+  """
+  userSlug: String
+
+  """the type of link this is (e.g. custom or social platform key)"""
+  socialLinkType: String
+
+  """the username for the platform, if linkType is a social platform"""
+  platformUsername: String
+}
+
+type ResumeProjectData {
+  """the unique identifier for this link"""
+  id: ID
+
+  """the url of the link"""
+  linkUrl: String!
+
+  """an optional name for the link"""
+  linkTitle: String
+
+  """the icon key for the link"""
+  linkIconKey: String
+
+  """the sort order of the link"""
+  sortOrder: Float
+
+  """
+  the user id of the user this link belongs to, used for database retrieval
+  """
+  userId: String
+
+  """
+  the user slug of the user this link belongs to, used for database retrieval
+  """
+  userSlug: String
+
+  """the title of this project"""
+  title: String!
+
+  """the year this project was completed"""
+  year: String
+
+  """the collaborators for this project"""
+  collaborators: String
+
+  """the description of this project"""
+  description: String
+
+  """the client for this project"""
+  client: String
+}
+
+type ResumeWritingData {
+  """the unique identifier for this link"""
+  id: ID
+
+  """the url of the link"""
+  linkUrl: String!
+
+  """an optional name for the link"""
+  linkTitle: String
+
+  """the icon key for the link"""
+  linkIconKey: String
+
+  """the sort order of the link"""
+  sortOrder: Float
+
+  """
+  the user id of the user this link belongs to, used for database retrieval
+  """
+  userId: String
+
+  """
+  the user slug of the user this link belongs to, used for database retrieval
+  """
+  userSlug: String
+
+  """the title of this project"""
+  title: String!
+
+  """the year this project was completed"""
+  year: String
+
+  """the collaborators for this project"""
+  collaborators: String
+
+  """the description of this project"""
+  description: String
+
+  """the publisher for this article"""
+  publisher: String
+}
+
+type ResumeSpeakingData {
+  """the unique identifier for this link"""
+  id: ID
+
+  """the url of the link"""
+  linkUrl: String!
+
+  """an optional name for the link"""
+  linkTitle: String
+
+  """the icon key for the link"""
+  linkIconKey: String
+
+  """the sort order of the link"""
+  sortOrder: Float
+
+  """
+  the user id of the user this link belongs to, used for database retrieval
+  """
+  userId: String
+
+  """
+  the user slug of the user this link belongs to, used for database retrieval
+  """
+  userSlug: String
+
+  """the title of this project"""
+  title: String!
+
+  """the year this project was completed"""
+  year: String
+
+  """the collaborators for this project"""
+  collaborators: String
+
+  """the description of this project"""
+  description: String
+
+  """the event for this talk"""
+  event: String
+
+  """the location for this talk"""
+  location: String
+}
+
+type ResumeAwardData {
+  """the unique identifier for this link"""
+  id: ID
+
+  """the url of the link"""
+  linkUrl: String!
+
+  """an optional name for the link"""
+  linkTitle: String
+
+  """the icon key for the link"""
+  linkIconKey: String
+
+  """the sort order of the link"""
+  sortOrder: Float
+
+  """
+  the user id of the user this link belongs to, used for database retrieval
+  """
+  userId: String
+
+  """
+  the user slug of the user this link belongs to, used for database retrieval
+  """
+  userSlug: String
+
+  """the title of this project"""
+  title: String!
+
+  """the year this project was completed"""
+  year: String
+
+  """the collaborators for this project"""
+  collaborators: String
+
+  """the description of this project"""
+  description: String
+
+  """the organisation that presented you with this award"""
+  presentedBy: String
+}
+
+type ResumeExperienceData {
+  """the unique identifier for this link"""
+  id: ID
+
+  """the url of the link"""
+  linkUrl: String!
+
+  """an optional name for the link"""
+  linkTitle: String
+
+  """the icon key for the link"""
+  linkIconKey: String
+
+  """the sort order of the link"""
+  sortOrder: Float
+
+  """
+  the user id of the user this link belongs to, used for database retrieval
+  """
+  userId: String
+
+  """
+  the user slug of the user this link belongs to, used for database retrieval
+  """
+  userSlug: String
+
+  """the title for this work experience"""
+  title: String
+
+  """the year this project was completed"""
+  year: String
+
+  """the collaborators for this project"""
+  collaborators: String
+
+  """the description of this project"""
+  description: String
+
+  """the start date for this work experience"""
+  from: String!
+
+  """the end date for this work experience"""
+  to: String!
+
+  """the company for this work experience"""
+  company: String!
+
+  """the location for this work experience"""
+  location: String
+}
+
+type ResumeEducationData {
+  """the unique identifier for this link"""
+  id: ID
+
+  """the url of the link"""
+  linkUrl: String!
+
+  """an optional name for the link"""
+  linkTitle: String
+
+  """the icon key for the link"""
+  linkIconKey: String
+
+  """the sort order of the link"""
+  sortOrder: Float
+
+  """
+  the user id of the user this link belongs to, used for database retrieval
+  """
+  userId: String
+
+  """
+  the user slug of the user this link belongs to, used for database retrieval
+  """
+  userSlug: String
+
+  """the start date for this education"""
+  from: String!
+
+  """the end date for this education"""
+  to: String!
+
+  """the degree or certification for this education"""
+  title: String
+
+  """the school or institute for this education"""
+  institute: String!
+
+  """the location for this education"""
+  location: String
+}
+
+type ResumeCertificationData {
+  """the unique identifier for this link"""
+  id: ID
+
+  """the url of the link"""
+  linkUrl: String!
+
+  """an optional name for the link"""
+  linkTitle: String
+
+  """the icon key for the link"""
+  linkIconKey: String
+
+  """the sort order of the link"""
+  sortOrder: Float
+
+  """
+  the user id of the user this link belongs to, used for database retrieval
+  """
+  userId: String
+
+  """
+  the user slug of the user this link belongs to, used for database retrieval
+  """
+  userSlug: String
+
+  """the title of this project"""
+  title: String!
+
+  """the year this project was completed"""
+  year: String
+
+  """the collaborators for this project"""
+  collaborators: String
+
+  """the description of this project"""
+  description: String
+
+  """the date this certificate was issued"""
+  issued: String!
+
+  """the expiration date for this certificate"""
+  expires: String
+
+  """the name of the certificate"""
+  name: String!
+
+  """the issuer of the certificate"""
+  issuer: String!
+}
+
+type ResumeData {
+  """the unique identifier for this resume"""
+  id: ID!
+
+  """the unique slug for this resume"""
+  slug: String!
+
+  """General data for the top card of the resume page"""
+  generalData: ResumeCardData!
+
+  """the contact links for this resume, like email, phone, socials, etc."""
+  contactLinks: [SocialLinkData]!
+
+  """Data for a project to be listed on the resume"""
+  projects: [ResumeProjectData]
+
+  """Data for a project to be listed on the resume"""
+  sideProjects: [ResumeProjectData]
+
+  """Data for a project to be listed on the resume"""
+  writing: [ResumeWritingData]
+
+  """Data for a project to be listed on the resume"""
+  speaking: [ResumeSpeakingData]
+
+  """Data for an award to be listed on the resume"""
+  awards: [ResumeAwardData]
+
+  """Data for a project to be listed on the resume"""
+  features: [ResumeWritingData]
+
+  """Experience data for this resume"""
+  workExperience: [ResumeExperienceData]
+
+  """Experience data for this resume"""
+  volunteering: [ResumeExperienceData]
+
+  """Data for the educations listed on this resume."""
+  education: [ResumeEducationData]
+
+  """Certification for this resume"""
+  certifications: [ResumeCertificationData]
+}
+
 input GetShopifyProductsArgs {
   first: Float
 }
@@ -515,6 +924,7 @@ type SyncUserBiosFromAirtableResponse {
 }
 
 type Query {
+  getResumeDataByUserSlug(args: GetResumeDataByUserSlugArgs!): ResumeData
   getShopifyProducts(args: GetShopifyProductsArgs): GetShopifyProductsResponse
   getUserBio(args: UserBioInput!): UserBio
   healthCheck(args: HealthCheckArgs): HealthCheckResponse

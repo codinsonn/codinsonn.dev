@@ -1,29 +1,40 @@
 import React from 'react'
 // Navigation
-import { useAetherRoute, fetchAetherProps } from 'aetherspace/navigation'
+import { useAetherRoute, fetchAetherProps, Link } from 'aetherspace/navigation'
 // Schemas
 import { z, aetherSchema, AetherParams, AetherProps } from 'aetherspace/schemas'
+import { ResumeData } from '../schemas'
+// Mocks
+import { dummyResumeData } from '../mocks/resumeData.mock'
+// Primitives
+import { View, Image, Text } from 'aetherspace/primitives'
+import { H1, H2, P } from 'aetherspace/html-elements'
 // Components
-import { View } from 'aetherspace/primitives'
-// SEO
-import { H1 } from 'aetherspace/html-elements'
+import { ResumeIntroCard } from '../components'
+// Styles
+import { twStyled } from 'aetherspace/styles'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
 
 const d = {
-  echo: 'Dummy echo param to test the route with. Returned as prop if present in the route params.',
+  slug: 'Slug of the resume data to fetch if data is not in props.',
 }
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
 // -i- TODO: Change these schemas to match your route's parameter needs
 const ResumeScreenParams = aetherSchema('ResumeScreenParams', {
-  echo: z.string().default('Hello World').describe(d.echo), // dummy echo param to test the route with
+  slug: z.string().default('codinsonn').describe(d.slug),
 })
 
 // -i- TODO: Change these schemas to match your screen's prop needs
-const ResumeScreenProps = aetherSchema('ResumeScreenProps', {
-  echo: z.string().default('Hello World').describe(d.echo), // dummy title prop to test the route with
+const ResumeScreenProps = ResumeData.extendSchema('ResumeScreenProps', {
+  params: ResumeScreenParams.optional(),
+  segment: z.string().optional(),
+}).example({
+  params: { slug: 'codinsonn' },
+  segment: undefined,
+  ...dummyResumeData,
 })
 
 export type TResumeScreenParams = AetherParams<typeof ResumeScreenParams>
@@ -33,20 +44,188 @@ export type TResumeScreenProps = AetherProps<typeof ResumeScreenProps>
 
 // -i- Figure out which data you need at /api/graphql and replace this dummy data in the query below
 const ResumeScreenDataQuery = `
-  query($healthCheckArgs: HealthCheckArgs!) {
-    healthCheck(args: $healthCheckArgs) {
-      alive
-      kicking
-      echo
-      baseURL
+query($getResumeDataByUserSlugArgs: GetResumeDataByUserSlugArgs!) {
+  getResumeDataByUserSlug(args: $getResumeDataByUserSlugArgs) {
+    id
+    slug
+    generalData {
+      profileImgUrl
+      displayName
+      functionTitle
+      location
+      pronouns
+      website
+      about
+    }
+    contactLinks {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      socialLinkType
+      platformUsername
+    }
+    projects {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      client
+    }
+    sideProjects {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      client
+    }
+    writing {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      publisher
+    }
+    speaking {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      event
+      location
+    }
+    awards {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      presentedBy
+    }
+    features {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      publisher
+    }
+    workExperience {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      from
+      to
+      company
+      location
+    }
+    volunteering {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      from
+      to
+      company
+      location
+    }
+    education {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      from
+      to
+      title
+      institute
+      location
+    }
+    certifications {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      issued
+      expires
+      name
+      issuer
     }
   }
+}
 `
 
 /// -i- TODO: Function to get the GraphQL variables that will be used to fetch the data for this screen
 /** -i- GraphQL query that will fetch all data we need for this screen */
 const getResumeScreenArgs = (params: TResumeScreenParams = {}) => ({
-  healthCheckArgs: ResumeScreenParams.parse(params), // example
+  getResumeDataByUserSlugArgs: ResumeScreenParams.parse(params), // example
 })
 
 /** -i- Function to actually fetch the data for this screen, where queryKey is likely the GQL query */
@@ -54,7 +233,7 @@ const getResumeScreenProps = async (queryKey: string, queryVariables?: TResumeSc
   const queryData = queryKey || ResumeScreenDataQuery
   const queryInput = queryVariables || getResumeScreenArgs() // example, uses defaults if not defined
   const { data } = await fetchAetherProps(queryData, queryInput)
-  return { echo: data?.healthCheck.echo } as TResumeScreenProps // example
+  return data.getResumeDataByUserSlug as TResumeScreenProps // example
 }
 
 /** -i- Bundled config for getting the screen data, including query, variables, and data fetcher */
@@ -64,7 +243,7 @@ export const ResumeScreenRouteDataConfig = {
   getGraphqlData: getResumeScreenProps,
   paramSchema: ResumeScreenParams,
   propSchema: ResumeScreenProps,
-  // backgroundColor: '#FFF',
+  backgroundColor: '#111827',
 }
 
 /* --- Route Segments -------------------------------------------------------------------------- */
@@ -77,7 +256,7 @@ export const dynamic = 'auto' // 'auto' | 'force-dynamic' | 'error' | 'force-sta
 export const ResumeScreen = (props: TResumeScreenProps) => {
   // Props & Data
   const [screenData, { error }] = useAetherRoute(props, ResumeScreenRouteDataConfig)
-  const { echo } = screenData
+  const { slug, generalData } = screenData
 
   // -- Guards --
 
@@ -92,15 +271,32 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
   // -- Render --
 
   return (
-    <View tw="w-full h-full items-center justify-center">
-      <H1 tw="text-xl text-black">{echo}</H1>
-    </View>
+    <StScreenContainer>
+      <StResumeContainer>
+        <ResumeIntroCard {...generalData} />
+      </StResumeContainer>
+    </StScreenContainer>
   )
 }
+
+/* --- Styles ---------------------------------------------------------------------------------- */
+
+const StScreenContainer = twStyled.View`w-full h-full items-center px-4`
+
+const StResumeContainer = twStyled.Article`max-w-[580px] py-16`
+
+const Spacing = twStyled.View``
 
 /* --- Documentation --------------------------------------------------------------------------- */
 
 export const getDocumentationProps = ResumeScreenProps.introspect()
+
+export const getDocumentationParams = {
+  backgrounds: {
+    default: 'bg-gray-900',
+    values: [{ name: 'bg-gray-900', value: '#1a202c' }],
+  },
+}
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
