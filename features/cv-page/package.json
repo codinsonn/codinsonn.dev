@@ -5,7 +5,10 @@
     "license": "MIT",
     "description": "todo: add description",
     "aetherspace": {
-        "relatedWorkspaces": ["aetherspace"],
+        "relatedWorkspaces": [
+            "aetherspace",
+            "links-page"
+        ],
         "requiredEnvVars": []
     },
     "scripts": {

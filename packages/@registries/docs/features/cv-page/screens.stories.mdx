@@ -3,7 +3,7 @@ import { aetherStoryDocs } from 'aetherspace/schemas/utils'
 import { isEmpty } from 'aetherspace/utils/commonUtils'
 // -i- Auto generated with "yarn document-components"
 // Components hooking into the storybook auto-documentation script
-import { ResumeScreen, getDocumentationProps as getResumeScreenProps } from '../../../../../features/cv-page/screens/ResumeScreen.tsx'
+import { ResumeScreen, getDocumentationProps as getResumeScreenProps, getDocumentationParams as getResumeScreenParams } from '../../../../../features/cv-page/screens/ResumeScreen.tsx'
 // Mocks
 import StoryContextProviders from '../../../../../features/app-core/mocks/StoryContextProviders'
 
@@ -33,6 +33,7 @@ import { ResumeScreen } from 'cv-page/screens/ResumeScreen'
         name="ResumeScreen"
         args={ResumeScreenConfig.args}
         argTypes={ResumeScreenConfig.argTypes}
+        parameters={getResumeScreenParams}
     >
       {ResumeScreenDocs.bind({})}
     </Story>

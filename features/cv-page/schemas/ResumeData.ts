@@ -9,6 +9,8 @@ import { ResumeAwardData } from './ResumeAwardData'
 import { ResumeExperienceData } from './ResumeExperienceData'
 import { ResumeEducationData } from './ResumeEducationData'
 import { ResumeCertificationData } from './ResumeCertificationData'
+// Dummy
+import { dummyResumeData } from '../mocks/resumeData.mock'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
 
@@ -26,17 +28,17 @@ export const ResumeData = aetherSchema('ResumeData', {
   slug: z.string().describe(d.slug),
   generalData: ResumeCardData,
   contactLinks: SocialLinkData.array().describe(d.contactLinks),
-  projects: ResumeProjectData.array(),
-  sideProjects: ResumeProjectData.array(),
-  writing: ResumeWritingData.array(),
-  speaking: ResumeSpeakingData.array(),
-  awards: ResumeAwardData.array(),
-  features: ResumeWritingData.array(),
-  workExperience: ResumeExperienceData.array(),
-  volunteering: ResumeExperienceData.array(),
-  education: ResumeEducationData.array(),
-  certifications: ResumeCertificationData.array(),
-}).describe(d.ResumeData)
+  projects: ResumeProjectData.array().optional(),
+  sideProjects: ResumeProjectData.array().optional(),
+  writing: ResumeWritingData.array().optional(),
+  speaking: ResumeSpeakingData.array().optional(),
+  awards: ResumeAwardData.array().optional(),
+  features: ResumeWritingData.array().optional(),
+  workExperience: ResumeExperienceData.array().optional(),
+  volunteering: ResumeExperienceData.array().optional(),
+  education: ResumeEducationData.array().optional(),
+  certifications: ResumeCertificationData.array().optional(),
+}).describe(d.ResumeData).eg(dummyResumeData) // prettier-ignore
 
 /** -i- Single Source of Truth for the cv-page screen data */
 export type TResumeData = z.infer<typeof ResumeData>

@@ -25,13 +25,16 @@ import { localURL } from 'aetherspace/constants/manifest'
 // Mocks
 import { userBioMock } from '../mocks/userBio.mock'
 
+/* --- Descriptions ---------------------------------------------------------------------------- */
+
+const d = {
+  slug: 'Slug of the user bio to fetch if data is not in props.',
+}
+
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
 const BioParamsSchema = aetherSchema('BioScreenParams', {
-  slug: z
-    .string()
-    .default('codinsonn')
-    .describe('Slug of the user bio to fetch if data is not in props.'),
+  slug: z.string().default('codinsonn').describe(d.slug),
 })
 
 const BioScreenSchema = UserBio.extendSchema('BioScreenProps', {
@@ -84,8 +87,6 @@ const getBioScreenProps = async (queryKey: string, queryVariables?: BioScreenPar
   const queryData = queryKey || getScreenDataQuery
   const queryInput = queryVariables || getBioScreenArgs() // Use defaults if not defined
   const { data } = await fetchAetherProps(queryData, queryInput)
-  // const response = await fetchAetherProps(queryData, queryInput)
-  // const data = response.data satisfies TUserBio
   return data.getUserBio as TUserBio
 }
 
@@ -139,7 +140,7 @@ export const BioScreen = (props: BioScreenProps) => {
 
   return (
     <View tw="w-full h-full items-center bg-gray-900 mobile:pt-14 pt-10">
-      <Link to={isCustomBio ? '/' : '/bio/codinsonn'}>
+      <Link to={isCustomBio ? '/' : '/cv'}>
         <Image
           src={bioData.imageUrl}
           alt="Picture of the author"

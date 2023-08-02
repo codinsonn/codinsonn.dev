@@ -9,9 +9,9 @@ const d = {
 /** --- ResumeCardData ------------------------------------------------------------------------- */
 /** -i- General data for the top card of the resume page */
 export const ResumeCardData = aetherSchema('ResumeCardData', {
-  profileImgUrl: z.string().url().optional(),
+  profileImgUrl: z.string().optional(),
   displayName: z.string(),
-  funtionTitle: z.string(),
+  functionTitle: z.string(),
   location: z.string(),
   pronouns: z.string(),
   website: z.string().url().optional(),
