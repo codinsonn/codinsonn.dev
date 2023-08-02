@@ -1,3 +1,4 @@
+'use client'
 // -i- Based on / inspired by:
 // - https://necolas.github.io/react-native-web/docs/image/
 // - https://nextjs.org/docs/api-reference/next/image

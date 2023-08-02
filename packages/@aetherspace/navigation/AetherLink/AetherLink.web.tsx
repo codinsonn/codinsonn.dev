@@ -1,3 +1,4 @@
+'use client'
 // @ts-ignore
 import React, { useMemo, forwardRef } from 'react'
 import { Platform, Text } from 'react-native'

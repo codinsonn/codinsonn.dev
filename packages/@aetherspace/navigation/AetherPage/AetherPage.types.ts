@@ -13,7 +13,7 @@ export type AetherScreenConfig = {
   backgroundColor?: string
 }
 
-export type AetherPageProps<SC extends AetherScreenConfig> = {
+export type AetherPageProps<SC extends AetherScreenConfig> = SC & {
   params?: Record<string, any>
   searchParams?: Record<string, any>
   screen: React.FC<Record<string, any>> | ((props: any) => JSX.Element | null)

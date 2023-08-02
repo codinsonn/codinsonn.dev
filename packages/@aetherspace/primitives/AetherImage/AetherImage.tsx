@@ -1,3 +1,4 @@
+'use client'
 import React, { useMemo, forwardRef } from 'react'
 import { Image, ImageSource } from 'expo-image'
 // Types

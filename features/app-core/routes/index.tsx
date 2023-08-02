@@ -5,11 +5,17 @@ import * as bioScreen from 'links-page/screens/BioScreen'
 
 /* --- / --------------------------------------------------------------------------------------- */
 
-const PageScreen = (
+const PageScreen = async (
   props: bioScreen.BioScreenProps & { searchParams: Record<string, unknown> }
 ) => {
+  console.log('PageScreen', { props, ...bioScreen.screenConfig })
   return (
-    <AetherPage {...props} screen={bioScreen.BioScreen} screenConfig={bioScreen.screenConfig} />
+    <AetherPage
+      {...props}
+      screen={bioScreen.BioScreen}
+      screenConfig={bioScreen.screenConfig}
+      {...bioScreen.screenConfig}
+    />
   )
 }
 
