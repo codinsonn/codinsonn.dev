@@ -1,9 +1,5 @@
-import { use, useEffect, useState } from 'react'
-import { SWRConfig, unstable_serialize } from 'swr'
-// Types
-import { AetherPageProps, AetherScreenConfig } from './AetherPage.types'
-// Components
-import { AetherClientPage } from './AetherClientPage.web'
+'use client'
+import { SWRConfig } from 'swr'
 
 /* --- Helpers --------------------------------------------------------------------------------- */
 
@@ -16,49 +12,19 @@ import { AetherClientPage } from './AetherClientPage.web'
 
 /* --- <AetherPage/> --------------------------------------------------------------------------- */
 
-export const AetherServerPage = async <SC extends AetherScreenConfig>(
-  props: AetherPageProps<SC>
-) => {
+export const AetherClientPage = (props: any) => {
   // Props
-  const {
-    params: routeParams,
-    searchParams,
-    screen,
-    screenConfig,
-    query,
-    getGraphqlVars,
-    getGraphqlData,
-    ...restProps
-  } = props || {}
-  console.log('Server:', { props })
-  // const { query, getGraphqlVars, getGraphqlData } = screenConfig
-
-  // Vars
-  const variables = getGraphqlVars({ ...searchParams, ...routeParams })
-  const fallbackKey = unstable_serialize([query, variables])
-  console.log('Server:', { fallbackKey, variables })
-  const ssrData = await getGraphqlData(query, variables) // use(getGraphqlData(query, variables))
-  console.log('Server:', { ssrData })
+  const { fallbackKey, screen, ...ssrData } = props
+  const PageScreen = screen
 
   // Render
-  return <AetherClientPage {...restProps} {...props} fallbackKey={fallbackKey} {...ssrData} />
+  return (
+    <SWRConfig value={{ fallback: { [fallbackKey]: ssrData } }}>
+      {!!ssrData && <div id="ssr-data" data-ssr={JSON.stringify(ssrData)} />}
+      <PageScreen {...ssrData} />
+    </SWRConfig>
+  )
 }
-
-// export const AetherClientPage = (props: any) => {
-//   // Props
-//   const { fallbackKey, screen, ...ssrData } = props
-//   const PageScreen = screen
-
-//   // Render
-//   return (
-//     <SWRConfig value={{ fallback: { [fallbackKey]: ssrData } }}>
-//       {!!ssrData && <div id="ssr-data" data-ssr={JSON.stringify(ssrData)} />}
-//       <PageScreen {...ssrData} />
-//     </SWRConfig>
-//   )
-// }
-
-export const AetherPage = AetherServerPage
 
 // export const AetherPage = <SC extends AetherScreenConfig>(props: AetherPageProps<SC>) => {
 //   // Props
