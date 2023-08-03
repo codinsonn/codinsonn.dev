@@ -38,11 +38,11 @@ export const ResumeIntroCard = (props: AetherProps<typeof ResumeCardData>) => {
           </Link>
         </View>
         <View className="flex-1">
-          <View className="flex flex-row items-center  text-white">
-            <H1 className="text-xl text-neutral-100">{displayName}</H1>
+          <View className="flex flex-row items-center text-white">
+            <H1 className="text-xl text-neutral-100 my-0">{displayName}</H1>
           </View>
           <View className="flex flex-row">
-            <P className="text-neutral-200 m-0 roboto">
+            <P className="text-neutral-200 roboto my-0">
               {[`${functionTitle} in ${location}`, pronouns].filter(Boolean).join(', ')}
             </P>
           </View>
@@ -64,7 +64,7 @@ export const ResumeIntroCard = (props: AetherProps<typeof ResumeCardData>) => {
         <>
           <Spacing tw="h-8" />
           <StAboutSection>
-            <H2 className="mb-1 text-sm roboto-bold leading-6 text-neutral-100">About</H2>
+            <H2 className="mb-1 text-sm roboto leading-6 text-neutral-100">About</H2>
             <P className="p-0 m-0 leading-6 text-neutral-300">{about}</P>
           </StAboutSection>
         </>

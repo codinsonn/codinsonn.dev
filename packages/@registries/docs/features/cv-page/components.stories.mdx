@@ -3,6 +3,8 @@ import { aetherStoryDocs } from 'aetherspace/schemas/utils'
 import { isEmpty } from 'aetherspace/utils/commonUtils'
 // -i- Auto generated with "yarn document-components"
 // Components hooking into the storybook auto-documentation script
+import { ResumeContactSection, getDocumentationProps as getResumeContactSectionProps, getDocumentationParams as getResumeContactSectionParams } from '../../../../../features/cv-page/components/ResumeContactSection.tsx'
+import { ResumeEntry, getDocumentationProps as getResumeEntryProps, getDocumentationParams as getResumeEntryParams } from '../../../../../features/cv-page/components/ResumeEntry.tsx'
 import { ResumeIntroCard, getDocumentationProps as getResumeIntroCardProps, getDocumentationParams as getResumeIntroCardParams } from '../../../../../features/cv-page/components/ResumeIntroCard.tsx'
 // Mocks
 import StoryContextProviders from '../../../../../features/app-core/mocks/StoryContextProviders'
@@ -17,6 +19,56 @@ export const createDocs = (Component) => (args) => {
   )
 }
 
+## ResumeContactSection
+
+export const ResumeContactSectionDocs = createDocs(ResumeContactSection)
+export const ResumeContactSectionConfig = aetherStoryDocs({ ResumeContactSection }, getResumeContactSectionProps)
+
+`/features/cv-page/components/ResumeContactSection.tsx`
+```typescript
+import { ResumeContactSection } from 'cv-page/components/ResumeContactSection'
+```
+
+
+<Canvas style={{ backgroundColor: getResumeContactSectionParams.backgrounds?.values?.[0]?.value }}>
+    <Story
+        name="ResumeContactSection"
+        args={ResumeContactSectionConfig.args}
+        argTypes={ResumeContactSectionConfig.argTypes}
+        parameters={getResumeContactSectionParams}
+    >
+      {ResumeContactSectionDocs.bind({})}
+    </Story>
+</Canvas>
+
+{!isEmpty(ResumeContactSectionConfig.args) && <ArgsTable story="ResumeContactSection" />}
+
+
+## ResumeEntry
+
+export const ResumeEntryDocs = createDocs(ResumeEntry)
+export const ResumeEntryConfig = aetherStoryDocs({ ResumeEntry }, getResumeEntryProps)
+
+`/features/cv-page/components/ResumeEntry.tsx`
+```typescript
+import { ResumeEntry } from 'cv-page/components/ResumeEntry'
+```
+
+
+<Canvas style={{ backgroundColor: getResumeEntryParams.backgrounds?.values?.[0]?.value }}>
+    <Story
+        name="ResumeEntry"
+        args={ResumeEntryConfig.args}
+        argTypes={ResumeEntryConfig.argTypes}
+        parameters={getResumeEntryParams}
+    >
+      {ResumeEntryDocs.bind({})}
+    </Story>
+</Canvas>
+
+{!isEmpty(ResumeEntryConfig.args) && <ArgsTable story="ResumeEntry" />}
+
+
 ## ResumeIntroCard
 
 export const ResumeIntroCardDocs = createDocs(ResumeIntroCard)
@@ -28,7 +80,7 @@ import { ResumeIntroCard } from 'cv-page/components/ResumeIntroCard'
 ```
 
 
-<Canvas>
+<Canvas style={{ backgroundColor: getResumeIntroCardParams.backgrounds?.values?.[0]?.value }}>
     <Story
         name="ResumeIntroCard"
         args={ResumeIntroCardConfig.args}
@@ -40,6 +92,8 @@ import { ResumeIntroCard } from 'cv-page/components/ResumeIntroCard'
 </Canvas>
 
 {!isEmpty(ResumeIntroCardConfig.args) && <ArgsTable story="ResumeIntroCard" />}
+
+
 
 
 

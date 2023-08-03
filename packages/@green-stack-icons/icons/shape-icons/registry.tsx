@@ -1,9 +1,9 @@
-import { ATextThin } from './ATextThin'
-import { ActivityFilled } from './ActivityFilled'
-import { ActivityThin } from './ActivityThin'
-import { Add2Filled } from './Add2Filled'
-import { Add3Filled } from './Add3Filled'
-import { Add3Thin } from './Add3Thin'
+// import { ATextThin } from './ATextThin'
+// import { ActivityFilled } from './ActivityFilled'
+// import { ActivityThin } from './ActivityThin'
+// import { Add2Filled } from './Add2Filled'
+// import { Add3Filled } from './Add3Filled'
+// import { Add3Thin } from './Add3Thin'
 // import { Add4Filled } from './Add4Filled'
 // import { Add4Thin } from './Add4Thin'
 // import { Add5Filled } from './Add5Filled'
@@ -497,7 +497,7 @@ import { Add3Thin } from './Add3Thin'
 // import { Like1Thin } from './Like1Thin'
 // import { Link2Thin } from './Link2Thin'
 // import { LinkFilled } from './LinkFilled'
-// import { LinkThin } from './LinkThin'
+import { LinkThin } from './LinkThin'
 // import { LinkedinFilled } from './LinkedinFilled'
 // import { LinkedinThin } from './LinkedinThin'
 // import { LinuxThin } from './LinuxThin'
@@ -1038,12 +1038,12 @@ import { Add3Thin } from './Add3Thin'
 /** --- iconRegistry --------------------------------------------------------------------------- */
 /** -i- Register any icons by preferred AetherIcon "name" key */
 export const iconRegistry = {
-  'a-text-thin': ATextThin,
-  'activity-filled': ActivityFilled,
-  'activity-thin': ActivityThin,
-  'add-2-filled': Add2Filled,
-  'add-3-filled': Add3Filled,
-  'add-3-thin': Add3Thin,
+  // 'a-text-thin': ATextThin,
+  // 'activity-filled': ActivityFilled,
+  // 'activity-thin': ActivityThin,
+  // 'add-2-filled': Add2Filled,
+  // 'add-3-filled': Add3Filled,
+  // 'add-3-thin': Add3Thin,
   //'add-4-filled': Add4Filled,
   //'add-4-thin': Add4Thin,
   //'add-5-filled': Add5Filled,
@@ -1368,7 +1368,7 @@ export const iconRegistry = {
   //'expand-2-thin': Expand2Thin,
   //'expand-filled': ExpandFilled,
   //'expand-thin': ExpandThin,
-  //'external-link-thin': ExternalLinkThin,
+  // 'external-link-thin': ExternalLinkThin,
   //'facebook-thin': FacebookThin,
   //'fast-backward-filled': FastBackwardFilled,
   //'fast-backward-thin': FastBackwardThin,
@@ -1535,11 +1535,11 @@ export const iconRegistry = {
   //'light-mode-thin': LightModeThin,
   //'like-1-filled': Like1Filled,
   //'like-1-thin': Like1Thin,
-  //'link-2-thin': Link2Thin,
-  //'link-filled': LinkFilled,
-  //'link-thin': LinkThin,
-  //'linkedin-filled': LinkedinFilled,
-  //'linkedin-thin': LinkedinThin,
+  // 'link-2-thin': Link2Thin,
+  // 'link-filled': LinkFilled,
+  'link-thin': LinkThin,
+  // 'linkedin-filled': LinkedinFilled,
+  // 'linkedin-thin': LinkedinThin,
   //'linux-thin': LinuxThin,
   //'list-2-filled': List2Filled,
   //'list-2-thin': List2Thin,

@@ -40,7 +40,7 @@ export const {componentNameConfig} = aetherStoryDocs({ {componentName} }, {getDo
 {filePath}
 {importExample}
 
-<Canvas>
+<Canvas{customBg}>
     <Story
         name="{componentName}"
         args={{componentNameConfig}.args}
@@ -139,6 +139,7 @@ const documentComponents = () => {
           componentNameConfig: `${componentName}Config`,
           getDocumentationProps: storyPropsAlias,
           componentDocParams: hasDocParams ? `\n        parameters={get${componentName}Params}` : '', // prettier-ignore
+          customBg: hasDocParams ? ` style={{ backgroundColor: get${componentName}Params.backgrounds?.values?.[0]?.value }}` : '', // prettier-ignore
           filePath: `\`/${componentFilePath}.tsx\``,
           importExample: '```typescript\n' + importExample + '\n```\n',
         })

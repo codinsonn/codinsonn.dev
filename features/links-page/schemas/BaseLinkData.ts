@@ -17,9 +17,9 @@ const d = {
 /** -i- Datastructure for one social link */
 export const BaseLinkData = aetherSchema('BaseLinkData', {
   id: z.string().coerce().id().optional().describe(d.id),
-  linkUrl: z.string().url().describe(d.linkUrl),
+  linkUrl: z.string().describe(d.linkUrl),
   linkTitle: z.string().optional().eg('Some link title').describe(d.linkTitle),
-  linkIconKey: z.string().default('external-link').describe(d.linkIconKey),
+  linkIconKey: z.string().optional().describe(d.linkIconKey),
   sortOrder: z.number().optional().describe(d.sortOrder),
   // - Links & Search Helpers -
   userId: z.string().optional().describe(d.userId),

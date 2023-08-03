@@ -12,7 +12,7 @@ type ResumeCardData {
   displayName: String!
   functionTitle: String!
   location: String!
-  pronouns: String!
+  pronouns: String
   website: String
   about: String
 }
@@ -22,7 +22,7 @@ type SocialLinkData {
   id: ID
 
   """the url of the link"""
-  linkUrl: String!
+  linkUrl: String
 
   """an optional name for the link"""
   linkTitle: String
@@ -298,14 +298,23 @@ type ResumeEducationData {
   """
   userSlug: String
 
+  """the title of this project"""
+  title: String!
+
+  """the year this project was completed"""
+  year: String
+
+  """the collaborators for this project"""
+  collaborators: String
+
+  """the description of this project"""
+  description: String
+
   """the start date for this education"""
   from: String!
 
   """the end date for this education"""
   to: String!
-
-  """the degree or certification for this education"""
-  title: String
 
   """the school or institute for this education"""
   institute: String!
@@ -718,7 +727,7 @@ type IconLink {
   id: ID
 
   """the url of the link"""
-  linkUrl: String!
+  linkUrl: String
 
   """an optional name for the link"""
   linkTitle: String

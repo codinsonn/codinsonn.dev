@@ -1,16 +1,16 @@
 import React from 'react'
 // Navigation
-import { useAetherRoute, fetchAetherProps, Link } from 'aetherspace/navigation'
+import { useAetherRoute, fetchAetherProps } from 'aetherspace/navigation'
 // Schemas
 import { z, aetherSchema, AetherParams, AetherProps } from 'aetherspace/schemas'
 import { ResumeData } from '../schemas'
 // Mocks
 import { dummyResumeData } from '../mocks/resumeData.mock'
 // Primitives
-import { View, Image, Text } from 'aetherspace/primitives'
-import { H1, H2, P } from 'aetherspace/html-elements'
+import { View } from 'aetherspace/primitives'
+import { H1, H2 } from 'aetherspace/html-elements'
 // Components
-import { ResumeIntroCard } from '../components'
+import { ResumeContactSection, ResumeIntroCard, ResumeEntry } from '../components'
 // Styles
 import { twStyled } from 'aetherspace/styles'
 
@@ -200,6 +200,7 @@ query($getResumeDataByUserSlugArgs: GetResumeDataByUserSlugArgs!) {
       title
       institute
       location
+      description
     }
     certifications {
       id
@@ -256,7 +257,29 @@ export const dynamic = 'auto' // 'auto' | 'force-dynamic' | 'error' | 'force-sta
 export const ResumeScreen = (props: TResumeScreenProps) => {
   // Props & Data
   const [screenData, { error }] = useAetherRoute(props, ResumeScreenRouteDataConfig)
-  const { slug, generalData } = screenData
+  const {
+    generalData,
+    contactLinks,
+    projects,
+    sideProjects,
+    writing,
+    speaking,
+    awards,
+    workExperience,
+    volunteering,
+    education,
+  } = screenData
+
+  // Vars
+  const showContactLinks = contactLinks && contactLinks.length > 0
+  const showProjects = projects && projects.length > 0
+  const showSideProjects = sideProjects && sideProjects.length > 0
+  const showWriting = writing && writing.length > 0
+  const showSpeaking = speaking && speaking.length > 0
+  const showAwards = awards && awards.length > 0
+  const showWorkExperience = workExperience && workExperience.length > 0
+  const showVolunteering = volunteering && volunteering.length > 0
+  const showEducation = education && education.length > 0
 
   // -- Guards --
 
@@ -268,12 +291,171 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
     )
   }
 
+  if (!generalData) return null
+
   // -- Render --
 
   return (
     <StScreenContainer>
       <StResumeContainer>
         <ResumeIntroCard {...generalData} />
+
+        {showContactLinks && (
+          <>
+            <Spacing tw="h-14" />
+            <ResumeContactSection contactLinks={contactLinks} />
+          </>
+        )}
+
+        {showProjects && (
+          <>
+            <Spacing tw="h-12" />
+            <StResumeSection>
+              <H2 className="mb-1 text-sm roboto leading-6 text-neutral-100">Projects</H2>
+              {projects.map(({ title, year, linkUrl, client, description }) => (
+                <ResumeEntry
+                  key={title}
+                  sideLabel={year!}
+                  title={[title, client].join(' at ')}
+                  linkUrl={linkUrl}
+                  description={description}
+                />
+              ))}
+            </StResumeSection>
+          </>
+        )}
+
+        {showSideProjects && (
+          <>
+            <Spacing tw="h-12" />
+            <StResumeSection>
+              <H2 className="mb-1 text-sm roboto leading-6 text-neutral-100">Side Projects</H2>
+              {sideProjects.map(({ title, year, linkUrl, client, description }) => (
+                <ResumeEntry
+                  key={title}
+                  sideLabel={year!}
+                  title={[title, client].join(' at ')}
+                  linkUrl={linkUrl}
+                  description={description}
+                />
+              ))}
+            </StResumeSection>
+          </>
+        )}
+
+        {showWriting && (
+          <>
+            <Spacing tw="h-12" />
+            <StResumeSection>
+              <H2 className="mb-1 text-sm roboto leading-6 text-neutral-100">Writing</H2>
+              {writing.map(({ title, year, linkUrl, publisher, description }) => (
+                <ResumeEntry
+                  key={title}
+                  sideLabel={year!}
+                  title={[title, publisher].join(', ')}
+                  linkUrl={linkUrl}
+                  description={description}
+                />
+              ))}
+            </StResumeSection>
+          </>
+        )}
+
+        {showSpeaking && (
+          <>
+            <Spacing tw="h-12" />
+            <StResumeSection>
+              <H2 className="mb-1 text-sm roboto leading-6 text-neutral-100">Speaking</H2>
+              {speaking.map(({ title, year, linkUrl, event, location, description }) => (
+                <ResumeEntry
+                  key={title}
+                  sideLabel={year!}
+                  title={[title, event].join(' at ')}
+                  subTitle={location}
+                  linkUrl={linkUrl}
+                  description={description}
+                />
+              ))}
+            </StResumeSection>
+          </>
+        )}
+
+        {showAwards && (
+          <>
+            <Spacing tw="h-12" />
+            <StResumeSection>
+              <H2 className="mb-1 text-sm roboto leading-6 text-neutral-100">Awards</H2>
+              {awards.map(({ title, year, linkUrl, presentedBy, description }) => (
+                <ResumeEntry
+                  key={title}
+                  sideLabel={year!}
+                  title={[title, presentedBy].join(' from ')}
+                  linkUrl={linkUrl}
+                  description={description}
+                />
+              ))}
+            </StResumeSection>
+          </>
+        )}
+
+        {showWorkExperience && (
+          <>
+            <Spacing tw="h-12" />
+            <StResumeSection>
+              <H2 className="mb-1 text-sm roboto leading-6 text-neutral-100">Work Experience</H2>
+              {workExperience.map(
+                ({ title, from, to, linkUrl, company, location, description }) => (
+                  <ResumeEntry
+                    key={title}
+                    sideLabel={`${from} - ${to}`}
+                    title={[title, company].join(' at ')}
+                    subTitle={location}
+                    linkUrl={linkUrl}
+                    description={description}
+                  />
+                )
+              )}
+            </StResumeSection>
+          </>
+        )}
+
+        {showVolunteering && (
+          <>
+            <Spacing tw="h-12" />
+            <StResumeSection>
+              <H2 className="mb-1 text-sm roboto leading-6 text-neutral-100">Volunteering</H2>
+              {volunteering.map(({ title, from, to, linkUrl, company, location, description }) => (
+                <ResumeEntry
+                  key={title}
+                  sideLabel={`${from} - ${to}`}
+                  title={[title, company].join(' at ')}
+                  subTitle={location}
+                  linkUrl={linkUrl}
+                  description={description}
+                />
+              ))}
+            </StResumeSection>
+          </>
+        )}
+
+        {showEducation && (
+          <>
+            <Spacing tw="h-12" />
+            <StResumeSection>
+              <H2 className="mb-1 text-sm roboto leading-6 text-neutral-100">Education</H2>
+              {education.map(({ title, from, to, linkUrl, institute, location, description }) => (
+                <ResumeEntry
+                  key={title}
+                  sideLabel={`${from} - ${to}`}
+                  title={[title, institute].join(' at ')}
+                  subTitle={location}
+                  linkUrl={linkUrl}
+                  description={description}
+                />
+              ))}
+            </StResumeSection>
+          </>
+        )}
       </StResumeContainer>
     </StScreenContainer>
   )
@@ -281,9 +463,11 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
 
 /* --- Styles ---------------------------------------------------------------------------------- */
 
-const StScreenContainer = twStyled.View`w-full h-full items-center px-4`
+const StScreenContainer = twStyled.View`w-full items-center px-4`
 
-const StResumeContainer = twStyled.Article`max-w-[580px] py-16`
+const StResumeContainer = twStyled.Article`w-full md:max-w-[550px] py-16 flex-col`
+
+const StResumeSection = twStyled.Section`flex flex-col`
 
 const Spacing = twStyled.View``
 

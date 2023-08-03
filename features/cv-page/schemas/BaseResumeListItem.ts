@@ -12,7 +12,7 @@ const d = {
 }
 
 /** --- BaseResumeListItem --------------------------------------------------------------------- */
-/** -i- Shared set of datastructure for all kinds of projects you&#x27;d like to share on your resume */
+/** -i- Shared set of datastructure for all kinds of projects you'd like to share on your resume */ // prettier-ignore
 export const BaseResumeListItem = BaseLinkData.extendSchema('BaseResumeListItem', {
   title: z.string().describe(d.title),
   year: z.string().optional().describe(d.year),
@@ -20,5 +20,5 @@ export const BaseResumeListItem = BaseLinkData.extendSchema('BaseResumeListItem'
   description: z.string().optional().describe(d.description),
 }).describe(d.BaseResumeListItem)
 
-/** -i- Shared set of datastructure for all kinds of projects you&#x27;d like to share on your resume */
+/** -i- Shared set of datastructure for all kinds of projects you'd like to share on your resume */
 export type TBaseResumeListItem = z.infer<typeof BaseResumeListItem>

@@ -13,7 +13,7 @@ export const ResumeCardData = aetherSchema('ResumeCardData', {
   displayName: z.string(),
   functionTitle: z.string(),
   location: z.string(),
-  pronouns: z.string(),
+  pronouns: z.string().optional(),
   website: z.string().url().optional(),
   about: z.string().optional(),
 }).describe(d.ResumeCardData)
