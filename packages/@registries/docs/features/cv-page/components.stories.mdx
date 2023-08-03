@@ -4,6 +4,7 @@ import { isEmpty } from 'aetherspace/utils/commonUtils'
 // -i- Auto generated with "yarn document-components"
 // Components hooking into the storybook auto-documentation script
 import { ResumeContactSection, getDocumentationProps as getResumeContactSectionProps, getDocumentationParams as getResumeContactSectionParams } from '../../../../../features/cv-page/components/ResumeContactSection.tsx'
+import { ResumeEntry, getDocumentationProps as getResumeEntryProps, getDocumentationParams as getResumeEntryParams } from '../../../../../features/cv-page/components/ResumeEntry.tsx'
 import { ResumeIntroCard, getDocumentationProps as getResumeIntroCardProps, getDocumentationParams as getResumeIntroCardParams } from '../../../../../features/cv-page/components/ResumeIntroCard.tsx'
 // Mocks
 import StoryContextProviders from '../../../../../features/app-core/mocks/StoryContextProviders'
@@ -43,6 +44,31 @@ import { ResumeContactSection } from 'cv-page/components/ResumeContactSection'
 {!isEmpty(ResumeContactSectionConfig.args) && <ArgsTable story="ResumeContactSection" />}
 
 
+## ResumeEntry
+
+export const ResumeEntryDocs = createDocs(ResumeEntry)
+export const ResumeEntryConfig = aetherStoryDocs({ ResumeEntry }, getResumeEntryProps)
+
+`/features/cv-page/components/ResumeEntry.tsx`
+```typescript
+import { ResumeEntry } from 'cv-page/components/ResumeEntry'
+```
+
+
+<Canvas style={{ backgroundColor: getResumeEntryParams.backgrounds?.values?.[0]?.value }}>
+    <Story
+        name="ResumeEntry"
+        args={ResumeEntryConfig.args}
+        argTypes={ResumeEntryConfig.argTypes}
+        parameters={getResumeEntryParams}
+    >
+      {ResumeEntryDocs.bind({})}
+    </Story>
+</Canvas>
+
+{!isEmpty(ResumeEntryConfig.args) && <ArgsTable story="ResumeEntry" />}
+
+
 ## ResumeIntroCard
 
 export const ResumeIntroCardDocs = createDocs(ResumeIntroCard)
@@ -66,6 +92,7 @@ import { ResumeIntroCard } from 'cv-page/components/ResumeIntroCard'
 </Canvas>
 
 {!isEmpty(ResumeIntroCardConfig.args) && <ArgsTable story="ResumeIntroCard" />}
+
 
 
 

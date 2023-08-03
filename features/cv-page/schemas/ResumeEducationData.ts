@@ -1,5 +1,5 @@
 import { z } from 'aetherspace/schemas'
-import { BaseLinkData } from 'links-page/schemas'
+import { BaseResumeListItem } from './BaseResumeListItem'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
 
@@ -14,10 +14,9 @@ const d = {
 
 /** --- ResumeEducationData -------------------------------------------------------------------- */
 /** -i- Data for the educations listed on this resume. */
-export const ResumeEducationData = BaseLinkData.extendSchema('ResumeEducationData', {
+export const ResumeEducationData = BaseResumeListItem.extendSchema('ResumeEducationData', {
   from: z.string().describe(d.from),
   to: z.string().describe(d.to),
-  title: z.string().optional().describe(d.title),
   institute: z.string().describe(d.institute),
   location: z.string().optional().describe(d.location),
 }).describe(d.ResumeEducationData)

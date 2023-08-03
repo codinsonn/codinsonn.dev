@@ -40,13 +40,18 @@ export const ResumeContactSection = (props: AetherProps<typeof ResumeContactSect
       <H2 className="mb-1 text-sm roboto leading-6 text-neutral-100">Contact</H2>
       {contactLinks?.map(({ id, socialLinkType, linkUrl, platformUsername, linkTitle }) => (
         <View key={id} tw="flex flex-row mt-5">
-          <View tw="w-[110px]">
+          <View tw="min-w-[100px] md:min-w-[110px] pt-[1px]">
             <Text tw="text-neutral-400 roboto">{uppercaseFirstChar(socialLinkType!)}</Text>
           </View>
           {linkUrl ? (
             <Link href={linkUrl} tw="flex flex-row">
-              <Text tw="text-gray-300 roboto mr-1">{platformUsername || linkTitle}</Text>
-              <AetherIcon name="link-thin" size={14} fill="#FFFFFF" />
+              <Text tw="text-gray-300 roboto">
+                <Text tw="text-gray-300 roboto">{platformUsername || linkTitle}</Text>
+                <Text>{` `}</Text>
+                <Text>
+                  <AetherIcon name="link-thin" size={14} fill="#FFFFFF" />
+                </Text>
+              </Text>
             </Link>
           ) : (
             <Text tw="text-gray-300 roboto">{platformUsername || linkTitle}</Text>
@@ -59,7 +64,7 @@ export const ResumeContactSection = (props: AetherProps<typeof ResumeContactSect
 
 /* --- Styles ---------------------------------------------------------------------------------- */
 
-const StContactLinksContainer = twStyled.Section`flex flex-col`
+const StContactLinksContainer = twStyled.Section`flex flex-col max-w-full`
 
 /* --- Documentation --------------------------------------------------------------------------- */
 
