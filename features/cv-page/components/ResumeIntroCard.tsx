@@ -64,7 +64,7 @@ export const ResumeIntroCard = (props: AetherProps<typeof ResumeCardData>) => {
         <>
           <Spacing tw="h-8" />
           <StAboutSection>
-            <H2 className="mb-1 text-sm roboto-bold leading-6 text-neutral-100">About</H2>
+            <H2 className="mb-1 text-sm roboto leading-6 text-neutral-100">About</H2>
             <P className="p-0 m-0 leading-6 text-neutral-300">{about}</P>
           </StAboutSection>
         </>

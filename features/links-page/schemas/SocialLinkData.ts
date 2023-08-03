@@ -12,10 +12,12 @@ const d = {
 
 /** --- SocialLinkData ----------------------------------------------------------------------- */
 /** -i- Datastructure for one social link */
-export const SocialLinkData = BaseLinkData.extendSchema('SocialLinkData', {
-  socialLinkType: SocialLinkType.default('custom').describe(d.socialLinkType),
-  platformUsername: z.string().optional().describe(d.platformUsername),
-}).describe(d.SocialLinkData)
+export const SocialLinkData = BaseLinkData.partial()
+  .extendSchema('SocialLinkData', {
+    socialLinkType: SocialLinkType.default('custom').describe(d.socialLinkType),
+    platformUsername: z.string().optional().describe(d.platformUsername),
+  })
+  .describe(d.SocialLinkData)
 
 /** -i- Datastructure for one social link */
 export type TSocialLinkData = AetherInput<typeof SocialLinkData>

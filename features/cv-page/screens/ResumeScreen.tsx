@@ -8,11 +8,14 @@ import { ResumeData } from '../schemas'
 import { dummyResumeData } from '../mocks/resumeData.mock'
 // Primitives
 import { View, Image, Text } from 'aetherspace/primitives'
-import { H1, H2, P } from 'aetherspace/html-elements'
+import { H1, H2, H3, P } from 'aetherspace/html-elements'
 // Components
-import { ResumeIntroCard } from '../components'
+import { AetherIcon } from 'aetherspace/components'
+import { ResumeContactSection, ResumeIntroCard } from '../components'
 // Styles
 import { twStyled } from 'aetherspace/styles'
+// Utils
+import { uppercaseFirstChar } from 'aetherspace/utils'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
 
@@ -256,7 +259,7 @@ export const dynamic = 'auto' // 'auto' | 'force-dynamic' | 'error' | 'force-sta
 export const ResumeScreen = (props: TResumeScreenProps) => {
   // Props & Data
   const [screenData, { error }] = useAetherRoute(props, ResumeScreenRouteDataConfig)
-  const { slug, generalData } = screenData
+  const { slug, generalData, contactLinks } = screenData
 
   // -- Guards --
 
@@ -274,6 +277,10 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
     <StScreenContainer>
       <StResumeContainer>
         <ResumeIntroCard {...generalData} />
+
+        <Spacing tw="h-16" />
+
+        <ResumeContactSection contactLinks={contactLinks} />
       </StResumeContainer>
     </StScreenContainer>
   )

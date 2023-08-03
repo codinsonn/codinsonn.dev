@@ -4,6 +4,8 @@ import { z } from 'aetherspace/schemas'
 /** -i- List of known social links */
 export const SocialLinkType = z.enum([
   'custom',
+  'email',
+  'website',
   'twitter',
   'facebook',
   'instagram',
