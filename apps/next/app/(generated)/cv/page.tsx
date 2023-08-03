@@ -1,2 +1,2 @@
 'use client'
-export { default, dynamic } from 'cv-page/routes/cv/index'
+export { default, dynamic } from 'app/routes/cv/index'

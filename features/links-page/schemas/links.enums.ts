@@ -34,6 +34,8 @@ export const SocialLinkType = z.enum([
   'etsy',
   'ebay',
   'amazon',
+  'remoteOK',
+  'upwork',
 ])
 
 /** -i- List of known social links */

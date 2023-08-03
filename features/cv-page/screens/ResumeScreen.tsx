@@ -13,6 +13,7 @@ import { H1, H2 } from 'aetherspace/html-elements'
 import { ResumeContactSection, ResumeIntroCard, ResumeEntry } from '../components'
 // Styles
 import { twStyled } from 'aetherspace/styles'
+import { uppercaseFirstChar } from 'aetherspace/utils'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
 
@@ -219,6 +220,20 @@ query($getResumeDataByUserSlugArgs: GetResumeDataByUserSlugArgs!) {
       name
       issuer
     }
+    ctaSection {
+      title
+      ctaLinks {
+        id
+        linkUrl
+        linkTitle
+        linkIconKey
+        sortOrder
+        userId
+        userSlug
+        socialLinkType
+        platformUsername
+      }
+    }
   }
 }
 `
@@ -268,6 +283,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
     workExperience,
     volunteering,
     education,
+    ctaSection,
   } = screenData
 
   // Vars
@@ -280,6 +296,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
   const showWorkExperience = workExperience && workExperience.length > 0
   const showVolunteering = volunteering && volunteering.length > 0
   const showEducation = education && education.length > 0
+  const showCtaSection = ctaSection && ctaSection.ctaLinks.length > 0
 
   // -- Guards --
 
@@ -451,6 +468,23 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
                   subTitle={location}
                   linkUrl={linkUrl}
                   description={description}
+                />
+              ))}
+            </StResumeSection>
+          </>
+        )}
+
+        {showCtaSection && (
+          <>
+            <Spacing tw="h-12" />
+            <StResumeSection>
+              <H2 className="mb-1 text-sm roboto leading-6 text-neutral-100">{ctaSection.title}</H2>
+              {ctaSection.ctaLinks.map(({ socialLinkType, linkTitle, linkUrl }) => (
+                <ResumeEntry
+                  key={linkTitle}
+                  sideLabel={uppercaseFirstChar(socialLinkType!)}
+                  title={linkTitle!}
+                  linkUrl={linkUrl}
                 />
               ))}
             </StResumeSection>
