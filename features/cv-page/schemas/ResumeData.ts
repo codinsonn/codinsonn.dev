@@ -9,6 +9,7 @@ import { ResumeAwardData } from './ResumeAwardData'
 import { ResumeExperienceData } from './ResumeExperienceData'
 import { ResumeEducationData } from './ResumeEducationData'
 import { ResumeCertificationData } from './ResumeCertificationData'
+import { ResumeCTAData } from './ResumeCTAData'
 // Dummy
 import { dummyResumeData } from '../mocks/resumeData.mock'
 
@@ -38,6 +39,7 @@ export const ResumeData = aetherSchema('ResumeData', {
   volunteering: ResumeExperienceData.array().optional(),
   education: ResumeEducationData.array().optional(),
   certifications: ResumeCertificationData.array().optional(),
+  ctaSection: ResumeCTAData.optional(),
 }).describe(d.ResumeData).eg(dummyResumeData) // prettier-ignore
 
 /** -i- Single Source of Truth for the cv-page screen data */

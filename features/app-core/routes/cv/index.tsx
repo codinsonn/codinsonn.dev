@@ -2,7 +2,7 @@ import React from 'react'
 // Navigation
 import { AetherPage } from 'aetherspace/navigation'
 // Screens
-import * as ResumeScreen from '../../screens/ResumeScreen'
+import * as ResumeScreen from 'cv-page/screens/ResumeScreen'
 
 /* --- Config ---------------------------------------------------------------------------------- */
 

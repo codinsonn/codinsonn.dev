@@ -159,7 +159,7 @@ export const BioScreen = (props: BioScreenProps) => {
         {bioData.iconLinks.map((bioIcon) => (
           <Link
             key={bioIcon.linkIconKey}
-            href={bioIcon.linkUrl}
+            href={bioIcon.linkUrl!}
             tw={['px-1 xs:px-2 md:px-3', bioIcon.extraClasses]}
           >
             <AetherIcon name={bioIcon.linkIconKey} size={ICON_SIZE} fill={ICON_COLOR} />
@@ -204,11 +204,7 @@ export const BioScreen = (props: BioScreenProps) => {
             Free template repo
           </Link>
           <Text tw="roboto text-white text-sm">{' / '}</Text>
-          <Link
-            href="https://rok.co/@codinsonn"
-            tw="roboto-black text-white underline text-sm"
-            asText
-          >
+          <Link href="/resume" tw="roboto-black text-white underline text-sm" asText>
             Hire me.
           </Link>
         </Text>

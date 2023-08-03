@@ -1,1 +1,1 @@
-export { default } from 'cv-page/routes/cv/index'
+export { default } from 'app/routes/cv/index'

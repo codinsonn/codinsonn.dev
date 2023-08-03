@@ -374,6 +374,14 @@ type ResumeCertificationData {
   issuer: String!
 }
 
+type ResumeCTAData {
+  """The final title of this to get people to hire you"""
+  title: String!
+
+  """The final links where those interested can get in contact to hire you"""
+  ctaLinks: [SocialLinkData]!
+}
+
 type ResumeData {
   """the unique identifier for this resume"""
   id: ID!
@@ -416,6 +424,11 @@ type ResumeData {
 
   """Certification for this resume"""
   certifications: [ResumeCertificationData]
+
+  """
+  The final CTA title and links for the resume to help people get in touch or get hired
+  """
+  ctaSection: ResumeCTAData
 }
 
 input GetShopifyProductsArgs {

@@ -19,7 +19,7 @@ export const dummyResumeData: TResumeData = {
     {
       id: 'email',
       linkTitle: 'Email',
-      linkUrl: 'mailto:thorr@codinsonn.dev',
+      linkUrl: `mailto:thorr@codinsonn.dev?subject=${encodeURIComponent(`Let's work together`)}`,
       platformUsername: 'thorr@codinsonn.dev',
       socialLinkType: 'email',
     },
@@ -129,7 +129,7 @@ export const dummyResumeData: TResumeData = {
       company: 'Marlon, iO',
       location: 'Ghent, Belgium',
       linkUrl: 'https://www.iodigital.com/nl/history/marlon',
-      description: `Worked on a wide variety of projects here. Mostly Front-end work for their in-house eCommerce CMS, but also some advanced web-based configurators for Daikin EU, and even some Mobile apps with React-Native and Expo.`,
+      description: `Worked on a wide variety of projects here. Mostly Front-end work for their in-house eCommerce CMS that powers the likes of Dockx Rental and Denderwood. Aside from that, I also worked on some advanced web-based configurators for Daikin EU here, and even some Mobile apps with React-Native and Expo.`,
     },
     {
       title: 'Back-End, Web & Mobile Developer',
@@ -172,4 +172,30 @@ export const dummyResumeData: TResumeData = {
       description: `As Deviner you use your design-, development- and research skills to shape the online experiences of today and tomorrow. The whole curriculum is shaped around UI/UX combined with Creative Programming and Motion Design`,
     },
   ],
+  ctaSection: {
+    title: 'Want to work together?',
+    ctaLinks: [
+      {
+        id: 'email',
+        linkTitle: 'thorr@codinsonn.dev',
+        linkUrl: `mailto:thorr@codinsonn.dev?subject=${encodeURIComponent(`Let's work together`)}`,
+        platformUsername: 'thorr@codinsonn.dev',
+        socialLinkType: 'email',
+      },
+      {
+        id: 'upwork',
+        linkTitle: 'Hire me on Upwork',
+        linkUrl: 'https://www.upwork.com/freelancers/~0106a52659af506ba6',
+        platformUsername: 'codinsonn.dev',
+        socialLinkType: 'upwork',
+      },
+      {
+        id: 'remote-ok',
+        linkTitle: 'Hire me on RemoteOK',
+        linkUrl: 'https://remoteok.com/@codinsonn',
+        platformUsername: 'codinsonn',
+        socialLinkType: 'remoteOK',
+      },
+    ],
+  },
 }
