@@ -945,10 +945,36 @@ type SyncUserBiosFromAirtableResponse {
   syncedBios: MongoBulkWriteResult!
 }
 
+input UpsertResumeArgs {
+  slug: String!
+  authKey: String!
+}
+
+type MongoUpdateResult {
+  acknowledged: Boolean!
+  matchedCount: Float!
+  modifiedCount: Float!
+  upsertedCount: Float!
+  upsertedId: String
+}
+
+type UpsertResumeResponse {
+  success: Boolean!
+
+  """
+  https://mongodb.github.io/node-mongodb-native/4.9/interfaces/UpdateResult.html
+  """
+  upsertResult: MongoUpdateResult!
+
+  """Single Source of Truth for the resume screen data"""
+  upsertedResume: ResumeData!
+}
+
 type Query {
   getResumeDataByUserSlug(args: GetResumeDataByUserSlugArgs!): ResumeData
   getShopifyProducts(args: GetShopifyProductsArgs): GetShopifyProductsResponse
   getUserBio(args: UserBioInput!): UserBio
   healthCheck(args: HealthCheckArgs): HealthCheckResponse
   syncUserBiosFromAirtable(args: SyncUserBiosFromAirtableArgs!): SyncUserBiosFromAirtableResponse
+  upsertResume(args: UpsertResumeArgs!): UpsertResumeResponse
 }

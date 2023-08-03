@@ -10,4 +10,4 @@ export * from './ResumeEducationData'
 export * from './ResumeCertificationData'
 export * from './GetResumeDataByUserSlugResolver'
 export * from './ResumeCTAData'
-
+export * from './UpsertResumeResolver'
