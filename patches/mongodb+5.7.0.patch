@@ -1,0 +1,26 @@
+diff --git a/node_modules/mongodb/lib/cmap/auth/scram.js b/node_modules/mongodb/lib/cmap/auth/scram.js
+index 9792c6e..615ecac 100644
+--- a/node_modules/mongodb/lib/cmap/auth/scram.js
++++ b/node_modules/mongodb/lib/cmap/auth/scram.js
+@@ -23,7 +23,7 @@ class ScramSHA extends auth_provider_1.AuthProvider {
+         }
+         if (cryptoMethod === 'sha256' &&
+             ('kModuleError' in deps_1.saslprep || typeof deps_1.saslprep !== 'function')) {
+-            (0, utils_1.emitWarning)('Warning: no saslprep library specified. Passwords will not be sanitized');
++            // (0, utils_1.emitWarning)('Warning: no saslprep library specified. Passwords will not be sanitized');
+         }
+         const nonce = await this.randomBytesAsync(24);
+         // store the nonce for later use
+diff --git a/node_modules/mongodb/src/cmap/auth/scram.ts b/node_modules/mongodb/src/cmap/auth/scram.ts
+index 87bfbb0..756f3b9 100644
+--- a/node_modules/mongodb/src/cmap/auth/scram.ts
++++ b/node_modules/mongodb/src/cmap/auth/scram.ts
+@@ -38,7 +38,7 @@ class ScramSHA extends AuthProvider {
+       cryptoMethod === 'sha256' &&
+       ('kModuleError' in saslprep || typeof saslprep !== 'function')
+     ) {
+-      emitWarning('Warning: no saslprep library specified. Passwords will not be sanitized');
++      // emitWarning('Warning: no saslprep library specified. Passwords will not be sanitized');
+     }
+ 
+     const nonce = await this.randomBytesAsync(24);

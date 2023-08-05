@@ -5,7 +5,7 @@ import { Link } from 'aetherspace/navigation'
 import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
 // Primitives
 import { Text } from 'aetherspace/primitives'
-import { H3, P } from 'aetherspace/html-elements'
+import { P } from 'aetherspace/html-elements'
 // Components
 import { AetherIcon } from 'aetherspace/components'
 // Styles
@@ -39,7 +39,7 @@ export const ResumeEntry = (props: AetherProps<typeof ResumeEntryProps>) => {
           <Link href={linkUrl} tw="flex flex-row">
             <Text tw="text-gray-300 text-sm roboto font-normal leading-6 my-0">
               <Text tw="text-gray-300 text-sm roboto font-normal leading-6 my-0">{title}</Text>
-              <Text>{` `}</Text>
+              {` `}
               <Text>
                 <AetherIcon name="link-thin" size={14} fill="#FFFFFF" />
               </Text>
@@ -49,11 +49,11 @@ export const ResumeEntry = (props: AetherProps<typeof ResumeEntryProps>) => {
           <Text tw="text-gray-300 text-sm roboto font-normal leading-6 my-0">{title}</Text>
         )}
         {/* Subtitle */}
-        {subTitle && (
+        {!!subTitle && (
           <Text tw="text-gray-400 text-sm roboto font-normal leading-6 my-0">{subTitle}</Text>
         )}
         {/* Description */}
-        {description && <P tw="text-gray-400 leading-6 roboto mt-1">{description}</P>}
+        {!!description && <P tw="text-gray-400 leading-6 roboto mt-1">{description}</P>}
       </StResumeEntryData>
     </StResumeEntry>
   )

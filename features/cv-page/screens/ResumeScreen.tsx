@@ -333,7 +333,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
                 <ResumeEntry
                   key={title}
                   sideLabel={year!}
-                  title={[title, client].join(' at ')}
+                  title={[title, client].filter(Boolean).join(' at ')}
                   linkUrl={linkUrl}
                   description={description}
                 />
@@ -351,7 +351,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
                 <ResumeEntry
                   key={title}
                   sideLabel={year!}
-                  title={[title, client].join(' at ')}
+                  title={[title, client].filter(Boolean).join(' at ')}
                   linkUrl={linkUrl}
                   description={description}
                 />
@@ -369,7 +369,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
                 <ResumeEntry
                   key={title}
                   sideLabel={year!}
-                  title={[title, publisher].join(', ')}
+                  title={[title, publisher].filter(Boolean).join(', ')}
                   linkUrl={linkUrl}
                   description={description}
                 />
@@ -387,7 +387,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
                 <ResumeEntry
                   key={title}
                   sideLabel={year!}
-                  title={[title, event].join(' at ')}
+                  title={[title, event].filter(Boolean).join(' at ')}
                   subTitle={location}
                   linkUrl={linkUrl}
                   description={description}
@@ -406,7 +406,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
                 <ResumeEntry
                   key={title}
                   sideLabel={year!}
-                  title={[title, presentedBy].join(' from ')}
+                  title={[title, presentedBy].filter(Boolean).join(' from ')}
                   linkUrl={linkUrl}
                   description={description}
                 />
@@ -425,7 +425,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
                   <ResumeEntry
                     key={title}
                     sideLabel={`${from} - ${to}`}
-                    title={[title, company].join(' at ')}
+                    title={[title, company].filter(Boolean).join(' at ')}
                     subTitle={location}
                     linkUrl={linkUrl}
                     description={description}
@@ -445,7 +445,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
                 <ResumeEntry
                   key={title}
                   sideLabel={`${from} - ${to}`}
-                  title={[title, company].join(' at ')}
+                  title={[title, company].filter(Boolean).join(' at ')}
                   subTitle={location}
                   linkUrl={linkUrl}
                   description={description}
@@ -464,7 +464,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
                 <ResumeEntry
                   key={title}
                   sideLabel={`${from} - ${to}`}
-                  title={[title, institute].join(' at ')}
+                  title={[title, institute].filter(Boolean).join(' at ')}
                   subTitle={location}
                   linkUrl={linkUrl}
                   description={description}

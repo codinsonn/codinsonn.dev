@@ -13,6 +13,7 @@ import { AetherIcon } from 'aetherspace/components'
 import { twStyled } from 'aetherspace/styles'
 // Utils
 import { isEmpty, uppercaseFirstChar } from 'aetherspace/utils'
+// Mocks
 import { dummyResumeData } from '../mocks/resumeData.mock'
 
 /* --- Schemas --------------------------------------------------------------------------------- */
@@ -47,7 +48,7 @@ export const ResumeContactSection = (props: AetherProps<typeof ResumeContactSect
             <Link href={linkUrl} tw="flex flex-row">
               <Text tw="text-gray-300 roboto">
                 <Text tw="text-gray-300 roboto">{platformUsername || linkTitle}</Text>
-                <Text>{` `}</Text>
+                {` `}
                 <Text>
                   <AetherIcon name="link-thin" size={14} fill="#FFFFFF" />
                 </Text>

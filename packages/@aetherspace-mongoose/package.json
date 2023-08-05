@@ -25,6 +25,6 @@
         "lint": "cd ../.. && eslint \"packages/@aetherspace-mongoose/**/*.{ts,tsx}\""
     },
     "dependencies": {
-        "mongoose": "^7.4.0"
+        "mongoose": "^7.4.2"
     }
 }
