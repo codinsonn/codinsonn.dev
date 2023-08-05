@@ -1,4 +1,11 @@
-import mongoose, { Schema, model, Model, Document, SchemaTypeOptions } from 'mongoose'
+import mongoose, {
+  Schema,
+  model,
+  Model,
+  Document,
+  SchemaTypeOptions,
+  SchemaOptions,
+} from 'mongoose'
 import { z } from 'aetherspace/schemas'
 import { aetherSchemaPlugin } from 'aetherspace/schemas/aetherSchemaPlugin'
 
@@ -71,7 +78,10 @@ type AetherSchemaInput<Z extends z.ZodRawShape> = z.ZodObject<Z>
 
 /** --- aetherSchemaToMongoose() ----------------------------------------------------------------- */
 /** -i- Turn an aetherSchema with fields defined with zod into a usable mongoose model */
-export const aetherSchemaToMongoose = <Z extends z.ZodRawShape>(schema: AetherSchemaInput<Z>) => {
+export const aetherSchemaToMongoose = <Z extends z.ZodRawShape>(
+  schema: AetherSchemaInput<Z>,
+  schemaOptions: SchemaOptions = {}
+) => {
   // Error & return early if zod / aether schema is unknown
   if (!schema?.schemaName) {
     throw new Error('aetherSchemaToMongoose() requires a named aetherSchema (did you pass a regular zod object instead?)') // prettier-ignore
@@ -125,7 +135,7 @@ export const aetherSchemaToMongoose = <Z extends z.ZodRawShape>(schema: AetherSc
   })
 
   // Create mongoose Schema from SchemaDefinition
-  const mongooseSchema: Schema<SchemaDoc> = new Schema<SchemaDoc>(mongooseSchemaDefinition)
+  const mongooseSchema: Schema<SchemaDoc> = new Schema(mongooseSchemaDefinition, schemaOptions)
 
   // Build mongoose model
   const schemaModel = model<SchemaDoc>(schema.schemaName, mongooseSchema) as SchemaModel

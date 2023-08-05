@@ -41,7 +41,7 @@ export const dummyResumeData: TResumeData = {
   projects: [
     {
       title: 'Commerce Aggregation App',
-      client: 'Incubator or a large US retailer',
+      client: 'Incubator of a large US retailer',
       year: '2023',
       linkUrl: '',
       collaborators: '',

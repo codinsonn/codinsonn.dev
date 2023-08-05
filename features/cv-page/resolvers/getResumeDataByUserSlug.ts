@@ -1,7 +1,12 @@
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
 // Schemas
-import { GetResumeDataByUserSlugAPIConfig } from '../schemas/GetResumeDataByUserSlugResolver' // prettier-ignore
-import { dummyResumeData } from '../mocks/resumeData.mock'
+import { GetResumeDataByUserSlugAPIConfig } from '../schemas/GetResumeDataByUserSlugResolver'
+// Models
+import { ResumeDataModel } from '../schemas/models'
+// Dummy
+// import { dummyResumeData } from '../mocks/resumeData.mock'
+// Utils
+import { dbConnect } from '@aetherspace/mongoose/utils'
 
 /** --- getResumeDataByUserSlug ---------------------------------------------------------------- */
 /** -i- Retrieve resume data for a specific user identified through the url slug */
@@ -11,15 +16,17 @@ export const getResumeDataByUserSlug = aetherResolver(
       // Args
       const { slug } = parseArgs(args)
 
+      // -- Connect --
+
+      await dbConnect()
+
       // -- Logic --
 
-      // ... TODO: Add business logic ...
+      const resumeData = await ResumeDataModel.findOne({ slug })
 
       // -- Respond --
 
-      return withDefaults({
-        ...dummyResumeData,
-      })
+      return withDefaults(resumeData!)
     } catch (err) {
       throw handleError(err)
     }

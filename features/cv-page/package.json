@@ -10,7 +10,9 @@
             "links-page",
             "@aetherspace/mongoose"
         ],
-        "requiredEnvVars": []
+        "requiredEnvVars": [
+            "MONGODB_URI"
+        ]
     },
     "scripts": {
         "lint": "cd ../.. && eslint \"features/cv-page/**/*.{ts,tsx}\""
