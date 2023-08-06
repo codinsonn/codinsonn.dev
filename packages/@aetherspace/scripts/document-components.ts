@@ -44,7 +44,8 @@ export const {componentNameConfig} = aetherStoryDocs({ {componentName} }, {getDo
     <Story
         name="{componentName}"
         args={{componentNameConfig}.args}
-        argTypes={{componentNameConfig}.argTypes}{componentDocParams}
+        argTypes={{componentNameConfig}.argTypes}
+        parameters={{componentDocParams}}
     >
       {{componentNameDocs}.bind({})}
     </Story>
@@ -54,6 +55,16 @@ export const {componentNameConfig} = aetherStoryDocs({ {componentName} }, {getDo
 
 {{stories}}
 `
+
+const baseStoryParams = `{
+          backgrounds: {
+            default: 'light',
+            values: [
+              { name: 'light', value: '#F8F8F8' },
+              { name: 'dark', value: '#333333' },
+            ],
+          },
+        }`
 
 /* --- document-components --------------------------------------------------------------------- */
 
@@ -138,7 +149,7 @@ const documentComponents = () => {
           componentNameDocs: `${componentName}Docs`,
           componentNameConfig: `${componentName}Config`,
           getDocumentationProps: storyPropsAlias,
-          componentDocParams: hasDocParams ? `\n        parameters={get${componentName}Params}` : '', // prettier-ignore
+          componentDocParams: hasDocParams ? `get${componentName}Params` : baseStoryParams, // prettier-ignore
           customBg: hasDocParams ? ` style={{ backgroundColor: get${componentName}Params.backgrounds?.values?.[0]?.value }}` : '', // prettier-ignore
           filePath: `\`/${componentFilePath}.tsx\``,
           importExample: '```typescript\n' + importExample + '\n```\n',

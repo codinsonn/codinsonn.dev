@@ -33,6 +33,15 @@ import { BioLink } from 'links-page/components/BioLink'
         name="BioLink"
         args={BioLinkConfig.args}
         argTypes={BioLinkConfig.argTypes}
+        parameters={{
+          backgrounds: {
+            default: 'light',
+            values: [
+              { name: 'light', value: '#FFFFFF' },
+              { name: 'dark', value: '#333333' },
+            ],
+          },
+        }}
     >
       {BioLinkDocs.bind({})}
     </Story>
