@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { Stack, SplashScreen } from 'expo-router'
+// Layouts
 import RootLayout from 'app/routes/layout'
 // Config
 import tailwindConfig from 'app/tailwind.config'
@@ -8,7 +10,6 @@ import { AetherContextManager } from 'aetherspace/context'
 import * as assets from 'registries/assets.generated'
 // Hooks
 import useLoadFonts from 'app/hooks/useLoadFonts'
-import { useEffect } from 'react'
 
 /* --- Config ---------------------------------------------------------------------------------- */
 
