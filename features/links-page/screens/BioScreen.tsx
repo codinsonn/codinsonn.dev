@@ -102,7 +102,7 @@ export const screenConfig = {
 
 /* --- Segments -------------------------------------------------------------------------------- */
 
-export const dynamic = 'auto' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
+export const dynamic = 'force-static' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
 export const generateStaticParams = async (): Promise<BioScreenParams[]> => {
   return [{ slug: 'codinsonn' }]

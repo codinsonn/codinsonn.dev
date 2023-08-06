@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router'
+import { Stack, SplashScreen } from 'expo-router'
 import RootLayout from 'app/routes/layout'
 // Config
 import tailwindConfig from 'app/tailwind.config'
@@ -8,6 +8,11 @@ import { AetherContextManager } from 'aetherspace/context'
 import * as assets from 'registries/assets.generated'
 // Hooks
 import useLoadFonts from 'app/hooks/useLoadFonts'
+import { useEffect } from 'react'
+
+/* --- Config ---------------------------------------------------------------------------------- */
+
+SplashScreen.preventAutoHideAsync()
 
 /* --- <ExpoRootLayout/> ----------------------------------------------------------------------- */
 
@@ -16,6 +21,11 @@ const ExpoRootLayout = () => {
   const fontsLoaded = useLoadFonts()
 
   // -- Splash --
+
+  useEffect(() => {
+    // Hide the splash screen after the fonts have loaded and the UI is ready
+    if (fontsLoaded) SplashScreen.hideAsync()
+  }, [fontsLoaded])
 
   if (!fontsLoaded) return null
 
