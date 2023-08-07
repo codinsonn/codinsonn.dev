@@ -3,11 +3,11 @@ import { aetherStoryDocs } from 'aetherspace/schemas/utils'
 import { isEmpty } from 'aetherspace/utils/commonUtils'
 // -i- Auto generated with "yarn document-components"
 // Components hooking into the storybook auto-documentation script
-import { BioLink, getDocumentationProps as getBioLinkProps } from '../../../../../features/links-page/components/BioLink.tsx'
+import { AetherModal, getDocumentationProps as getAetherModalProps } from '../../../../../../packages/@aetherspace/components/AetherModal/AetherModal.tsx'
 // Mocks
-import StoryContextProviders from '../../../../../features/app-core/mocks/StoryContextProviders'
+import StoryContextProviders from '../../../../../../features/app-core/mocks/StoryContextProviders'
 
-<Meta title="features / links-page / components" />
+<Meta title="packages / @aetherspace / components / AetherModal" />
 
 export const createDocs = (Component) => (args) => {
   return (
@@ -17,22 +17,22 @@ export const createDocs = (Component) => (args) => {
   )
 }
 
-## BioLink
+## AetherModal
 
-export const BioLinkDocs = createDocs(BioLink)
-export const BioLinkConfig = aetherStoryDocs({ BioLink }, getBioLinkProps)
+export const AetherModalDocs = createDocs(AetherModal)
+export const AetherModalConfig = aetherStoryDocs({ AetherModal }, getAetherModalProps)
 
-`/features/links-page/components/BioLink.tsx`
+`/packages/@aetherspace/components/AetherModal/AetherModal.tsx`
 ```typescript
-import { BioLink } from 'links-page/components/BioLink'
+import { AetherModal } from 'aetherspace/components/AetherModal'
 ```
 
 
 <Canvas>
     <Story
-        name="BioLink"
-        args={BioLinkConfig.args}
-        argTypes={BioLinkConfig.argTypes}
+        name="AetherModal"
+        args={AetherModalConfig.args}
+        argTypes={AetherModalConfig.argTypes}
         parameters={{
           backgrounds: {
             default: 'light',
@@ -43,11 +43,11 @@ import { BioLink } from 'links-page/components/BioLink'
           },
         }}
     >
-      {BioLinkDocs.bind({})}
+      {AetherModalDocs.bind({})}
     </Story>
 </Canvas>
 
-{!isEmpty(BioLinkConfig.args) && <ArgsTable story="BioLink" />}
+{!isEmpty(AetherModalConfig.args) && <ArgsTable story="AetherModal" />}
 
 
 

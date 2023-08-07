@@ -60,7 +60,7 @@ const baseStoryParams = `{
           backgrounds: {
             default: 'light',
             values: [
-              { name: 'light', value: '#F8F8F8' },
+              { name: 'light', value: '#FFFFFF' },
               { name: 'dark', value: '#333333' },
             ],
           },
