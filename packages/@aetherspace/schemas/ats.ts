@@ -3,17 +3,47 @@ import { z, aetherSchema } from './aetherSchemas'
 /* --- Documentation --------------------------------------------------------------------------- */
 
 const d = {
-  tw: `Tailwind CSS class name(s) or array of class names. Supports all styles available in React-Native.\n\nUses twrnc (https://www.npmjs.com/package/twrnc) under the hood to transform styles into a style object.\n\nAliases for this prop: "class", "className".\n\n`,
+  tw: `Tailwind CSS class name(s) or array of class names. Supports all styles available in React-Native.\n\nUses twrnc (https://www.npmjs.com/package/twrnc) under the hood to transform styles into a style object. Styles from the 'style' prop take priority.\n\nAliases for this prop: "class", "className".\n\n`,
+  role: `role communicates the purpose of a component to the user of an assistive technology. Has precedence over the accessibilityRole prop.`,
+  accessible: `When true, indicates that the view is an accessibility element. By default, all the touchable elements are accessible.`,
+  accessibilityActions: `Accessibility actions allow an assistive technology to programmatically invoke the actions of a component. The accessibilityActions property should contain a list of action objects. Each action object should contain the field name and label.`,
+  accessibilityHint: `An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not clear from the accessibility label.`,
+  accessibilityLabel: `Overrides the text that's read by the screen reader when the user interacts with the element. By default, the label is constructed by traversing all the children and accumulating all the Text nodes separated by space.`,
+  accessibilityRole: `accessibilityRole communicates the purpose of a component to the user of an assistive technology.`,
+  accessibilityState: `Describes the current state of a component to the user of an assistive technology.`,
 }
+
+/* --- Common Schemadefs ----------------------------------------------------------------------- */
 
 export const AetherStyleProp = z.string().optional().describe(d.tw)
 
+export const AccessibilityRole = z.enum(['none', 'button', 'link', 'search', 'image', 'keyboardkey', 'text', 'adjustable', 'imagebutton', 'header', 'summary', 'alert', 'checkbox', 'combobox', 'menu', 'menubar', 'menuitem', 'progressbar', 'radio', 'radiogroup', 'scrollbar', 'spinbutton', 'switch', 'tab', 'tablist', 'timer', 'toolbar', 'grid']).optional().describe(d.accessibilityRole) // prettier-ignore
+
+/** --- AccessibilityProps --------------------------------------------------------------------- */
+/** -i- Schema for all recurring accessibility related props */
+export const AccessibilityProps = aetherSchema('AccessibilityProps', {
+  role: AccessibilityRole.optional().describe(d.accessibilityRole),
+  accessible: z.boolean().default(false).describe(d.accessible),
+  accessibilityRole: AccessibilityRole.optional().describe(d.accessibilityRole), // prettier-ignore
+  accessibilityHint: z.string().optional().describe(d.accessibilityHint),
+  accessibilityLabel: z.string().optional().describe(d.accessibilityLabel),
+  accessibilityActions: aetherSchema('AccessibilityActionsEntry', {
+    name: z.string(),
+    label: z.string().optional(),
+  }).array().optional().describe(d.accessibilityActions), // prettier-ignore
+  accessibilityState: aetherSchema('AccessibilityState', {
+    disabled: z.boolean().optional(),
+    expanded: z.boolean().optional(),
+    checked: z.enum(['checked', 'unchecked', 'mixed']).optional(),
+    busy: z.boolean().optional(),
+  }).optional().describe(d.accessibilityState), // prettier-ignore
+})
+
 /** --- AetherTailwindProp --------------------------------------------------------------------- */
 /** -i- A common prop type for Aetherspace Primitives used for styling through the 'tw', 'class' or 'className' props */
-export const AetherTailwindProp = z.union([
-  z.string(),
-  z.array(z.union([z.string(), z.literal(0)]).nullish()),
-])
+export const AetherTailwindProp = z
+  .union([z.string(), z.array(z.union([z.string(), z.literal(0)]).nullish())])
+  .describe(d.tw)
 
 /** -i- A common prop type for Aetherspace Primitives used for styling through the 'tw', 'class' or 'className' props */
 export type TAetherTailwindProp = z.infer<typeof AetherTailwindProp>

@@ -28,6 +28,7 @@ AetherTextInput.displayName = 'AetherTextInput'
 /* --- Docs ------------------------------------------------------------------------------------ */
 
 const d = {
+  style: `https://reactnative.dev/docs/text-style-props`,
   allowFontScaling: `Whether fonts should scale to respect Text Size accessibility settings, default is true.`,
   autoCapitalize: `[Mobile only] Tells TextInput to automatically capitalize certain characters. This property is not supported by some keyboard types such as name-phone-pad.`,
   autoComplete: `[Mobile only] Specifies autocomplete hints for the system, so it can provide autofill. On Android, the system will always attempt to offer autofill by using heuristics to identify the type of content. To disable autocomplete, set autoComplete to off.`,
@@ -60,6 +61,7 @@ const d = {
 export const AetherTextInputProps = aetherSchema('AetherTextInputProps', {
   // - Aetherspace & Styling -
   tw: AetherStyleProp.eg('border-2 border-gray-300 rounded-md p-2'),
+  style: z.object({}).optional().describe(d.style),
   // - Frequently Used -
   value: z.string().optional().describe(d.value),
   defaultValue: z.string().optional().describe(d.defaultValue),
