@@ -75,6 +75,10 @@ export const getInitialProps = async (ctx: DocumentContext) => {
 /* --- <Document/> ----------------------------------------------------------------------------- */
 
 class Document extends NextDocument {
+  async componentDidMount(): Promise<void> {
+    await import('raf/polyfill')
+  }
+
   render() {
     return (
       <Html>

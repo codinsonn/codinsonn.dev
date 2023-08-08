@@ -16,7 +16,7 @@ import { View, Text, Image } from 'aetherspace/primitives'
 // SEO
 import { H1 } from 'aetherspace/html-elements'
 // Components
-import { AetherIcon } from 'aetherspace/components'
+import { AetherIcon, AetherModal } from 'aetherspace/components'
 import BioLink from '../components/BioLink'
 // Utils
 import { isEmpty } from 'aetherspace/utils'
@@ -210,6 +210,21 @@ export const BioScreen = (props: BioScreenProps) => {
         </Text>
         <View tw="h-10" />
       </View>
+      <AetherModal backdropClasses="bg-opacity-25" backdropColor="#F8F8F8" modalColor="#1a202c">
+        <Text tw="flex-row">
+          <Link
+            href="https://github.com/Aetherspace/green-stack-starter-demo#move-fast-and-build-things"
+            tw="roboto text-white text-sm"
+            asText
+          >
+            Free template repo
+          </Link>
+          <Text tw="roboto text-white text-sm">{' / '}</Text>
+          <Link href="/resume" tw="roboto-black text-white underline text-sm" asText>
+            Hire me.
+          </Link>
+        </Text>
+      </AetherModal>
     </View>
   )
 }
