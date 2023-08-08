@@ -1,5 +1,13 @@
 import { z, aetherSchema } from './aetherSchemas'
 
+/* --- Documentation --------------------------------------------------------------------------- */
+
+const d = {
+  tw: `Tailwind CSS class name(s) or array of class names. Supports all styles available in React-Native.\n\nUses twrnc (https://www.npmjs.com/package/twrnc) under the hood to transform styles into a style object.\n\nAliases for this prop: "class", "className".\n\n`,
+}
+
+export const AetherStyleProp = z.string().optional().describe(d.tw)
+
 /** --- AetherTailwindProp --------------------------------------------------------------------- */
 /** -i- A common prop type for Aetherspace Primitives used for styling through the 'tw', 'class' or 'className' props */
 export const AetherTailwindProp = z.union([

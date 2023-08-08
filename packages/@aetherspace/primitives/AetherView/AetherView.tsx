@@ -3,7 +3,7 @@
 // - https://necolas.github.io/react-native-web/docs/view/
 import React, { ComponentProps, forwardRef } from 'react'
 import { View } from 'react-native'
-// Schemas
+// Types
 import { TAetherStyleProps } from '../../schemas/ats'
 // Hooks
 import { useAetherStyles } from '../../hooks/useAetherStyles'
