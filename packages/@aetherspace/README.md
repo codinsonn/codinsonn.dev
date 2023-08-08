@@ -241,6 +241,12 @@ Performing these 6 steps has provided us with a bunch of value in little time:
 
 ## Learn more:
 
+<p>
+  <a href="https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64#:~:text=%27Move%20fast%20%26%20build%20things%27%20with%20Zod%2C%20Expo%20%26%20Next.js" target="_blank">
+    <img alt="Intro Article on DEV" longdesc="Read the Intro Artical on DEV.to" src="https://img.shields.io/badge/dev.to-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white" />
+  </a>
+</p>
+
 - [Aetherspace Core Concepts](/packages/@aetherspace/core/README.md)
 - [Single Sources of Truth for Front & Back-End with Zod](/packages/@aetherspace/schemas/README.md)
 - [Styling your components with Tailwind for Web & Mobile](/packages/@aetherspace/styles/README.md)
