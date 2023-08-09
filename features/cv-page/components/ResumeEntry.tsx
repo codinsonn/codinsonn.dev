@@ -31,14 +31,14 @@ export const ResumeEntry = (props: AetherProps<typeof ResumeEntryProps>) => {
   return (
     <StResumeEntry>
       <StResumeEntrySideLabel>
-        <Text tw="text-neutral-400 roboto">{sideLabel}</Text>
+        <Text tw="text-neutral-400 font-primary-regular">{sideLabel}</Text>
       </StResumeEntrySideLabel>
       <StResumeEntryData>
         {/* Title */}
         {linkUrl ? (
           <Link href={linkUrl} tw="flex flex-row">
-            <Text tw="text-gray-300 text-sm roboto font-normal leading-6 my-0">
-              <Text tw="text-gray-300 text-sm roboto font-normal leading-6 my-0">{title}</Text>
+            <Text tw="text-secondary body-sm-regular leading-6 my-0">
+              <Text tw="text-secondary body-sm-regular leading-6 my-0">{title}</Text>
               {` `}
               <Text>
                 <AetherIcon name="link-thin" size={14} fill="#FFFFFF" />
@@ -46,14 +46,12 @@ export const ResumeEntry = (props: AetherProps<typeof ResumeEntryProps>) => {
             </Text>
           </Link>
         ) : (
-          <Text tw="text-gray-300 text-sm roboto font-normal leading-6 my-0">{title}</Text>
+          <Text tw="text-secondary body-sm-regular leading-6 my-0">{title}</Text>
         )}
         {/* Subtitle */}
-        {!!subTitle && (
-          <Text tw="text-gray-400 text-sm roboto font-normal leading-6 my-0">{subTitle}</Text>
-        )}
+        {!!subTitle && <Text tw="text-tertiary body-sm-regular leading-6 my-0">{subTitle}</Text>}
         {/* Description */}
-        {!!description && <P tw="text-gray-400 leading-6 roboto mt-1">{description}</P>}
+        {!!description && <P tw="text-tertiary leading-6 body-sm-regular mt-1">{description}</P>}
       </StResumeEntryData>
     </StResumeEntry>
   )

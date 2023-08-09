@@ -41,12 +41,16 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
         </Link>
       </StImageWrapper>
       <StTextWrappers>
-        <Link href={linkUrl} tw="roboto-bold text-white flex-shrink text-sm sm:text-base" isText>
+        <Link
+          href={linkUrl}
+          tw="font-primary-bold text-primary flex-shrink text-sm sm:text-base"
+          isText
+        >
           {linkTitle}
         </Link>
         <StSpacing tw="h-1" />
         {subTitle && (
-          <Link href={linkUrl} tw="roboto text-white flex-shrink text-xs" isText>
+          <Link href={linkUrl} tw="text-primary flex-shrink body-xs-regular" isText>
             {subTitle}
           </Link>
         )}
@@ -58,7 +62,7 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
 /* --- Styles ---------------------------------------------------------------------------------- */
 
 const StLinkWrapper = twStyled.Pressable`
-  h-[100px] docs:max-w-[600px] flex-row rounded-md overflow-hidden bg-slate-800
+  h-[100px] docs:max-w-[600px] flex-row rounded-md overflow-hidden bg-secondary
 `
 
 const StImageWrapper = twStyled.View`

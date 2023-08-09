@@ -126,11 +126,11 @@ export const BioScreen = (props: BioScreenProps) => {
 
   if (error)
     return (
-      <View tw="w-full h-full items-center bg-gray-900 mobile:pt-14 pt-10">
-        <H1 tw="text-white roboto-bold font-bold text-base">{`Error: ${error.message}`}</H1>
-        <Text tw="text-white hidden xs:flex">{BASE_URL}</Text>
-        <Text tw="text-white hidden xs:flex">{BACKEND_URL}</Text>
-        <Text tw="text-white hidden xs:flex">{localURL}</Text>
+      <View tw="w-full h-full items-center bg-primary mobile:pt-14 pt-10">
+        <H1 tw="text-primary body-md-bold">{`Error: ${error.message}`}</H1>
+        <Text tw="text-primary hidden xs:flex">{BASE_URL}</Text>
+        <Text tw="text-primary hidden xs:flex">{BACKEND_URL}</Text>
+        <Text tw="text-primary hidden xs:flex">{localURL}</Text>
       </View>
     )
 
@@ -139,7 +139,7 @@ export const BioScreen = (props: BioScreenProps) => {
   // -- Render --
 
   return (
-    <View tw="w-full h-full items-center bg-gray-900 mobile:pt-14 pt-10">
+    <View tw="w-full h-full items-center bg-primary mobile:pt-14 pt-10">
       <Link to={isCustomBio ? '/' : '/cv'}>
         <Image
           src={bioData.imageUrl}
@@ -148,10 +148,10 @@ export const BioScreen = (props: BioScreenProps) => {
         />
       </Link>
       <Link to={bioData.titleLink} tw="mb-6 mt-2 no-underline" asText>
-        <H1 tw="text-white roboto-bold font-bold text-base">{bioData.title}</H1>
+        <H1 tw="text-primary body-md-bold">{bioData.title}</H1>
       </Link>
 
-      <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 max-w-[620px] roboto text-white text-center text-sm">
+      <Text tw="md:w-2/3 lg:w-1/2 mb-4 px-6 max-w-[620px] font-primary-regular text-primary text-center text-sm">
         {bioData.bioText}
       </Text>
 
@@ -167,7 +167,7 @@ export const BioScreen = (props: BioScreenProps) => {
         ))}
       </View>
 
-      <H1 tw="text-white roboto-bold font-bold text-lg mb-6">Featured Links</H1>
+      <H1 tw="text-primary body-lg-bold mb-6">Featured Links</H1>
       <View tw="max-w-[620px] w-full lg:w-3/4 xl:w-2/4 px-5">
         <View tw="flex relative overflow-hidden gap-y-6">
           {bioData.linksInBio?.map((bioLink) => (
@@ -188,23 +188,23 @@ export const BioScreen = (props: BioScreenProps) => {
       </View>
 
       <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-8 px-5 items-center">
-        <Text tw="roboto-light text-slate-200 text-center text-sm sm:text-base">
-          Ready for <Text tw="roboto">Organic leads</Text> from the Web,
+        <Text tw="font-primary-light text-slate-200 text-center text-sm sm:text-base">
+          Ready for <Text tw="font-primary-regular">Organic leads</Text> from the Web,
         </Text>
-        <Text tw="roboto-light text-slate-200 text-center text-sm sm:text-base">
-          *and* <Text tw="roboto">Higher conversions</Text> on Mobile?
+        <Text tw="font-primary-light text-slate-200 text-center text-sm sm:text-base">
+          *and* <Text tw="font-primary-regular">Higher conversions</Text> on Mobile?
         </Text>
         <View tw="h-3" />
         <Text tw="flex-row">
           <Link
             href="https://github.com/Aetherspace/green-stack-starter-demo#move-fast-and-build-things"
-            tw="roboto text-white text-sm"
+            tw="font-primary-regular text-primary text-sm"
             asText
           >
             Free template repo
           </Link>
-          <Text tw="roboto text-white text-sm">{' / '}</Text>
-          <Link href="/resume" tw="roboto-black text-white underline text-sm" asText>
+          <Text tw="font-primary-regular text-primary text-sm">{' / '}</Text>
+          <Link href="/resume" tw="font-primary-black text-primary underline text-sm" asText>
             Hire me.
           </Link>
         </Text>
