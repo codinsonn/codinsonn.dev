@@ -11,6 +11,7 @@ const d = {
   accessibilityLabel: `Overrides the text that's read by the screen reader when the user interacts with the element. By default, the label is constructed by traversing all the children and accumulating all the Text nodes separated by space.`,
   accessibilityRole: `accessibilityRole communicates the purpose of a component to the user of an assistive technology.`,
   accessibilityState: `Describes the current state of a component to the user of an assistive technology.`,
+  hitSlop: `This defines how far a touch event can start away from the view. Typical interface guidelines recommend touch targets that are at least 30 - 40 points/density-independent pixels.`,
 }
 
 /* --- Common Schemadefs ----------------------------------------------------------------------- */
@@ -18,6 +19,13 @@ const d = {
 export const AetherStyleProp = z.string().optional().describe(d.tw)
 
 export const AccessibilityRole = z.enum(['none', 'button', 'link', 'search', 'image', 'keyboardkey', 'text', 'adjustable', 'imagebutton', 'header', 'summary', 'alert', 'checkbox', 'combobox', 'menu', 'menubar', 'menuitem', 'progressbar', 'radio', 'radiogroup', 'scrollbar', 'spinbutton', 'switch', 'tab', 'tablist', 'timer', 'toolbar', 'grid']).optional().describe(d.accessibilityRole) // prettier-ignore
+
+export const HitSlopProp = aetherSchema('HitSlop', {
+  top: z.number().optional(),
+  bottom: z.number().optional(),
+  left: z.number().optional(),
+  right: z.number().optional(),
+}).optional().describe(d.hitSlop) // prettier-ignore
 
 /** --- AccessibilityProps --------------------------------------------------------------------- */
 /** -i- Schema for all recurring accessibility related props */

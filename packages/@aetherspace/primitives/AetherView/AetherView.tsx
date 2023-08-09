@@ -4,7 +4,12 @@
 import React, { ComponentProps, forwardRef } from 'react'
 import { View } from 'react-native'
 // Types
-import { AccessibilityProps, AetherStyleProp, TAetherStyleProps } from '../../schemas/ats'
+import {
+  AccessibilityProps,
+  AetherStyleProp,
+  HitSlopProp,
+  TAetherStyleProps,
+} from '../../schemas/ats'
 // Schemas
 import { z, aetherSchema } from '../../schemas'
 // Hooks
@@ -44,12 +49,7 @@ export const AetherViewProps = AccessibilityProps.extendSchema('AetherViewProps'
   tw: AetherStyleProp.eg('bg-gray-200 w-[100px] h-[100px]'),
   style: z.object({}).optional().describe(d.style),
   // - Frequently Used -
-  hitSlop: aetherSchema('HitSlop', {
-    top: z.number().optional(),
-    bottom: z.number().optional(),
-    left: z.number().optional(),
-    right: z.number().optional(),
-  }).optional().describe(d.hitSlop), // prettier-ignore
+  hitSlop: HitSlopProp,
   pointerEvents: z.enum(['auto', 'none', 'box-none', 'box-only', ]).optional().describe(d.pointerEvents), // prettier-ignore
   accessibilityValue: aetherSchema('AccessibilityValue', {
     min: z.number().optional(),
