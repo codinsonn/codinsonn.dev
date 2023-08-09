@@ -38,19 +38,19 @@ export const ResumeIntroCard = (props: AetherProps<typeof ResumeCardData>) => {
           </Link>
         </View>
         <View className="flex-1">
-          <View className="flex flex-row items-center text-white">
-            <H1 className="text-xl text-neutral-100 my-0">{displayName}</H1>
+          <View className="flex flex-row items-center">
+            <H1 className="text-xl font-primary-regular text-primary my-0">{displayName}</H1>
           </View>
           <View className="flex flex-row">
-            <P className="text-neutral-200 roboto my-0">
+            <P className="text-neutral-200 font-primary-regular my-0">
               {[`${functionTitle} in ${location}`, pronouns].filter(Boolean).join(', ')}
             </P>
           </View>
           {website && (
-            <View className="flex flex-row mt-2 text-white">
+            <View className="flex flex-row mt-2">
               <View className="text-neutral-300 w-auto">
-                <Link to={website} className="bg-slate-800 rounded-xl overflow-hidden">
-                  <Text className="py-1 px-2 text-xs roboto text-white bg-slate-800">
+                <Link to={website} className="bg-secondary rounded-xl overflow-hidden">
+                  <Text className="py-1 px-2 body-xs-regular text-primary bg-secondary">
                     {website?.replace(/(^\w+:|^)\/\//, '')}
                   </Text>
                 </Link>
@@ -64,8 +64,8 @@ export const ResumeIntroCard = (props: AetherProps<typeof ResumeCardData>) => {
         <>
           <Spacing tw="h-8" />
           <StAboutSection>
-            <H2 className="mb-1 text-sm roboto leading-6 text-neutral-100">About</H2>
-            <P className="p-0 m-0 leading-6 text-neutral-300">{about}</P>
+            <H2 className="mb-1 body-sm-regular leading-6 text-neutral-100">About</H2>
+            <P className="p-0 m-0 body-sm-regular leading-6 text-neutral-300">{about}</P>
           </StAboutSection>
         </>
       )}

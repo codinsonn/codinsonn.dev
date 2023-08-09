@@ -41,7 +41,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
           <H1 tw="mb-4">Hmm, something went wrong</H1>
           <Pressable
             role="button"
-            tw="p-4 bg-slate-800 rounded-md text-white"
+            tw="p-4 bg-secondary rounded-md text-primary"
             onPress={() => this.setState({ hasError: false })}
           >
             <Text>Try again?</Text>

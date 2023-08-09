@@ -9,7 +9,7 @@ import { View } from 'aetherspace/primitives'
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <ErrorBoundary>
-    <View tw="flex flex-col min-h-full w-full bg-gray-900">{children}</View>
+    <View tw="flex flex-col min-h-full w-full">{children}</View>
   </ErrorBoundary>
 )
 
