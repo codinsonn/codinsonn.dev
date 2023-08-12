@@ -3,33 +3,35 @@ import { z } from 'zod'
 /* --- Constants ------------------------------------------------------------------------------- */
 
 export const ATS_TO_TYPE = Object.freeze({
-  AetherBoolean: 'boolean',
-  AetherNumber: 'number',
   AetherString: 'string',
+  AetherNumber: 'number',
+  AetherBoolean: 'boolean',
   AetherDate: 'date',
-  AetherObject: 'object',
-  AetherSchema: 'object',
-  AetherArray: 'array',
+  AetherId: 'string',
   AetherColor: 'string',
   AetherEnum: 'enum',
+  AetherArray: 'array',
+  AetherObject: 'object',
+  AetherSchema: 'object',
   AetherTuple: 'tuple',
   AetherUnion: 'union',
-  AetherId: 'string',
+  // AetherRecord: 'object', // TODO: To implement
+  // AetherPromise: 'promise', // TODO: To implement
 })
 
 export const TYPE_TO_ATS = Object.freeze({
-  boolean: 'AetherBoolean',
+  string: 'AetherString',
   number: 'AetherNumber',
   bigint: 'AetherNumber',
-  string: 'AetherString',
+  boolean: 'AetherBoolean',
   date: 'AetherDate',
-  object: 'AetherSchema',
-  array: 'AetherArray',
+  id: 'AetherId',
   color: 'AetherColor',
   enum: 'AetherEnum',
+  array: 'AetherArray',
+  object: 'AetherSchema',
   tuple: 'AetherTuple',
   union: 'AetherUnion',
-  id: 'AetherId',
 })
 
 /* --- Types ----------------------------------------------------------------------------------- */
@@ -62,6 +64,9 @@ export type SchemaPluginMap = {
   AetherObject: (name: string, schema: AetherSchemaType) => unknown
   // -- Arraylikes --
   AetherArray: (name: string, schema: AetherSchemaType) => unknown
+  // -- Complex types --
+  AetherUnion?: (name: string, schema: AetherSchemaType) => unknown // TODO: To implement
+  AetherTuple?: (name: string, schema: AetherSchemaType) => unknown // TODO: To implement
 }
 
 export type AetherProps<T extends { _input: unknown }> = T['_input']
@@ -238,7 +243,10 @@ declare module 'zod' {
     example(value: Input): z.ZodObject<T>
     eg(value: z.infer<z.ZodObject<T>>): z.ZodObject<T>
     ex(value: z.infer<z.ZodObject<T>>): z.ZodObject<T>
-    applyDefaults(data: Record<string, unknown>, logErrors?: boolean): z.infer<z.ZodObject<T>>
+    applyDefaults<D extends Record<string, unknown> = Partial<z.infer<z.ZodObject<T>>>>(
+      data: D,
+      logErrors?: boolean
+    ): D & z.infer<z.ZodObject<T>>
     introspect(): AetherSchemaType<z.infer<z.ZodObject<T>>>
   }
 }
@@ -628,6 +636,9 @@ if (!z.ZodArray.prototype.aetherType) {
 
 /* --- Object Schemas -------------------------------------------------------------------------- */
 
+// TODO: ZodRecord
+// -i- https://zod.dev/?id=records
+
 if (!z.ZodObject.prototype.aetherType) {
   z.ZodObject.prototype.aetherType = 'AetherObject'
   z.ZodObject.prototype.describe = function (description: string) {
@@ -693,14 +704,13 @@ if (!z.ZodObject.prototype.aetherType) {
   z.ZodObject.prototype.eg = z.ZodObject.prototype.example
   z.ZodObject.prototype.ex = z.ZodObject.prototype.example
   // Allow safe parsing
-  z.ZodObject.prototype.applyDefaults = function (
-    data: Record<string, unknown>,
-    logErrors = false
-  ) {
+  z.ZodObject.prototype.applyDefaults = function <
+    D extends Record<string, unknown> = Record<string, unknown>
+  >(data: D, logErrors = false) {
     const thisSchema = this.extend({})
     const result = thisSchema.safeParse(data)
     if (!result.success && logErrors) console.warn(JSON.stringify(result.error, null, 2)) // @ts-ignore
-    return { ...data, ...result.data } as (typeof thisSchema)['_type']
+    return { ...data, ...result.data } as D & (typeof thisSchema)['_type']
   }
   // Allow Introspection
   z.ZodObject.prototype.introspect = function () {
