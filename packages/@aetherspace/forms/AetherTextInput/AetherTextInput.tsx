@@ -1,7 +1,7 @@
 import React, { ComponentProps, forwardRef } from 'react'
 import { TextInput as RNTextInput } from 'react-native'
 // Types
-import { TAetherStyleProps, AetherStyleProp } from 'aetherspace/schemas/ats'
+import { TAetherStyleProps, stylePropDescription } from 'aetherspace/schemas/ats'
 // Schemas
 import { z, aetherSchema } from 'aetherspace/schemas'
 // Hooks
@@ -17,8 +17,10 @@ export type AetherTextInputType = ComponentProps<typeof RNTextInput> &
 /* --- <AetherTextInput/> ---------------------------------------------------------------------- */
 
 const AetherTextInput = forwardRef<RNTextInput, AetherTextInputType>((props, ref) => {
+  // Props
+  const propsWithDefaults = AetherTextInputProps.applyDefaults(props as any) as AetherTextInputType
   // Styles
-  const bindStyles = useAetherStyles<typeof RNTextInput>(props)
+  const bindStyles = useAetherStyles<typeof RNTextInput>(propsWithDefaults)
   // Render
   return <RNTextInput {...props} ref={ref} {...bindStyles} />
 })
@@ -28,6 +30,7 @@ AetherTextInput.displayName = 'AetherTextInput'
 /* --- Docs ------------------------------------------------------------------------------------ */
 
 const d = {
+  tw: `${stylePropDescription}\n\nProviding your own classes will omit all the default tailwind classes ➡️`,
   style: `https://reactnative.dev/docs/text-style-props`,
   allowFontScaling: `Whether fonts should scale to respect Text Size accessibility settings, default is true.`,
   autoCapitalize: `[Mobile only] Tells TextInput to automatically capitalize certain characters. This property is not supported by some keyboard types such as name-phone-pad.`,
@@ -60,7 +63,7 @@ const d = {
 
 export const AetherTextInputProps = aetherSchema('AetherTextInputProps', {
   // - Aetherspace & Styling -
-  tw: AetherStyleProp.eg('border-2 border-gray-300 rounded-md p-2'),
+  tw: z.string().default('max-w-[380px] h-[40px] border-[1px] border-gray-300 rounded-md p-2').describe(d.tw), // prettier-ignore
   style: z.object({}).optional().describe(d.style),
   // - Frequently Used -
   value: z.string().optional().describe(d.value),

@@ -16,7 +16,7 @@ const d = {
 
 /* --- Common Schemadefs ----------------------------------------------------------------------- */
 
-export const AetherStyleProp = z.string().optional().describe(d.tw)
+export const stylePropDescription = d.tw
 
 export const AccessibilityRole = z.enum(['none', 'button', 'link', 'search', 'image', 'keyboardkey', 'text', 'adjustable', 'imagebutton', 'header', 'summary', 'alert', 'checkbox', 'combobox', 'menu', 'menubar', 'menuitem', 'progressbar', 'radio', 'radiogroup', 'scrollbar', 'spinbutton', 'switch', 'tab', 'tablist', 'timer', 'toolbar', 'grid']).optional().describe(d.accessibilityRole) // prettier-ignore
 
