@@ -585,7 +585,7 @@ if (!z.ZodTuple.prototype.aetherType) {
   z.ZodTuple.prototype.eg = z.ZodTuple.prototype.example
   z.ZodTuple.prototype.ex = z.ZodTuple.prototype.example
   z.ZodTuple.prototype.introspect = function () {
-    const innerItems = this.items.map((item) => item?.introspect())
+    const innerItems = this.items.map((item) => item?.introspect?.()).filter(Boolean)
     this.schema = innerItems
     return introspectField(this)
   }
@@ -605,7 +605,7 @@ if (!z.ZodUnion.prototype.aetherType) {
   z.ZodUnion.prototype.eg = z.ZodUnion.prototype.example
   z.ZodUnion.prototype.ex = z.ZodUnion.prototype.example
   z.ZodUnion.prototype.introspect = function () {
-    const innerOptions = this.options.map((option) => option?.introspect())
+    const innerOptions = this.options.map((option) => option?.introspect?.()).filter(Boolean)
     this.schema = innerOptions
     return introspectField(this)
   }
@@ -719,7 +719,7 @@ if (!z.ZodObject.prototype.aetherType) {
     // Determine the schema for each property
     this.schema = Object.entries(this.shape).reduce((propSchema, [propKey, propDef]) => {
       // @ts-ignore
-      if (!propDef.introspect) return propSchema // @ts-ignore
+      if (typeof propDef?.introspect !== 'function') return propSchema // @ts-ignore
       const schema = propDef.introspect()
       if (['AetherSchema', 'AetherObject'].includes(schema.aetherType)) {
         // @ts-ignore
