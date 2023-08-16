@@ -1,13 +1,6 @@
 import React from 'react'
 // Navigation
-import {
-  Link,
-  useAetherRoute,
-  fetchAetherProps,
-  useAetherNav,
-  BASE_URL,
-  BACKEND_URL,
-} from 'aetherspace/navigation'
+import { Link, useAetherRoute, fetchAetherProps, useAetherNav } from 'aetherspace/navigation'
 // Schemas
 import { z, aetherSchema, AetherParams, AetherProps } from 'aetherspace/schemas'
 import { TUserBio, UserBio } from '../schemas'
@@ -16,15 +9,13 @@ import { View, Text, Image } from 'aetherspace/primitives'
 // SEO
 import { H1 } from 'aetherspace/html-elements'
 // Components
-import { AetherIcon } from 'aetherspace/components'
+import { BioSkeleton } from '../components/BioSkeleton'
 import BioLink from '../components/BioLink'
+import { AetherIcon } from 'aetherspace/components'
 // Utils
 import { isEmpty } from 'aetherspace/utils'
-// Constants
-import { localURL } from 'aetherspace/constants/manifest'
 // Mocks
 import { userBioMock } from '../mocks/userBio.mock'
-import { BioSkeleton } from '../components/BioSkeleton'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
 

@@ -9,7 +9,7 @@ import { useLayoutInfo } from 'aetherspace/hooks'
 
 /* --- <BioSkeleton/> -------------------------------------------------------------------------- */
 
-export const BioSkeleton = (props: SvgProps & { offsetWidth?: number }) => {
+export const BioSkeleton = (props: SvgProps) => {
   // Hooks
   const { measureOnLayout, layoutInfo } = useLayoutInfo()
 
