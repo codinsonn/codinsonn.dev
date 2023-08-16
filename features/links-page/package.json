@@ -18,6 +18,7 @@
         "lint": "cd ../.. && eslint \"features/links-page/**/*.{ts,tsx}\""
     },
     "dependencies": {
-        "@expo-google-fonts/roboto": "^0.2.3"
+        "@expo-google-fonts/roboto": "^0.2.3",
+        "react-content-loader": "^6.2.1"
     }
 }
