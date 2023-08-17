@@ -11,8 +11,10 @@ import { View } from 'aetherspace/primitives'
 import { H1, H2 } from 'aetherspace/html-elements'
 // Components
 import { ResumeContactSection, ResumeIntroCard, ResumeEntry } from '../components'
+import { ResumeSkeleton } from '../components/ResumeSkeleton'
 // Styles
 import { twStyled } from 'aetherspace/styles'
+// Utils
 import { uppercaseFirstChar } from 'aetherspace/utils'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
@@ -312,7 +314,17 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
     )
   }
 
-  if (!generalData) return null
+  // -- Loading --
+
+  if (!generalData) {
+    return (
+      <StScreenContainer>
+        <StResumeContainer>
+          <ResumeSkeleton />
+        </StResumeContainer>
+      </StScreenContainer>
+    )
+  }
 
   // -- Render --
 

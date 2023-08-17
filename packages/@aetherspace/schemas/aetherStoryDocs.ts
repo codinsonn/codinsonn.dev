@@ -153,6 +153,9 @@ const aetherSchemaArgTypes = (aetherSchema) => {
     AetherObject: createArgType('object', 'object'),
     // -- Arraylikes --
     AetherArray: createArgType('array', 'object'),
+    // -- Complex types --
+    AetherUnion: createArgType('string', 'text'),
+    AetherTuple: createArgType('array', 'object'),
   })
 }
 

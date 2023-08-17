@@ -1,13 +1,6 @@
 import React from 'react'
 // Navigation
-import {
-  Link,
-  useAetherRoute,
-  fetchAetherProps,
-  useAetherNav,
-  BASE_URL,
-  BACKEND_URL,
-} from 'aetherspace/navigation'
+import { Link, useAetherRoute, fetchAetherProps, useAetherNav } from 'aetherspace/navigation'
 // Schemas
 import { z, aetherSchema, AetherParams, AetherProps } from 'aetherspace/schemas'
 import { TUserBio, UserBio } from '../schemas'
@@ -16,12 +9,11 @@ import { View, Text, Image } from 'aetherspace/primitives'
 // SEO
 import { H1 } from 'aetherspace/html-elements'
 // Components
-import { AetherIcon } from 'aetherspace/components'
+import { BioSkeleton } from '../components/BioSkeleton'
 import BioLink from '../components/BioLink'
+import { AetherIcon } from 'aetherspace/components'
 // Utils
 import { isEmpty } from 'aetherspace/utils'
-// Constants
-import { localURL } from 'aetherspace/constants/manifest'
 // Mocks
 import { userBioMock } from '../mocks/userBio.mock'
 
@@ -124,17 +116,23 @@ export const BioScreen = (props: BioScreenProps) => {
 
   // -- Guards --
 
-  if (error)
+  if (error) {
     return (
       <View tw="w-full h-full items-center bg-primary mobile:pt-14 pt-10">
         <H1 tw="text-primary body-md-bold">{`Error: ${error.message}`}</H1>
-        <Text tw="text-primary hidden xs:flex">{BASE_URL}</Text>
-        <Text tw="text-primary hidden xs:flex">{BACKEND_URL}</Text>
-        <Text tw="text-primary hidden xs:flex">{localURL}</Text>
       </View>
     )
+  }
 
-  if (isEmpty(bioData) || !bioData.iconLinks) return null
+  if (isEmpty(bioData) || !bioData.iconLinks) {
+    return (
+      <View tw="absolute top-0 w-full h-full items-center mobile:pt-14 pt-10">
+        <View tw="max-w-[620px] w-full lg:w-3/4 xl:w-2/4 px-5 justify-center">
+          <BioSkeleton />
+        </View>
+      </View>
+    )
+  }
 
   // -- Render --
 

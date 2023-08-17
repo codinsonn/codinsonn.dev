@@ -92,7 +92,7 @@ const documentComponents = () => {
       const componentFolder = componentFolderTree.reverse().join('/')
       const componentName = componentFile.split('.')[0]
       // If the component file name does not match an exported component, skip it
-      const hasNamedExport = pathContents.includes(`export const ${componentName}`)
+      const hasNamedExport = pathContents.includes(`export const ${componentName} `)
       const hasDefaultExport = pathContents.includes(`export default ${componentName}`)
       const hasExtendedDefault = pathContents.includes(`export default Object.assign(${componentName}`) // prettier-ignore
       if (!hasNamedExport && !hasDefaultExport && !hasExtendedDefault) return acc

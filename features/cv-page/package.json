@@ -17,5 +17,7 @@
     "scripts": {
         "lint": "cd ../.. && eslint \"features/cv-page/**/*.{ts,tsx}\""
     },
-    "dependencies": {}
+    "dependencies": {
+        "react-content-loader": "^6.2.1"
+    }
 }

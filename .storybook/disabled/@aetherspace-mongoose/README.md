@@ -1,3 +1,11 @@
+<img src="/packages/@aetherspace/assets/AetherspaceLogo.svg" width="50" height="50" />
+
+<p>
+  <a href="https://mongoosejs.com/docs/" target="_blank">
+    <img alt="Enables MongoDB" longdesc="Aetherspace with MongoDB" src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" />
+  </a>
+</p>
+
 # `@aetherspace/mongoose` - Aetherspace Plugin
 
 Prerequisites:
