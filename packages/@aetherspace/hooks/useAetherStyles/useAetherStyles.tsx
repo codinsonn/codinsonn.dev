@@ -1,4 +1,6 @@
 import { useMemo, ComponentProps, JSXElementConstructor } from 'react'
+// Types
+import { TailwindFn } from 'twrnc'
 // Schemas
 import { TAetherStyleProps } from '../../schemas/ats'
 // Context
@@ -32,7 +34,6 @@ const useAetherStyles = <
 
   // Context
   const {
-    tailwind,
     isWeb,
     isNextJS,
     isStorybook,
@@ -40,9 +41,13 @@ const useAetherStyles = <
     breakpoints = {},
     twPrefixes = [],
     mediaPrefixes = [],
+    ...aetherContext
   } = useAetherContext()
 
   // -- Styles --
+
+  // @ts-ignore
+  const tailwind: TailwindFn = props.tailwindFn ?? aetherContext.tailwind
 
   const prefixKey = twPrefixes.join()
   const [styles, mediaIds] = useMemo(() => {
