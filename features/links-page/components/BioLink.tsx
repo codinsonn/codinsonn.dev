@@ -41,16 +41,12 @@ export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
         </Link>
       </StImageWrapper>
       <StTextWrappers>
-        <Link
-          href={linkUrl}
-          tw="font-primary-bold text-primary flex-shrink text-sm sm:text-base"
-          isText
-        >
+        <Link href={linkUrl} tw="font-primary-bold text-primary flex-shrink text-sm sm:text-base">
           {linkTitle}
         </Link>
         <StSpacing tw="h-1" />
         {subTitle && (
-          <Link href={linkUrl} tw="text-primary flex-shrink body-xs-regular" isText>
+          <Link href={linkUrl} tw="text-primary flex-shrink body-xs-regular">
             {subTitle}
           </Link>
         )}
