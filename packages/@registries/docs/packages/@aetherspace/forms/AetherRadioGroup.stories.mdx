@@ -3,6 +3,7 @@ import { aetherStoryDocs } from 'aetherspace/schemas/utils'
 import { isEmpty } from 'aetherspace/utils/commonUtils'
 // -i- Auto generated with "yarn document-components"
 // Components hooking into the storybook auto-documentation script
+import { default as AetherRadioGroup, getDocumentationProps as getAetherRadioGroupProps } from '../../../../../../packages/@aetherspace/forms/AetherRadioGroup/AetherRadioGroup.tsx'
 import { default as AetherRadioOption, getDocumentationProps as getAetherRadioOptionProps } from '../../../../../../packages/@aetherspace/forms/AetherRadioGroup/AetherRadioOption.tsx'
 // Mocks
 import StoryContextProviders from '../../../../../../features/app-core/mocks/StoryContextProviders'
@@ -16,6 +17,39 @@ export const createDocs = (Component) => (args) => {
     </StoryContextProviders>
   )
 }
+
+## AetherRadioGroup
+
+export const AetherRadioGroupDocs = createDocs(AetherRadioGroup)
+export const AetherRadioGroupConfig = aetherStoryDocs({ AetherRadioGroup }, getAetherRadioGroupProps)
+
+`/packages/@aetherspace/forms/AetherRadioGroup/AetherRadioGroup.tsx`
+```typescript
+import AetherRadioGroup from 'aetherspace/forms/AetherRadioGroup'
+```
+
+
+<Canvas>
+    <Story
+        name="AetherRadioGroup"
+        args={AetherRadioGroupConfig.args}
+        argTypes={AetherRadioGroupConfig.argTypes}
+        parameters={{
+          backgrounds: {
+            default: 'light',
+            values: [
+              { name: 'light', value: '#FFFFFF' },
+              { name: 'dark', value: '#333333' },
+            ],
+          },
+        }}
+    >
+      {AetherRadioGroupDocs.bind({})}
+    </Story>
+</Canvas>
+
+{!isEmpty(AetherRadioGroupConfig.args) && <ArgsTable story="AetherRadioGroup" />}
+
 
 ## AetherRadioOption
 
@@ -48,6 +82,7 @@ import AetherRadioOption from 'aetherspace/forms/AetherRadioOption'
 </Canvas>
 
 {!isEmpty(AetherRadioOptionConfig.args) && <ArgsTable story="AetherRadioOption" />}
+
 
 
 

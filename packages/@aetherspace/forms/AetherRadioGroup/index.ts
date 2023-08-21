@@ -1,3 +1,9 @@
 import AetherRadioOption from './AetherRadioOption'
-export { AetherRadioOption as RadioGroup, AetherRadioOption }
-export default AetherRadioOption
+import AetherRadioGroup from './AetherRadioGroup'
+export {
+  AetherRadioOption as RadioOption,
+  AetherRadioOption,
+  AetherRadioGroup as RadioGroup,
+  AetherRadioGroup,
+}
+export default AetherRadioGroup

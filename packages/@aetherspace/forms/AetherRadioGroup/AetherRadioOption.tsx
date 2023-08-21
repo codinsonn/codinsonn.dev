@@ -4,6 +4,7 @@ import { Pressable, View, Text } from '../../primitives'
 import { stylePropDescription } from 'aetherspace/schemas/ats'
 // Schemas
 import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
+// Styles
 import { twStyled } from '../../styles'
 
 /* --- Schema ---------------------------------------------------------------------------------- */
@@ -13,25 +14,25 @@ const d = {
   tw: `${stylePropDescription}\n\nProviding your own classes will omit all the default tailwind classes ➡️`,
   radioColor: `Radio fill and border color`,
   selected: `Whether the radio option is checked or not`,
-  value: `Selected radio group value`,
+  value: `Value for this radio option`,
   label: `Radio label text, can also just provide a string or Text component as a child`,
 }
 
 // Docs
 export const AetherRadioOptionBaseProps = aetherSchema('AetherRadioOptionBaseProps', {
+  value: z.string().describe(d.value),
+  selected: z.boolean().default(false).describe(d.selected),
+  label: z.string().default('Checkbox label').describe(d.label),
+  radioColor: z.string().color().default('#333333').describe(d.radioColor),
   radioBorderClasses: z.string().default('w-[16px] h-[16px] border-[1px] border-solid rounded-full mr-2 items-center justify-center').describe(d.tw), // prettier-ignore
   radioIndicatorClasses: z.string().default('w-[8px] h-[8px] rounded-full').describe(d.tw),
   labelClasses: z.string().default('font-primary text-[14px] leading-[18px]').describe(d.tw),
-  radioColor: z.string().color().default('#333333').describe(d.radioColor),
-  selected: z.boolean().default(false).describe(d.selected),
-  label: z.string().default('Checkbox label').describe(d.label),
-  value: z.string().describe(d.value),
 })
 
 // Types
 export type TAetherRadioOptionProps = AetherProps<typeof AetherRadioOptionBaseProps> & {
-  children: React.ReactNode
-  onChange?: (checked: boolean) => void
+  children?: React.ReactNode
+  onChange: (checked: boolean) => void
   pressableWrapperProps?: ComponentProps<typeof Pressable>
   radioBorderViewProps?: ComponentProps<typeof View>
   radioIndicatorViewProps?: ComponentProps<typeof View>
