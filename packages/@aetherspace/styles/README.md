@@ -176,12 +176,16 @@ These might not work out of the box, if that’s the case, apply these in `.vsco
 ],
 "tailwindCSS.experimental.classRegex": [
   "tw`([^`]*)", // tw`...`
-  "tw=\"([^\"]*)", // <View tw="..." />
-  "tw={\"([^\"}]*)", // <View tw={"..."} />
+  "tw=\"([^\"]*)", // <div tw="..." />
+  "tw={\"([^\"}]*)", // <div tw={"..."} />
   "tw\\.\\w+`([^`]*)", // tw.xxx`...`
   "tw\\(.*?\\)`([^`]*)", // tw(Component)`...`
   "twStyled\\.\\w+`([^`]*)", // twStyled.xxx`...`
-  "twStyled\\(.*?\\)`([^`]*)" // twStyled(Component)`...`
+  "twStyled\\(.*?\\)`([^`]*)", // twStyled(Component)`...`
+  "tw.*?z\\.string\\(\\).*?\\.default\\('([^']*)'", // tailwind class property description in zod schemas
+  "tw.*?z\\.string\\(\\).*?\\.eg\\('([^']*)'", // tailwind class property description in zod schemas
+  "Classes.*?z\\.string\\(\\).*?\\.default\\('([^']*)'", // tailwind class property description in zod schemas
+  "Classes.*?z\\.string\\(\\).*?\\.eg\\('([^']*)'", // tailwind class property description in zod schemas
 ],
 "tailwindCSS.includeLanguages": {
   "typescript": "javascript",
@@ -202,6 +206,31 @@ These might not work out of the box, if that’s the case, apply these in `.vsco
 "tailwindCSS.lint.invalidScreen": "warning",
 "tailwindCSS.lint.invalidVariant": "warning",
 "tailwindCSS.experimental.configFile": null,
+```
+
+## Customizing Tailwind with Theming & Custom Utility Classes
+
+Your actual tailwind config with twrnc should live at the "/features/app-core/tailwind.config.js" file, whereas the tailwind.config.js at the root is a decoy for the Tailwind CSS IntelliSense VSCode plugin only.
+
+Extending with custom utility classes can be done as described in:
+[https://www.npmjs.com/package/twrnc#adding-custom-classes](https://www.npmjs.com/package/twrnc#adding-custom-classes)
+
+But if you also want to enable in-editor hinting, you might want to do that in the "/features/app-core/twrnc.theme.js" file instead.
+
+So extend the "/features/app-core/twrnc.theme.js" file used at the root (for IDE IntelliSense) and in "/features/app-core/tailwind.config.js" (for actual tailwind config in your app)
+
+Import & pass the final config to AetherContextManager in ClientRootLayout.tsx (next) or _layout.tsx (expo). This should already be done for you when generating a new Aetherspace project.
+
+But, just for clarity:
+
+`/apps/expo/app/_layout.tsx` and `/apps/next/app/ClientRootLayout.tsx`
+
+```tsx
+import twConfig from 'app/tailwind.config' // <- your tailwind config, which uses the theme
+
+<AetherContextManager twConfig={twConfig} {/* ... other config */}>
+  {/* ... */}
+</AetherContextManager>
 ```
 
 ## Why Tailwind instead of X?
