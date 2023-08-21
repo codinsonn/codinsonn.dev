@@ -206,6 +206,7 @@ export const BioScreen = (props: BioScreenProps) => {
             Hire me.
           </Link>
         </Text>
+
         <View tw="h-10" />
       </View>
     </View>
