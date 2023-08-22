@@ -31,10 +31,6 @@ export const AetherRadioOptionBaseProps = RadioGroupStyleContext.extendSchema(
     value: z.string().describe(d.value).eg('value-1'),
     selected: z.boolean().default(false).describe(d.selected),
     label: z.string().default('Radio option label').describe(d.label),
-    radioColor: z.string().color().default('#333333').describe(d.radioColor),
-    radioBorderClasses: z.string().default('w-[16px] h-[16px] border-[1px] border-solid rounded-full mr-2 items-center justify-center').describe(d.tw), // prettier-ignore
-    radioIndicatorClasses: z.string().default('w-[8px] h-[8px] rounded-full').describe(d.tw),
-    labelClasses: z.string().default('font-primary text-[14px] leading-[18px]').describe(d.tw),
   }
 )
 

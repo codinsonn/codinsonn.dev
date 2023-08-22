@@ -1,9 +1,10 @@
 import { createContext, ComponentProps } from 'react'
-import { Pressable, View, Text } from '../../primitives'
 // Types
-import { stylePropDescription } from 'aetherspace/schemas/ats'
+import { stylePropDescription } from '../../schemas/ats'
 // Schemas
-import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
+import { z, aetherSchema, AetherProps } from '../../schemas'
+// Primitives
+import { Pressable, View, Text } from '../../primitives'
 
 /* --- Schemas --------------------------------------------------------------------------------- */
 
