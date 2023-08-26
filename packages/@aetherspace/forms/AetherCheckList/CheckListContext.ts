@@ -1,6 +1,6 @@
 import { createContext, ComponentProps } from 'react'
 // Types
-import { stylePropDescription } from '../../schemas/ats'
+import { createStyleDocs } from '../../schemas/ats'
 // Schemas
 import { z, aetherSchema, AetherProps } from '../../schemas'
 // Primitives
@@ -11,18 +11,26 @@ import { AetherIcon, AetherIconKeyProp } from '../../components'
 /* --- Schemas --------------------------------------------------------------------------------- */
 
 const d = {
-  tw: `${stylePropDescription}\n\nProviding your own classes will omit all the default tailwind classes ➡️`,
+  labelClasses: createStyleDocs('', { showOverrideWarning: true, styleOverrider: 'labelTextProps.style' }), // prettier-ignore
+  checkboxClasses: createStyleDocs('', { showOverrideWarning: true, styleOverrider: 'checkboxViewProps.style' }), // prettier-ignore
   checkedIconName: `Icon name, from the list available on the 'AetherIcon' component`,
-  checkedIconFill: `Icon fill color when checked`,
-  checkColor: `Checkbox fill or border color`,
+  checkedIconFill: `Icon fill color when checked. Default to the 'bg-primary' color from your twrnc.theme.js file is not provided.`,
+  checkColor: `Checkbox fill or border color. Defaults to the label text color if not provided.`,
 }
 
 export const CheckListStyleContext = aetherSchema('CheckListStyleContext', {
-  labelClasses: z.string().default('text-primary text-[14px] leading-[18px]').describe(d.tw),
-  checkboxClasses: z.string().default('w-[16px] h-[16px] border-[1px] border-solid rounded-[3px] mr-2 items-center justify-center').describe(d.tw), // prettier-ignore
+  labelClasses: z
+    .string()
+    .default('text-primary text-[14px] leading-[18px]')
+    .eg('text-grey-900 text-[14px] leading-[18px]')
+    .describe(d.labelClasses),
+  checkboxClasses: z
+    .string()
+    .default('w-[16px] h-[16px] border-[1px] border-solid border-primary rounded-[3px] mr-2 items-center justify-center')
+    .describe(d.checkboxClasses), // prettier-ignore
   checkedIconName: AetherIconKeyProp.default('check-filled').describe(d.checkedIconName),
-  checkedIconFill: z.string().color().default('#FFFFFF').describe(d.checkedIconFill),
-  checkColor: z.string().color().default('#333333').describe(d.checkColor),
+  checkedIconFill: z.string().color().optional().eg('#FFFFFF').describe(d.checkedIconFill),
+  checkColor: z.string().color().optional().eg('#333333').describe(d.checkColor),
 })
 
 /* --- Types ----------------------------------------------------------------------------------- */

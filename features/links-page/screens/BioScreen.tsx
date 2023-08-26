@@ -8,6 +8,8 @@ import { TUserBio, UserBio } from '../schemas'
 import { View, Text, Image } from 'aetherspace/primitives'
 // SEO
 import { H1 } from 'aetherspace/html-elements'
+// Forms
+// import { Button, CheckList, RadioGroup, TextInput } from 'aetherspace/forms'
 // Components
 import { BioSkeleton } from '../components/BioSkeleton'
 import BioLink from '../components/BioLink'
@@ -207,7 +209,50 @@ export const BioScreen = (props: BioScreenProps) => {
           </Link>
         </Text>
 
+        <View tw="h-16" />
+
+        {/*/}
+
+        <Button
+          type="primary"
+          size="md"
+          iconSize={20}
+          link="https://github.com/Aetherspace/green-stack-starter-demo#readme"
+          prefixIconName="aetherspace-logo"
+          pressableClasses="rounded-md min-w-[300px]"
+        >
+          Universal App Starter
+        </Button>
+
         <View tw="h-10" />
+
+        <TextInput
+          accessibilityLabel="Text input field"
+          accessibilityHint="Text input field"
+          value=""
+          placeholder="Email"
+          onChange={console.log}
+        />
+
+        <View tw="h-10" />
+
+        <CheckList onChange={console.log}>
+          <CheckList.Option value="value-1" label="Option 1" />
+          <CheckList.Option value="value-2" label="Option 2" />
+          <CheckList.Option value="value-3" label="Option 3" />
+        </CheckList>
+
+        <View tw="h-10" />
+
+        <RadioGroup onChange={console.log}>
+          <RadioGroup.Option value="value-1" label="Option 1" />
+          <RadioGroup.Option value="value-2" label="Option 2" />
+          <RadioGroup.Option value="value-3" label="Option 3" />
+        </RadioGroup>
+
+        <View tw="h-10" />
+
+        {/**/}
       </View>
     </View>
   )

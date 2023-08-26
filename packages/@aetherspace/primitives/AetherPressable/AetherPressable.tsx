@@ -4,7 +4,7 @@
 import React, { ComponentProps, forwardRef } from 'react'
 import { View, Pressable } from 'react-native'
 // Types
-import { TAetherStyleProps, stylePropDescription, HitSlopProp } from '../../schemas/ats'
+import { TAetherStyleProps, HitSlopProp, createStyleDocs } from '../../schemas/ats'
 // Schemas
 import { z, aetherSchema } from '../../schemas'
 // Hooks
@@ -31,7 +31,7 @@ AetherPressable.displayName = 'AetherPressable'
 /* --- Docs ------------------------------------------------------------------------------------ */
 
 const d = {
-  tw: stylePropDescription,
+  tw: createStyleDocs('', { styleOverrider: 'style' }),
   style: `https://reactnative.dev/docs/view-style-props`,
   delayLongPress: `Duration (in milliseconds) from onPressIn before onLongPress is called.`,
   disabled: `Whether the press behavior is disabled.`,
@@ -40,7 +40,7 @@ const d = {
 
 export const AetherPressableProps = aetherSchema('AetherPressableProps', {
   // - Aetherspace & Styling -
-  tw: z.string().optional().eg('w-[120px] h-[30px] bg-blue-500 rounded-md'),
+  tw: z.string().optional().eg('w-[120px] h-[30px] bg-blue-500 rounded-md').describe(d.tw),
   style: z.object({}).optional().describe(d.style),
   // - Frequently Used -
   delayLongPress: z.number().default(500).describe(d.delayLongPress),

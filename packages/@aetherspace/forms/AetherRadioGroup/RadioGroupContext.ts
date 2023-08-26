@@ -1,6 +1,6 @@
 import { createContext, ComponentProps } from 'react'
 // Types
-import { stylePropDescription } from '../../schemas/ats'
+import { createStyleDocs } from '../../schemas/ats'
 // Schemas
 import { z, aetherSchema, AetherProps } from '../../schemas'
 // Primitives
@@ -9,15 +9,27 @@ import { Pressable, View, Text } from '../../primitives'
 /* --- Schemas --------------------------------------------------------------------------------- */
 
 const d = {
-  tw: `${stylePropDescription}\n\nProviding your own classes will omit all the default tailwind classes ➡️`,
-  radioColor: `Radio fill and border color`,
+  radioColor: `Radio fill and border color. Defaults to the label text color if not provided.`,
+  radioBorderClasses: createStyleDocs('', { showOverrideWarning: true, styleOverrider: 'radioBorderViewProps.style' }), // prettier-ignore
+  radioIndicatorClasses: createStyleDocs('', { showOverrideWarning: true, styleOverrider: 'radioIndicatorViewProps.style' }), // prettier-ignore
+  labelClasses: createStyleDocs('', { showOverrideWarning: true, styleOverrider: 'labelTextProps.style' }), // prettier-ignore
 }
 
 export const RadioGroupStyleContext = aetherSchema('RadioGroupStyleContext', {
-  radioColor: z.string().color().default('#333333').describe(d.radioColor),
-  radioBorderClasses: z.string().default('w-[16px] h-[16px] border-[1px] border-solid rounded-full mr-2 items-center justify-center').describe(d.tw), // prettier-ignore
-  radioIndicatorClasses: z.string().default('w-[8px] h-[8px] rounded-full').describe(d.tw),
-  labelClasses: z.string().default('text-primary text-[14px] leading-[18px]').describe(d.tw),
+  radioColor: z.string().color().optional().eg('#333333').describe(d.radioColor),
+  radioBorderClasses: z
+    .string()
+    .default('w-[16px] h-[16px] border-[1px] border-solid rounded-full mr-2 items-center justify-center')
+    .describe(d.radioBorderClasses), // prettier-ignore
+  radioIndicatorClasses: z
+    .string()
+    .default('w-[8px] h-[8px] rounded-full')
+    .describe(d.radioIndicatorClasses),
+  labelClasses: z
+    .string()
+    .default('text-primary text-[14px] leading-[18px]')
+    .eg('text-grey-900 text-[14px] leading-[18px]')
+    .describe(d.labelClasses),
 })
 
 /* --- Types ----------------------------------------------------------------------------------- */

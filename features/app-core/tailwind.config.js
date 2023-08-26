@@ -8,6 +8,7 @@ const twrncTheme = require('./twrnc.theme');
 // ^ e.g.   <AetherContextManager twConfig={twConfig} ...>
 
 module.exports = {
+    twrncTheme: twrncTheme,
     plugins: [
         plugin(({ addUtilities }) => {
             addUtilities(twrncTheme)

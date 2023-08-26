@@ -52,7 +52,7 @@ const textColorUtilities = {
     'text-warning': 'text-yellow-500 dark:text-yellow-400',
     'text-danger': 'text-red-500 dark:text-red-400',
     'text-info': 'text-blue-500 dark:text-blue-400',
-    'text-on-primary-bg': 'text-gray-900 dark:text-white',
+    'text-on-primary-bg': 'text-white dark:text-gray-900',
     'text-on-secondary-bg': 'text-gray-700 dark:text-gray-300',
     'text-on-tertiary-bg': 'text-gray-600 dark:text-gray-400',
     'text-on-muted-bg': 'text-gray-800 dark:text-gray-200',
@@ -73,6 +73,34 @@ const backgroundColorUtilities = {
     'bg-info': 'bg-blue-500 dark:bg-blue-400',
 }
 
+const buttonColorUtilities = {
+    'btn-primary-bg': 'bg-slate-800 dark:bg-slate-200',
+    'btn-primary-text': 'text-white dark:text-gray-900',
+    'btn-secondary-bg': 'bg-slate-700 dark:bg-slate-300',
+    'btn-secondary-text': 'text-white dark:text-gray-900',
+    'btn-tertiary-bg': 'bg-transparent',
+    'btn-tertiary-text': 'text-gray-100 dark:text-gray-900',
+    'btn-muted-bg': 'bg-slate-600 dark:bg-slate-400',
+    'btn-muted-text': 'text-white dark:text-gray-900',
+}
+
+const borderColorUtilities = {
+    'border-primary': 'border-white dark:border-white',
+    'border-secondary': 'border-gray-300 dark:border-gray-700',
+    'border-tertiary': 'border-gray-400 dark:border-gray-600',
+}
+
+/* --- Dimensions & Sizing --------------------------------------------------------------------- */
+
+const buttonDimensionUtilities = {
+    'btn-size-sm': 'h-[30px]',
+    'btn-size-sm-text': 'body-sm-bold px-3',
+    'btn-size-md': 'h-[40px]',
+    'btn-size-md-text': 'body-md-bold px-4',
+    'btn-size-lg': 'h-[50px]',
+    'btn-size-lg-text': 'body-lg-bold px-5',
+}
+
 /* --- Export Theme ---------------------------------------------------------------------------- */
 
 const twrncTheme = {
@@ -80,6 +108,9 @@ const twrncTheme = {
     ...typographyUtilities,
     ...textColorUtilities,
     ...backgroundColorUtilities,
+    ...buttonColorUtilities,
+    ...borderColorUtilities,
+    ...buttonDimensionUtilities,
 }
 
 module.exports = twrncTheme

@@ -1,7 +1,7 @@
-import React, { ComponentProps, forwardRef } from 'react'
+import React, { useMemo, ComponentProps, forwardRef } from 'react'
 import { TextInput as RNTextInput } from 'react-native'
 // Types
-import { TAetherStyleProps, stylePropDescription } from 'aetherspace/schemas/ats'
+import { TAetherStyleProps, createStyleDocs } from 'aetherspace/schemas/ats'
 // Schemas
 import { z, aetherSchema } from 'aetherspace/schemas'
 // Hooks
@@ -19,10 +19,46 @@ export type AetherTextInputType = ComponentProps<typeof RNTextInput> &
 const AetherTextInput = forwardRef<RNTextInput, AetherTextInputType>((props, ref) => {
   // Props
   const propsWithDefaults = AetherTextInputProps.applyDefaults(props as any) as AetherTextInputType
-  // Styles
+
+  // -- Styles --
+
   const bindStyles = useAetherStyles<typeof RNTextInput>(propsWithDefaults)
-  // Render
-  return <RNTextInput {...props} ref={ref} {...bindStyles} />
+
+  // @ts-ignore
+  const inputTextColor = bindStyles?.style?.color as string
+
+  const placeholderColor = useMemo(() => {
+    // Check prop override
+    if (propsWithDefaults.placeholderTextColor) return propsWithDefaults.placeholderTextColor
+    // Default to inputTextColor with opacity of 50%
+    if (inputTextColor) {
+      const isHexColor = inputTextColor.startsWith('#')
+      if (isHexColor) {
+        const hex = inputTextColor.replace('#', '')
+        const fullColor = hex.length === 3 ? hex + hex : hex
+        const r = parseInt(fullColor.substring(0, 2), 16)
+        const g = parseInt(fullColor.substring(2, 4), 16)
+        const b = parseInt(fullColor.substring(4, 6), 16)
+        return `rgba(${r}, ${g}, ${b}, 0.5)`
+      }
+      return inputTextColor
+    }
+  }, [inputTextColor, propsWithDefaults.placeholderTextColor])
+
+  console.log('placeholderColor', placeholderColor)
+
+  // -- Render --
+
+  return (
+    <RNTextInput
+      ref={ref}
+      accessibilityLabel="Text input field"
+      accessibilityHint="Text input field"
+      placeholderTextColor={placeholderColor}
+      {...props}
+      {...bindStyles}
+    />
+  )
 })
 
 AetherTextInput.displayName = 'AetherTextInput'
@@ -30,7 +66,7 @@ AetherTextInput.displayName = 'AetherTextInput'
 /* --- Docs ------------------------------------------------------------------------------------ */
 
 const d = {
-  tw: `${stylePropDescription}\n\nProviding your own classes will omit all the default tailwind classes ➡️`,
+  tw: createStyleDocs('', { showOverrideWarning: true, styleOverrider: 'style' }),
   style: `https://reactnative.dev/docs/text-style-props`,
   allowFontScaling: `Whether fonts should scale to respect Text Size accessibility settings, default is true.`,
   autoCapitalize: `[Mobile only] Tells TextInput to automatically capitalize certain characters. This property is not supported by some keyboard types such as name-phone-pad.`,
@@ -63,7 +99,11 @@ const d = {
 
 export const AetherTextInputProps = aetherSchema('AetherTextInputProps', {
   // - Aetherspace & Styling -
-  tw: z.string().default('max-w-[380px] h-[40px] border-[1px] border-gray-300 rounded-md p-2').describe(d.tw), // prettier-ignore
+  tw: z
+    .string()
+    .default('max-w-[380px] w-full h-[40px] border-[1px] border-secondary text-primary rounded-md p-2')
+    .example('max-w-[380px] w-full h-[40px] border-[1px] border-secondary text-gray-900 rounded-md p-2')
+    .describe(d.tw), // prettier-ignore
   style: z.object({}).optional().describe(d.style),
   // - Frequently Used -
   value: z.string().optional().describe(d.value),
@@ -71,7 +111,7 @@ export const AetherTextInputProps = aetherSchema('AetherTextInputProps', {
   editable: z.boolean().default(true).describe(d.editable),
   readonly: z.boolean().default(false).describe(d.readOnly),
   placeholder: z.string().optional().describe(d.placeholder),
-  placeholderTextColor: z.string().optional().describe(d.placeholderTextColor),
+  placeholderTextColor: z.string().color().optional().describe(d.placeholderTextColor),
   maxLength: z.number().optional().describe(d.maxLength),
   multiline: z.boolean().default(false).describe(d.multiline),
   textAlign: z.enum(['left', 'center', 'right']).optional().describe(d.textAlign), // prettier-ignore
