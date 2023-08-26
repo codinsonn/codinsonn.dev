@@ -89,7 +89,7 @@ const AetherRadioGroup = (props: TAetherRadioGroupProps) => {
     <RadioGroupContext.Provider
       value={{ selectedValue, setSelectedValue, ...aetherRadioOptionStyleConfig }}
     >
-      <View tw={radioGroupClasses}>
+      <View tw={radioGroupClasses} role="radiogroup">
         {childOptions?.map((child, i) => (
           <React.Fragment key={i}>
             {!!i && <View tw={`h-[${radioSpacing}px]`} />}

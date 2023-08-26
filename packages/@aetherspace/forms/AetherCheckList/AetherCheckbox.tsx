@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react'
 import { Pressable, View, Text } from '../../primitives'
-// Types
-import { stylePropDescription } from '../../schemas/ats'
 // Schemas
 import { z, AetherProps } from '../../schemas'
 // Context
@@ -13,15 +11,14 @@ import {
 // Components
 import { AetherIcon } from '../../components'
 // Styles
-import { twStyled } from '../../styles'
+import { twStyled, useTailwindStyles } from '../../styles'
 
 /* --- Schema ---------------------------------------------------------------------------------- */
 
 // Descriptions
 const d = {
-  tw: `${stylePropDescription}\n\nProviding your own classes will omit all the default tailwind classes ➡️`,
-  checked: `Whether the checkbox is checked or not`,
   value: `Value for this checkbox option. Only really interesting in the context of an "AetherCheckList"`,
+  checked: `Whether the checkbox is checked or not`,
   label: `Checkbox label text, can also just provide a string or Text component as a child`,
 }
 
@@ -80,11 +77,16 @@ const AetherCheckbox = (props: TAetherCheckboxProps) => {
     return (props[key] || checkListContext[key] || checkboxStyleProps[key]) as typeof checkboxStyleProps[K] // prettier-ignore
   }
 
-  const checkedIconName = getConfig('checkedIconName')
-  const checkedIconFill = getConfig('checkedIconFill')
-  const checkColor = getConfig('checkColor')
   const checkboxClasses = getConfig('checkboxClasses')
   const labelClasses = getConfig('labelClasses')
+
+  const labelTextStyles = useTailwindStyles(labelClasses)
+  const defaultBgStyles = useTailwindStyles('bg-primary')
+
+  const checkedIconName = getConfig('checkedIconName')
+  const checkedIconFill = getConfig('checkedIconFill') || (defaultBgStyles.backgroundColor as string) // prettier-ignore
+  const checkColor = getConfig('checkColor') || (labelTextStyles.color as string)
+
   const pressableWrapperProps = getConfig('pressableWrapperProps')
   const checkboxViewProps = getConfig('checkboxViewProps')
   const checkboxIconProps = getConfig('checkboxIconProps')
@@ -113,11 +115,11 @@ const AetherCheckbox = (props: TAetherCheckboxProps) => {
   return (
     <Pressable
       tw="flex-row items-center"
-      accessibilityRole="checkbox"
+      role="checkbox"
       onPress={() => onCheckedChange()}
       {...pressableWrapperProps}
     >
-      <StCheckboxBorder tw={currentCheckboxClasses} {...checkboxViewProps}>
+      <StCheckboxBorder tw={currentCheckboxClasses} role="checkbox" {...checkboxViewProps}>
         {isChecked && (
           <AetherIcon
             name={checkedIconName}
@@ -128,7 +130,7 @@ const AetherCheckbox = (props: TAetherCheckboxProps) => {
         )}
       </StCheckboxBorder>
       {checkboxLabel ? (
-        <Text tw={labelClasses} {...labelTextProps}>
+        <Text tw={labelClasses} role="checkbox" {...labelTextProps}>
           {checkboxLabel}
         </Text>
       ) : (

@@ -11,7 +11,7 @@ import {
   RadioGroupStyleContextType,
 } from './RadioGroupContext'
 // Styles
-import { twStyled } from '../../styles'
+import { twStyled, useTailwindStyles } from '../../styles'
 
 /* --- Schema ---------------------------------------------------------------------------------- */
 
@@ -79,10 +79,14 @@ const AetherRadioOption = (props: TAetherRadioOptionProps) => {
     return (props[key] || radioStyleContext[key] || radioStyleProps[key]) as typeof radioStyleProps[K] // prettier-ignore
   }
 
-  const radioColor = getConfig('radioColor')
   const radioBorderClasses = getConfig('radioBorderClasses')
   const radioIndicatorClasses = getConfig('radioIndicatorClasses')
   const labelClasses = getConfig('labelClasses')
+
+  const labelStyles = useTailwindStyles(labelClasses)
+
+  const radioColor = getConfig('radioColor') || labelStyles.color
+
   const pressableWrapperProps = getConfig('pressableWrapperProps')
   const radioBorderViewProps = getConfig('radioBorderViewProps')
   const radioIndicatorViewProps = getConfig('radioIndicatorViewProps')
@@ -108,17 +112,17 @@ const AetherRadioOption = (props: TAetherRadioOptionProps) => {
   return (
     <Pressable
       tw="flex-row items-center"
-      accessibilityRole="checkbox"
+      role="radio"
       onPress={() => onSelectedChange()}
       {...pressableWrapperProps}
     >
-      <StRadioOptionBorder tw={allRadioBorderClasses} {...radioBorderViewProps}>
+      <StRadioOptionBorder tw={allRadioBorderClasses} role="radio" {...radioBorderViewProps}>
         {isSelected && (
           <StRadioOptionIndicator tw={allRadioIndicatorClasses} {...radioIndicatorViewProps} />
         )}
       </StRadioOptionBorder>
       {checkboxLabel ? (
-        <Text tw={labelClasses} {...labelTextProps}>
+        <Text tw={labelClasses} role="radio" {...labelTextProps}>
           {checkboxLabel}
         </Text>
       ) : (
