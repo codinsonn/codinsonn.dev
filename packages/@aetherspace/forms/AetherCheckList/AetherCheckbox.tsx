@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react'
 import { Pressable, View, Text } from '../../primitives'
 // Types
-import { stylePropDescription } from 'aetherspace/schemas/ats'
+import { stylePropDescription } from '../../schemas/ats'
 // Schemas
-import { z, AetherProps } from 'aetherspace/schemas'
+import { z, AetherProps } from '../../schemas'
 // Context
 import {
   CheckListContext,

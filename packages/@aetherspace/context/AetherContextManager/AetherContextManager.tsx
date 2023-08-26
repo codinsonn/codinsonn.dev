@@ -27,6 +27,9 @@ const AetherContextManager = (props: AetherContextType) => {
   // Links (used for mobile navigation only)
   const linkContext = useMemo(() => props.linkContext || DEFAULT_AETHER_CONTEXT.linkContext, [])
 
+  // Tailwind config
+  const tailwindFn = useMemo(() => (twConfig ? createTailwindWithConfig(twConfig) : tailwind), [twConfig]) // prettier-ignore
+
   // -- DidMount --
 
   useEffect(() => {
@@ -110,7 +113,7 @@ const AetherContextManager = (props: AetherContextType) => {
       mediaPrefixes,
       appWidth,
       appHeight,
-      tailwind: twConfig ? createTailwindWithConfig(twConfig) : tailwind,
+      tailwind: tailwindFn,
       importSchema: props.importSchema,
     }
   }, [Platform.OS, appWidth, typeof window === 'undefined'])
