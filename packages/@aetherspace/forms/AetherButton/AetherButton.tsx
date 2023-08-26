@@ -1,24 +1,37 @@
-import { ComponentProps } from 'react'
+import React, { ComponentProps } from 'react'
 // Types
-import { stylePropDescription } from '../../schemas/ats'
+import { createStyleDocs } from '../../schemas/ats'
 // Schemas
 import { z, aetherSchema, AetherProps } from '../../schemas'
+// Navigation
+import { Link } from 'aetherspace/navigation' // Keep as is, Storybook support
 // Primitives
 import { Pressable, Text, View } from '../../primitives'
 // Components
-import { AetherIcon, AetherIconKeyProp } from '../../components'
+import { AetherIcon, AetherIconKeyProp } from '../../components/AetherIcon'
 // Styles
-import { useTailwindStyles } from '../../styles'
+import { useTailwindStyles } from '../../styles/useTailwindStyles'
 // Utils
-import { parseIfValidNumber } from '../..'
+import { parseIfValidNumber } from '../../utils/numberUtils'
 
 /* --- Props ----------------------------------------------------------------------------------- */
 
 // Descriptions
 const d = {
-  tw: `${stylePropDescription}\n\nProviding your own classes will still apply the 'btn-size-{size}', 'btn-size-{size}-text', 'btn-{type}-bg' and ''btn-{type}-text' from your twrnc.theme.js file unless overwritten by your custom classes, but omit all the other default tailwind classes ➡️`,
+  pressableClasses: createStyleDocs(
+    `Providing your own classes will still apply the 'btn-size-{size}', 'btn-size-{size}-text', 'btn-{type}-bg' and ''btn-{type}-text' from your twrnc.theme.js file unless overwritten by your custom classes, but omit all the other default tailwind classes ➡️`,
+    { styleOverrider: 'pressableProps.style' }
+  ),
+  textWrapperClasses: createStyleDocs(
+    `Providing your own classes will still apply the 'flex flex-row h-full items-center justify-center' from your twrnc.theme.js file unless overwritten by your custom classes, but omit all the other default tailwind classes ➡️`
+  ),
+  textClasses: createStyleDocs(
+    `Providing your own classes will still apply the 'btn-{type}-text', 'btn-size-{size}-text' and 'btn-muted-text' from your twrnc.theme.js file unless overwritten by your custom classes, but omit all the other default tailwind classes ➡️`,
+    { styleOverrider: 'textProps.style' }
+  ),
   type: `Button type. One of: 'primary', 'secondary', 'tertiary'. Will apply the corresponding 'btn-{type}-bg' and 'btn-{type}-text' classes from your twrnc.theme.js file`,
   text: `Button CTA text, can also just provide a string or Text component as a child`,
+  link: `If provided, will render the button as a Link to the url provided. If omitted, will render as a Pressable component that can trigger onPress().`,
   size: `Button size. One of: 'sm', 'md', 'lg'. Will apply the corresponding 'btn-size-{size}' & 'btn-size-{size}-text' classes from your twrnc.theme.js file`,
   fullWidth: `Whether the button should take up the full width of its container. Will apply the 'w-full' class on the pressable wrapper if true.`,
   disabled: `Whether the button should be disabled. Will apply the 'btn-muted-bg' and 'btn-muted-text' classes from your twrnc.theme.js file if true.`,
@@ -32,23 +45,32 @@ export const AetherButtonBaseProps = aetherSchema('AetherButtonProps', {
   type: z.enum(['primary', 'secondary', 'tertiary']).default('primary').describe(d.type),
   text: z.string().optional().eg('Press me').describe(d.text),
   size: z.enum(['sm', 'md', 'lg']).default('md').describe(d.size),
+  link: z.string().optional().describe(d.link),
   fullWidth: z.boolean().default(false).describe(d.fullWidth),
   disabled: z.boolean().default(false).describe(d.disabled),
   prefixIconName: AetherIconKeyProp.optional().describe(d.prefixIconName),
   suffixIconName: AetherIconKeyProp.optional().describe(d.suffixIconName),
   iconSize: z.number().optional().describe(d.iconSize),
-  pressableClasses: z.string().default('rounded-md').describe(d.tw), // prettier-ignore
-  textWrapperClasses: z.string().default('flex flex-row h-full items-center justify-center').describe(d.tw), // prettier-ignore
-  textClasses: z.string().default('').describe(d.tw),
+  pressableClasses: z.string().default('rounded-md').describe(d.pressableClasses),
+  textWrapperClasses: z.string().default('flex flex-row h-full items-center justify-center').describe(d.textWrapperClasses), // prettier-ignore
+  textClasses: z.string().default('').describe(d.textClasses),
 })
 
 // Types
 export type TAetherButtonProps = AetherProps<typeof AetherButtonBaseProps> & {
-  onPress: () => void
   children?: React.ReactNode
   pressableProps?: ComponentProps<typeof Pressable>
   textProps?: ComponentProps<typeof Text>
-}
+} & (
+    | {
+        onPress: () => void
+        link?: never
+      }
+    | {
+        onPress?: never
+        link: string
+      }
+  )
 
 /* --- <AetherButton/> ------------------------------------------------------------------------- */
 
@@ -62,6 +84,7 @@ const AetherButton = (props: TAetherButtonProps) => {
     disabled,
     fullWidth,
     onPress,
+    link,
     prefixIconName,
     suffixIconName,
     iconSize,
@@ -83,7 +106,7 @@ const AetherButton = (props: TAetherButtonProps) => {
     `btn-${type}-bg`,
     `btn-size-${size}`,
     disabled && 'btn-muted-bg',
-    hasIcons && 'flex-row justify-between',
+    hasIcons && 'flex-row justify-center',
     fullWidth && 'w-full',
     pressableClasses,
   ].flat().filter(Boolean).join(' ') // prettier-ignore
@@ -111,10 +134,10 @@ const AetherButton = (props: TAetherButtonProps) => {
   const iconWrapperLeftClasses = `${iconWrapperClasses} mr-[-${iconWrapperOffset}px]`
   const iconWrapperRightClasses = `${iconWrapperClasses} ml-[-${iconWrapperOffset}px]`
 
-  // -- Render --
+  // -- Content --
 
-  return (
-    <Pressable tw={allPressableClasses} {...pressableProps} onPress={onPress} disabled={disabled}>
+  const buttonContent = (
+    <>
       {prefixIconName && (
         <View tw={iconWrapperLeftClasses}>
           <AetherIcon name={prefixIconName} fill={iconColor} size={finalIconSize} />
@@ -136,6 +159,24 @@ const AetherButton = (props: TAetherButtonProps) => {
           <AetherIcon name={suffixIconName} fill={iconColor} size={finalIconSize} />
         </View>
       )}
+    </>
+  )
+
+  // -- Render as Link --
+
+  if (link && !disabled) {
+    return (
+      <Link tw={allPressableClasses} to={link}>
+        {buttonContent}
+      </Link>
+    )
+  }
+
+  // -- Render as Button --
+
+  return (
+    <Pressable tw={allPressableClasses} onPress={onPress} {...pressableProps} disabled={disabled}>
+      {buttonContent}
     </Pressable>
   )
 }

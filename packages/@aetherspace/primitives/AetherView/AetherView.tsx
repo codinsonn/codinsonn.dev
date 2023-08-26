@@ -6,9 +6,9 @@ import { View } from 'react-native'
 // Types
 import {
   AccessibilityProps,
-  stylePropDescription,
   HitSlopProp,
   TAetherStyleProps,
+  createStyleDocs,
 } from '../../schemas/ats'
 // Schemas
 import { z, aetherSchema } from '../../schemas'
@@ -36,7 +36,7 @@ AetherView.displayName = 'AetherView'
 /* --- Docs ------------------------------------------------------------------------------------ */
 
 const d = {
-  tw: stylePropDescription,
+  tw: createStyleDocs('', { styleOverrider: 'style' }),
   style: `https://reactnative.dev/docs/view-style-props`,
   accessibilityValue: `Represents the current value of a component. It can be a textual description of a component's value, or for range-based components, such as sliders and progress bars, it contains range information (minimum, current, and maximum).`,
   hitSlop: `This defines how far a touch event can start away from the view. Typical interface guidelines recommend touch targets that are at least 30 - 40 points/density-independent pixels.`,

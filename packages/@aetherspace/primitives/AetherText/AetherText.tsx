@@ -4,7 +4,7 @@
 import React, { createContext, useContext, forwardRef, ComponentProps } from 'react'
 import { Text } from 'react-native'
 // Types
-import { AccessibilityProps, stylePropDescription, TAetherStyleProps } from '../../schemas/ats'
+import { AccessibilityProps, createStyleDocs, TAetherStyleProps } from '../../schemas/ats'
 // Schemas
 import { z } from '../../schemas'
 // Hooks
@@ -63,7 +63,7 @@ AetherText.displayName = 'AetherText'
 /* --- Docs ------------------------------------------------------------------------------------ */
 
 const d = {
-  tw: stylePropDescription,
+  tw: createStyleDocs('', { styleOverrider: 'style' }),
   style: `https://reactnative.dev/docs/text-style-props`,
   adjustsFontSizeToFit: `Specifies whether fonts should be scaled down automatically to fit given style constraints.`,
   allowFontScaling: `Whether fonts should scale to respect Text Size accessibility settings, default is true.`,
