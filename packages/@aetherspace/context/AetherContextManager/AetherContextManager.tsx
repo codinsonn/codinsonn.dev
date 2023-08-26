@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useMemo, useEffect } from 'react'
+import React, { useState, useMemo, useEffect, useId } from 'react'
 import { View, Platform, Dimensions } from 'react-native'
 import tailwind, { create as createTailwindWithConfig } from 'twrnc'
 // Context
@@ -14,6 +14,9 @@ import { setGlobal } from '../../utils'
 const AetherContextManager = (props: AetherContextType) => {
   // Props
   const { children, isNextJS, isExpo, isAppDir, isDesktop, isStorybook, twConfig } = props
+
+  // State
+  const [remountKey, setRemountKey] = useState(0)
 
   // Layout
   const { layoutInfo, measureOnLayout } = useLayoutInfo()
@@ -30,10 +33,17 @@ const AetherContextManager = (props: AetherContextType) => {
   // Tailwind config
   const tailwindFn = useMemo(() => (twConfig ? createTailwindWithConfig(twConfig) : tailwind), [twConfig]) // prettier-ignore
 
+  // Context ID
+  const aetherContextID = useId()
+
   // -- DidMount --
 
   useEffect(() => {
-    if (isStorybook) setGlobal('IS_STORYBOOK', true)
+    if (isStorybook) {
+      setGlobal('IS_STORYBOOK', true)
+      setGlobal('tailwindFn', tailwindFn)
+      setRemountKey((prev) => prev + 1)
+    }
   }, [])
 
   // -- ContextValue --
@@ -99,6 +109,7 @@ const AetherContextManager = (props: AetherContextType) => {
     const twPrefixes = Object.entries(twPrefixObj).filter(([, val]) => !!val).map(([k]) => k) // prettier-ignore
     const mediaPrefixes = Object.keys(mediaPrefixObj)
     return {
+      aetherContextID,
       ...flags,
       assets,
       icons,
@@ -121,8 +132,9 @@ const AetherContextManager = (props: AetherContextType) => {
   // -- Render --
 
   return (
-    <AetherContext.Provider value={contextValue}>
+    <AetherContext.Provider key={`mount-provider-${remountKey}`} value={contextValue}>
       <View
+        key={`mount-view-${remountKey}`}
         style={{
           ...props.style,
           ...contextValue.tailwind`${['flex min-h-full min-w-full', props.tw].filter(Boolean).join(' ')}`, // prettier-ignore

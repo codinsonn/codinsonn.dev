@@ -3,7 +3,7 @@ import { z, aetherSchema } from './aetherSchemas'
 /* --- Documentation --------------------------------------------------------------------------- */
 
 const d = {
-  tw: `Tailwind CSS class name(s) or array of class names. Supports all styles available in React-Native.\n\nUses twrnc (https://www.npmjs.com/package/twrnc) under the hood to transform styles into a style object. Styles from the 'style' prop take priority.\n\nAliases for this prop: "class", "className".\n\n`,
+  tw: `Tailwind CSS class name(s) or array of class names. Supports all styles available in React-Native.\n\nUses twrnc under the hood (https://www.npmjs.com/package/twrnc) to transform styles into a style object.`,
   role: `role communicates the purpose of a component to the user of an assistive technology. Has precedence over the accessibilityRole prop.`,
   accessible: `When true, indicates that the view is an accessibility element. By default, all the touchable elements are accessible.`,
   accessibilityActions: `Accessibility actions allow an assistive technology to programmatically invoke the actions of a component. The accessibilityActions property should contain a list of action objects. Each action object should contain the field name and label.`,
@@ -17,6 +17,21 @@ const d = {
 /* --- Common Schemadefs ----------------------------------------------------------------------- */
 
 export const stylePropDescription = d.tw
+
+export const createStyleDocs = (
+  extra = '',
+  options?: { showOverrideWarning?: boolean; styleOverrider?: string }
+) => {
+  const { showOverrideWarning, styleOverrider } = options || {}
+  const showAliases = styleOverrider === 'style'
+  return [
+    stylePropDescription,
+    styleOverrider && `Styles from ${styleOverrider} prop take priority.`,
+    showAliases && `Aliases for this prop: "class", "className".`,
+    extra,
+    showOverrideWarning && `Providing your own classes will omit all the default tailwind classes ➡️`, // prettier-ignore
+  ].filter(Boolean).join('\n\n') // prettier-ignore
+}
 
 export const AccessibilityRole = z.enum(['none', 'button', 'link', 'search', 'image', 'keyboardkey', 'text', 'adjustable', 'imagebutton', 'header', 'summary', 'alert', 'checkbox', 'combobox', 'menu', 'menubar', 'menuitem', 'progressbar', 'radio', 'radiogroup', 'scrollbar', 'spinbutton', 'switch', 'tab', 'tablist', 'timer', 'toolbar', 'grid']).optional().describe(d.accessibilityRole) // prettier-ignore
 

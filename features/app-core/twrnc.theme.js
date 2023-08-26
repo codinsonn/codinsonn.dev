@@ -79,9 +79,15 @@ const buttonColorUtilities = {
     'btn-secondary-bg': 'bg-slate-700 dark:bg-slate-300',
     'btn-secondary-text': 'text-white dark:text-gray-900',
     'btn-tertiary-bg': 'bg-transparent',
-    'btn-tertiary-text': 'text-white dark:text-gray-900',
+    'btn-tertiary-text': 'text-gray-100 dark:text-gray-900',
     'btn-muted-bg': 'bg-slate-600 dark:bg-slate-400',
     'btn-muted-text': 'text-white dark:text-gray-900',
+}
+
+const borderColorUtilities = {
+    'border-primary': 'border-white dark:border-white',
+    'border-secondary': 'border-gray-300 dark:border-gray-700',
+    'border-tertiary': 'border-gray-400 dark:border-gray-600',
 }
 
 /* --- Dimensions & Sizing --------------------------------------------------------------------- */
@@ -103,6 +109,7 @@ const twrncTheme = {
     ...textColorUtilities,
     ...backgroundColorUtilities,
     ...buttonColorUtilities,
+    ...borderColorUtilities,
     ...buttonDimensionUtilities,
 }
 

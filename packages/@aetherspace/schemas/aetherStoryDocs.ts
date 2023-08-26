@@ -129,10 +129,13 @@ const aetherSchemaArgTypes = (aetherSchema) => {
       argType.options = Object.values(schemaConfig.schema).filter((opt) => {
         return !['displayName', '__docgenInfo'].includes(opt as string)
       })
+      if (isNullish) argType.options = [undefined, ...argType.options]
     }
     // Fill in default value?
     if (schemaConfig?.defaultValue) {
       argType.table.defaultValue = { summary: schemaConfig.defaultValue }
+    } else if (dataType === 'enum' && isNullish) {
+      argType.table.defaultValue = { summary: undefined }
     }
     // Return final result
     return argType
