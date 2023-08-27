@@ -250,7 +250,7 @@ export const BioScreen = (props: BioScreenProps) => {
           <RadioGroup.Option value="value-3" label="Option 3" />
         </RadioGroup>
 
-        <View tw="h-10" />
+        <View tw="h-20" />
 
         {/**/}
       </View>
