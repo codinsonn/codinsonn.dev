@@ -15,7 +15,7 @@ import { aetherify } from 'aetherspace/core'
 // ...
 
 <Section tw="px-4 mb-4">
-  <H1 tw="text-gray roboto-black">Some Title</H1>
+  <H1 tw="text-gray-800 font-primary-black">Some Title</H1>
   <Image tw="w-full" src="/img/article-header.png" />
   <MyAetherifiedComponent tw="some-more-tw-classes">
     {/* ... */}

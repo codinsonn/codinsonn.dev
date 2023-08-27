@@ -38,7 +38,7 @@ import { View, Text } from 'aetherspace/primitives'
 
 export const MyComponent = () => (
   <View tw="px-2 max-w-[100px] items-center rounded-md">
-    <Text tw="lg:text-xl roboto-bold text-green">
+    <Text tw="lg:text-xl font-primary-bold text-green">
         Hello World 👋
     </Text>
   </View>
@@ -57,11 +57,11 @@ import { Article, Section, H2, P } from 'aetherspace/html-elements'
 // -i- Mobile: Renders react-native View / Text / ... 👉 Gets turned into actual native UI
 export const MyBlogPost = (props: { paragraphs: string[] }) => (
   <Article tw="relative">
-    <H2 tw="text-gray roboto-black">My post title</H2>
+    <H2 tw="text-gray font-primary-black">My post title</H2>
     <Image tw="w-full" src="/img/article-header.png">
     <Section tw="px-4 mb-4">
       {/* render each paragraph as a <p> tag on web, or <Text> on mobile */}
-      {props.paragraphs.map((paragraph) => <P tw="roboto-regular">{paragraph}</P>)}
+      {props.paragraphs.map((paragraph) => <P tw="font-primary-regular">{paragraph}</P>)}
     </Section>
   </Article>
 )
