@@ -45,8 +45,6 @@ const AetherTextInput = forwardRef<RNTextInput, AetherTextInputType>((props, ref
     }
   }, [inputTextColor, propsWithDefaults.placeholderTextColor])
 
-  console.log('placeholderColor', placeholderColor)
-
   // -- Render --
 
   return (
