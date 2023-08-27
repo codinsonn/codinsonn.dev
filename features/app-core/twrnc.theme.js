@@ -52,6 +52,15 @@ const textColorUtilities = {
     'text-warning': 'text-yellow-500 dark:text-yellow-400',
     'text-danger': 'text-red-500 dark:text-red-400',
     'text-info': 'text-blue-500 dark:text-blue-400',
+    'text-grayscale-900': 'text-neutral-100 dark:text-neutral-900',
+    'text-grayscale-800': 'text-neutral-200 dark:text-neutral-800',
+    'text-grayscale-700': 'text-neutral-300 dark:text-neutral-700',
+    'text-grayscale-600': 'text-neutral-400 dark:text-neutral-600',
+    'text-grayscale-500': 'text-neutral-500 dark:text-neutral-500',
+    'text-grayscale-400': 'text-neutral-600 dark:text-neutral-400',
+    'text-grayscale-300': 'text-neutral-700 dark:text-neutral-300',
+    'text-grayscale-200': 'text-neutral-800 dark:text-neutral-200',
+    'text-grayscale-100': 'text-neutral-900 dark:text-neutral-100',
     'text-on-primary-bg': 'text-white dark:text-gray-900',
     'text-on-secondary-bg': 'text-gray-700 dark:text-gray-300',
     'text-on-tertiary-bg': 'text-gray-600 dark:text-gray-400',
@@ -85,7 +94,7 @@ const buttonColorUtilities = {
 }
 
 const borderColorUtilities = {
-    'border-primary': 'border-white dark:border-white',
+    'border-primary': 'border-white dark:border-gray-900',
     'border-secondary': 'border-gray-300 dark:border-gray-700',
     'border-tertiary': 'border-gray-400 dark:border-gray-600',
 }

@@ -16,7 +16,8 @@ export const useTailwindStyles = (twClasses: string) => {
   // Memoize
   const twStyles = useMemo(() => {
     if (tailwind) return tailwind`${twClasses}`
-  }, [tailwind, twClasses])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tailwind, twClasses, aetherContext.colorScheme])
 
   // Return
   return twStyles ?? {}

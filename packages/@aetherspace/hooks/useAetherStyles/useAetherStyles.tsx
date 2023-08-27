@@ -51,7 +51,7 @@ const useAetherStyles = <
     // @ts-ignore
     () => props.tailwindFn ?? globalThis.tailwindFn ?? aetherContext.tailwind,
     // @ts-ignore
-    [props.tailwindFn, globalThis.tailwindFn, aetherContext.tailwind]
+    [props.tailwindFn, globalThis.tailwindFn, aetherContext.tailwind, aetherContext.colorScheme]
   )
 
   const prefixKey = twPrefixes.join()

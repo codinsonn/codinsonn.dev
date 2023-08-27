@@ -344,7 +344,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
           <>
             <Spacing tw="h-12" />
             <StResumeSection>
-              <H2 className="mb-1 body-sm-regular leading-6 text-neutral-100">Projects</H2>
+              <H2 className="mb-1 body-sm-regular leading-6 text-secondary">Projects</H2>
               {projects.map(({ title, year, linkUrl, client, description }) => (
                 <ResumeEntry
                   key={title}
@@ -362,7 +362,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
           <>
             <Spacing tw="h-12" />
             <StResumeSection>
-              <H2 className="mb-1 body-sm-regular leading-6 text-neutral-100">Side Projects</H2>
+              <H2 className="mb-1 body-sm-regular leading-6 text-secondary">Side Projects</H2>
               {sideProjects.map(({ title, year, linkUrl, client, description }) => (
                 <ResumeEntry
                   key={title}
@@ -380,7 +380,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
           <>
             <Spacing tw="h-12" />
             <StResumeSection>
-              <H2 className="mb-1 body-sm-regular leading-6 text-neutral-100">Writing</H2>
+              <H2 className="mb-1 body-sm-regular leading-6 text-secondary">Writing</H2>
               {writing.map(({ title, year, linkUrl, publisher, description }) => (
                 <ResumeEntry
                   key={title}
@@ -398,7 +398,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
           <>
             <Spacing tw="h-12" />
             <StResumeSection>
-              <H2 className="mb-1 body-sm-regular leading-6 text-neutral-100">Speaking</H2>
+              <H2 className="mb-1 body-sm-regular leading-6 text-secondary">Speaking</H2>
               {speaking.map(({ title, year, linkUrl, event, location, description }) => (
                 <ResumeEntry
                   key={title}
@@ -417,7 +417,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
           <>
             <Spacing tw="h-12" />
             <StResumeSection>
-              <H2 className="mb-1 body-sm-regular leading-6 text-neutral-100">Awards</H2>
+              <H2 className="mb-1 body-sm-regular leading-6 text-secondary">Awards</H2>
               {awards.map(({ title, year, linkUrl, presentedBy, description }) => (
                 <ResumeEntry
                   key={title}
@@ -435,7 +435,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
           <>
             <Spacing tw="h-12" />
             <StResumeSection>
-              <H2 className="mb-1 body-sm-regular leading-6 text-neutral-100">Work Experience</H2>
+              <H2 className="mb-1 body-sm-regular leading-6 text-secondary">Work Experience</H2>
               {workExperience.map(
                 ({ title, from, to, linkUrl, company, location, description }) => (
                   <ResumeEntry
@@ -456,7 +456,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
           <>
             <Spacing tw="h-12" />
             <StResumeSection>
-              <H2 className="mb-1 body-sm-regular leading-6 text-neutral-100">Volunteering</H2>
+              <H2 className="mb-1 body-sm-regular leading-6 text-secondary">Volunteering</H2>
               {volunteering.map(({ title, from, to, linkUrl, company, location, description }) => (
                 <ResumeEntry
                   key={title}
@@ -475,7 +475,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
           <>
             <Spacing tw="h-12" />
             <StResumeSection>
-              <H2 className="mb-1 body-sm-regular leading-6 text-neutral-100">Education</H2>
+              <H2 className="mb-1 body-sm-regular leading-6 text-secondary">Education</H2>
               {education.map(({ title, from, to, linkUrl, institute, location, description }) => (
                 <ResumeEntry
                   key={title}
@@ -494,9 +494,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
           <>
             <Spacing tw="h-12" />
             <StResumeSection>
-              <H2 className="mb-1 body-sm-regular leading-6 text-neutral-100">
-                {ctaSection.title}
-              </H2>
+              <H2 className="mb-1 body-sm-regular leading-6 text-secondary">{ctaSection.title}</H2>
               {ctaSection.ctaLinks.map(({ socialLinkType, linkTitle, linkUrl }) => (
                 <ResumeEntry
                   key={linkTitle}
@@ -515,7 +513,7 @@ export const ResumeScreen = (props: TResumeScreenProps) => {
 
 /* --- Styles ---------------------------------------------------------------------------------- */
 
-const StScreenContainer = twStyled.View`w-full items-center px-4`
+const StScreenContainer = twStyled.View`w-full min-h-full items-center px-4 bg-primary`
 
 const StResumeContainer = twStyled.Article`w-full md:max-w-[550px] py-16 flex-col`
 
