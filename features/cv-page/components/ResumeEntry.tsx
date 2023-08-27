@@ -9,7 +9,7 @@ import { P } from 'aetherspace/html-elements'
 // Components
 import { AetherIcon } from 'aetherspace/components'
 // Styles
-import { twStyled } from 'aetherspace/styles'
+import { twStyled, useTailwindStyles } from 'aetherspace/styles'
 
 /* --- Schemas --------------------------------------------------------------------------------- */
 
@@ -27,11 +27,15 @@ export const ResumeEntry = (props: AetherProps<typeof ResumeEntryProps>) => {
   // Props
   const { sideLabel, title, subTitle, linkUrl, description } = props
 
+  // Styles
+  const textSecondaryStyle = useTailwindStyles('text-secondary')
+  const iconFill = (textSecondaryStyle?.color as string) || '#FFFFFF'
+
   // Render
   return (
     <StResumeEntry>
       <StResumeEntrySideLabel>
-        <Text tw="text-neutral-400 font-primary-regular">{sideLabel}</Text>
+        <Text tw="text-grayscale-600 font-primary-regular">{sideLabel}</Text>
       </StResumeEntrySideLabel>
       <StResumeEntryData>
         {/* Title */}
@@ -41,7 +45,7 @@ export const ResumeEntry = (props: AetherProps<typeof ResumeEntryProps>) => {
               <Text tw="text-secondary body-sm-regular leading-6 my-0">{title}</Text>
               {` `}
               <Text>
-                <AetherIcon name="link-thin" size={14} fill="#FFFFFF" />
+                <AetherIcon name="link-thin" size={14} fill={iconFill} />
               </Text>
             </Text>
           </Link>

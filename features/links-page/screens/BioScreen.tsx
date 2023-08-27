@@ -1,6 +1,8 @@
 import React from 'react'
 // Navigation
 import { Link, useAetherRoute, fetchAetherProps, useAetherNav } from 'aetherspace/navigation'
+// Context
+import { useAetherContext } from '../../../packages/@aetherspace/context'
 // Schemas
 import { z, aetherSchema, AetherParams, AetherProps } from 'aetherspace/schemas'
 import { TUserBio, UserBio } from '../schemas'
@@ -14,6 +16,8 @@ import { H1 } from 'aetherspace/html-elements'
 import { BioSkeleton } from '../components/BioSkeleton'
 import BioLink from '../components/BioLink'
 import { AetherIcon } from 'aetherspace/components'
+// Hooks
+import { useTailwindStyles } from 'aetherspace/styles'
 // Utils
 import { isEmpty } from 'aetherspace/utils'
 // Mocks
@@ -108,13 +112,19 @@ export const BioScreen = (props: BioScreenProps) => {
   // Data
   const [bioData, { error }] = useAetherRoute(props, screenConfig)
   const { pathname } = useAetherNav()
+  const { colorScheme, toggleColorScheme } = useAetherContext()
 
   // Vars
-  const ICON_COLOR = '#FFFFFF'
   const ICON_SIZE = 27
 
   // Flags
   const isCustomBio = pathname?.includes('/bio/')
+
+  // -- Styles --
+
+  const primaryTextStyles = useTailwindStyles('text-primary')
+
+  const ICON_COLOR = (primaryTextStyles.color as string) ?? '#FFFFFF'
 
   // -- Guards --
 
@@ -167,7 +177,9 @@ export const BioScreen = (props: BioScreenProps) => {
         ))}
       </View>
 
-      <H1 tw="text-primary body-lg-bold mb-6">Featured Links</H1>
+      <H1 tw="text-primary body-lg-bold mb-6" onPress={toggleColorScheme}>
+        {`Featured Links`}
+      </H1>
       <View tw="max-w-[620px] w-full lg:w-3/4 xl:w-2/4 px-5">
         <View tw="flex relative overflow-hidden gap-y-6">
           {bioData.linksInBio?.map((bioLink) => (
@@ -188,10 +200,10 @@ export const BioScreen = (props: BioScreenProps) => {
       </View>
 
       <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-8 px-5 items-center">
-        <Text tw="font-primary-light text-slate-200 text-center text-sm sm:text-base">
+        <Text tw="font-primary-light text-secondary text-center text-sm sm:text-base">
           Ready for <Text tw="font-primary-regular">Organic leads</Text> from the Web,
         </Text>
-        <Text tw="font-primary-light text-slate-200 text-center text-sm sm:text-base">
+        <Text tw="font-primary-light text-secondary text-center text-sm sm:text-base">
           *and* <Text tw="font-primary-regular">Higher conversions</Text> on Mobile?
         </Text>
         <View tw="h-3" />

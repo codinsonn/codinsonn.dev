@@ -1,7 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useMemo, useEffect, useId } from 'react'
 import { View, Platform, Dimensions } from 'react-native'
-import tailwind, { create as createTailwindWithConfig } from 'twrnc'
+import tailwind, {
+  create as createTailwindWithConfig,
+  useDeviceContext,
+  useAppColorScheme,
+} from 'twrnc'
 // Context
 import { AetherContext, DEFAULT_AETHER_CONTEXT, AetherContextType } from './aetherContext'
 // Hooks
@@ -36,6 +40,12 @@ const AetherContextManager = (props: AetherContextType) => {
   // Context ID
   const aetherContextID = useId()
 
+  // -- TWRNC Dark Mode --
+
+  useDeviceContext(tailwindFn, { withDeviceColorScheme: false })
+
+  const [colorScheme, toggleColorScheme, setColorScheme] = useAppColorScheme(tailwindFn)
+
   // -- DidMount --
 
   useEffect(() => {
@@ -44,7 +54,7 @@ const AetherContextManager = (props: AetherContextType) => {
       setGlobal('tailwindFn', tailwindFn)
       setRemountKey((prev) => prev + 1)
     }
-  }, [])
+  }, [colorScheme])
 
   // -- ContextValue --
 
@@ -125,16 +135,19 @@ const AetherContextManager = (props: AetherContextType) => {
       appWidth,
       appHeight,
       tailwind: tailwindFn,
+      colorScheme,
+      toggleColorScheme,
+      setColorScheme,
       importSchema: props.importSchema,
     }
-  }, [Platform.OS, appWidth, typeof window === 'undefined'])
+  }, [Platform.OS, appWidth, typeof window === 'undefined', colorScheme])
 
   // -- Render --
 
   return (
     <AetherContext.Provider key={`mount-provider-${remountKey}`} value={contextValue}>
       <View
-        key={`mount-view-${remountKey}`}
+        key={`mount-view-${remountKey}-${colorScheme}`}
         style={{
           ...props.style,
           ...contextValue.tailwind`${['flex min-h-full min-w-full', props.tw].filter(Boolean).join(' ')}`, // prettier-ignore

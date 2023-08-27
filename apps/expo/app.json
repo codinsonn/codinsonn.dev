@@ -12,6 +12,7 @@
     "githubUrl": "https://github.com/codinsonn/codinsonn.dev",
     "scheme": "codinsonn",
     "backgroundColor": "#111827",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "../next/public/splash.png",
       "resizeMode": "contain",

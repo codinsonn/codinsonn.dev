@@ -10,7 +10,7 @@ import { H2 } from 'aetherspace/html-elements'
 // Components
 import { AetherIcon } from 'aetherspace/components'
 // Styles
-import { twStyled } from 'aetherspace/styles'
+import { twStyled, useTailwindStyles } from 'aetherspace/styles'
 // Utils
 import { isEmpty, uppercaseFirstChar } from 'aetherspace/utils'
 // Mocks
@@ -30,6 +30,10 @@ export const ResumeContactSection = (props: AetherProps<typeof ResumeContactSect
   // Props
   const { contactLinks } = props
 
+  // Styles
+  const textSecondaryStyle = useTailwindStyles('text-secondary')
+  const iconFill = (textSecondaryStyle?.color as string) || '#FFFFFF'
+
   // -- Loading --
 
   if (isEmpty(contactLinks)) return null
@@ -38,11 +42,13 @@ export const ResumeContactSection = (props: AetherProps<typeof ResumeContactSect
 
   return (
     <StContactLinksContainer>
-      <H2 className="mb-1 body-sm-regular leading-6 text-neutral-100">Contact</H2>
+      <H2 className="mb-1 body-sm-regular leading-6 text-grayscale-900">Contact</H2>
       {contactLinks?.map(({ id, socialLinkType, linkUrl, platformUsername, linkTitle }) => (
         <View key={id} tw="flex flex-row mt-5">
           <View tw="min-w-[100px] md:min-w-[110px] pt-[1px]">
-            <Text tw="text-neutral-400 body-sm-regular">{uppercaseFirstChar(socialLinkType!)}</Text>
+            <Text tw="text-grayscale-600 body-sm-regular">
+              {uppercaseFirstChar(socialLinkType!)}
+            </Text>
           </View>
           {linkUrl ? (
             <Link href={linkUrl} tw="flex flex-row">
@@ -50,7 +56,7 @@ export const ResumeContactSection = (props: AetherProps<typeof ResumeContactSect
                 <Text tw="text-secondary body-sm-regular">{platformUsername || linkTitle}</Text>
                 {` `}
                 <Text>
-                  <AetherIcon name="link-thin" size={14} fill="#FFFFFF" />
+                  <AetherIcon name="link-thin" size={14} fill={iconFill} />
                 </Text>
               </Text>
             </Link>

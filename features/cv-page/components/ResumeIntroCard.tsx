@@ -33,7 +33,7 @@ export const ResumeIntroCard = (props: AetherProps<typeof ResumeCardData>) => {
             <Image
               src={profileImgUrl}
               alt="Picture of the applicant"
-              tw="w-22 h-22 mt-0 overflow-hidden bg-slate-100 rounded-full"
+              tw="w-22 h-22 mt-0 overflow-hidden bg-slate-100 dark:bg-slate-900 rounded-full"
             />
           </Link>
         </View>
@@ -42,7 +42,7 @@ export const ResumeIntroCard = (props: AetherProps<typeof ResumeCardData>) => {
             <H1 className="text-xl font-primary-regular text-primary my-0">{displayName}</H1>
           </View>
           <View className="flex flex-row">
-            <P className="text-neutral-200 font-primary-regular my-0">
+            <P className="text-secondary font-primary-regular my-0">
               {[`${functionTitle} in ${location}`, pronouns].filter(Boolean).join(', ')}
             </P>
           </View>
@@ -64,8 +64,8 @@ export const ResumeIntroCard = (props: AetherProps<typeof ResumeCardData>) => {
         <>
           <Spacing tw="h-8" />
           <StAboutSection>
-            <H2 className="mb-1 body-sm-regular leading-6 text-neutral-100">About</H2>
-            <P className="p-0 m-0 body-sm-regular leading-6 text-neutral-300">{about}</P>
+            <H2 className="mb-1 body-sm-regular leading-6 text-grayscale-900">About</H2>
+            <P className="p-0 m-0 body-sm-regular leading-6 text-grayscale-700">{about}</P>
           </StAboutSection>
         </>
       )}
