@@ -177,8 +177,59 @@ To actually get the data from your GraphQL resolvers into the specific screens f
 - `AetherPage`, used to wrap your page component in a Next.js app-dir page under `/routes/`
 
 We have a full working example of this in the Aetherspace demo app:
-- [/features/app-core/screens/HomeScreen.tsx#L39-L76](https://github.com/Aetherspace/green-stack-starter-demo/blob/main/features/app-core/screens/HomeScreen.tsx#L39-L76)
+- [/features/app-core/screens/HomeScreen.tsx#L39-L83](https://github.com/Aetherspace/green-stack-starter-demo/blob/main/features/app-core/screens/HomeScreen.tsx#L39-L83)
 - [/features/app-core/routes/index.tsx](https://github.com/Aetherspace/green-stack-starter-demo/blob/main/features/app-core/routes/index.tsx)
+
+```tsx
+/* --- GraphQL & Data Fetching ----------------------------------------------------------------- */
+
+/** -i- GraphQL query that will fetch all data we need for this screen */
+const getScreenDataQuery = `
+  query($healthCheckArgs: HealthCheckArgs!) {
+    healthCheck(args: $healthCheckArgs) {
+      alive
+      kicking
+      echo
+      baseURL
+    }
+  }
+`
+
+/** -i- Function to get the GraphQL variables that will be used to fetch the data for this screen */
+const getHomeScreenArgs = (params: HomeScreenParams = {}) => ({
+  healthCheckArgs: HomeParamsSchema.parse(params),
+})
+
+/** -i- Function to actually fetch the data for this screen, where queryKey is likely the GQL query */
+const getHomeScreenData = async (queryKey: string, queryVariables?: HomeScreenParams) => {
+  const queryData = queryKey || getScreenDataQuery
+  const queryInput = queryVariables || getHomeScreenArgs() // Use defaults if not defined
+  const { data } = await fetchAetherProps(queryData, queryInput)
+  const { alive, kicking, echo } = data?.healthCheck || {}
+  return { alive, kicking, customGreeting: echo } as HomeScreenProps
+}
+
+/** -i- Bundled config for getting the screen data, including query, variables, and data fetcher */
+export const screenConfig = {
+  query: getScreenDataQuery,
+  getGraphqlVars: getHomeScreenArgs,
+  getGraphqlData: getHomeScreenData,
+  paramSchema: HomeParamsSchema,
+  propSchema: HomePropsSchema,
+  refetchOnMount: false,
+  backgroundColor: '#FFFFFF',
+}
+
+/* --- <HomeScreen/> --------------------------------------------------------------------------- */
+
+export const HomeScreen = (props: AetherProps<typeof HomePropsSchema>) => {
+  // Props & Screen Data Fetching (from screenConfig 👇)
+  const [pageData] = useAetherRoute(props, screenConfig)
+  const { customGreeting, alive, kicking, baseURL = BASE_URL } = pageData
+
+  // ...
+}
+```
 
 But again, you may want to save some time by skipping the manual boilerplate entirely and use a generator instead:
 

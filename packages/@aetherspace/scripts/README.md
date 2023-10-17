@@ -2,9 +2,9 @@
 
 > Codegen in Aetherspace is focused on keeping your internal features and packages folders as transferrable between projects as possible. Therefore, it is limited to do only a few things:  
 
-- Creating barrel files, as registries (abstracting imports and module linking)
-- Deduplicating file-based conventions (from modules to next.js app dir & expo-router app dir)
 - Turborepo generators for easy creation of new routes, schemas and data-resolvers
+- Deduplicating file-based conventions (e.g. linking from modules to next.js & expo-router app dirs)
+- Creating barrel files to act as "registries" (e.g. abstracting imports and module linking)
 
 The `packages/@registries` folder contains the results of all the automation scripts defined at `packages/@aetherspace/scripts`. These scripts are automatically run in development mode from the `withAutomation()` plugin in `apps/next/next.config.js`.
 

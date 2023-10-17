@@ -2,14 +2,14 @@
 
 There’s many different ways to use icons and icon sets in Aetherspace. Here’s the full list:
 
-- Third party SVG component icon libraries, like `@nandorojo/iconic` or `@nandorojo/heroicons`  
+- Third party SVG component icon libraries (like `@nandorojo/iconic` or `@nandorojo/heroicons`)  
 → SSR support, fast & easy, no layout shift on web, limited options
 - Custom SVG components using `react-native-svg`  
 → SSR support, can [convert from .svg file](https://transform.tools/svg-to-react-native), but could be more time-consuming
 - Third party iconfont libraries, such as `@expo/vector-icons`  
 → Fast & easy, needs icon font preloaded, layout shift on web, locked out of SWC
 - Image icons through src urls  
-→ Straight forward, easy to implement, not super optimised, layout shift on web  
+→ Straight forward, easy, not super optimised, fixed colors, layout shift on web  
 
 ### Best practices
 
