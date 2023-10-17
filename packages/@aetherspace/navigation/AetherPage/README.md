@@ -55,17 +55,19 @@ import { aetherResolver } from 'aetherspace/utils/serverUtils'
 
 /* --- Schemas ------------- */
 
+// Our resolver args, defined as a zod schema
 export const HealthCheckArgs = aetherSchema('HealthCheckArgs', {
   echo: z.string().optional().describe('Echoes back the echo argument'),
 })
 
-// (You can reuse schema definitions with pick / omit / extend commands as well)
+// Same thing for our response schema, but we're picking the echo argument from the args schema
 export const HealthCheckResponse = HealthCheckArgs.pickSchema('HealthCheckResponse', {
   echo: true, // <- Pick the echo argument from the args schema, since we're echoing it back
 })
 
 /* --- Config -------------- */
 
+// Our resolver config, which will tell aetherResolver() what the args & response shape should be
 const resolverConfig = {
   argsSchema: HealthCheckArgs,
   responseSchema: HealthCheckResponse,
@@ -73,10 +75,13 @@ const resolverConfig = {
 
 /* --- healthCheck() ------- */
 
-// Our actual business logic
+// Our actual business logic, wrapped with aetherResolver() and supplied with our resolverConfig
 export const healthCheck = aetherResolver(async ({ args }) => ({
     echo: args.echo, // <- Echo back the echo argument 🤷‍♂️
 }), resolverConfig)
+
+// We now have a nice bundle of our business logic function, with the args & response schemas attached
+// This bundle can be used in multiple ways, as we'll see below
 ```
 
 Later, in a `route.ts` file in the `/routes/` folder, you can export the following:
@@ -88,13 +93,15 @@ import { healthCheck } from '../resolvers/healthCheck'
 /* --- GraphQL ------------- */
 
 // Make resolver available to GraphQL (picked up by automation)
+// GraphQL schema definitions will be generated automatically from the attached args & response shapes
 export const graphResolver = makeGraphQLResolver(healthCheck)
 ```
 
 Optionally, you can also generate a REST api by exporting the following from that same `route.ts` file:
 
 ```ts
-import { makeNextApiHandler, makeGraphQLResolver } from 'aetherspace/utils/serverUtils'
+import { makeNextApiHandler } from 'aetherspace/utils/serverUtils'
+import { healthCheck } from '../resolvers/healthCheck'
 
 /* --- Next.js API Routes -- */
 
@@ -103,7 +110,7 @@ export const GET = makeNextRouteHandler(healthCheck)
 export const POST = makeNextRouteHandler(healthCheck)
 ```
 
-On top of that, the `healthCheck` function "bundle" we made by wrapping with `aetherResolver()` is still usable as a regular Javascript promise, so feel free to use it in other data resolvers as well.
+On top of that, the `healthCheck` function "bundle" we made by wrapping with `aetherResolver()` is still usable as a regular Javascript promise for use in other data resolvers as well.
 
 ### Easy mode -- Generating GraphQL Resolvers with the CLI
 

@@ -298,7 +298,7 @@ const RequiredSchema = OptionalSchema.requiredSchema('RequiredTopic')
 yarn ats add-schema
 ```
 
-This will prompt you for a tagrte workspace and name:
+This will prompt you for a target workspace and name:
 
 ```sh
 >>> Modify "aetherspace-green-stack-starter" using custom generators

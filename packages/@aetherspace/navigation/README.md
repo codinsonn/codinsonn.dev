@@ -126,7 +126,7 @@ Use `AetherLink` from `aetherspace/navigation` to link to a route in your app:
 ```tsx
 import { Link } from 'aetherspace/nagivation'
 
-// e.g. for a /bio/[slug] route which could've come from e.g /{workspace}/routes/bio/[slug].tsx
+// e.g. for a '/bio/[slug]' route which could be defined at e.g '/{workspace}/routes/bio/[slug].tsx'
 
 <Link to="/bio/codinsonn">
      View links in bio page
@@ -143,7 +143,7 @@ import { useAetherRoute } from 'aetherspace/navigation'
 const { params } = useAetherRoute(props, screenConfig)
 ```
 
-If you're wondering what the `screenConfig` should contain, or are wondering how to access API route parameters, we suggest you continue with [GraphQL and Data-Fetching](/packages/@aetherspace/navigation/AetherPage/README.md)
+If you're wondering what the `screenConfig` should contain, how you should feed data to your screens or are wondering how to access API route parameters, we suggest you continue by reading our docs on [GraphQL and Data-Fetching](/packages/@aetherspace/navigation/AetherPage/README.md)
 
 ## Learn more about Aetherspace:
 

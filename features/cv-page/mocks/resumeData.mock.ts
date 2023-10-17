@@ -45,7 +45,7 @@ export const dummyResumeData: TResumeData = {
       year: '2023',
       linkUrl: '',
       collaborators: '',
-      description: `6mo, NY, Built with expo, react-native & next.js, but can't say more sadly`,
+      description: `6mo, NY, Built with Expo, React-native & Next.js, but can't say more sadly`,
     },
     {
       title: 'Cancer Companion App',
@@ -53,7 +53,7 @@ export const dummyResumeData: TResumeData = {
       year: '2022',
       linkUrl: 'https://www.mycancercompanion.com/',
       collaborators: '',
-      description: `My Cancer Companion is a free app providing the best, most up-to-date, and authoritative information for people with lung cancer. Cool features I worked on include Symptom logging (charts), Personalised recommendations, and Appointment management (calendars). Helped build this with Expo, React-Native, and Nest.js in Belgium and London.`,
+      description: `My Cancer Companion is an app I helped build providing the best, most up-to-date, and authoritative information for people with lung cancer. Cool features I worked on include Symptom logging (charts), Personalised recommendations, and Appointment management (calendars). Helped build this with Expo, React-Native, and Nest.js in Belgium and London.`,
     },
     {
       title: 'React renderer for a B2B eCommerce CMS',
@@ -75,6 +75,14 @@ export const dummyResumeData: TResumeData = {
     },
   ],
   writing: [
+    {
+      title: 'How to choose cross-platform tech',
+      year: '2023',
+      publisher: 'dev.to',
+      linkUrl: 'https://dev.to/codinsonn/why-use-react-native-over-flutter-a-recap-57b0',
+      collaborators: 'References work by Evan Bacon & Theo Browne (T3.gg)',
+      description: `Users increasingly prefer mobile apps to the mobile web, and there are many ways to build them. Should you choose React-Native over Flutter? Let's find out.`,
+    },
     {
       title: 'Move fast and Build Things',
       year: '2022',
@@ -114,13 +122,21 @@ export const dummyResumeData: TResumeData = {
   features: [],
   workExperience: [
     {
+      title: 'Lead Full-Stack Consultant',
+      company: 'Talentguide',
+      from: '2023',
+      to: 'Now',
+      linkUrl: 'https://talentguide.com',
+      description: `Currently scaling the already built AI powered MVP for Talentguide to a production ready app. Mostly front-end web and back-end + cloud work, while the AI / ML core is constantly being improved by the client's internal team. Currently planning on building the Mobile version of the app with Aetherspace.`,
+    },
+    {
       title: 'Full-Product Typescript Engineer',
       from: '2022',
       to: '2023',
       company: 'Bothrs',
-      location: 'Ghent, Belgium',
+      location: 'Ghent, Belgium (also: New York & London)',
       linkUrl: 'https://www.bothrs.com/',
-      description: `Built some cool Mobile Apps with Web features using Expo, React-Native, and Next.js here. Included clients in the US, London, Healthcare, and eCommerce sectors.`,
+      description: `Built some cool Mobile Apps with Web features using Expo, React-Native, and Next.js here. Often the initial MVP or incubator project was built & validated by our smaller teams, while the client scaled up their team to take over. Included clients in the US, UK, Healthcare, and ECommerce sectors.`,
     },
     {
       title: 'Full-Stack React Developer',
@@ -129,7 +145,7 @@ export const dummyResumeData: TResumeData = {
       company: 'Marlon, iO',
       location: 'Ghent, Belgium',
       linkUrl: 'https://www.iodigital.com/nl/history/marlon',
-      description: `Worked on a wide variety of projects here. Mostly Front-end work for their in-house eCommerce CMS that powers the likes of Dockx Rental and Denderwood. Aside from that, I also worked on some advanced web-based configurators for Daikin EU here, and even some Mobile apps with React-Native and Expo.`,
+      description: `Worked on a wide variety of projects here. Mostly Front-end work for their in-house ECommerce CMS that powers the likes of Dockx Rental and Denderwood. Aside from that, I also worked on some advanced web-based configurators for Daikin EU here, and even some Mobile apps with React-Native and Expo.`,
     },
     {
       title: 'Back-End, Web & Mobile Developer',
@@ -152,7 +168,7 @@ export const dummyResumeData: TResumeData = {
       description: '',
     },
     {
-      title: 'Free GREEN stack template repo',
+      title: 'GREEN stack template repo',
       from: '2020',
       to: 'Now',
       company: 'Aetherspace Digital',
