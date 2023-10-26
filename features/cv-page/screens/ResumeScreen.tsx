@@ -269,9 +269,11 @@ export const ResumeScreenRouteDataConfig = {
 // -i- https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
 export const dynamic = 'force-static' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
-export const generateStaticParams = async (): Promise<TResumeScreenParams[]> => {
-  return [{ slug: 'codinsonn' }]
-}
+// TODO: Figure out how to generate static params in Next.js 14 while also needing to use client components
+// -!- Error: Page "/(generated)/bio/[slug]/page" cannot use both "use client" and export function "generateStaticPar...()".
+// export const generateDisabledStaticParams = async (): Promise<TResumeScreenParams[]> => {
+//   return [{ slug: 'codinsonn' }]
+// }
 
 /* --- <ResumeScreen/> ------------------------------------------------------------------------- */
 

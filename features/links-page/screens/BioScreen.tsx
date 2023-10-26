@@ -102,9 +102,11 @@ export const screenConfig = {
 
 export const dynamic = 'force-static' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
-export const generateStaticParams = async (): Promise<BioScreenParams[]> => {
-  return [{ slug: 'codinsonn' }]
-}
+// TODO: Figure out how to generate static params in Next.js 14 while also needing to use client components
+// -!- Error: Page "/(generated)/bio/[slug]/page" cannot use both "use client" and export function "generateStaticPar...()".
+// export const generateDisabledStaticParams = async (): Promise<BioScreenParams[]> => {
+//   return [{ slug: 'codinsonn' }]
+// }
 
 /* --- <BioScreen/> ---------------------------------------------------------------------------- */
 
