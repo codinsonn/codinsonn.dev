@@ -26,7 +26,7 @@ setPublicEnvVars({
 
 const NextClientRootLayout = (props: { children: React.ReactNode }) => {
   // Props
-  const { children } = props
+  const { children } = props // FIXME: Why is children null on hydration??
 
   // -- Fonts --
 

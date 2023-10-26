@@ -69,7 +69,14 @@ const nextConfig = {
         ignoreBuildErrors: true,
     },
     images: {
-        domains: ['i3.ytimg.com'],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'i3.ytimg.com',
+                // port: '',
+                // pathname: '/account123/**',
+            },
+        ],
     },
     webpack: (config, { isServer }) => {
         // -i- Run aetherspace automation scripts in DEV mode
