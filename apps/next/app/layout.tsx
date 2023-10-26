@@ -4,6 +4,8 @@ import NextClientRootLayout from './ClientRootLayout'
 
 /* --- <NextRootLayout/> ----------------------------------------------------------------------- */
 
+// FIXME: Why is children null when passing it to NextClientRootLayout?
+
 const NextRootLayout = ({ children }: { children: React.ReactNode }) => (
   <Document>
     <NextClientRootLayout>{children}</NextClientRootLayout>

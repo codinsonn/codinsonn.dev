@@ -7,7 +7,6 @@ module.exports = [
     // - Modules -
     'twrnc',
     '@react-native/assets-registry',
-    '@expo/vector-icons',
     // - Packages & Features -
     ...transpiledWorkspaces,
 ]
