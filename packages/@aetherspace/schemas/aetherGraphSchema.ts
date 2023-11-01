@@ -1,10 +1,12 @@
 import { gql } from '@apollo/client'
+import { GraphQLJSON, GraphQLJSONObject } from 'graphql-type-json'
 import { aetherSchemaPlugin } from './aetherSchemaPlugin'
 import { AetherSchemaType } from './aetherSchemas'
+import { isEmpty } from '../utils/commonUtils'
 
 /* --- Scalars --------------------------------------------------------------------------------- */
 
-const CUSTOM_SCALARS = ['scalar Date']
+const CUSTOM_SCALARS = ['scalar Date', 'scalar JSON', 'scalar JSONObject']
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
@@ -123,8 +125,8 @@ const aetherSchemaDefinitions = (aetherSchema: ResolverSchemaType, prefix = 'typ
     // -- Arraylikes --
     AetherArray: createDefinition('Array'),
     // -- Complex types --
-    // AetherUnion: createDefinition('Union') // TODO: To implement
-    // AetherTuple: createDefinition('Tuple') // TODO: To implement
+    AetherUnion: createDefinition('JSON'),
+    AetherTuple: createDefinition('JSON'),
   })
   // Transform into usable graphql definitions
   const schemaDef = `
@@ -178,7 +180,24 @@ const createResolverDefinition = (resolverConfig: ResolverConfigType) => {
 
 /** --- aetherGraphSchema() -------------------------------------------------------------------- */
 /** -i- Turn a mapped object of aetherResolvers into an executable GraphQL schema */
-const aetherGraphSchema = (aetherResolvers: ResolverMapType) => {
+const aetherGraphSchema = (
+  aetherResolvers: ResolverMapType,
+  {
+    customSchemaDefinitions = '',
+    customQueryDefinitions = '',
+    customMutationDefinitions = '',
+    customScalars = {},
+    customQueries = {},
+    customMutations = {},
+  }: {
+    customSchemaDefinitions?: string
+    customQueryDefinitions?: string
+    customMutationDefinitions?: string
+    customScalars?: Record<string, (...args: unknown[]) => Promise<unknown>>
+    customQueries?: Record<string, (...args: unknown[]) => Promise<unknown>>
+    customMutations?: Record<string, (...args: unknown[]) => Promise<unknown>>
+  } = {}
+) => {
   const resolverEntries = Object.entries(aetherResolvers)
   const resolverConfigs = resolverEntries.map(([resolverName, resolver]) => ({
     resolverName,
@@ -187,27 +206,44 @@ const aetherGraphSchema = (aetherResolvers: ResolverMapType) => {
     isMutation: !!resolver?.isMutation,
     resolver,
   }))
+
   const mutationConfigs = resolverConfigs.filter((resolverConfig) => resolverConfig.isMutation)
+  const mutationDefs = [customMutationDefinitions, ...mutationConfigs.map(createResolverDefinition)].filter(Boolean) // prettier-ignore
+  const hasMutations = mutationDefs.length > 0 || !isEmpty(customMutations)
+
   const queryConfigs = resolverConfigs.filter((resolverConfig) => !resolverConfig.isMutation)
-  const dataTypeDefs = Array.from(new Set(aetherGraphDefinitions(resolverConfigs)))
-  const mutationDefs = mutationConfigs.map(createResolverDefinition)
-  const queryDefs = queryConfigs.map(createResolverDefinition)
-  const hasMutations = mutationDefs.length > 0
-  const hasQueries = queryDefs.length > 0
+  const queryDefs = [customQueryDefinitions, ...queryConfigs.map(createResolverDefinition)].filter(Boolean) // prettier-ignore
+  const hasQueries = queryDefs.length > 0 || !isEmpty(customQueries)
+
   const mutation = hasMutations ? `type Mutation {\n    ${mutationDefs.join('\n    ')}\n}` : ''
   const query = hasQueries ? `type Query {\n    ${queryDefs.join('\n    ')}\n}` : ''
-  const allTypeDefs = [...CUSTOM_SCALARS, ...dataTypeDefs, mutation, query].filter(Boolean)
+
+  const dataTypeDefs = Array.from(new Set(aetherGraphDefinitions(resolverConfigs)))
+  const allTypeDefs = [
+    customSchemaDefinitions,
+    ...CUSTOM_SCALARS,
+    ...dataTypeDefs,
+    mutation,
+    query,
+  ].filter(Boolean)
+
   const typeDefsString = allTypeDefs.join('\n\n')
   const graphqlSchemaDefs = gql`${typeDefsString}` // prettier-ignore
+
   const rebuildFromConfig = (handlers, { resolverName, resolver }) => ({
     ...handlers,
     [resolverName]: resolver,
   })
-  const queryResolvers = queryConfigs.reduce(rebuildFromConfig, {})
-  const mutationResolvers = mutationConfigs.reduce(rebuildFromConfig, {})
+
+  const queryResolvers = queryConfigs.reduce(rebuildFromConfig, customQueries)
+  const mutationResolvers = mutationConfigs.reduce(rebuildFromConfig, customMutations)
+
   return {
     typeDefs: graphqlSchemaDefs,
     resolvers: {
+      JSON: GraphQLJSON,
+      JSONObject: GraphQLJSONObject,
+      ...customScalars,
       ...(hasQueries ? { Query: queryResolvers } : {}),
       ...(hasMutations ? { Mutations: mutationResolvers } : {}),
     },
