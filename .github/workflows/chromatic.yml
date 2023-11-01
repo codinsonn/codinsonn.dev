@@ -19,6 +19,13 @@ jobs:
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
+      - name: Setup Node
+        if: ${{ steps.check-secrets.outputs.has-secrets == 'true' }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
+          cache: yarn
+
       - name: 'Warn required secrets'
         if: ${{ steps.check-secrets.outputs.has-secrets == 'false' }}
         run: echo 'CHROMATIC_PROJECT_TOKEN missing in Github secrets. Skipping Storybook deployment.'
