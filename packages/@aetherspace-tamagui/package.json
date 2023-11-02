@@ -1,0 +1,22 @@
+{
+    "name": "@aetherspace/tamagui",
+    "version": "0.0.1",
+    "private": true,
+    "description": "Set of config, helpers and scripts for setting up and using Tamagui.dev within an Aetherspace project",
+    "scripts": {
+        "build": "tamagui-build",
+        "lint": "cd ../.. && eslint \"packages/@aetherspace-tamagui/**/*.{ts,tsx}\""
+    },
+    "dependencies": {
+        "@tamagui/animations-react-native": "latest",
+        "@tamagui/config": "latest",
+        "@tamagui/react-native-media-driver": "latest",
+        "@tamagui/shorthands": "latest",
+        "@tamagui/themes": "latest",
+        "@tamagui/toast": "latest",
+        "tamagui": "latest"
+    },
+    "devDependencies": {
+      "@tamagui/build": "latest"
+    }
+}
