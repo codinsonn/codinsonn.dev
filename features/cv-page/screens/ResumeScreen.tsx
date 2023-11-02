@@ -267,11 +267,7 @@ export const ResumeScreenRouteDataConfig = {
 /* --- Route Segments -------------------------------------------------------------------------- */
 
 // -i- https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
-export const dynamic = 'force-static' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
-
-export const generateStaticParams = async (): Promise<TResumeScreenParams[]> => {
-  return [{ slug: 'codinsonn' }]
-}
+export const dynamic = 'auto' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
 /* --- <ResumeScreen/> ------------------------------------------------------------------------- */
 
