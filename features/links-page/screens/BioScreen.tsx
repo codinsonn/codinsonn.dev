@@ -85,7 +85,7 @@ const getBioScreenProps = async (queryKey: string, queryVariables?: BioScreenPar
   const queryData = queryKey || getScreenDataQuery
   const queryInput = queryVariables || getBioScreenArgs() // Use defaults if not defined
   const { data } = await fetchAetherProps(queryData, queryInput)
-  return data.getUserBio as TUserBio
+  return data.getUserBio as TUserBio // satisfies TUserBio
 }
 
 export const screenConfig = {
@@ -100,11 +100,7 @@ export const screenConfig = {
 
 /* --- Segments -------------------------------------------------------------------------------- */
 
-export const dynamic = 'force-static' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
-
-export const generateStaticParams = async (): Promise<BioScreenParams[]> => {
-  return [{ slug: 'codinsonn' }]
-}
+export const dynamic = 'auto' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
 /* --- <BioScreen/> ---------------------------------------------------------------------------- */
 

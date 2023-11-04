@@ -6,8 +6,6 @@ There’s many different ways to use icons and icon sets in Aetherspace. Here’
 → SSR support, fast & easy, no layout shift on web, limited options
 - Custom SVG components using `react-native-svg`  
 → SSR support, can [convert from .svg file](https://transform.tools/svg-to-react-native), but could be more time-consuming
-- Third party iconfont libraries, such as `@expo/vector-icons`  
-→ Fast & easy, needs icon font preloaded, layout shift on web, locked out of SWC
 - Image icons through src urls  
 → Straight forward, easy, not super optimised, fixed colors, layout shift on web  
 
@@ -155,99 +153,6 @@ Downsides of this strategy:
 - Time consuming: Requires some copy-pasting between transform tools and your code
 - Therefore, even if it’s most reliable and configurable, also not very fast or scalable
 
-## Using `@expo/vector-icons`
-
-[Expo Docs: @expo/vector-icons](https://docs.expo.dev/guides/icons/)
-
-> Check which iconset you want to use and how to use them on [https://icons.expo.fyi/](https://icons.expo.fyi/)
-
-Benefits of using this strategy:
-
-- Fast, choose icons from existing third party icon providers
-- Most @expo/vector-icons are also compatible with the web
-
-Downsides of using icon fonts under the hood:
-
-- You’ll need to preload your icon font somehow, easy on mobile but harder on web
-- Loading flicker, meaning you might not see the icon immediately if the icon font isn’t loaded yet
-- Cannot use Next.js’s SWC compiler when using any of the @expo/vector-icons (no loader for importing .ttf files)
-
-Example usage:
-
-```tsx
-import { AntDesign } from '@expo/vector-icons'
-
-<AntDesign
-  name="caretup"
-  size={24}
-  color="#333333"
-/>
-```
-
-Example preloading of icon font on mobile:
-
-`/features/app-core/hooks/useLoadFonts.ts`
-
-```tsx
-'use client'
-import { useFonts } from 'expo-font'
-import { /* Google Fonts */ } from '@expo-google-fonts/roboto'
-
-/* --- useLoadFonts() -------------------------------------------------------------------------- */
-
-const useLoadFonts = () => {
-  const fontsToLoad = {
-    // - Google Fonts -
-    /* ... */
-    // - Icon Fonts -
-    AntDesign: require('@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/AntDesign.ttf'),
-    // -!- important: always double check this path (^) for your icon fonts
-  }
-
-  const [fontsLoaded, fontsError] = useFonts(fontsToLoad)
-
-  if (fontsError) console.error('fontErrors:', fontsLoaded)
-
-  // -- Return --
-
-  return fontsLoaded // <- Keep splash screen open until this is true
-}
-
-/* --- Exports --------------------------------------------------------------------------------- */
-
-export default useLoadFonts
-```
-
-Example usage with `<AetherIcon/>`
-
-`/packages/{workspace-folder}/icons/registry.tsx`
-
-```tsx
-import React from 'react'
-import { registerIconRenderer } from 'aetherspace/utils'
-import { AntDesign } from '@expo/vector-icons'
-import { ComponentProps } from 'react'
-
-/** --- iconRegistry --------------------------------------------------------------------------- */
-/** -i- Register any icons by preferred AetherIcon "name" key */
-export const iconRegistry = {
-  // Register any icons from e.g. AntDesign you want by
-  // registering them by strings 👇 array (readonly) + render function
-  ...registerIconRenderer(['caretup'] as const, ({ name, size, fill, ...restIconProps }) => (
-    <AntDesign
-      name={name as ComponentProps<typeof AntDesign>['name']}
-      size={size}
-      color={fill}
-      {...restIconProps}
-    />
-  )),
-} as const // <-- Readonly is important here for accurate type hints
-```
-
-```tsx
-<AetherIcon name="caretup" size={24} fill="#333333" />
-```
-
 ## Using `AetherImage` with `.svg` files
 
 > Using `AetherImage` with `.svg` files might be the most bundle size friendly way of using SVGs in your app. Since it will always result in only using the SVGs that you actually use in your app.
@@ -257,6 +162,15 @@ export const iconRegistry = {
 ```
 
 The one major downside of using this approach though, is that colors won't be editable through props and like with icon fonts, it might introduce some loading flickering.
+
+## Why we don't recommend using Icon Fonts
+
+> Icon fonts are a popular way of using icons in web apps. But they have some downsides that we don't want to introduce in Aetherspace. One such downside is that they can easily introduce flickering during loading, which is a bad user experience.
+
+Icon fonts typically require the entire font file to be loaded. This can affect the app's performance, particularly during initial load when these fonts are larger than necessary. This makes even less sense when only a few icons are used.
+
+Therefore, we generally don't recommed using icon fonts like `@expo/vector-icons` or `react-native-vector-icons` in Aetherspace.
+Our recommended way to do icons remains using SVGs, either as React components or as images, but don't import them from barrel files.
 
 ## Continue learning:
 

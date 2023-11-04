@@ -13,7 +13,6 @@ const workspaceResolutions = require('registries/workspaceResolutions.generated.
 /* --- Transpiled Modules ---------------------------------------------------------------------- */
 
 const transpiledModules = require('config/transpiledModules')
-const withTM = require('next-transpile-modules')(transpiledModules)
 
 /* --- Automation Scripts ---------------------------------------------------------------------- */
 // -i- This will run the aetherspace automation scripts on local dev builds (comment out what you don't need)
@@ -93,15 +92,14 @@ const nextConfig = {
     },
     // App dir support
     reactStrictMode: true,
-    experimental: {
-        // transpilePackages: transpiledModules,
-    },
+    transpilePackages: transpiledModules,
+    experimental: {},
 }
 
 // Apply plugins to next config, avoiding next-compose-plugins:
 // -i- https://github.com/cyrilwanner/next-compose-plugins/issues/59#issuecomment-1209152211
 // -i- https://github.com/cyrilwanner/next-compose-plugins/issues/59#issuecomment-1220739666
-const plugins = [withTM, withFonts, withImages, withPWA, [withExpo, { projectRoot: workspaceRoot }]]
+const plugins = [withFonts, withImages, withPWA, [withExpo, { projectRoot: workspaceRoot }]]
 const withPlugins = (_phase /*, { defaultConfig } */) => {
     // Build final config
     const finalConfig = plugins.reduce(

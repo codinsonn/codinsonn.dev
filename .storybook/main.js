@@ -79,6 +79,9 @@ module.exports = {
     core: {
         builder: 'webpack5',
     },
+    typescript: {
+      reactDocgen: 'react-docgen-typescript-plugin'
+    },
     features: {
       previewMdx2: true, // 👈 MDX 2 enabled here (https://storybook.js.org/docs/react/writing-docs/mdx#mdx-2)
     },
