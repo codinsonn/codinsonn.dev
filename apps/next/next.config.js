@@ -99,7 +99,7 @@ const nextConfig = {
 // Apply plugins to next config, avoiding next-compose-plugins:
 // -i- https://github.com/cyrilwanner/next-compose-plugins/issues/59#issuecomment-1209152211
 // -i- https://github.com/cyrilwanner/next-compose-plugins/issues/59#issuecomment-1220739666
-const plugins = [/*withTM,*/ withFonts, withImages, withPWA, [withExpo, { projectRoot: workspaceRoot }]]
+const plugins = [withFonts, withImages, withPWA, [withExpo, { projectRoot: workspaceRoot }]]
 const withPlugins = (_phase /*, { defaultConfig } */) => {
     // Build final config
     const finalConfig = plugins.reduce(
