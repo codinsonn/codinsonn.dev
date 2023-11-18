@@ -1,14 +1,11 @@
 /* --- Types ----------------------------------------------------------------------------------- */
 
 export type AetherScreenConfig = {
-  query: string
-  getGraphqlVars: (params?: Record<string, unknown>) => Record<string, unknown>
-  getGraphqlData: (
-    queryKey: string,
-    queryVariables?: Record<string, unknown>
-  ) => Promise<Record<string, unknown>>
-  paramSchema: unknown
-  propSchema: unknown
+  graphqlQuery: string
+  getGraphqlVars: (navParams: any) => any
+  getGraphqlData: (queryKey: string, queryVariables?: any) => Promise<any>
+  paramsSchema: unknown
+  propsSchema: unknown
   refetchOnMount?: boolean
   backgroundColor?: string
 }

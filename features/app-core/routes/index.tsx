@@ -9,7 +9,12 @@ const PageScreen = (
   props: bioScreen.BioScreenProps & { searchParams: Record<string, unknown> }
 ) => {
   return (
-    <AetherPage {...props} screen={bioScreen.BioScreen} screenConfig={bioScreen.screenConfig} />
+    <AetherPage
+      {...props}
+      params={{ slug: 'codinsonn' }}
+      screen={bioScreen.BioScreen}
+      screenConfig={bioScreen.screenConfig}
+    />
   )
 }
 

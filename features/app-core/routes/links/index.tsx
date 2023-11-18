@@ -6,7 +6,12 @@ import * as bioScreen from 'links-page/screens/BioScreen'
 /* --- /links ---------------------------------------------------------------------------------- */
 
 const PageScreen = (props: bioScreen.BioScreenProps) => (
-  <AetherPage {...props} screen={bioScreen.BioScreen} screenConfig={bioScreen.screenConfig} />
+  <AetherPage
+    {...props}
+    params={{ slug: 'codinsonn' }}
+    screen={bioScreen.BioScreen}
+    screenConfig={bioScreen.screenConfig}
+  />
 )
 
 /* --- Exports --------------------------------------------------------------------------------- */

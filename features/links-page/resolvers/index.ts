@@ -1,2 +1,2 @@
-export { getUserBioFromAirtable as getUserBio } from './getUserBioFromAirtable'
+export { getUserBioBySlug } from './getUserBioBySlug'
 export * from './syncUserBiosFromAirtable'

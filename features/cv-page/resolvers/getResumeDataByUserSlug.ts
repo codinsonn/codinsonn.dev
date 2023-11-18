@@ -1,6 +1,6 @@
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
 // Schemas
-import { GetResumeDataByUserSlugAPIConfig } from '../schemas/GetResumeDataByUserSlugResolver'
+import { GetResumeDataByUserSlugDataBridge } from '../schemas/GetResumeDataByUserSlugResolver'
 // Models
 import { ResumeDataModel } from '../schemas/models'
 // Dummy
@@ -31,5 +31,5 @@ export const getResumeDataByUserSlug = aetherResolver(
       throw handleError(err)
     }
   },
-  GetResumeDataByUserSlugAPIConfig
+  GetResumeDataByUserSlugDataBridge
 )

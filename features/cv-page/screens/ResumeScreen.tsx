@@ -1,9 +1,9 @@
 import React from 'react'
 // Navigation
-import { useAetherRoute, fetchAetherProps } from 'aetherspace/navigation'
+import { useAetherRoute } from 'aetherspace/navigation'
 // Schemas
-import { z, aetherSchema, AetherParams, AetherProps } from 'aetherspace/schemas'
-import { ResumeData } from '../schemas'
+import { z, aetherSchema, AetherParams, AetherProps, createDataBridge } from 'aetherspace/schemas'
+import { GetResumeDataByUserSlugDataBridge, ResumeData } from '../schemas'
 // Mocks
 import { dummyResumeData } from '../mocks/resumeData.mock'
 // Primitives
@@ -17,20 +17,16 @@ import { twStyled } from 'aetherspace/styles'
 // Utils
 import { uppercaseFirstChar } from 'aetherspace/utils'
 
-/* --- Descriptions ---------------------------------------------------------------------------- */
+/* --- Schemas & Types ------------------------------------------------------------------------- */
 
 const d = {
   slug: 'Slug of the resume data to fetch if data is not in props.',
 }
 
-/* --- Schemas & Types ------------------------------------------------------------------------- */
-
-// -i- TODO: Change these schemas to match your route's parameter needs
 const ResumeScreenParams = aetherSchema('ResumeScreenParams', {
   slug: z.string().default('codinsonn').describe(d.slug),
 })
 
-// -i- TODO: Change these schemas to match your screen's prop needs
 const ResumeScreenProps = ResumeData.extendSchema('ResumeScreenProps', {
   params: ResumeScreenParams.optional(),
   segment: z.string().optional(),
@@ -40,229 +36,14 @@ const ResumeScreenProps = ResumeData.extendSchema('ResumeScreenProps', {
   ...dummyResumeData,
 })
 
-export type TResumeScreenParams = AetherParams<typeof ResumeScreenParams>
-export type TResumeScreenProps = AetherProps<typeof ResumeScreenProps>
-
-/* --- GraphQL & Data Fetching ----------------------------------------------------------------- */
-
-// -i- Figure out which data you need at /api/graphql and replace this dummy data in the query below
-const ResumeScreenDataQuery = `
-query($getResumeDataByUserSlugArgs: GetResumeDataByUserSlugArgs!) {
-  getResumeDataByUserSlug(args: $getResumeDataByUserSlugArgs) {
-    id
-    slug
-    generalData {
-      profileImgUrl
-      displayName
-      functionTitle
-      location
-      pronouns
-      website
-      about
-    }
-    contactLinks {
-      id
-      linkUrl
-      linkTitle
-      linkIconKey
-      sortOrder
-      userId
-      userSlug
-      socialLinkType
-      platformUsername
-    }
-    projects {
-      id
-      linkUrl
-      linkTitle
-      linkIconKey
-      sortOrder
-      userId
-      userSlug
-      title
-      year
-      collaborators
-      description
-      client
-    }
-    sideProjects {
-      id
-      linkUrl
-      linkTitle
-      linkIconKey
-      sortOrder
-      userId
-      userSlug
-      title
-      year
-      collaborators
-      description
-      client
-    }
-    writing {
-      id
-      linkUrl
-      linkTitle
-      linkIconKey
-      sortOrder
-      userId
-      userSlug
-      title
-      year
-      collaborators
-      description
-      publisher
-    }
-    speaking {
-      id
-      linkUrl
-      linkTitle
-      linkIconKey
-      sortOrder
-      userId
-      userSlug
-      title
-      year
-      collaborators
-      description
-      event
-      location
-    }
-    awards {
-      id
-      linkUrl
-      linkTitle
-      linkIconKey
-      sortOrder
-      userId
-      userSlug
-      title
-      year
-      collaborators
-      description
-      presentedBy
-    }
-    features {
-      id
-      linkUrl
-      linkTitle
-      linkIconKey
-      sortOrder
-      userId
-      userSlug
-      title
-      year
-      collaborators
-      description
-      publisher
-    }
-    workExperience {
-      id
-      linkUrl
-      linkTitle
-      linkIconKey
-      sortOrder
-      userId
-      userSlug
-      title
-      year
-      collaborators
-      description
-      from
-      to
-      company
-      location
-    }
-    volunteering {
-      id
-      linkUrl
-      linkTitle
-      linkIconKey
-      sortOrder
-      userId
-      userSlug
-      title
-      year
-      collaborators
-      description
-      from
-      to
-      company
-      location
-    }
-    education {
-      id
-      linkUrl
-      linkTitle
-      linkIconKey
-      sortOrder
-      userId
-      userSlug
-      from
-      to
-      title
-      institute
-      location
-      description
-    }
-    certifications {
-      id
-      linkUrl
-      linkTitle
-      linkIconKey
-      sortOrder
-      userId
-      userSlug
-      title
-      year
-      collaborators
-      description
-      issued
-      expires
-      name
-      issuer
-    }
-    ctaSection {
-      title
-      ctaLinks {
-        id
-        linkUrl
-        linkTitle
-        linkIconKey
-        sortOrder
-        userId
-        userSlug
-        socialLinkType
-        platformUsername
-      }
-    }
-  }
-}
-`
-
-/// -i- TODO: Function to get the GraphQL variables that will be used to fetch the data for this screen
-/** -i- GraphQL query that will fetch all data we need for this screen */
-const getResumeScreenArgs = (params: TResumeScreenParams = {}) => ({
-  getResumeDataByUserSlugArgs: ResumeScreenParams.parse(params), // example
+export const screenConfig = createDataBridge({
+  ...GetResumeDataByUserSlugDataBridge,
+  paramsSchema: ResumeScreenParams,
+  propsSchema: ResumeScreenProps,
 })
 
-/** -i- Function to actually fetch the data for this screen, where queryKey is likely the GQL query */
-const getResumeScreenProps = async (queryKey: string, queryVariables?: TResumeScreenParams) => {
-  const queryData = queryKey || ResumeScreenDataQuery
-  const queryInput = queryVariables || getResumeScreenArgs() // example, uses defaults if not defined
-  const { data } = await fetchAetherProps(queryData, queryInput)
-  return data.getResumeDataByUserSlug as TResumeScreenProps // example
-}
-
-/** -i- Bundled config for getting the screen data, including query, variables, and data fetcher */
-export const ResumeScreenRouteDataConfig = {
-  query: ResumeScreenDataQuery,
-  getGraphqlVars: getResumeScreenArgs,
-  getGraphqlData: getResumeScreenProps,
-  paramSchema: ResumeScreenParams,
-  propSchema: ResumeScreenProps,
-  backgroundColor: '#111827',
-}
+export type TResumeScreenParams = AetherParams<typeof ResumeScreenParams>
+export type TResumeScreenProps = AetherProps<typeof ResumeScreenProps>
 
 /* --- Route Segments -------------------------------------------------------------------------- */
 
@@ -273,7 +54,7 @@ export const dynamic = 'auto' // 'auto' | 'force-dynamic' | 'error' | 'force-sta
 
 export const ResumeScreen = (props: TResumeScreenProps) => {
   // Props & Data
-  const [screenData, { error }] = useAetherRoute(props, ResumeScreenRouteDataConfig)
+  const [screenData, { error }] = useAetherRoute(props, screenConfig)
   const {
     generalData,
     contactLinks,

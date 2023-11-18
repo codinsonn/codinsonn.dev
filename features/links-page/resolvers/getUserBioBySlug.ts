@@ -1,23 +1,16 @@
 // Schemas
-import { UserBioInput, UserBio } from '../schemas'
+import { GetUserBioBySlugDataBridge } from '../schemas/GetUserBioBySlugDataBridge'
 import { UserBioTable, UserIconsTable, LinksInBioTable } from '../schemas/tables'
 // Utils
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
 
-/* --- Config ---------------------------------------------------------------------------------- */
-
-const resolverConfig = {
-  argsSchema: UserBioInput,
-  responseSchema: UserBio,
-}
-
-/** --- getUserBioFromAirtable() --------------------------------------------------------------- */
+/** --- getUserBioBySlug() --------------------------------------------------------------- */
 /** -i- Fetch all the bio page info for a specific user by their url slug */
-export const getUserBioFromAirtable = aetherResolver(
-  async ({ args, handleError, withDefaults }) => {
+export const getUserBioBySlug = aetherResolver(
+  async ({ args, parseArgs, handleError, withDefaults }) => {
     try {
       // Args
-      const { slug } = UserBioInput.parse(args)
+      const { slug } = parseArgs(args)
 
       // Fetch bio info from airtable
       const [userBio, iconLinks, linksInBio] = await Promise.all([
@@ -39,5 +32,5 @@ export const getUserBioFromAirtable = aetherResolver(
       handleError(error)
     }
   },
-  resolverConfig
+  GetUserBioBySlugDataBridge
 )

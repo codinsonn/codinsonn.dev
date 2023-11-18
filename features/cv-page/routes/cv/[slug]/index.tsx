@@ -7,7 +7,7 @@ import * as ResumeScreen from '../../../screens/ResumeScreen'
 /* --- Config ---------------------------------------------------------------------------------- */
 
 const ScreenComponent = ResumeScreen.ResumeScreen
-const screenConfig = ResumeScreen.ResumeScreenRouteDataConfig
+const screenConfig = ResumeScreen.screenConfig
 
 /* --- /cv/[slug] ------------------------------------------------------------------------------ */
 

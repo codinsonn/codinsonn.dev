@@ -15,22 +15,22 @@ export const useAetherRoute = <
   PROPS extends Record<string, unknown> & {
     params?: Record<string, unknown> & PARAMS
     segment?: string
-  } = AetherProps<z.ZodObject<PROPS_DEF>>
+  } = AetherProps<z.ZodObject<PROPS_DEF>>,
 >(
   props: Partial<PROPS>,
   {
-    query,
+    graphqlQuery,
     getGraphqlVars,
     getGraphqlData,
-    paramSchema,
-    propSchema,
+    paramsSchema,
+    propsSchema,
     refetchOnMount,
   }: {
-    query: string
+    graphqlQuery: string
     getGraphqlVars: (params: z.infer<z.ZodObject<PARAMS_DEF>>) => unknown
-    getGraphqlData: (query: string, variables: PARAMS) => Promise<PROPS>
-    paramSchema: z.ZodObject<PARAMS_DEF>
-    propSchema: z.ZodObject<PROPS_DEF>
+    getGraphqlData: (graphqlQuery: string, variables: PARAMS) => Promise<PROPS>
+    paramsSchema: z.ZodObject<PARAMS_DEF>
+    propsSchema: z.ZodObject<PROPS_DEF>
     refetchOnMount?: boolean
   }
 ) => {
@@ -41,14 +41,14 @@ export const useAetherRoute = <
   const { params: navParams } = useRouteParams(props)
 
   // Vars
-  const params = paramSchema.optional().parse({ ...routeParams, ...navParams })
+  const params = paramsSchema.optional().parse({ ...routeParams, ...navParams })
   const variables = getGraphqlVars(params!)
   const shouldFetch = isEmpty(screenDataProps) || refetchOnMount
 
   // -- Fetching --
 
   const swrCall = useSWR<PROPS>(
-    shouldFetch ? [query, variables] : null,
+    shouldFetch ? [graphqlQuery, variables] : null,
     ([gqlQuery, gqlParams]) => {
       return getGraphqlData(gqlQuery, gqlParams)
     }
@@ -57,7 +57,7 @@ export const useAetherRoute = <
   // -- Data --
 
   const { data: swrData, ...swrOptions } = swrCall
-  const screenData = propSchema.applyDefaults({ ...screenDataProps, ...swrData }) as PROPS
+  const screenData = propsSchema.applyDefaults({ ...screenDataProps, ...swrData }) as PROPS
 
   // -- Return --
 

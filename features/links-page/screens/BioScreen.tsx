@@ -1,11 +1,11 @@
 import React from 'react'
 // Navigation
-import { Link, useAetherRoute, fetchAetherProps, useAetherNav } from 'aetherspace/navigation'
+import { Link, useAetherRoute, useAetherNav } from 'aetherspace/navigation'
 // Context
 import { useAetherContext } from '../../../packages/@aetherspace/context'
 // Schemas
-import { z, aetherSchema, AetherParams, AetherProps } from 'aetherspace/schemas'
-import { TUserBio, UserBio } from '../schemas'
+import { z, aetherSchema, AetherParams, AetherProps, createDataBridge } from 'aetherspace/schemas'
+import { UserBio } from '../schemas'
 // Primitives
 import { View, Text, Image } from 'aetherspace/primitives'
 // SEO
@@ -22,14 +22,13 @@ import { useTailwindStyles } from 'aetherspace/styles'
 import { isEmpty } from 'aetherspace/utils'
 // Mocks
 import { userBioMock } from '../mocks/userBio.mock'
+import { GetUserBioBySlugDataBridge } from '../schemas/GetUserBioBySlugDataBridge'
 
-/* --- Descriptions ---------------------------------------------------------------------------- */
+/* --- Schemas & Types ------------------------------------------------------------------------- */
 
 const d = {
   slug: 'Slug of the user bio to fetch if data is not in props.',
 }
-
-/* --- Schemas & Types ------------------------------------------------------------------------- */
 
 const BioParamsSchema = aetherSchema('BioScreenParams', {
   slug: z.string().default('codinsonn').describe(d.slug),
@@ -44,59 +43,16 @@ const BioScreenSchema = UserBio.extendSchema('BioScreenProps', {
   ...userBioMock,
 })
 
-export type BioScreenParams = AetherParams<typeof BioParamsSchema>
-export type BioScreenProps = AetherProps<typeof BioScreenSchema>
-
-/* --- GraphQL & Data Fetching ----------------------------------------------------------------- */
-
-const getScreenDataQuery = `
-  query($getUserBioArgs: UserBioInput!) {
-    getUserBio(args: $getUserBioArgs) {
-      slug
-      title
-      titleLink
-      bioText
-      imageUrl
-      iconLinks {
-        id
-        linkUrl
-        linkIconKey
-        sortOrder
-        extraClasses
-      }
-      linksInBio {
-        id
-        linkUrl
-        linkTitle
-        subTitle
-        imageUrl
-        linkIconKey
-        isFeatured
-      }
-    }
-  }
-`
-
-const getBioScreenArgs = (params: BioScreenParams = {}) => ({
-  getUserBioArgs: BioParamsSchema.parse(params),
-})
-
-const getBioScreenProps = async (queryKey: string, queryVariables?: BioScreenParams) => {
-  const queryData = queryKey || getScreenDataQuery
-  const queryInput = queryVariables || getBioScreenArgs() // Use defaults if not defined
-  const { data } = await fetchAetherProps(queryData, queryInput)
-  return data.getUserBio as TUserBio // satisfies TUserBio
-}
-
-export const screenConfig = {
-  query: getScreenDataQuery,
-  getGraphqlVars: getBioScreenArgs,
-  getGraphqlData: getBioScreenProps,
-  paramSchema: BioParamsSchema,
-  propSchema: BioScreenSchema,
+export const screenConfig = createDataBridge({
+  ...GetUserBioBySlugDataBridge,
+  paramsSchema: BioParamsSchema,
+  propsSchema: BioScreenSchema,
   refetchOnMount: false,
   backgroundColor: '#111827',
-}
+})
+
+export type BioScreenParams = AetherParams<typeof BioParamsSchema>
+export type BioScreenProps = AetherProps<typeof BioScreenSchema>
 
 /* --- Segments -------------------------------------------------------------------------------- */
 

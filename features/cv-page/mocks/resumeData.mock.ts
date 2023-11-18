@@ -9,7 +9,7 @@ export const dummyResumeData: TResumeData = {
   generalData: {
     profileImgUrl: '/img/CodelyFansLogoPic160x160.jpeg',
     displayName: 'Thorr Stevens',
-    functionTitle: 'Full-Product Typescript Engineer',
+    functionTitle: 'Full-Product Universal App Developer',
     location: 'Ghent, Belgium or Remote',
     website: 'https://codinsonn.dev',
     pronouns: 'he/him',

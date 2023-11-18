@@ -7,12 +7,17 @@ import * as ResumeScreen from 'cv-page/screens/ResumeScreen'
 /* --- Config ---------------------------------------------------------------------------------- */
 
 const ScreenComponent = ResumeScreen.ResumeScreen
-const screenConfig = ResumeScreen.ResumeScreenRouteDataConfig
+const screenConfig = ResumeScreen.screenConfig
 
 /* --- /cv ------------------------------------------------------------------------------------- */
 
 const PageScreen = (props: ResumeScreen.TResumeScreenProps) => (
-  <AetherPage {...props} screen={ScreenComponent} screenConfig={screenConfig} />
+  <AetherPage
+    {...props}
+    params={{ slug: 'codinsonn' }}
+    screen={ScreenComponent}
+    screenConfig={screenConfig}
+  />
 )
 
 /* --- Exports --------------------------------------------------------------------------------- */

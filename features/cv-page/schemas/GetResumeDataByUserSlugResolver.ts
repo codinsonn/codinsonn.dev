@@ -1,4 +1,4 @@
-import { z, aetherSchema } from 'aetherspace/schemas'
+import { z, aetherSchema, createDataBridge } from 'aetherspace/schemas'
 import { ResumeData } from './ResumeData'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
@@ -20,18 +20,215 @@ export type TGetResumeDataByUserSlugArgs = z.infer<typeof GetResumeDataByUserSlu
 
 /** --- GetResumeDataByUserSlugResponse -------------------------------------------------------- */
 /** -i- Response for the getResumeDataByUserSlug() resolver */
-export const GetResumeDataByUserSlugResponse = ResumeData.describe(
-  d.GetResumeDataByUserSlugResponse
-)
+export const GetResumeDataByUserSlugResponse = ResumeData.describe(d.GetResumeDataByUserSlugResponse) // prettier-ignore
 
 /** -i- Response for the getResumeDataByUserSlug() resolver */
 export type TGetResumeDataByUserSlugResponse = z.infer<typeof GetResumeDataByUserSlugResponse>
 
-/** --- getResumeDataByUserSlugAPIConfig ------------------------------------------------------- */
-/** -i- Aetherspace API Config for getResumeDataByUserSlug() */
-export const GetResumeDataByUserSlugAPIConfig = {
+/** --- GraphQL -------------------------------------------------------------------------------- */
+/** -i- Figure out which data you need at '/api/graphql' locally and apply it here */
+/** -i- GraphQL query for the getResumeDataByUserSlug() resolver */
+export const ResumeDataByUserSlugQuery = `
+query($getResumeDataByUserSlugArgs: GetResumeDataByUserSlugArgs!) {
+  getResumeDataByUserSlug(args: $getResumeDataByUserSlugArgs) {
+    id
+    slug
+    generalData {
+      profileImgUrl
+      displayName
+      functionTitle
+      location
+      pronouns
+      website
+      about
+    }
+    contactLinks {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      socialLinkType
+      platformUsername
+    }
+    projects {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      client
+    }
+    sideProjects {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      client
+    }
+    writing {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      publisher
+    }
+    speaking {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      event
+      location
+    }
+    awards {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      presentedBy
+    }
+    features {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      publisher
+    }
+    workExperience {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      from
+      to
+      company
+      location
+    }
+    volunteering {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      from
+      to
+      company
+      location
+    }
+    education {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      from
+      to
+      title
+      institute
+      location
+      description
+    }
+    certifications {
+      id
+      linkUrl
+      linkTitle
+      linkIconKey
+      sortOrder
+      userId
+      userSlug
+      title
+      year
+      collaborators
+      description
+      issued
+      expires
+      name
+      issuer
+    }
+    ctaSection {
+      title
+      ctaLinks {
+        id
+        linkUrl
+        linkTitle
+        linkIconKey
+        sortOrder
+        userId
+        userSlug
+        socialLinkType
+        platformUsername
+      }
+    }
+  }
+}
+`
+
+/** --- Data Bridge ---------------------------------------------------------------------------- */
+/** -i- API Config for getResumeDataByUserSlug() */
+export const GetResumeDataByUserSlugDataBridge = createDataBridge({
+  resolverName: 'getResumeDataByUserSlug',
   argsSchema: GetResumeDataByUserSlugArgs,
   responseSchema: GetResumeDataByUserSlugResponse,
+  graphqlQuery: ResumeDataByUserSlugQuery,
   apiPath: '/api/resume/[slug]',
   allowedMethods: ['GET', 'POST'],
-}
+})
