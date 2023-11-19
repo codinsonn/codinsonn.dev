@@ -193,7 +193,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         {
           type: 'add',
           path: `${workspacePath}/schemas/${resolverSchemaName}.ts`,
-          templateFile: 'templates/resolver-schema.hbs',
+          templateFile: 'templates/resolver-bridge.hbs',
           data: {
             descriptions: descriptions.join('\n  '),
             resolverName,

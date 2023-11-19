@@ -1,6 +1,6 @@
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
 // Schemas
-import { {{ResolverName}}APIConfig, T{{ResolverName}}Response } from '../schemas/{{ResolverName}}Resolver' // prettier-ignore
+import { {{ResolverName}}DataBridge } from '../schemas/{{ResolverName}}Resolver' // prettier-ignore
 
 {{jsDocResolverHeader}}
 export const {{resolverName}} = aetherResolver(async ({ args, parseArgs, withDefaults, handleError }) => {
@@ -18,4 +18,4 @@ export const {{resolverName}} = aetherResolver(async ({ args, parseArgs, withDef
   } catch (err) {
     throw handleError(err)
   }
-}, {{ResolverName}}APIConfig)
+}, {{ResolverName}}DataBridge)

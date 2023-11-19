@@ -5,6 +5,7 @@ import { Link, useAetherRoute, useAetherNav } from 'aetherspace/navigation'
 import { useAetherContext } from '../../../packages/@aetherspace/context'
 // Schemas
 import { z, aetherSchema, AetherParams, AetherProps, createDataBridge } from 'aetherspace/schemas'
+import { GetUserBioBySlugDataBridge } from '../schemas/GetUserBioBySlugDataBridge'
 import { UserBio } from '../schemas'
 // Primitives
 import { View, Text, Image } from 'aetherspace/primitives'
@@ -22,7 +23,6 @@ import { useTailwindStyles } from 'aetherspace/styles'
 import { isEmpty } from 'aetherspace/utils'
 // Mocks
 import { userBioMock } from '../mocks/userBio.mock'
-import { GetUserBioBySlugDataBridge } from '../schemas/GetUserBioBySlugDataBridge'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
