@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { PlopTypes } from '@turbo/gen'
 // Utils
-import { parseWorkspaces } from '../../packages/@aetherspace/scripts/helpers/scriptUtils'
+import { parseWorkspaces } from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -82,7 +82,7 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
         {
           type: 'add',
           path: `${workspacePath}/screens/${ScreenName}.tsx`,
-          templateFile: 'templates/route-screen.hbs',
+          templateFile: '../../packages/@aetherspace/generators/templates/route-screen.hbs',
           data: {
             screenName,
             ScreenName,
@@ -98,7 +98,7 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
         {
           type: 'add',
           path: screenRoutePath,
-          templateFile: 'templates/screen-route.hbs',
+          templateFile: '../../packages/@aetherspace/generators/templates/screen-route.hbs',
           data: {
             screenName,
             ScreenName,

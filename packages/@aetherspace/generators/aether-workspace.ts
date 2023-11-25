@@ -71,7 +71,7 @@ export const registerAetherWorkspaceGenerator = (plop: PlopTypes.NodePlopAPI) =>
         {
           type: 'add',
           path: `${workspacePath}/package.json`,
-          templateFile: 'templates/package-json.hbs',
+          templateFile: '../../packages/@aetherspace/generators/templates/package-json.hbs',
           data: { packageLicense, privateLine },
         },
       ] as PlopTypes.ActionType[]

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { PlopTypes } from '@turbo/gen'
 // Utils
-import { parseWorkspaces } from '../../packages/@aetherspace/scripts/helpers/scriptUtils'
+import { parseWorkspaces } from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -91,7 +91,7 @@ export const registerAetherSchemaGenerator = (plop: PlopTypes.NodePlopAPI) => {
         {
           type: 'add',
           path: `${workspacePath}/schemas/${schemaName}.ts`,
-          templateFile: 'templates/basic-schema.hbs',
+          templateFile: '../../packages/@aetherspace/generators/templates/basic-schema.hbs',
           data: {
             descriptions: descriptions.join('\n  '),
             jsDocHeader: `${jsDocTitle}\n${jsDocDescription}`,

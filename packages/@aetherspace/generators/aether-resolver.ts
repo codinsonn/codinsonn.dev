@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { PlopTypes } from '@turbo/gen'
 // Utils
-import { parseWorkspaces } from '../../packages/@aetherspace/scripts/helpers/scriptUtils'
+import { parseWorkspaces } from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -103,7 +103,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       const jsDocArgsTitle = `/** --- ${argsSchemaName} ${argsSchemaLines} */`
       const jsDocArgsDescription = `/** -i- ${argsSchemaDescription} */`
       const jsDocArgsHeader = `${jsDocArgsTitle}\n${jsDocArgsDescription}`
-      const argsSchemaBody = ['test: z.string(),']
+      const argsSchemaBody = ["test: z.string().default('Hello World'),"]
       const argsDescriptionStatement = `.describe(d.${argsSchemaName})`
 
       const resSchemaDescription = `Response for the ${resolverName}() resolver`
@@ -177,7 +177,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         extraActions.push({
           type: 'add',
           path: apiRoutePath,
-          templateFile: 'templates/resolver-route.hbs',
+          templateFile: '../../packages/@aetherspace/generators/templates/resolver-route.hbs',
           data: {
             resolverName,
             resolverImportPath,
@@ -193,7 +193,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         {
           type: 'add',
           path: `${workspacePath}/schemas/${resolverSchemaName}.ts`,
-          templateFile: 'templates/resolver-bridge.hbs',
+          templateFile: '../../packages/@aetherspace/generators/templates/resolver-bridge.hbs',
           data: {
             descriptions: descriptions.join('\n  '),
             resolverName,
@@ -222,7 +222,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         {
           type: 'add',
           path: `${workspacePath}/resolvers/${resolverName}.ts`,
-          templateFile: 'templates/basic-resolver.hbs',
+          templateFile: '../../packages/@aetherspace/generators/templates/basic-resolver.hbs',
           data: {
             resolverName,
             ResolverName,
