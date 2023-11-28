@@ -3,23 +3,19 @@ import { AetherPage } from 'aetherspace/navigation'
 // Screens
 import * as bioScreen from 'links-page/screens/BioScreen'
 
-/* --- / --------------------------------------------------------------------------------------- */
+/* --- /links ---------------------------------------------------------------------------------- */
 
-const PageScreen = (
-  props: bioScreen.BioScreenProps & { searchParams: Record<string, unknown> }
-) => {
-  return (
-    <AetherPage
-      {...props}
-      params={{ slug: 'codinsonn' }}
-      screen={bioScreen.BioScreen}
-      screenConfig={bioScreen.screenConfig}
-    />
-  )
-}
+const PageScreen = (props: bioScreen.TBioScreenProps) => (
+  <AetherPage
+    {...props}
+    params={{ slug: 'codinsonn' }}
+    screen={bioScreen.BioScreen}
+    screenConfig={bioScreen.screenConfig}
+  />
+)
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
-export const dynamic = bioScreen.dynamic
+export const dynamic = bioScreen.screenConfig.dynamic
 
 export default PageScreen

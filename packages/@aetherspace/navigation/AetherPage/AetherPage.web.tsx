@@ -1,6 +1,5 @@
 import { use, useEffect, useState } from 'react'
 import { SWRConfig, unstable_serialize, useSWRConfig } from 'swr'
-// Types
 import { AetherPageProps, AetherScreenConfig } from './AetherPage.types'
 
 /* --- Helpers --------------------------------------------------------------------------------- */
@@ -53,7 +52,7 @@ export const AetherPage = <SC extends AetherScreenConfig>(props: AetherPageProps
     return (
       <SWRConfig value={{ fallback }}>
         {renderHydrationData && <div id="ssr-data" data-ssr={JSON.stringify(hydrationData)} />}
-        <PageScreen {...restProps} {...hydrationData} />
+        <PageScreen params={routeParams} {...restProps} {...hydrationData} />
       </SWRConfig>
     )
   }
@@ -65,7 +64,7 @@ export const AetherPage = <SC extends AetherScreenConfig>(props: AetherPageProps
   return (
     <SWRConfig value={{ fallback: { [fallbackKey]: ssrData } }}>
       {!!ssrData && <div id="ssr-data" data-ssr={JSON.stringify(ssrData)} />}
-      <PageScreen {...restProps} {...ssrData} />
+      <PageScreen params={routeParams} {...restProps} {...ssrData} />
     </SWRConfig>
   )
 }

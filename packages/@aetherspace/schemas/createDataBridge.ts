@@ -30,6 +30,7 @@ export const createDataBridge = <
   graphqlQuery,
   refetchOnMount,
   backgroundColor,
+  dynamic = 'auto',
 }: {
   resolverName: RN
   resolverArgsName?: RAN | HintedKeys
@@ -44,6 +45,7 @@ export const createDataBridge = <
   graphqlQuery: string
   refetchOnMount?: boolean
   backgroundColor?: string
+  dynamic?: 'auto' | 'force-dynamic' | 'error' | 'force-static'
 }) => {
   // Vars & Flags
   const isMutation = graphqlQuery.includes('mutation')
@@ -77,8 +79,9 @@ export const createDataBridge = <
   const responseToPropsFn = (responseToProps || defaultResponseToProps) as (response: RT) => PT
 
   const getGraphqlData = async (queryKey: string, queryVariables?: AT) => {
-    const queryData = queryKey || graphqlQuery
-    const finalVariables = isEmpty(queryVariables) ? null : queryVariables
+    const queryData = queryKey || graphqlQuery // @ts-ignore
+    const hasQueryVariables = !isEmpty(queryVariables) && !isEmpty(queryVariables[resolverArgsName])
+    const finalVariables = !hasQueryVariables ? null : queryVariables
     const queryInput = finalVariables || getGraphqlVars({} as UT)
     const result = await fetchAetherProps(queryData, queryInput)
     const data = result.data
@@ -104,6 +107,7 @@ export const createDataBridge = <
     isMutation,
     refetchOnMount,
     backgroundColor,
+    dynamic,
     PARAMS: null as unknown as UT,
     ARGS: null as unknown as AT,
     RES: null as unknown as RT,

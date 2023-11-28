@@ -5,7 +5,7 @@ import * as bioScreen from 'links-page/screens/BioScreen'
 
 /* --- /links ---------------------------------------------------------------------------------- */
 
-const PageScreen = (props: bioScreen.BioScreenProps) => (
+const PageScreen = (props: bioScreen.TBioScreenProps) => (
   <AetherPage
     {...props}
     params={{ slug: 'codinsonn' }}
@@ -16,6 +16,6 @@ const PageScreen = (props: bioScreen.BioScreenProps) => (
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
-export const dynamic = bioScreen.dynamic
+export const dynamic = bioScreen.screenConfig.dynamic
 
 export default PageScreen

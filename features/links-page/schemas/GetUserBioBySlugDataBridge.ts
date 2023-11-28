@@ -30,7 +30,7 @@ export const UserBioBySlugQuery = `
       }
     }
   }
-`
+` as const
 
 /** --- Data Bridge ---------------------------------------------------------------------------- */
 /** -i- API Config for getResumeDataByUserSlug() */
