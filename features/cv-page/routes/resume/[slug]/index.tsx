@@ -15,11 +15,8 @@ const PageScreen = (props: ResumeScreen.TResumeScreenProps) => (
   <AetherPage {...props} screen={ScreenComponent} screenConfig={screenConfig} />
 )
 
-type PageScreenGetVars = React.ComponentProps<typeof AetherPage>['screenConfig']['getGraphqlVars']
-type ResumeScreenGetVars = (typeof screenConfig)['getGraphqlVars']
-
 /* --- Exports --------------------------------------------------------------------------------- */
 
-export const dynamic = ResumeScreen.dynamic
+export const dynamic = screenConfig.dynamic
 
 export default PageScreen

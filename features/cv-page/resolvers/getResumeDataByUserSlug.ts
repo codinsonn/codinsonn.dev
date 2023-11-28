@@ -1,6 +1,6 @@
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
 // Schemas
-import { GetResumeDataByUserSlugDataBridge } from '../schemas/GetResumeDataByUserSlugResolver'
+import { GetResumeDataByUserSlugDataBridge } from '../schemas/GetResumeDataByUserSlugDataBridge'
 // Models
 import { ResumeDataModel } from '../schemas/models'
 // Dummy

@@ -22,6 +22,6 @@ const PageScreen = (props: ResumeScreen.TResumeScreenProps) => (
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
-export const dynamic = ResumeScreen.dynamic
+export const dynamic = screenConfig.dynamic
 
 export default PageScreen

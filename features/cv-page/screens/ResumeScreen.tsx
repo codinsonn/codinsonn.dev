@@ -1,20 +1,13 @@
 import React from 'react'
-// Navigation
 import { useAetherRoute } from 'aetherspace/navigation'
-// Schemas
-import { z, aetherSchema, AetherParams, AetherProps, createDataBridge } from 'aetherspace/schemas'
+import { z, aetherSchema, AetherProps, createDataBridge } from 'aetherspace/schemas'
 import { GetResumeDataByUserSlugDataBridge, ResumeData } from '../schemas'
-// Mocks
 import { dummyResumeData } from '../mocks/resumeData.mock'
-// Primitives
 import { View } from 'aetherspace/primitives'
 import { H1, H2 } from 'aetherspace/html-elements'
-// Components
 import { ResumeContactSection, ResumeIntroCard, ResumeEntry } from '../components'
 import { ResumeSkeleton } from '../components/ResumeSkeleton'
-// Styles
 import { twStyled } from 'aetherspace/styles'
-// Utils
 import { uppercaseFirstChar } from 'aetherspace/utils'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
@@ -24,7 +17,7 @@ const d = {
 }
 
 const ResumeScreenParams = aetherSchema('ResumeScreenParams', {
-  slug: z.string().default('codinsonn').describe(d.slug),
+  slug: z.string().optional().describe(d.slug),
 })
 
 const ResumeScreenProps = ResumeData.extendSchema('ResumeScreenProps', {
@@ -32,23 +25,19 @@ const ResumeScreenProps = ResumeData.extendSchema('ResumeScreenProps', {
   segment: z.string().optional(),
 }).example({
   params: { slug: 'codinsonn' },
-  segment: undefined,
   ...dummyResumeData,
 })
+
+export type TResumeScreenProps = AetherProps<typeof ResumeScreenProps>
+
+/* --- Data Fetching Bridge -------------------------------------------------------------------- */
 
 export const screenConfig = createDataBridge({
   ...GetResumeDataByUserSlugDataBridge,
   paramsSchema: ResumeScreenParams,
   propsSchema: ResumeScreenProps,
+  backgroundColor: '#111827',
 })
-
-export type TResumeScreenParams = AetherParams<typeof ResumeScreenParams>
-export type TResumeScreenProps = AetherProps<typeof ResumeScreenProps>
-
-/* --- Route Segments -------------------------------------------------------------------------- */
-
-// -i- https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
-export const dynamic = 'auto' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
 /* --- <ResumeScreen/> ------------------------------------------------------------------------- */
 
