@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { PlopTypes } from '@turbo/gen'
 // Utils
-import { parseWorkspaces } from '../scripts/helpers/scriptUtils'
+import { getWorkspaceOptions, getAvailableDataBridges } from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -10,17 +10,13 @@ import { parseWorkspaces } from '../scripts/helpers/scriptUtils'
 
 /* --- Constants ------------------------------------------------------------------------------- */
 
-const { workspaceImports } = parseWorkspaces('')
-const workspaceOptions = Object.keys(workspaceImports).reduce((options, workspacePath) => {
-  const workspaceName = workspaceImports[workspacePath]
-  const workspaceOption = `${workspacePath}  --  importable from: '${workspaceName}'`
-  // Skip listing the helper workspaces
-  if (['config', 'aetherspace', 'registries'].includes(workspaceName)) return options
-  // Add the workspace option
-  return { ...options, [workspaceOption]: workspacePath }
-}, {})
+const workspaceOptions = getWorkspaceOptions('')
+const availableDataBridges = getAvailableDataBridges('')
 
 const LINES = 100 - 12 // -i- 100 = max length, 12 = everything but the title & '-' lines
+
+const NoNeedForFetching = "No, this component doesn't need to fetch data."
+const NoIllDoItMyself = "No, I'll figure out data bridging myself."
 
 /* --- Helpers --------------------------------------------------------------------------------- */
 
@@ -44,12 +40,8 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
         type: 'input',
         name: 'screenName',
         message: 'What should the screen component be called? (e.g. "TestScreen" = <TestScreen/> component)', // prettier-ignore
+        default: 'SomeScreen',
       },
-      // {
-      //   type: 'input',
-      //   name: 'screenDescription',
-      //   message: 'Optional description: What will this page / screen render?',
-      // },
       {
         type: 'input',
         name: 'routePath',
@@ -60,21 +52,32 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
           return `/${workspaceName}/${camelToDash(data.screenName)}`
         },
       },
+      {
+        type: 'list',
+        name: 'fetcherBridge',
+        message: 'Would you like to fetch initial data for this route from a resolver?',
+        choices: [NoNeedForFetching, NoIllDoItMyself, ...Object.keys(availableDataBridges)],
+      },
     ],
     actions: (data) => {
       // Args
-      const { workspaceTarget, screenName, routePath /*, routeDescription */ } = data || {}
+      const { workspaceTarget, screenName, fetcherBridge } = data || {}
       const workspacePath = workspaceOptions[workspaceTarget]
+      const dataBridgeConfig = availableDataBridges[fetcherBridge]
 
       // -- Vars --
 
       const ScreenName = uppercaseFirstChar(screenName)
       const screenTitleDivider = `/* --- <${ScreenName}/> ${'-'.repeat(LINES - ScreenName.length - 3)} */` // prettier-ignore
 
+      let routePath = data?.routePath
+      if (!routePath?.startsWith('/')) routePath = `/${routePath}`
       const screenRoutePath = `${workspacePath}/routes/${routePath}/index.tsx`
       const traversalParts = routePath.split('/').map(() => '..')
       const screenImportPath = `${traversalParts.join('/')}/screens/${ScreenName}`
       const routePathDivider = `/* --- ${routePath} ${'-'.repeat(LINES - routePath.length)} */`
+
+      console.log({ dataBridgeConfig, routePath })
 
       // -- Generate --
 

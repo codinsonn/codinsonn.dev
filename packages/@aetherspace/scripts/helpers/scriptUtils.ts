@@ -52,3 +52,66 @@ export const parseWorkspaces = (folderLevel = '../../') => {
     workspacePackages,
   }
 }
+
+/** --- getWorkspaceOptions() ------------------------------------------------------------------ */
+/** -i- List all the available workspaces for generators to use (map of options to workspace paths) */
+export const getWorkspaceOptions = (folderLevel = '../../') => {
+  const { workspaceImports } = parseWorkspaces(folderLevel)
+  return Object.keys(workspaceImports).reduce((options, workspacePath) => {
+    const workspaceName = workspaceImports[workspacePath]
+    const workspaceOption = `${workspacePath}  --  importable from: '${workspaceName}'`
+    // Skip listing the helper workspaces
+    if (['config', 'aetherspace', 'registries'].includes(workspaceName)) return options
+    // Add the workspace option
+    return { ...options, [workspaceOption]: workspacePath }
+  }, {}) as Record<string, string>
+}
+
+/* --- getAvailableDataBridges() --------------------------------------------------------------- */
+/** -i- List all the available data bridges for generators to use */
+export const getAvailableDataBridges = (folderLevel = '../../') => {
+  // Get workspace imports
+  const { workspaceImports } = parseWorkspaces(folderLevel)
+
+  // Get paths of all Data Bridges
+  const packageBridgePaths = glob.sync(`${folderLevel}packages/**/schemas/**DataBridge.ts`).filter(excludeModules) // prettier-ignore
+  const featureBridgePaths = glob.sync(`${folderLevel}features/**/schemas/**DataBridge.ts`).filter(excludeModules) // prettier-ignore
+  const allDataBridgePaths = [...packageBridgePaths, ...featureBridgePaths].filter((pth) => !pth.includes('createDataBridge')) // prettier-ignore
+
+  // Map to build list of available resolvers to integrate with
+  const availableDataBridges = allDataBridgePaths.reduce((acc, bridgePath) => {
+    // Figure out the bridge name and contents
+    const bridgeName = bridgePath.split('/').pop()!.replace('.ts', '')
+    const workspacePath = bridgePath.split('/schemas/')[0]
+    const workspaceName = workspaceImports[workspacePath]
+    const fileContents = fs.readFileSync(bridgePath, 'utf8')
+
+    // Stop if the bridge is not exported of not found due to name not matching
+    const isNamedExport = fileContents.includes(`export const ${bridgeName}`)
+    const isDefaultExport = fileContents.includes(`export default ${bridgeName}`)
+    if (!isNamedExport && !isDefaultExport) return acc
+
+    // Figure out the resolver name
+    const isCallingCreateDataBridge = fileContents.includes('createDataBridge(')
+    const resolverName = fileContents.match(/resolverName: '(\w+)'/)?.[1]
+    if (!isCallingCreateDataBridge || !resolverName) return acc
+
+    // Build the option to display in the CLI
+    const dataBridgeOption = `${resolverName}  --  Resolver from '${workspaceName}' workspace package`
+
+    // Add the bridge to the list of available bridges
+    return {
+      ...acc,
+      [dataBridgeOption]: {
+        bridgePath,
+        bridgeName,
+        workspacePath,
+        workspaceName,
+        isNamedExport,
+        isDefaultExport,
+        resolverName,
+      },
+    }
+  }, {}) as Record<string, string>
+  return availableDataBridges
+}

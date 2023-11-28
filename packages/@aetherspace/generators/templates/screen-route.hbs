@@ -7,7 +7,7 @@ import * as {{screenName}} from '{{screenImportPath}}'
 /* --- Config ---------------------------------------------------------------------------------- */
 
 const ScreenComponent = {{screenName}}.{{ScreenName}}
-const screenConfig = {{screenName}}.{{ScreenName}}RouteDataConfig
+const screenConfig = {{screenName}}.screenConfig
 
 {{{routePathDivider}}}
 
@@ -17,6 +17,6 @@ const PageScreen = (props: {{screenName}}.T{{ScreenName}}Props) => (
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
-export const dynamic = {{screenName}}.dynamic
+export const dynamic = screenConfig.dynamic
 
 export default PageScreen

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { PlopTypes } from '@turbo/gen'
 // Utils
-import { parseWorkspaces } from '../scripts/helpers/scriptUtils'
+import { getWorkspaceOptions } from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -10,17 +10,9 @@ import { parseWorkspaces } from '../scripts/helpers/scriptUtils'
 
 /* --- Constants ------------------------------------------------------------------------------- */
 
-const { workspaceImports } = parseWorkspaces('')
-const workspaceOptions = Object.keys(workspaceImports).reduce((options, workspacePath) => {
-  const workspaceName = workspaceImports[workspacePath]
-  const workspaceOption = `${workspacePath}  --  importable from: '${workspaceName}'`
-  // Skip listing the helper workspaces
-  if (['config', 'aetherspace', 'registries'].includes(workspaceName)) return options
-  // Add the workspace option
-  return { ...options, [workspaceOption]: workspacePath }
-}, {})
+const workspaceOptions = getWorkspaceOptions('')
 
-/** --- Schema Generator -------------------------------------------------------------------- */
+/** --- Schema Generator ----------------------------------------------------------------------- */
 /** -i- Simple generator to add a new zod schema as a single source of truth */
 export const registerAetherSchemaGenerator = (plop: PlopTypes.NodePlopAPI) => {
   plop.setGenerator('aether-schema', {
