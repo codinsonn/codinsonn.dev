@@ -12,6 +12,7 @@ export const routeManifest = {
 {{routeManifestLines}}
 } as const
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export type KnownRoutes = keyof typeof routeManifest | (string & {})
 `
 
@@ -56,6 +57,8 @@ const linkRoutes = () => {
       if ([...indexRoutes, ...paramRoutes, ...apiRoutes].includes(pth)) {
         const routeFile = fs.readFileSync(pth, 'utf8')
         // Keep track of which Screen component is used?
+        if (routeFile.includes("/screens/"))
+          screenComponentName = routeFile.split("/screens/")[1].split("'")[0].trim() // prettier-ignore
         if (routeFile.includes('screen={'))
           screenComponentName = routeFile.split('screen={')[1].split('}')[0]
         if (routeFile.includes('ScreenComponent'))

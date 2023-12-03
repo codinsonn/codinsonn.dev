@@ -49,7 +49,7 @@ export const BioScreen = (props: TBioScreenProps) => {
   const [bioData, { error }] = useAetherRoute(props, screenConfig)
 
   // Hooks
-  const { pathname } = useAetherNav()
+  const { pathname, openLink } = useAetherNav()
   const { toggleColorScheme } = useAetherContext()
 
   // Vars & Flags
@@ -137,7 +137,11 @@ export const BioScreen = (props: TBioScreenProps) => {
 
       <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-8 px-5 items-center">
         <Text tw="font-primary-light text-secondary text-center text-sm sm:text-base">
-          Ready for <Text tw="font-primary-regular">Organic leads</Text> from the Web,
+          Ready for{' '}
+          <Text tw="font-primary-regular" onPress={() => openLink('/_sitemap')}>
+            Organic leads
+          </Text>{' '}
+          from the Web,
         </Text>
         <Text tw="font-primary-light text-secondary text-center text-sm sm:text-base">
           *and* <Text tw="font-primary-regular">Higher conversions</Text> on Mobile?

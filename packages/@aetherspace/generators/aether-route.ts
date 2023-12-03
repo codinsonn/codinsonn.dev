@@ -15,8 +15,8 @@ const availableDataBridges = getAvailableDataBridges('')
 
 const LINES = 100 - 12 // -i- 100 = max length, 12 = everything but the title & '-' lines
 
-const NoNeedForFetching = "No, this component doesn't need to fetch data."
-const NoIllDoItMyself = "No, I'll figure out data bridging myself."
+const NoNeedForFetching = "No, this screen doesn't need to fetch data to work"
+const NoIllDoItMyself = "No, I'll figure out data bridging myself (editable dummy example)"
 
 /* --- Helpers --------------------------------------------------------------------------------- */
 
@@ -65,6 +65,10 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
       const workspacePath = workspaceOptions[workspaceTarget]
       const dataBridgeConfig = availableDataBridges[fetcherBridge]
 
+      // Flags
+      const noFetcher = fetcherBridge === NoNeedForFetching
+      const isLinkedFetcher = ![NoNeedForFetching, NoIllDoItMyself].includes(fetcherBridge)
+
       // -- Vars --
 
       const ScreenName = uppercaseFirstChar(screenName)
@@ -77,43 +81,78 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
       const screenImportPath = `${traversalParts.join('/')}/screens/${ScreenName}`
       const routePathDivider = `/* --- ${routePath} ${'-'.repeat(LINES - routePath.length)} */`
 
-      console.log({ dataBridgeConfig, routePath })
+      console.log({ dataBridgeConfig, routePath, noFetcher, isLinkedFetcher })
 
-      // -- Generate --
+      // -- All Possible Steps --
+
+      const addSimpleScreen = {
+        type: 'add',
+        path: `${workspacePath}/screens/${ScreenName}.tsx`,
+        templateFile: '../../packages/@aetherspace/generators/templates/route-screen-simple.hbs', // prettier-ignore
+        data: {
+          screenName,
+          ScreenName,
+          screenTitleDivider,
+        },
+      }
+
+      const addDynamicScreen = {
+        ...addSimpleScreen,
+        templateFile: '../../packages/@aetherspace/generators/templates/route-screen.hbs',
+      }
+
+      const addScreenToIndex = {
+        type: 'append-last-line',
+        path: `${workspacePath}/screens/index.ts`,
+        template: `export { ${ScreenName}, T${ScreenName}Props } from './${ScreenName}'\n`,
+        pattern: /^(.*\S)[\r\n]*$/,
+      }
+
+      const addSimpleRoutePath = {
+        type: 'add',
+        path: screenRoutePath,
+        templateFile: '../../packages/@aetherspace/generators/templates/screen-route-simple.hbs', // prettier-ignore
+        data: {
+          screenName,
+          ScreenName,
+          screenImportPath,
+          routePath,
+          routePathDivider,
+        },
+      }
+
+      const addDynamicRoutePath = {
+        ...addSimpleRoutePath,
+        templateFile: '../../packages/@aetherspace/generators/templates/screen-route.hbs',
+      }
+
+      const openFilesInVSCode = {
+        type: 'open-files-in-vscode',
+        paths: [screenRoutePath, `${workspacePath}/screens/${ScreenName}.tsx`],
+      }
+
+      const linkRoutes = { type: 'link-routes' }
+
+      // -- Generate without Fetching Setup --
+
+      if (noFetcher) {
+        return [
+          addSimpleScreen,
+          addScreenToIndex,
+          addSimpleRoutePath,
+          openFilesInVSCode,
+          linkRoutes,
+        ]
+      }
+
+      // -- Generate with Dummy Fetching Setup --
 
       return [
-        {
-          type: 'add',
-          path: `${workspacePath}/screens/${ScreenName}.tsx`,
-          templateFile: '../../packages/@aetherspace/generators/templates/route-screen.hbs',
-          data: {
-            screenName,
-            ScreenName,
-            screenTitleDivider,
-          },
-        },
-        {
-          type: 'append-last-line',
-          path: `${workspacePath}/screens/index.ts`,
-          template: `export { ${ScreenName}, T${ScreenName}Props } from './${ScreenName}'\n`,
-          pattern: /^(.*\S)[\r\n]*$/,
-        },
-        {
-          type: 'add',
-          path: screenRoutePath,
-          templateFile: '../../packages/@aetherspace/generators/templates/screen-route.hbs',
-          data: {
-            screenName,
-            ScreenName,
-            screenImportPath,
-            routePath,
-            routePathDivider,
-          },
-        },
-        {
-          type: 'open-files-in-vscode',
-          paths: [screenRoutePath, `${workspacePath}/screens/${ScreenName}.tsx`],
-        },
+        addDynamicScreen,
+        addScreenToIndex,
+        addDynamicRoutePath,
+        openFilesInVSCode,
+        linkRoutes,
       ]
     },
   })

@@ -55,6 +55,14 @@ export default function (plop: PlopTypes.NodePlopAPI) {
     }
   )
 
+  plop.setActionType(
+    'link-routes', // @ts-ignore
+    function (_answers, _config, plop: PlopTypes.NodePlopAPI) {
+      // Run the link-routes script
+      execSync(`yarn workspace aetherspace run link-routes`)
+    }
+  )
+
   // -- Register generators --
 
   registerAetherWorkspaceGenerator(plop)

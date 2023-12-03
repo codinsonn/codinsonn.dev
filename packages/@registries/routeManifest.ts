@@ -9,4 +9,5 @@ export const routeManifest = {
   ['/resume/[slug]']: 'ResumeScreen',
 } as const
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export type KnownRoutes = keyof typeof routeManifest | (string & {})
