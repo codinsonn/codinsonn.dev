@@ -27,8 +27,9 @@ const RESOLVER_GENERATABLES = Object.freeze({
   'GET api route': 'GET',
   'POST api route': 'POST',
   'PUT api route': 'PUT',
-  // 'Typed fetcher util': 'fetcher',
-  // 'Typed fetcher hook': 'fetchHook',
+  // "Typed formState hook (for resolver args)": 'formHook',
+  // "Typed fetching function, e.g. fetchResources()": 'fetch',
+  // "Typed fetcher hook, e.g. useFetchResources()": 'fetchHook',
 })
 
 /* --- Helpers --------------------------------------------------------------------------------- */
@@ -38,6 +39,8 @@ const matchMethods = (methods: string[]) => (opt) => methods.includes(opt)
 const camelToDash = (str: string) => str.replace(/[\w]([A-Z])/g, (m) => `${m[0]}-${m[1]}`).toLowerCase() // prettier-ignore
 
 const uppercaseFirstChar = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
+
+const includesOption = (strOpts: string[]) => (opt) => strOpts.join('').includes(opt)
 
 /** --- Resolver Generator --------------------------------------------------------------------- */
 /** -i- Resolver generator to add a new data resolver and related schemas, API routes and fetching logic */
@@ -54,7 +57,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       {
         type: 'input',
         name: 'resolverName',
-        message: 'How will you name the resolver function? (e.g. "getSomeData")',
+        message: 'What will you name the resolver function? (e.g. "doSomething")',
       },
       {
         type: 'input',
@@ -66,34 +69,43 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         name: 'generatables',
         message: 'What else would you like to generate related to this resolver? (auto linked)',
         choices: Object.keys(RESOLVER_GENERATABLES),
-        default: Object.keys(RESOLVER_GENERATABLES).filter((opt) => opt !== 'PUT api route'),
+        default: Object.keys(RESOLVER_GENERATABLES).filter((opt) => {
+          return ['GraphQL', 'GET', 'POST'].some((allowedOpt) => opt.includes(allowedOpt))
+        }),
+      },
+      {
+        type: 'list',
+        name: 'resolverType',
+        message: 'Is this a GraphQL query or mutation?',
+        choices: ['query', 'mutation'],
+        default: (data) => {
+          const isMutatable = ['POST', 'PUT', 'DELETE'].some(includesOption(data.generatables))
+          return isMutatable ? 'mutation' : 'query'
+        },
+        when: (data) => ['GraphQL'].some(includesOption(data.generatables)),
       },
       {
         type: 'input',
         name: 'apiPath',
-        message: 'What API path would you like to use? (e.g. "/api/my-resolver/[slug]")',
+        message: 'What API path would you like to use for REST? (e.g. "/api/my-resolver/[slug]")',
         default: (data) => {
           const workspacePath = workspaceOptions[data.workspaceTarget]
           const workspaceName = workspacePath.split('/')[1]
           return `/api/${workspaceName}/${camelToDash(data.resolverName)}`
         },
-        when: (data) => {
-          return ['api route', 'GraphQL'].some((opt) => {
-            return data!.generatables.join('').includes(opt)
-          })
-        },
+        when: (data) => ['api route', 'GraphQL'].some(includesOption(data.generatables)),
       },
     ],
     actions: (data) => {
       // Args
-      const { workspaceTarget, resolverName, apiPath, resolverDescription } = data || {}
+      const { workspaceTarget, resolverName, resolverType, apiPath, resolverDescription } = data || {} // prettier-ignore
       const generatables = data!.generatables.map((option) => RESOLVER_GENERATABLES[option])
       const workspacePath = workspaceOptions[workspaceTarget]
 
       // -- Vars --
 
       const ResolverName = uppercaseFirstChar(resolverName)
-      const resolverSchemaName = `${ResolverName}Resolver`
+      const resolverSchemaName = `${ResolverName}DataBridge`
       const descriptions = [] as string[]
 
       const argsSchemaDescription = `Args for the ${resolverName}() resolver`
@@ -103,7 +115,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       const jsDocArgsTitle = `/** --- ${argsSchemaName} ${argsSchemaLines} */`
       const jsDocArgsDescription = `/** -i- ${argsSchemaDescription} */`
       const jsDocArgsHeader = `${jsDocArgsTitle}\n${jsDocArgsDescription}`
-      const argsSchemaBody = ["test: z.string().default('Hello World'),"]
+      const argsSchemaBody = [`test: z.string().default('Hello World'),`]
       const argsDescriptionStatement = `.describe(d.${argsSchemaName})`
 
       const resSchemaDescription = `Response for the ${resolverName}() resolver`
@@ -198,6 +210,8 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
             descriptions: descriptions.join('\n  '),
             resolverName,
             ResolverName,
+            resolverType,
+            ResolverType: uppercaseFirstChar(resolverType),
             // - Args -
             jsDocArgsHeader,
             argsSchemaBody: argsSchemaBody.join('\n  '),
@@ -236,6 +250,12 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           pattern: /^(.*\S)[\r\n]*$/,
         },
         ...extraActions,
+        {
+          type: 'collect-resolvers',
+        },
+        {
+          type: 'link-routes',
+        },
         {
           type: 'open-files-in-vscode',
           paths: [

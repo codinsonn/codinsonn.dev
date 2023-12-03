@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable import/no-anonymous-default-export */
 import fs from 'fs'
 import path from 'path'
@@ -47,7 +48,7 @@ export default function (plop: PlopTypes.NodePlopAPI) {
 
   plop.setActionType(
     'open-files-in-vscode', // @ts-ignore
-    function (_answers, config: { paths: string[] }, plop: PlopTypes.NodePlopAPI) {
+    function (answers, config: { paths: string[] }, plop: PlopTypes.NodePlopAPI) {
       const targetPath = plop.getPlopfilePath().replace('/turbo/generators', '')
       const absolutePaths = config.paths.map((p) => path.join(targetPath, p))
       // Open files in VSCode
@@ -56,10 +57,37 @@ export default function (plop: PlopTypes.NodePlopAPI) {
   )
 
   plop.setActionType(
+    'collect-resolvers', // @ts-ignore
+    function (answers, config, plop: PlopTypes.NodePlopAPI) {
+      return new Promise((resolve, reject) => {
+        try {
+          console.log("Running 'collect-resolvers' script from '@aetherspace' workspace...")
+          execSync(`yarn workspace aetherspace run collect-resolvers`)
+          resolve("Ran 'collect-resolvers' script from '@aetherspace' workspace")
+        } catch (error) {
+          console.error(
+            "Failed to execute 'yarn workspace aetherspace run collect-resolvers':",
+            error
+          )
+          reject(error)
+        }
+      })
+    }
+  )
+
+  plop.setActionType(
     'link-routes', // @ts-ignore
-    function (_answers, _config, plop: PlopTypes.NodePlopAPI) {
-      // Run the link-routes script
-      execSync(`yarn workspace aetherspace run link-routes`)
+    function (answers, config, plop: PlopTypes.NodePlopAPI) {
+      return new Promise((resolve, reject) => {
+        try {
+          console.log("Running 'link-routes' script from '@aetherspace' workspace...")
+          execSync(`yarn workspace aetherspace run link-routes`)
+          resolve("Ran 'link-routes' script from '@aetherspace' workspace")
+        } catch (error) {
+          console.error("Failed to execute 'yarn workspace aetherspace run link-routes':", error)
+          reject(error)
+        }
+      })
     }
   )
 

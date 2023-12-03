@@ -18,6 +18,7 @@ export const createDataBridge = <
   RAN extends `${RN}Args` | HintedKeys = `${RN}Args`,
 >({
   resolverName,
+  resolverType: customResolverType,
   resolverArgsName = `${resolverName}Args`,
   argsSchema,
   responseSchema,
@@ -33,6 +34,7 @@ export const createDataBridge = <
   dynamic = 'auto',
 }: {
   resolverName: RN
+  resolverType?: 'query' | 'mutation'
   resolverArgsName?: RAN | HintedKeys
   argsSchema: z.ZodObject<SA>
   responseSchema: z.ZodObject<SR>
@@ -48,7 +50,9 @@ export const createDataBridge = <
   dynamic?: 'auto' | 'force-dynamic' | 'error' | 'force-static'
 }) => {
   // Vars & Flags
-  const isMutation = graphqlQuery.includes('mutation')
+  const constainsMutationKeyword = graphqlQuery.includes('mutation')
+  const resolverType = customResolverType || (constainsMutationKeyword ? 'mutation' : 'query')
+  const isMutation = resolverType === 'mutation' || constainsMutationKeyword
 
   // -- Error Checks --
 
@@ -92,6 +96,7 @@ export const createDataBridge = <
 
   return {
     resolverName,
+    resolverType,
     resolverArgsName,
     paramsSchema,
     argsSchema,

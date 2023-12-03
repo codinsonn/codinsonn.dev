@@ -140,8 +140,8 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
           addSimpleScreen,
           addScreenToIndex,
           addSimpleRoutePath,
-          openFilesInVSCode,
           linkRoutes,
+          openFilesInVSCode,
         ]
       }
 
@@ -151,8 +151,8 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
         addDynamicScreen,
         addScreenToIndex,
         addDynamicRoutePath,
-        openFilesInVSCode,
         linkRoutes,
+        openFilesInVSCode,
       ]
     },
   })
