@@ -67,7 +67,6 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
 
       // Flags
       const noFetcher = fetcherBridge === NoNeedForFetching
-      const isLinkedFetcher = ![NoNeedForFetching, NoIllDoItMyself].includes(fetcherBridge)
 
       // -- Vars --
 
@@ -81,7 +80,12 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
       const screenImportPath = `${traversalParts.join('/')}/screens/${ScreenName}`
       const routePathDivider = `/* --- ${routePath} ${'-'.repeat(LINES - routePath.length)} */`
 
-      console.log({ dataBridgeConfig, routePath, noFetcher, isLinkedFetcher })
+      const { bridgePath, workspaceName, workspacePath: bridgeWsPath } = dataBridgeConfig || {}
+      const DataBridgeName = dataBridgeConfig?.bridgeName
+      let dataBridgeImportPath = bridgePath?.replace('.ts', '')
+      const isWorkspaceBridge = bridgeWsPath === workspacePath
+      const bridgeImportRoot = isWorkspaceBridge ? '../' : workspaceName
+      dataBridgeImportPath = bridgePath?.replace(bridgeWsPath, bridgeImportRoot)
 
       // -- All Possible Steps --
 
@@ -99,6 +103,16 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
       const addDynamicScreen = {
         ...addSimpleScreen,
         templateFile: '../../packages/@aetherspace/generators/templates/route-screen.hbs',
+      }
+
+      const addLinkedResolverScreen = {
+        ...addDynamicScreen,
+        templateFile: '../../packages/@aetherspace/generators/templates/route-screen-w-resolver.hbs', // prettier-ignore
+        data: {
+          ...addDynamicScreen.data,
+          DataBridgeName,
+          dataBridgeImportPath,
+        },
       }
 
       const addScreenToIndex = {
@@ -140,6 +154,18 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
           addSimpleScreen,
           addScreenToIndex,
           addSimpleRoutePath,
+          linkRoutes,
+          openFilesInVSCode,
+        ]
+      }
+
+      // -- Generate with Linked Resolver Fetching Setup --
+
+      if (dataBridgeConfig) {
+        return [
+          addLinkedResolverScreen,
+          addScreenToIndex,
+          addDynamicRoutePath,
           linkRoutes,
           openFilesInVSCode,
         ]

@@ -112,6 +112,17 @@ export const getAvailableDataBridges = (folderLevel = '../../') => {
         resolverName,
       },
     }
-  }, {}) as Record<string, string>
+  }, {}) as Record<
+    string,
+    {
+      bridgePath: string
+      bridgeName: string
+      workspacePath: string
+      workspaceName: string
+      isNamedExport: boolean
+      isDefaultExport: boolean
+      resolverName: string
+    }
+  >
   return availableDataBridges
 }

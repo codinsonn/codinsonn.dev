@@ -49,10 +49,19 @@ export default function (plop: PlopTypes.NodePlopAPI) {
   plop.setActionType(
     'open-files-in-vscode', // @ts-ignore
     function (answers, config: { paths: string[] }, plop: PlopTypes.NodePlopAPI) {
-      const targetPath = plop.getPlopfilePath().replace('/turbo/generators', '')
-      const absolutePaths = config.paths.map((p) => path.join(targetPath, p))
-      // Open files in VSCode
-      execSync(`code ${absolutePaths.join(' ')}`)
+      return new Promise((resolve, reject) => {
+        try {
+          console.log('Opening files in VSCode...')
+          const targetPath = plop.getPlopfilePath().replace('/turbo/generators', '')
+          const absolutePaths = config.paths.map((p) => path.join(targetPath, p))
+          // Open files in VSCode
+          execSync(`code ${absolutePaths.join(' ')}`)
+          resolve(`Opened ${absolutePaths.length} files in VSCode`)
+        } catch (error) {
+          console.error('Failed to open files in VSCode:', error)
+          reject(error)
+        }
+      })
     }
   )
 
