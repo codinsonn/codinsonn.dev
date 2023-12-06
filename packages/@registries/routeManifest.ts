@@ -5,6 +5,7 @@ export const routeManifest = {
   ['/']: 'BioScreen',
   ['/links']: 'BioScreen',
   ['/resume']: 'ResumeScreen',
+  ['/cv/[slug]/edit']: 'UpdateResumeScreen',
   ['/cv/[slug]']: 'ResumeScreen',
   ['/resume/[slug]']: 'ResumeScreen',
 } as const

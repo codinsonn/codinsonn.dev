@@ -1,13 +1,8 @@
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
-// Types
 import { TMongoUpdateResult } from '@aetherspace/mongoose/schemas'
-// Schemas
 import { UpsertResumeAPIConfig } from '../schemas/UpsertResumeResolver'
-// Models
 import { ResumeDataModel } from '../schemas/models'
-// Mocks
 import { dummyResumeData } from '../mocks/resumeData.mock'
-// Utils
 import { dbConnect } from '@aetherspace/mongoose/utils'
 
 /* --- Constants ------------------------------------------------------------------------------- */
