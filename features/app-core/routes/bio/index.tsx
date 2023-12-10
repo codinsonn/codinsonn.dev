@@ -1,13 +1,14 @@
 import React from 'react'
 import { AetherPage } from 'aetherspace/navigation'
-// Screens
 import * as bioScreen from 'links-page/screens/BioScreen'
+import { userBioMock } from 'links-page/mocks/userBio.mock'
 
 /* --- /bio ------------------------------------------------------------------------------------ */
 
 const PageScreen = (props: bioScreen.TBioScreenProps) => (
   <AetherPage
     {...props}
+    {...userBioMock}
     params={{ slug: 'codinsonn' }}
     screen={bioScreen.BioScreen}
     screenConfig={bioScreen.screenConfig}

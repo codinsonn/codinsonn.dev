@@ -12,7 +12,7 @@ const d = {
 /** --- ResumeAwardData ---------------------------------------------------------------------- */
 /** -i- Data for a project to be listed on the resume */
 export const ResumeAwardData = BaseResumeListItem.extendSchema('ResumeAwardData', {
-  presentedBy: z.string().optional().describe(d.presentedBy),
+  presentedBy: z.string().nullish().describe(d.presentedBy),
 }).describe(d.ResumeAwardData)
 
 /** -i- Data for a project to be listed on the resume */

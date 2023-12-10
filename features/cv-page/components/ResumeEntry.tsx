@@ -16,9 +16,9 @@ import { twStyled, useTailwindStyles } from 'aetherspace/styles'
 export const ResumeEntryProps = aetherSchema('ResumeEntryProps', {
   sideLabel: z.string(),
   title: z.string(),
-  subTitle: z.string().optional(),
-  linkUrl: z.string().optional(),
-  description: z.string().optional(),
+  subTitle: z.string().nullish(),
+  linkUrl: z.string().nullish(),
+  description: z.string().nullish(),
 })
 
 /* --- <ResumeEntry/> -------------------------------------------------------------------------- */

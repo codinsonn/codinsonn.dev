@@ -15,9 +15,9 @@ const d = {
 /** -i- Shared set of datastructure for all kinds of projects you'd like to share on your resume */ // prettier-ignore
 export const BaseResumeListItem = BaseLinkData.extendSchema('BaseResumeListItem', {
   title: z.string().describe(d.title),
-  year: z.string().optional().describe(d.year),
-  collaborators: z.string().optional().describe(d.collaborators),
-  description: z.string().optional().describe(d.description),
+  year: z.string().nullish().describe(d.year),
+  collaborators: z.string().nullish().describe(d.collaborators),
+  description: z.string().nullish().describe(d.description),
 }).describe(d.BaseResumeListItem)
 
 /** -i- Shared set of datastructure for all kinds of projects you'd like to share on your resume */

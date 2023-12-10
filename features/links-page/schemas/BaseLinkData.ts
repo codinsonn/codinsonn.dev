@@ -16,14 +16,14 @@ const d = {
 /** --- BaseLinkData --------------------------------------------------------------------------- */
 /** -i- Datastructure for one social link */
 export const BaseLinkData = aetherSchema('BaseLinkData', {
-  id: z.string().coerce().id().optional().describe(d.id),
+  id: z.string().coerce().id().nullish().describe(d.id),
   linkUrl: z.string().describe(d.linkUrl),
-  linkTitle: z.string().optional().eg('Some link title').describe(d.linkTitle),
-  linkIconKey: z.string().optional().describe(d.linkIconKey),
-  sortOrder: z.number().optional().describe(d.sortOrder),
+  linkTitle: z.string().nullish().eg('Some link title').describe(d.linkTitle),
+  linkIconKey: z.string().nullish().describe(d.linkIconKey),
+  sortOrder: z.number().nullish().describe(d.sortOrder),
   // - Links & Search Helpers -
-  userId: z.string().optional().describe(d.userId),
-  userSlug: z.string().optional().describe(d.userSlug),
+  userId: z.string().nullish().describe(d.userId),
+  userSlug: z.string().nullish().describe(d.userSlug),
 }).describe(d.BaseLinkData)
 
 /** -i- Datastructure for one social link */

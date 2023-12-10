@@ -1,8 +1,7 @@
 import React from 'react'
-// Navigation
 import { AetherPage } from 'aetherspace/navigation'
-// Screens
 import * as ResumeScreen from 'cv-page/screens/ResumeScreen'
+import { dummyResumeData } from 'cv-page/mocks/resumeData.mock'
 
 /* --- Config ---------------------------------------------------------------------------------- */
 
@@ -14,6 +13,7 @@ const screenConfig = ResumeScreen.screenConfig
 const PageScreen = (props: ResumeScreen.TResumeScreenProps) => (
   <AetherPage
     {...props}
+    {...dummyResumeData}
     params={{ slug: 'codinsonn' }}
     screen={ScreenComponent}
     screenConfig={screenConfig}

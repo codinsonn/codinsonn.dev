@@ -108,7 +108,7 @@ export const BioScreen = (props: TBioScreenProps) => {
             href={bioIcon.linkUrl!}
             tw={['px-1 xs:px-2 md:px-3', bioIcon.extraClasses]}
           >
-            <AetherIcon name={bioIcon.linkIconKey} size={ICON_SIZE} fill={ICON_COLOR} />
+            <AetherIcon name={bioIcon.linkIconKey!} size={ICON_SIZE} fill={ICON_COLOR} />
           </Link>
         ))}
       </View>
@@ -144,7 +144,7 @@ export const BioScreen = (props: TBioScreenProps) => {
           from the Web,
         </Text>
         <Text tw="font-primary-light text-secondary text-center text-sm sm:text-base">
-          *and* <Text tw="font-primary-regular">Higher conversions</Text> on Mobile?
+          <Text tw="font-primary-regular">Higher conversions</Text> on Mobile?
         </Text>
         <View tw="h-3" />
         <Text tw="flex-row">
