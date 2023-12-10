@@ -359,4 +359,5 @@ const someSchema = aetherSchema('SomeSchema', {
 
 - Read the [official zod docs at zod.dev](https://zod.dev/) (or watch an [intro video](https://www.youtube.com/watch?v=L6BE-U3oy80))
 - [Writing flexible data resolvers with Schemas](/packages/@aetherspace/navigation/AetherPage/README.md)
+- [Form State Management in Aetherspace with Zod](/packages/@aetherspace/forms/README.md)
 - [Automation based on Schemas: Storybook & GraphQL](/packages/@aetherspace/scripts/README.md)

@@ -1,8 +1,20 @@
 # Universal Routing for Expo & Next.js
 
-When combining React for Web and React-Native for Mobile, navigation has always been one of the hardest problems to solve. Luckily, with file-based routing in both Next.js, -and more recently, Expo-Router, we can provide an easy way of managing your routes:  
+When combining React for Web and React-Native for Mobile, navigation has always been one of the hardest problems to solve. Luckily, with file-based routing in both Next.js, -and more recently, Expo-Router, we can provide an easy way of managing your routes on the workspace level:  
 
-## Easy Mode — Using the Route Generator
+```shell
+/workspace/
+└── /screens/ # ➡️ Pages used in /routes/
+└── /routes/ # ➡️ Routing linked to expo & next.js app-dir using scripts
+    └── api/ # ➡️ Houses all REST API's, copied to app dirs using a script
+    └── about/
+        └── index.tsx # ➡️ Will be available at '/about' in Expo + Next
+    └── blog/
+        └── [slug]/
+            └── index.tsx # ➡️ Will be available at '/blog/[slug]' in Expo + Next
+```
+
+## Using the Route Generator (Recommended)
 
 ```shell
 yarn ats add-route
