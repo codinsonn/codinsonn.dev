@@ -159,6 +159,31 @@ You can reset the form state to its initial values by calling `formState.resetFo
 
 `formState.transformValues()` - function, will transform the form state values according to the optional `transformValues` function you provided to `useFormState()`, or simply apply the schema defaults if you didn't provide one. Handy for e.g. converting values to a different format before submitting them to an API.
 
+## Generating a form state for new resolvers (Recommended)
+
+When using the `aether-resolver` generator, you can generate a form state for your new resolver automatically:
+
+```bash
+>>> Modify "aetherspace-green-stack-starter" using custom generators
+
+? Where would you like to add this resolver? # features/app-core
+? What will you name the resolver function? # updateSomeData
+? Optional description: What will this data resolver do? # ...
+? What else would you like to generate related to this resolver? # GraphQL resolver, *Typed formState hook*
+? Is this a GraphQL query or mutation? # mutation
+? What API path would you like to use for REST? # /api/app-core/update-some-data
+? What should the form hook be called? # useSomeDataForm <-- *This is the form state hook you'll use in your components
+
+Running 'collect-resolvers' script from '@aetherspace' workspace...
+Running 'link-routes' script from '@aetherspace' workspace...
+Opening files in VSCode...
+
+>>> Changes made:
+  • /features/app-core/schemas/UpdateSomeDataDataBridge.ts (add)
+  • /features/app-core/resolvers/updateSomeData.ts (add)
+  • /features/app-core/forms/useSomeDataForm.ts (add) # <-- *Import path for your form state hook
+```
+
 ## Learn more about Aetherspace:
 
 - [Zod & Single Sources of Truth](/packages/@aetherspace/schemas/README.md)

@@ -27,7 +27,7 @@ const RESOLVER_GENERATABLES = Object.freeze({
   'GET api route': 'GET',
   'POST api route': 'POST',
   'PUT api route': 'PUT',
-  // "Typed formState hook (for resolver args)": 'formHook',
+  'Typed formState hook (for resolver args)': 'formHook',
   // "Typed fetching function, e.g. fetchResources()": 'fetch',
   // "Typed fetcher hook, e.g. useFetchResources()": 'fetchHook',
 })
@@ -58,6 +58,11 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         type: 'input',
         name: 'resolverName',
         message: 'What will you name the resolver function? (e.g. "doSomething")',
+        validate: (input) => {
+          if (!input) return 'Please enter a name for the resolver'
+          if (input.includes(' ')) return 'Please enter a name without spaces'
+          return true
+        },
       },
       {
         type: 'input',
@@ -94,6 +99,18 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           return `/api/${workspaceName}/${camelToDash(data.resolverName)}`
         },
         when: (data) => ['api route', 'GraphQL'].some(includesOption(data.generatables)),
+      },
+      {
+        type: 'input',
+        name: 'formHookName',
+        message: 'What should the form hook be called?',
+        default: (data) => {
+          const { resolverName } = data
+          let formHookName = `use${uppercaseFirstChar(resolverName)}Form`
+          formHookName = formHookName.replace('Edit', '').replace('Resolver', '').replace('Update', '') // prettier-ignore
+          return formHookName
+        },
+        when: (data) => ['formState hook'].some(includesOption(data.generatables)),
       },
     ],
     actions: (data) => {
@@ -155,7 +172,9 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       // -- Optionals --
 
       const extraActions = [] as PlopTypes.ActionType[]
+      const extraFilesToOpen = [] as string[]
       const requiresApiRoute = !!apiPath || allowGET || allowPOST || allowPUT || hasGraphResolver
+      const requiresFormHook = generatables.includes('formHook')
 
       if (requiresApiRoute) {
         // Add API route instructions to the resolver config
@@ -196,6 +215,27 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
             serverUtilImports: serverUtilImports.join(', '),
             apiStatements: apiStatements.join('\n'),
           },
+        })
+      }
+
+      // Add form hook?
+      if (requiresFormHook) {
+        const { formHookName } = data || {}
+        extraActions.push({
+          type: 'add',
+          path: `${workspacePath}/forms/${formHookName}.ts`,
+          templateFile: '../../packages/@aetherspace/generators/templates/resolver-form-hook.hbs',
+          data: {
+            ResolverName,
+            formHookName,
+          },
+        })
+        extraFilesToOpen.push(`${workspacePath}/forms/${formHookName}.ts`)
+        extraActions.push({
+          type: 'append-last-line', // @ts-ignore
+          path: `${workspacePath}/forms/index.ts`,
+          template: `export * from './${formHookName}'\n`,
+          pattern: /^(.*\S)[\r\n]*$/,
         })
       }
 
@@ -261,6 +301,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           paths: [
             `${workspacePath}/schemas/${resolverSchemaName}.ts`,
             `${workspacePath}/resolvers/${resolverName}.ts`,
+            ...extraFilesToOpen,
           ],
         },
       ]

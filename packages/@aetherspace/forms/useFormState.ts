@@ -84,7 +84,7 @@ export const useFormState = <S extends z.ZodRawShape, T extends z.infer<z.ZodObj
   const defaultValues = useMemo(() => {
     if (options.applyDefaults) return initialValues as T
     return stateSchema.applyDefaults(initialValues ?? {}) as T
-  }, [])
+  }, [initialValues, options.applyDefaults, stateSchema])
 
   // State
   const [values, setValues] = useState<T>(defaultValues)
