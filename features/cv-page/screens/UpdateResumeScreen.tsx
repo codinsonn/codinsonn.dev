@@ -1,11 +1,12 @@
 import React from 'react'
 import { useAetherRoute } from 'aetherspace/navigation'
 import { z, AetherProps, createDataBridge } from 'aetherspace/schemas'
-import { GetResumeDataByUserSlugDataBridge } from '..//schemas/GetResumeDataByUserSlugDataBridge.ts'
+import { GetResumeDataByUserSlugDataBridge } from '../schemas/GetResumeDataByUserSlugDataBridge.ts'
 import { View } from 'aetherspace/primitives'
 import { H1, P } from 'aetherspace/html-elements'
 import useResumeDataForm from '../forms/useResumeDataForm.ts'
 import { dummyResumeData } from '../mocks/resumeData.mock.ts'
+import { isEmpty } from 'aetherspace/utils/commonUtils/commonUtils.ts'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
@@ -42,9 +43,18 @@ export const UpdateResumeScreen = (props: TUpdateResumeScreenProps) => {
 
   // -- Effects --
 
-  React.useEffect(() => {
-    formState.handleChange('slug', 'codinsonnn')
-  }, [])
+  // React.useEffect(() => {
+  //   formState.handleChange('slug', 'codinsonnn')
+  // }, [])
+
+  // React.useEffect(() => {
+  //   formState.validate()
+  // }, [formState.getValue('slug')])
+
+  // React.useEffect(() => {
+  //   const { errors } = formState
+  //   console.log('ResumeScreen', { formState })
+  // }, [formState.hasErrors('awards')])
 
   // -- Guards --
 
@@ -52,6 +62,14 @@ export const UpdateResumeScreen = (props: TUpdateResumeScreenProps) => {
     return (
       <View tw="w-full h-full items-center justify-center">
         <H1 tw="text-red-500">Error: {error.message}</H1>
+      </View>
+    )
+  }
+
+  if (!isEmpty(formState.errors)) {
+    return (
+      <View tw="w-full h-full items-center justify-center">
+        <H1 tw="text-red-500">Form error: {JSON.stringify(formState.errors, null, 4)}</H1>
       </View>
     )
   }
