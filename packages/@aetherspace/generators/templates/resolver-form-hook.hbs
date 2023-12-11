@@ -6,7 +6,7 @@ import { DeepPartial } from 'aetherspace/types/typeHelpers'
 
 type InitialFormData = DeepPartial<(typeof {{ResolverName}}DataBridge)['ARGS']>
 
-/* --- {{formHookName}}() --------------------------------------------------------------------- */
+{{formHookDivider}}
 
 const {{formHookName}} = (initialValues: InitialFormData) => {
   const formState = useFormState({

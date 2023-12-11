@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { PlopTypes } from '@turbo/gen'
 // Utils
-import { parseWorkspaces } from '../scripts/helpers/scriptUtils'
+import { getWorkspaceOptions } from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -10,15 +10,7 @@ import { parseWorkspaces } from '../scripts/helpers/scriptUtils'
 
 /* --- Constants ------------------------------------------------------------------------------- */
 
-const { workspaceImports } = parseWorkspaces('')
-const workspaceOptions = Object.keys(workspaceImports).reduce((options, workspacePath) => {
-  const workspaceName = workspaceImports[workspacePath]
-  const workspaceOption = `${workspacePath}  --  importable from: '${workspaceName}'`
-  // Skip listing the helper workspaces
-  if (['config', 'aetherspace', 'registries'].includes(workspaceName)) return options
-  // Add the workspace option
-  return { ...options, [workspaceOption]: workspacePath }
-}, {})
+const workspaceOptions = getWorkspaceOptions('')
 
 const LINES = 100 - 13 // -i- JSDoc: 100 = max length, 13 = everything but the title & '-' lines
 
@@ -111,6 +103,11 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           return formHookName
         },
         when: (data) => ['formState hook'].some(includesOption(data.generatables)),
+        validate: (input) => {
+          if (!input) return 'Please enter a name for the resolver'
+          if (input.includes(' ')) return 'Please enter a name without spaces'
+          return true
+        },
       },
     ],
     actions: (data) => {
@@ -200,7 +197,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         // Add GraphQL resolver?
         if (hasGraphResolver) {
           serverUtilImports.push('makeGraphQLResolver')
-          apiStatements.push(`/* --- GraphQL ${'-'.repeat(LINES - 'GraphQL'.length)} */\n`)
+          apiStatements.push(`/* --- GraphQL ${'-'.repeat(LINES - 'GraphQL'.length + 1)} */\n`)
           apiStatements.push(`export const graphResolver = makeGraphQLResolver(${resolverName})\n`)
         }
 
@@ -221,6 +218,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       // Add form hook?
       if (requiresFormHook) {
         const { formHookName } = data || {}
+        const formHookDivider = `/* --- ${formHookName}() ${'-'.repeat(LINES - formHookName.length - 1)} */` // prettier-ignore
         extraActions.push({
           type: 'add',
           path: `${workspacePath}/forms/${formHookName}.ts`,
@@ -228,6 +226,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           data: {
             ResolverName,
             formHookName,
+            formHookDivider,
           },
         })
         extraFilesToOpen.push(`${workspacePath}/forms/${formHookName}.ts`)
