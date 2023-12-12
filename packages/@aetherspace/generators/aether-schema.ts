@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { PlopTypes } from '@turbo/gen'
 // Utils
-import { getWorkspaceOptions } from '../scripts/helpers/scriptUtils'
+import { getWorkspaceOptions, validateNonEmptyNoSpaces } from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -28,6 +28,7 @@ export const registerAetherSchemaGenerator = (plop: PlopTypes.NodePlopAPI) => {
         type: 'input',
         name: 'schemaName',
         message: 'What is the schema name?',
+        validate: validateNonEmptyNoSpaces,
       },
       {
         type: 'input',

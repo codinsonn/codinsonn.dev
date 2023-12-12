@@ -9,6 +9,7 @@ import { registerAetherWorkspaceGenerator } from '../../packages/@aetherspace/ge
 import { registerAetherSchemaGenerator } from '../../packages/@aetherspace/generators/aether-schema'
 import { registerAetherResolverGenerator } from '../../packages/@aetherspace/generators/aether-resolver'
 import { registerAetherRouteGenerator } from '../../packages/@aetherspace/generators/aether-route'
+import { registerAetherFormGenerator } from '../../packages/@aetherspace/generators/aether-form'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -25,7 +26,16 @@ export type AppendActionConfig = PlopTypes.ActionConfig & {
 
 /* --- Register Generators --------------------------------------------------------------------- */
 
+// const autocomplete = await import('inquirer-autocomplete-prompt')
+
 export default function (plop: PlopTypes.NodePlopAPI) {
+  // -- Register prompts --
+
+  import('inquirer-autocomplete-prompt').then((autocomplete) => {
+    // @ts-ignore
+    plop.setPrompt('autocomplete', autocomplete.default)
+  })
+
   // -- Register actions --
 
   plop.setActionType(
@@ -106,4 +116,5 @@ export default function (plop: PlopTypes.NodePlopAPI) {
   registerAetherSchemaGenerator(plop)
   registerAetherResolverGenerator(plop)
   registerAetherRouteGenerator(plop)
+  registerAetherFormGenerator(plop)
 }

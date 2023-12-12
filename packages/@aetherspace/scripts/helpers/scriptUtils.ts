@@ -67,7 +67,62 @@ export const getWorkspaceOptions = (folderLevel = '../../') => {
   }, {}) as Record<string, string>
 }
 
-/* --- getAvailableDataBridges() --------------------------------------------------------------- */
+/** --- getAvailableSchemas() ------------------------------------------------------------------ */
+/** -i- List all the available schemas for generators to use */
+export const getAvailableSchemas = (folderLevel = '../../') => {
+  // Get workspace imports
+  const { workspaceImports } = parseWorkspaces(folderLevel)
+
+  // Get paths of all schemas
+  const packageSchemaPaths = glob.sync(`${folderLevel}packages/**/schemas/[A-Z]*.ts`).filter(excludeModules) // prettier-ignore
+  const featureSchemaPaths = glob.sync(`${folderLevel}features/**/schemas/[A-Z]*.ts`).filter(excludeModules) // prettier-ignore
+  const allSchemaPaths = [...packageSchemaPaths, ...featureSchemaPaths].filter((pth) => {
+    return !['createSchema', 'DataBridge', 'Resolver', '.enum'].some((excluded) => pth.includes(excluded))
+  }) // prettier-ignore
+
+  // Map to build list of available resolvers to integrate with
+  const availableSchemas = allSchemaPaths.reduce((acc, schemaPath) => {
+    // Figure out the schema name and contents
+    const schemaName = schemaPath.split('/').pop()!.replace('.ts', '')
+    const workspacePath = schemaPath.split('/schemas/')[0]
+    const workspaceName = workspaceImports[workspacePath]
+    const fileContents = fs.readFileSync(schemaPath, 'utf8')
+
+    // Stop if the schema is not exported of not found due to name not matching
+    const isNamedExport = fileContents.includes(`export const ${schemaName}`)
+    const isDefaultExport = fileContents.includes(`export default ${schemaName}`)
+    if (!isNamedExport && !isDefaultExport) return acc
+
+    // Build the option to display in the CLI
+    const schemaOption = `${workspaceName} - ${schemaName}`
+
+    // Add the schema to the list of available schemas
+    return {
+      ...acc,
+      [schemaOption]: {
+        schemaPath,
+        schemaName,
+        workspacePath,
+        workspaceName,
+        isNamedExport,
+        isDefaultExport,
+      },
+    }
+  }, {}) as Record<
+    string,
+    {
+      schemaPath: string
+      schemaName: string
+      workspacePath: string
+      workspaceName: string
+      isNamedExport: boolean
+      isDefaultExport: boolean
+    }
+  >
+  return availableSchemas
+}
+
+/** --- getAvailableDataBridges() -------------------------------------------------------------- */
 /** -i- List all the available data bridges for generators to use */
 export const getAvailableDataBridges = (folderLevel = '../../') => {
   // Get workspace imports
@@ -97,7 +152,7 @@ export const getAvailableDataBridges = (folderLevel = '../../') => {
     if (!isCallingCreateDataBridge || !resolverName) return acc
 
     // Build the option to display in the CLI
-    const dataBridgeOption = `${resolverName}  --  Resolver from '${workspaceName}' workspace package`
+    const dataBridgeOption = `${workspaceName} >>> ${resolverName}()`
 
     // Add the bridge to the list of available bridges
     return {
@@ -125,4 +180,27 @@ export const getAvailableDataBridges = (folderLevel = '../../') => {
     }
   >
   return availableDataBridges
+}
+
+/* --- Other Helpers --------------------------------------------------------------------------- */
+
+export const matchMethods = (methods: string[]) => (opt) => methods.includes(opt)
+
+export const camelToDash = (str: string) => str.replace(/[\w]([A-Z])/g, (m) => `${m[0]}-${m[1]}`).toLowerCase() // prettier-ignore
+
+export const uppercaseFirstChar = (str: string = '') => str.charAt(0).toUpperCase() + str.slice(1)
+
+export const includesOption = (strOpts: string[]) => (opt) => strOpts.join('').includes(opt)
+
+export const createAutocompleteSource = (options: string[]) => {
+  return (answersSoFar, input = '') => {
+    const filteredBridges = options.filter((option) => option.includes(input))
+    return Promise.resolve(filteredBridges)
+  }
+}
+
+export const validateNonEmptyNoSpaces = (input: string) => {
+  if (!input) return 'Please enter a non-empty value'
+  if (input.includes(' ')) return 'Please enter a value without spaces'
+  return true
 }

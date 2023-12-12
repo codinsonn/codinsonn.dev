@@ -1,7 +1,14 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { PlopTypes } from '@turbo/gen'
 // Utils
-import { getWorkspaceOptions } from '../scripts/helpers/scriptUtils'
+import {
+  getWorkspaceOptions,
+  matchMethods,
+  camelToDash,
+  uppercaseFirstChar,
+  includesOption,
+  validateNonEmptyNoSpaces,
+} from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -24,16 +31,6 @@ const RESOLVER_GENERATABLES = Object.freeze({
   // "Typed fetcher hook, e.g. useFetchResources()": 'fetchHook',
 })
 
-/* --- Helpers --------------------------------------------------------------------------------- */
-
-const matchMethods = (methods: string[]) => (opt) => methods.includes(opt)
-
-const camelToDash = (str: string) => str.replace(/[\w]([A-Z])/g, (m) => `${m[0]}-${m[1]}`).toLowerCase() // prettier-ignore
-
-const uppercaseFirstChar = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
-
-const includesOption = (strOpts: string[]) => (opt) => strOpts.join('').includes(opt)
-
 /** --- Resolver Generator --------------------------------------------------------------------- */
 /** -i- Resolver generator to add a new data resolver and related schemas, API routes and fetching logic */
 export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => {
@@ -50,11 +47,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         type: 'input',
         name: 'resolverName',
         message: 'What will you name the resolver function? (e.g. "doSomething")',
-        validate: (input) => {
-          if (!input) return 'Please enter a name for the resolver'
-          if (input.includes(' ')) return 'Please enter a name without spaces'
-          return true
-        },
+        validate: validateNonEmptyNoSpaces,
       },
       {
         type: 'input',
@@ -91,6 +84,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           return `/api/${workspaceName}/${camelToDash(data.resolverName)}`
         },
         when: (data) => ['api route', 'GraphQL'].some(includesOption(data.generatables)),
+        validate: validateNonEmptyNoSpaces,
       },
       {
         type: 'input',
@@ -103,11 +97,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           return formHookName
         },
         when: (data) => ['formState hook'].some(includesOption(data.generatables)),
-        validate: (input) => {
-          if (!input) return 'Please enter a name for the resolver'
-          if (input.includes(' ')) return 'Please enter a name without spaces'
-          return true
-        },
+        validate: validateNonEmptyNoSpaces,
       },
     ],
     actions: (data) => {
@@ -227,6 +217,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
             ResolverName,
             formHookName,
             formHookDivider,
+            workspaceName: '..',
           },
         })
         extraFilesToOpen.push(`${workspacePath}/forms/${formHookName}.ts`)

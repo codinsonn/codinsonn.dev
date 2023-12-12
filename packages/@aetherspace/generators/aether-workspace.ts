@@ -1,5 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { PlopTypes } from '@turbo/gen'
+import { validateNonEmptyNoSpaces } from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -30,16 +31,18 @@ export const registerAetherWorkspaceGenerator = (plop: PlopTypes.NodePlopAPI) =>
         type: 'input',
         name: 'folderName',
         message: 'What foldername do you want to give this workspace?',
+        validate: validateNonEmptyNoSpaces,
       },
       {
         type: 'input',
         name: 'packageName',
         message: 'What package name would you like to import from? (used for package.json)',
+        validate: validateNonEmptyNoSpaces,
       },
       {
         type: 'checkbox',
         name: 'workspaceStructure',
-        message: 'Optional: What will this workspace contain? (extra folder setup)',
+        message: 'Optional: What will this workspace contain? (optional extra folder setup)',
         choices: ['schemas', 'resolvers', 'components', 'hooks', 'screens', 'routes', 'utils'],
       },
       {

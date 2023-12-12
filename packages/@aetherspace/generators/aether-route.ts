@@ -1,7 +1,14 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { PlopTypes } from '@turbo/gen'
 // Utils
-import { getWorkspaceOptions, getAvailableDataBridges } from '../scripts/helpers/scriptUtils'
+import {
+  getWorkspaceOptions,
+  getAvailableDataBridges,
+  camelToDash,
+  uppercaseFirstChar,
+  validateNonEmptyNoSpaces,
+  createAutocompleteSource,
+} from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -17,12 +24,6 @@ const LINES = 100 - 12 // -i- 100 = max length, 12 = everything but the title & 
 
 const NoNeedForFetching = "No, this screen doesn't need to fetch data to work"
 const NoIllDoItMyself = "No, I'll figure out data bridging myself (editable dummy example)"
-
-/* --- Helpers --------------------------------------------------------------------------------- */
-
-const camelToDash = (str: string) => str.replace(/[\w]([A-Z])/g, (m) => `${m[0]}-${m[1]}`).toLowerCase() // prettier-ignore
-
-const uppercaseFirstChar = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
 
 /** --- Route Generator ------------------------------------------------------------------------ */
 /** -i- Route generator to add a new route and related screen */
@@ -41,6 +42,7 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
         name: 'screenName',
         message: 'What should the screen component be called? (e.g. "TestScreen" = <TestScreen/> component)', // prettier-ignore
         default: 'SomeScreen',
+        validate: validateNonEmptyNoSpaces,
       },
       {
         type: 'input',
@@ -51,12 +53,17 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
           const workspaceName = workspacePath.split('/')[1]
           return `/${workspaceName}/${camelToDash(data.screenName)}`
         },
+        validate: validateNonEmptyNoSpaces,
       },
       {
-        type: 'list',
+        type: 'autocomplete',
         name: 'fetcherBridge',
-        message: 'Would you like to fetch initial data for this route from a resolver?',
-        choices: [NoNeedForFetching, NoIllDoItMyself, ...Object.keys(availableDataBridges)],
+        message: 'Would you like to fetch initial data for this route from a resolver?', // @ts-ignore
+        source: createAutocompleteSource([
+          NoNeedForFetching,
+          NoIllDoItMyself,
+          ...Object.keys(availableDataBridges),
+        ]),
       },
     ],
     actions: (data) => {

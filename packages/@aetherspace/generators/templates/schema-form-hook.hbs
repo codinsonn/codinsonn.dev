@@ -1,12 +1,9 @@
 import { useFormState } from 'aetherspace/forms/useFormState'
 import { DeepPartial } from 'aetherspace/types/typeHelpers'
-import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
+import { AetherProps } from 'aetherspace/schemas'
+import { {{SchemaName}} } from '{{schemaImportPath}}'
 
 /* --- Schema & Types -------------------------------------------------------------------------- */
-
-export const {{SchemaName}} = aetherSchema('{{SchemaName}}', {
-  test: z.string().default('hello world'),
-})
 
 export type T{{SchemaName}} = DeepPartial<AetherProps<typeof {{SchemaName}}>>
 

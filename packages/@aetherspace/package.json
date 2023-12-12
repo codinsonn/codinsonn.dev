@@ -34,7 +34,8 @@
         "add-workspace": "cd ../.. && yarn gen aether-workspace",
         "add-schema": "cd ../.. && yarn gen aether-schema",
         "add-resolver": "cd ../.. && yarn gen aether-resolver",
-        "add-route": "cd ../.. && yarn gen aether-route"
+        "add-route": "cd ../.. && yarn gen aether-route",
+        "add-form": "cd ../.. && yarn gen aether-form"
     },
     "dependencies": {
         "@apollo/client": "^3.7.16",
@@ -51,6 +52,7 @@
         "zod": "~3.20.6"
     },
     "devDependencies": {
-        "@types/json-schema": "^7.0.12"
+        "@types/json-schema": "^7.0.12",
+        "inquirer-autocomplete-prompt": "^3.0.1"
     }
 }
