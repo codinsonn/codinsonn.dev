@@ -110,6 +110,22 @@ export default function (plop: PlopTypes.NodePlopAPI) {
     }
   )
 
+  plop.setActionType(
+    'install', // @ts-ignore
+    function (answers, config, plop: PlopTypes.NodePlopAPI) {
+      return new Promise((resolve, reject) => {
+        try {
+          console.log("Running 'install' on workspace root")
+          execSync(`yarn install`)
+          resolve("Ran 'install' on workspace root")
+        } catch (error) {
+          console.error("Failed to execute 'yarn install':", error)
+          reject(error)
+        }
+      })
+    }
+  )
+
   // -- Register generators --
 
   registerAetherWorkspaceGenerator(plop)

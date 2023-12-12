@@ -85,14 +85,6 @@ export const registerAetherFormGenerator = (plop: PlopTypes.NodePlopAPI) => {
       const dataBridgeConfig = availableDataBridges[bridgeTarget]
       const schemaConfig = availableSchemas[schemaTarget]
       const schemaName = schemaConfig?.schemaName || formHookName.replace('use', '')
-      console.log('aether-form:', {
-        workspacePath,
-        schemaTarget,
-        bridgeTarget,
-        dataBridgeConfig,
-        schemaConfig,
-        schemaName,
-      })
 
       // Vars
       const formHookDivider = `/* --- ${formHookName}() ${'-'.repeat(LINES - formHookName.length - 2)} */` // prettier-ignore

@@ -102,7 +102,14 @@ export const registerAetherWorkspaceGenerator = (plop: PlopTypes.NodePlopAPI) =>
 
       // -- Generate --
 
-      return actions
+      return [
+        ...actions,
+        {
+          type: 'open-files-in-vscode',
+          paths: [`${workspacePath}/package.json`],
+        },
+        { type: 'install' },
+      ]
     },
   })
 }
