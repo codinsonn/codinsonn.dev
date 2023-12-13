@@ -8,6 +8,8 @@ import {
   uppercaseFirstChar,
   includesOption,
   validateNonEmptyNoSpaces,
+  createAutocompleteSource,
+  getAvailableSchemas,
 } from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
@@ -18,6 +20,7 @@ import {
 /* --- Constants ------------------------------------------------------------------------------- */
 
 const workspaceOptions = getWorkspaceOptions('')
+const availableSchemas = getAvailableSchemas('')
 
 const LINES = 100 - 13 // -i- JSDoc: 100 = max length, 13 = everything but the title & '-' lines
 
@@ -26,10 +29,17 @@ const RESOLVER_GENERATABLES = Object.freeze({
   'GET api route': 'GET',
   'POST api route': 'POST',
   'PUT api route': 'PUT',
+  'Custom Args & Response Schemas (skips schema pickers)': 'schemas',
   'Typed formState hook (for resolver args)': 'formHook',
   // "Typed fetching function, e.g. fetchResources()": 'fetch',
   // "Typed fetcher hook, e.g. useFetchResources()": 'fetchHook',
 })
+
+const GraphqlQueryOption = 'GraphQL Query >>> for retrieving data'
+const GraphqlMutationOption = 'GraphQL Mutation >>> for updating data'
+
+const NewArgsSchemaOption = "I'd like to create a new schema for the resolver arguments"
+const NewResponseSchemaOption = "I'd like to create a new schema for the resolver response"
 
 /** --- Resolver Generator --------------------------------------------------------------------- */
 /** -i- Resolver generator to add a new data resolver and related schemas, API routes and fetching logic */
@@ -65,22 +75,56 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       },
       {
         type: 'list',
-        name: 'resolverType',
+        name: 'resolverTarget',
         message: 'Is this a GraphQL query or mutation?',
-        choices: ['query', 'mutation'],
+        choices: [GraphqlQueryOption, GraphqlMutationOption],
         default: (data) => {
           const isMutatable = ['POST', 'PUT', 'DELETE'].some(includesOption(data.generatables))
-          return isMutatable ? 'mutation' : 'query'
+          return isMutatable ? GraphqlMutationOption : GraphqlQueryOption
         },
         when: (data) => ['GraphQL'].some(includesOption(data.generatables)),
       },
       {
+        type: 'autocomplete',
+        name: 'argsSchemaTarget',
+        message: 'Which schema should we use for the resolver arguments?', // @ts-ignore
+        source: createAutocompleteSource([NewArgsSchemaOption, ...Object.keys(availableSchemas)]),
+        when: (data) => !['Schemas'].some(includesOption(data.generatables)),
+      },
+      {
+        type: 'input',
+        name: 'argsSchemaName',
+        message: 'What will you call this new args schema?',
+        default: (data) => `${uppercaseFirstChar(data.resolverName)}Args`,
+        validate: validateNonEmptyNoSpaces,
+        when: (data) => data.argsSchemaTarget === NewArgsSchemaOption,
+      },
+      {
+        type: 'autocomplete',
+        name: 'resSchemaTarget',
+        message: 'Which schema should we use for the resolver response?', // @ts-ignore
+        source: createAutocompleteSource([
+          NewResponseSchemaOption,
+          ...Object.keys(availableSchemas),
+        ]),
+        default: (data) => data.argsSchemaTarget,
+        when: (data) => !['Schemas'].some(includesOption(data.generatables)),
+      },
+      {
+        type: 'input',
+        name: 'resSchemaName',
+        message: 'What will you call this new response schema?',
+        default: (data) => `${uppercaseFirstChar(data.resolverName)}Response`,
+        validate: validateNonEmptyNoSpaces,
+        when: (data) => data.resSchemaTarget === NewResponseSchemaOption,
+      },
+      {
         type: 'input',
         name: 'apiPath',
-        message: 'What API path would you like to use for REST? (e.g. "/api/my-resolver/[slug]")',
+        message: 'What API path would you like to use for REST? (e.g. "/api/some/resolver/[slug]")',
         default: (data) => {
           const workspacePath = workspaceOptions[data.workspaceTarget]
-          const workspaceName = workspacePath.split('/')[1]
+          const workspaceName = workspacePath.split('/')[1].replace('-core', '').replace('-page', '') // prettier-ignore
           return `/api/${workspaceName}/${camelToDash(data.resolverName)}`
         },
         when: (data) => ['api route', 'GraphQL'].some(includesOption(data.generatables)),
@@ -102,14 +146,18 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
     ],
     actions: (data) => {
       // Args
-      const { workspaceTarget, resolverName, resolverType, apiPath, resolverDescription } = data || {} // prettier-ignore
+      const { workspaceTarget, resolverName, resolverTarget, apiPath, resolverDescription } = data || {} // prettier-ignore
       const generatables = data!.generatables.map((option) => RESOLVER_GENERATABLES[option])
       const workspacePath = workspaceOptions[workspaceTarget]
+      const resolverType = resolverTarget === GraphqlQueryOption ? 'query' : 'mutation'
+      const argsSchemaConfig = availableSchemas[data!.argsSchemaTarget]
+      const resSchemaConfig = availableSchemas[data!.resSchemaTarget]
+      const isLinkedToSchemas = argsSchemaConfig || resSchemaConfig || data!.argsSchemaName || data!.resSchemaName // prettier-ignore
 
       // -- Vars --
 
       const ResolverName = uppercaseFirstChar(resolverName)
-      const resolverSchemaName = `${ResolverName}DataBridge`
+      const resolverBridgeName = `${ResolverName}DataBridge`
       const descriptions = [] as string[]
 
       const argsSchemaDescription = `Args for the ${resolverName}() resolver`
@@ -119,7 +167,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       const jsDocArgsTitle = `/** --- ${argsSchemaName} ${argsSchemaLines} */`
       const jsDocArgsDescription = `/** -i- ${argsSchemaDescription} */`
       const jsDocArgsHeader = `${jsDocArgsTitle}\n${jsDocArgsDescription}`
-      const argsSchemaBody = [`test: z.string().default('Hello World'),`]
+      const argsSchemaBody = [`test: z.string().default('Hello World'), // TODO: Add your own fields`] // prettier-ignore
       const argsDescriptionStatement = `.describe(d.${argsSchemaName})`
 
       const resSchemaDescription = `Response for the ${resolverName}() resolver`
@@ -129,7 +177,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       const jsDocResTitle = `/** --- ${resSchemaName} ${resSchemaLines} */`
       const jsDocResDescription = `/** -i- ${resSchemaDescription} */`
       const jsDocResHeader = `${jsDocResTitle}\n${jsDocResDescription}`
-      const resSchemaBody = ['test: z.string(),']
+      const resSchemaBody = [`test: z.string().default('Hello World'), // TODO: Add your own fields`] // prettier-ignore
       const resDescriptionStatement = `.describe(d.${resSchemaName})`
 
       const apiConfigName = `${resolverName}APIConfig`
@@ -229,13 +277,97 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         })
       }
 
-      // -- Generate --
-
-      return [
-        {
+      // Add args schema?
+      if (data!.argsSchemaName) {
+        const ArgsSchemaName = uppercaseFirstChar(data!.argsSchemaName)
+        const jsDocTitle = `/* --- ${ArgsSchemaName} ${'-'.repeat(
+          LINES - ArgsSchemaName.length
+        )} */`
+        extraActions.push({
           type: 'add',
-          path: `${workspacePath}/schemas/${resolverSchemaName}.ts`,
-          templateFile: '../../packages/@aetherspace/generators/templates/resolver-bridge.hbs',
+          path: `${workspacePath}/schemas/${ArgsSchemaName}.ts`,
+          templateFile: '../../packages/@aetherspace/generators/templates/basic-schema.hbs',
+          data: {
+            descriptions: descriptions.join('\n  '),
+            jsDocHeader: `${jsDocTitle}\n`,
+            schemaName: ArgsSchemaName,
+            schemaBody: ``,
+            describeStatement: ``,
+            jsDocDescription: ``,
+          },
+        } as PlopTypes.ActionType)
+        extraFilesToOpen.push(`${workspacePath}/schemas/${ArgsSchemaName}.ts`)
+        extraActions.push({
+          type: 'append-last-line',
+          path: `${workspacePath}/schemas/index.ts`,
+          template: `export * from './${ArgsSchemaName}'\n`,
+        } as PlopTypes.ActionType)
+      }
+
+      // Add response schema?
+      if (data!.resSchemaName) {
+        const ResSchemaName = uppercaseFirstChar(data!.resSchemaName)
+        const jsDocTitle = `/* --- ${ResSchemaName} ${'-'.repeat(LINES - ResSchemaName.length)} */`
+        extraActions.push({
+          type: 'add',
+          path: `${workspacePath}/schemas/${ResSchemaName}.ts`,
+          templateFile: '../../packages/@aetherspace/generators/templates/basic-schema.hbs',
+          data: {
+            descriptions: descriptions.join('\n  '),
+            jsDocHeader: `${jsDocTitle}\n`,
+            schemaName: ResSchemaName,
+            schemaBody: ``,
+            describeStatement: ``,
+            jsDocDescription: ``,
+          },
+        } as PlopTypes.ActionType)
+        extraFilesToOpen.push(`${workspacePath}/schemas/${ResSchemaName}.ts`)
+        extraActions.push({
+          type: 'append-last-line',
+          path: `${workspacePath}/schemas/index.ts`,
+          template: `export * from './${ResSchemaName}'\n`,
+        } as PlopTypes.ActionType)
+      }
+
+      // -- Data Bridge --
+
+      let dataBridgeStep = {
+        type: 'add',
+        path: `${workspacePath}/schemas/${resolverBridgeName}.ts`,
+        templateFile: '../../packages/@aetherspace/generators/templates/resolver-bridge.hbs',
+        data: {
+          descriptions: descriptions.join('\n  '),
+          resolverName,
+          ResolverName,
+          resolverType,
+          ResolverType: uppercaseFirstChar(resolverType),
+          // - Args -
+          jsDocArgsHeader,
+          argsSchemaBody: argsSchemaBody.join('\n  '),
+          jsDocArgsDescription,
+          argsDescriptionStatement,
+          // - Response -
+          jsDocResponseHeader: jsDocResHeader,
+          responseSchemaBody: resSchemaBody.join('\n  '),
+          jsDocResponseDescription: jsDocResDescription,
+          responseDescriptionStatement: resDescriptionStatement,
+          // - Config -
+          jsDocResolverConfigHeader,
+          apiPathStatements: apiPathStatements.join('\n  '),
+        },
+      } as PlopTypes.ActionType
+
+      if (isLinkedToSchemas) {
+        const ArgsSchemaName = uppercaseFirstChar(argsSchemaConfig?.schemaName || data!.argsSchemaName) // prettier-ignore
+        const ResSchemaName = uppercaseFirstChar(resSchemaConfig?.schemaName || data!.resSchemaName)
+        const argsSchemaWorkspace = argsSchemaConfig?.workspaceName || '..'
+        const resSchemaWorkspace = resSchemaConfig?.workspaceName || '..'
+        const argsSchemaImportStatement = `import { ${ArgsSchemaName} } from '${argsSchemaWorkspace}/schemas/${ArgsSchemaName}'`
+        const resSchemaImportStatement = `import { ${ResSchemaName} } from '${resSchemaWorkspace}/schemas/${ResSchemaName}'`
+        dataBridgeStep = {
+          type: 'add',
+          path: `${workspacePath}/schemas/${resolverBridgeName}.ts`,
+          templateFile: '../../packages/@aetherspace/generators/templates/resolver-bridge-w-schemas.hbs', // prettier-ignore
           data: {
             descriptions: descriptions.join('\n  '),
             resolverName,
@@ -243,24 +375,27 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
             resolverType,
             ResolverType: uppercaseFirstChar(resolverType),
             // - Args -
-            jsDocArgsHeader,
-            argsSchemaBody: argsSchemaBody.join('\n  '),
-            jsDocArgsDescription,
-            argsDescriptionStatement,
-            // - Response -
-            jsDocResponseHeader: jsDocResHeader,
-            responseSchemaBody: resSchemaBody.join('\n  '),
-            jsDocResponseDescription: jsDocResDescription,
-            responseDescriptionStatement: resDescriptionStatement,
+            ArgsSchemaName,
+            argsSchemaImportStatement,
+            InputSchemaName: argsSchemaConfig ? `${ArgsSchemaName}Input` : ArgsSchemaName,
+            inputSchemaTransforms: argsSchemaConfig ? `.extendSchema('${ArgsSchemaName}Input', {})` : '', // prettier-ignore
+            ResSchemaName,
+            resSchemaImportStatement: argsSchemaImportStatement === resSchemaImportStatement ? '' : resSchemaImportStatement, // prettier-ignore
             // - Config -
             jsDocResolverConfigHeader,
             apiPathStatements: apiPathStatements.join('\n  '),
           },
-        },
+        }
+      }
+
+      // -- Generate --
+
+      return [
+        dataBridgeStep,
         {
           type: 'append-last-line',
           path: `${workspacePath}/schemas/index.ts`,
-          template: `export * from './${resolverSchemaName}'\n`,
+          template: `export * from './${resolverBridgeName}'\n`,
           pattern: /^(.*\S)[\r\n]*$/,
         },
         {
@@ -289,7 +424,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         {
           type: 'open-files-in-vscode',
           paths: [
-            `${workspacePath}/schemas/${resolverSchemaName}.ts`,
+            `${workspacePath}/schemas/${resolverBridgeName}.ts`,
             `${workspacePath}/resolvers/${resolverName}.ts`,
             ...extraFilesToOpen,
           ],

@@ -7,14 +7,16 @@ export const {{resolverName}} = aetherResolver(
   async ({ args, parseArgs, withDefaults, handleError }) => {
     try {
       // Args
-      const { test } = parseArgs(args)
+      const validatedArgs = parseArgs(args)
 
-      // ... Add business logic ...
+      // TODO: Add business logic here
 
       // -- Respond --
 
+      // TODO: Remove this ts-ignore once you've added appropriate response data
+      // @ts-ignore
       return withDefaults({
-        test: test || 'test' // dummy echo response to test the resolver
+        // TODO: Add response data that conforms to response schema
       })
     } catch (err) {
       throw handleError(err)

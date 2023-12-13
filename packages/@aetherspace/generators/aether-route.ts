@@ -50,7 +50,7 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
         message: 'What url do you want this route on? (e.g. "/examples/[slug]")',
         default: (data) => {
           const workspacePath = workspaceOptions[data.workspaceTarget]
-          const workspaceName = workspacePath.split('/')[1]
+          const workspaceName = workspacePath.split('/')[1].replace('-core', '').replace('-page', '') // prettier-ignore
           return `/${workspaceName}/${camelToDash(data.screenName)}`
         },
         validate: validateNonEmptyNoSpaces,
