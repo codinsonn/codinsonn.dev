@@ -29,8 +29,8 @@ const collectResolvers = () => {
       const exportsGraphQLResolver = pathContents.includes('export const graphResolver')
       if (!exportsAetherResolver || !exportsGraphQLResolver) return acc
       // Find the resolver name
-      const loc = pathContents.split('\n')
-      const graphResolverLine = loc.find((line) => {
+      const lines = pathContents.split('\n')
+      const graphResolverLine = lines.find((line) => {
         return line.includes('export const graphResolver = makeGraphQLResolver')
       })
       const resolverName = findTargetString(graphResolverLine!, 'makeGraphQLResolver($target$)')

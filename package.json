@@ -95,6 +95,7 @@
     "collect-assets": "yarn turbo run aetherspace#collect-assets",
     "collect-icons": "yarn turbo run aetherspace#collect-icons",
     "collect-resolvers": "yarn turbo run aetherspace#collect-resolvers",
+    "collect-generators": "yarn turbo run aetherspace#collect-generators",
     "document-components": "yarn turbo run aetherspace#document-components",
     "lint": "turbo run lint",
     "gen": "turbo gen",

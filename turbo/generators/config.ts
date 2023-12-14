@@ -5,11 +5,7 @@ import path from 'path'
 import { PlopTypes } from '@turbo/gen'
 import { execSync } from 'child_process'
 // Generators
-import { registerAetherWorkspaceGenerator } from '../../packages/@aetherspace/generators/aether-workspace'
-import { registerAetherSchemaGenerator } from '../../packages/@aetherspace/generators/aether-schema'
-import { registerAetherResolverGenerator } from '../../packages/@aetherspace/generators/aether-resolver'
-import { registerAetherRouteGenerator } from '../../packages/@aetherspace/generators/aether-route'
-import { registerAetherFormGenerator } from '../../packages/@aetherspace/generators/aether-form'
+import * as workspaceGenerators from '../../packages/@registries/generators.generated'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
 
@@ -128,9 +124,7 @@ export default function (plop: PlopTypes.NodePlopAPI) {
 
   // -- Register generators --
 
-  registerAetherWorkspaceGenerator(plop)
-  registerAetherSchemaGenerator(plop)
-  registerAetherResolverGenerator(plop)
-  registerAetherRouteGenerator(plop)
-  registerAetherFormGenerator(plop)
+  Object.values(workspaceGenerators).forEach((registerGenerator) => {
+    registerGenerator(plop)
+  })
 }
