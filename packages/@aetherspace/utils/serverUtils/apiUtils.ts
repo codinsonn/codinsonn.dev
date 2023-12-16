@@ -22,7 +22,7 @@ export type MiddlewareFnType = (
 ) => Promise<any>
 
 /** --- getApiParam() -------------------------------------------------------------------------- */
-/** -i- Gets a specific property by key from supplied api sources */
+/** -i- Gets a specific property by key from supplied API sources */
 export const getApiParam = (key: string, apiSources: ApiSourcesType) => {
   const { cookies, query, params, body, args, context } = apiSources
   const [result] = [params, query, body, args, context, cookies]
@@ -33,7 +33,7 @@ export const getApiParam = (key: string, apiSources: ApiSourcesType) => {
 }
 
 /** --- getApiParams() ------------------------------------------------------------------------- */
-/** -i- Get multiple api params from supplied api sources */
+/** -i- Get multiple api params from supplied API sources */
 export const getApiParams = (keys: string | string[], apiSources: ApiSourcesType) => {
   const paramKeys = typeof keys === 'string' ? keys.split(' ') : keys
   return paramKeys.reduce((apiParams, paramKey) => {
