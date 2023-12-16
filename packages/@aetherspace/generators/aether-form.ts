@@ -1,6 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { PlopTypes } from '@turbo/gen'
-// Utils
 import {
   getWorkspaceOptions,
   getAvailableSchemas,
@@ -46,7 +45,7 @@ export const registerAetherFormGenerator = (plop: PlopTypes.NodePlopAPI) => {
       {
         type: 'list',
         name: 'schemaType',
-        message: 'Would you like to fetch initial data for this route from a resolver?',
+        message: 'Would you like to provide a schema for this form?',
         choices: Object.keys(schemaTypeOptions),
       },
       {

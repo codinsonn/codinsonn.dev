@@ -7,9 +7,9 @@ export const ShopifyImageContentType = z.enum(['JPG', 'PNG', 'WEBP'])
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/ImageContentType */
 export const SHOPIFY_IMAGE_CONTENT_TYPE = ShopifyImageContentType.enum
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/ImageContentType */
-export type TShopifyImageContentType = z.infer<typeof ShopifyImageContentType>
+export type ShopifyImageContentType = z.infer<typeof ShopifyImageContentType>
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/ImageContentType */
-export type TSHOPIFY_IMAGE_CONTENT_TYPE = TShopifyImageContentType
+export type SHOPIFY_IMAGE_CONTENT_TYPE = ShopifyImageContentType
 
 /* --- ShopifyCropRegion ----------------------------------------------------------------------- */
 /* -i- https://shopify.dev/docs/api/storefront/2023-04/enums/CropRegion */
@@ -18,9 +18,9 @@ export const ShopifyCropRegion = z.enum(['BOTTOM', 'CENTER', 'LEFT', 'RIGHT', 'T
 /* -i- https://shopify.dev/docs/api/storefront/2023-04/enums/CropRegion */
 export const SHOPIFY_CROP_REGION = ShopifyCropRegion.enum
 /* -i- https://shopify.dev/docs/api/storefront/2023-04/enums/CropRegion */
-export type TShopifyCropRegion = z.infer<typeof ShopifyCropRegion>
+export type ShopifyCropRegion = z.infer<typeof ShopifyCropRegion>
 /* -i- https://shopify.dev/docs/api/storefront/2023-04/enums/CropRegion */
-export type TSHOPIFY_CROP_REGION = TShopifyCropRegion
+export type SHOPIFY_CROP_REGION = ShopifyCropRegion
 
 /** --- ShopifyCurrencyCode -------------------------------------------------------------------- */
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/CurrencyCode */
@@ -43,9 +43,9 @@ export const ShopifyCurrencyCode = z.enum([
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/CurrencyCode */
 export const SHOPIFY_CURRENCY_CODE = ShopifyCurrencyCode.enum
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/CurrencyCode */
-export type TShopifyCurrencyCode = z.infer<typeof ShopifyCurrencyCode>
+export type ShopifyCurrencyCode = z.infer<typeof ShopifyCurrencyCode>
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/CurrencyCode */
-export type TSHOPIFY_CURRENCY_CODE = TShopifyCurrencyCode
+export type SHOPIFY_CURRENCY_CODE = ShopifyCurrencyCode
 
 /** --- ShopifyProductMeasurementType ------------------------------------------------ */
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/UnitPriceMeasurementMeasuredType */
@@ -59,9 +59,9 @@ export const ShopifyProductMeasurementType = z.enum([
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/UnitPriceMeasurementMeasuredType */
 export const SHOPIFY_PRODUCT_MEASUREMENT_TYPE = ShopifyProductMeasurementType.enum
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/UnitPriceMeasurementMeasuredType */
-export type TShopifyProductMeasurementType = z.infer<typeof ShopifyProductMeasurementType>
+export type ShopifyProductMeasurementType = z.infer<typeof ShopifyProductMeasurementType>
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/UnitPriceMeasurementMeasuredType */
-export type TSHOPIFY_PRODUCT_MEASUREMENT_TYPE = TShopifyProductMeasurementType
+export type SHOPIFY_PRODUCT_MEASUREMENT_TYPE = ShopifyProductMeasurementType
 
 /** --- ShopifyProductMeasurementUnit ------------------------------------------------ */
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/UnitPriceMeasurementMeasuredUnit */
@@ -72,9 +72,9 @@ export const ShopifyProductMeasurementUnit = z.enum([
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/UnitPriceMeasurementMeasuredUnit */
 export const SHOPIFY_PRODUCT_MEASUREMENT_UNIT = ShopifyProductMeasurementUnit.enum
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/UnitPriceMeasurementMeasuredUnit */
-export type TShopifyProductMeasurementUnit = z.infer<typeof ShopifyProductMeasurementUnit>
+export type ShopifyProductMeasurementUnit = z.infer<typeof ShopifyProductMeasurementUnit>
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/UnitPriceMeasurementMeasuredUnit */
-export type TSHOPIFY_PRODUCT_MEASUREMENT_UNIT = TShopifyProductMeasurementUnit
+export type SHOPIFY_PRODUCT_MEASUREMENT_UNIT = ShopifyProductMeasurementUnit
 
 /** --- ShopifyWeightUnit ---------------------------------------------------------------------- */
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/WeightUnit */
@@ -83,6 +83,6 @@ export const ShopifyWeightUnit = z.enum(['GRAMS', 'KILOGRAMS', 'OUNCES', 'POUNDS
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/WeightUnit */
 export const SHOPIFY_WEIGHT_UNIT = ShopifyWeightUnit.enum
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/WeightUnit */
-export type TShopifyWeightUnit = z.infer<typeof ShopifyWeightUnit>
+export type ShopifyWeightUnit = z.infer<typeof ShopifyWeightUnit>
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/enums/WeightUnit */
-export type TSHOPIFY_WEIGHT_UNIT = TShopifyWeightUnit
+export type SHOPIFY_WEIGHT_UNIT = ShopifyWeightUnit

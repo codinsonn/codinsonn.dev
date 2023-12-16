@@ -16,4 +16,4 @@ export const ShopifyProductPriceRange = aetherSchema('ShopifyProductPriceRange',
 })
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/ProductPriceRange */
-export type TShopifyProductPriceRange = z.infer<typeof ShopifyProductPriceRange>
+export type ShopifyProductPriceRange = z.infer<typeof ShopifyProductPriceRange>

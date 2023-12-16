@@ -21,4 +21,4 @@ export const BaseResumeListItem = BaseLinkData.extendSchema('BaseResumeListItem'
 }).describe(d.BaseResumeListItem)
 
 /** -i- Shared set of datastructure for all kinds of projects you'd like to share on your resume */
-export type TBaseResumeListItem = z.infer<typeof BaseResumeListItem>
+export type BaseResumeListItem = z.infer<typeof BaseResumeListItem>

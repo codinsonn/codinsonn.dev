@@ -1,11 +1,7 @@
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
-// Schemas
 import { GetResumeDataByUserSlugDataBridge } from '../schemas/GetResumeDataByUserSlugDataBridge'
-// Models
 import { ResumeDataModel } from '../schemas/models'
-// Dummy
 // import { dummyResumeData } from '../mocks/resumeData.mock'
-// Utils
 import { dbConnect } from '@aetherspace/mongoose/utils'
 
 /** --- getResumeDataByUserSlug ---------------------------------------------------------------- */

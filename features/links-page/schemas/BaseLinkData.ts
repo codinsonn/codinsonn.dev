@@ -27,4 +27,4 @@ export const BaseLinkData = aetherSchema('BaseLinkData', {
 }).describe(d.BaseLinkData)
 
 /** -i- Datastructure for one social link */
-export type TBaseLinkData = AetherInput<typeof BaseLinkData>
+export type BaseLinkData = AetherInput<typeof BaseLinkData>

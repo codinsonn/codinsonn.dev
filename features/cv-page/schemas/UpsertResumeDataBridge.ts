@@ -1,4 +1,4 @@
-import { z, aetherSchema } from 'aetherspace/schemas'
+import { z, aetherSchema, createDataBridge } from 'aetherspace/schemas'
 import { ResumeData } from './ResumeData'
 import { MongoUpdateResult } from '@aetherspace/mongoose/schemas'
 
@@ -18,7 +18,7 @@ export const UpsertResumeArgs = aetherSchema('UpsertResumeArgs', {
 }).describe(d.UpsertResumeArgs)
 
 /** -i- Args for the upsertResume() resolver */
-export type TUpsertResumeArgs = z.infer<typeof UpsertResumeArgs>
+export type UpsertResumeArgs = z.infer<typeof UpsertResumeArgs>
 
 /** --- UpsertResumeResponse ------------------------------------------------------------------- */
 /** -i- Response for the upsertResume() resolver */
@@ -29,13 +29,15 @@ export const UpsertResumeResponse = aetherSchema('UpsertResumeResponse', {
 }).describe(d.UpsertResumeResponse)
 
 /** -i- Response for the upsertResume() resolver */
-export type TUpsertResumeResponse = z.infer<typeof UpsertResumeResponse>
+export type UpsertResumeResponse = z.infer<typeof UpsertResumeResponse>
 
-/** --- upsertResumeAPIConfig ------------------------------------------------------------------ */
+/** --- upsertResumeDataBridge ------------------------------------------------------------------ */
 /** -i- Aetherspace API Config for upsertResume() */
-export const UpsertResumeAPIConfig = {
+export const UpsertResumeDataBridge = createDataBridge({
+  resolverName: 'upsertResume',
   argsSchema: UpsertResumeArgs,
   responseSchema: UpsertResumeResponse,
   apiPath: '/api/resume/[slug]/upsert',
   allowedMethods: ['GET', 'POST'],
-}
+  graphqlQuery: ``,
+})

@@ -22,4 +22,4 @@ export const ShopifyImage = aetherSchema('ShopifyImage', {
 })
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/Image */
-export type TShopifyImage = z.infer<typeof ShopifyImage>
+export type ShopifyImage = z.infer<typeof ShopifyImage>

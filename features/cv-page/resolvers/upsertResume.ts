@@ -1,6 +1,6 @@
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
 import { TMongoUpdateResult } from '@aetherspace/mongoose/schemas'
-import { UpsertResumeAPIConfig } from '../schemas/UpsertResumeResolver'
+import { UpsertResumeDataBridge } from '../schemas/UpsertResumeDataBridge'
 import { ResumeDataModel } from '../schemas/models'
 import { dummyResumeData } from '../mocks/resumeData.mock'
 import { dbConnect } from '@aetherspace/mongoose/utils'
@@ -48,5 +48,5 @@ export const upsertResume = aetherResolver(
       throw handleError(err)
     }
   },
-  UpsertResumeAPIConfig
+  UpsertResumeDataBridge
 )

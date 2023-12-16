@@ -28,7 +28,7 @@ const ResumeScreenProps = ResumeData.extendSchema('ResumeScreenProps', {
   ...dummyResumeData,
 })
 
-export type TResumeScreenProps = AetherProps<typeof ResumeScreenProps>
+export type ResumeScreenProps = AetherProps<typeof ResumeScreenProps>
 
 /* --- Data Fetching Bridge -------------------------------------------------------------------- */
 
@@ -41,7 +41,7 @@ export const screenConfig = createDataBridge({
 
 /* --- <ResumeScreen/> ------------------------------------------------------------------------- */
 
-export const ResumeScreen = (props: TResumeScreenProps) => {
+export const ResumeScreen = (props: ResumeScreenProps) => {
   // Props & Data
   const [screenData, { error }] = useAetherRoute(props, screenConfig)
   const {

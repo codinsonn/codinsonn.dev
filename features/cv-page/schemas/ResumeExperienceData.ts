@@ -23,4 +23,4 @@ export const ResumeExperienceData = BaseResumeListItem.extendSchema('ResumeExper
 }).describe(d.ResumeExperienceData)
 
 /** -i- Experience data for this resume */
-export type TResumeExperienceData = z.infer<typeof ResumeExperienceData>
+export type ResumeExperienceData = z.infer<typeof ResumeExperienceData>

@@ -1,5 +1,4 @@
 import { z, aetherSchema } from 'aetherspace/schemas'
-// Schemas
 import { ResumeCardData } from './ResumeCardData'
 import { SocialLinkData } from 'links-page/schemas'
 import { ResumeProjectData } from './ResumeProjectData'
@@ -10,7 +9,6 @@ import { ResumeExperienceData } from './ResumeExperienceData'
 import { ResumeEducationData } from './ResumeEducationData'
 import { ResumeCertificationData } from './ResumeCertificationData'
 import { ResumeCTAData } from './ResumeCTAData'
-// Dummy
 import { dummyResumeData } from '../mocks/resumeData.mock'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
@@ -43,4 +41,4 @@ export const ResumeData = aetherSchema('ResumeData', {
 }).describe(d.ResumeData).eg(dummyResumeData) // prettier-ignore
 
 /** -i- Single Source of Truth for the cv-page screen data */
-export type TResumeData = z.infer<typeof ResumeData>
+export type ResumeData = z.infer<typeof ResumeData>

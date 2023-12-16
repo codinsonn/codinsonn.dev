@@ -1,9 +1,6 @@
-// Schemas
-import { SyncUserBiosFromAirtableAPIConfig } from '../schemas/SyncUserBiosFromAirtableResolver'
-// Models
+import { SyncUserBiosFromAirtableDataBridge } from '../schemas/SyncUserBiosFromAirtableDataBridge'
 import { UserBioTable, UserIconsTable, LinksInBioTable } from '../schemas/tables'
 import { UserBioModel, IconLinkModel, LinkInBioModel } from '../schemas/models'
-// Utils
 import { aetherResolver, getEnvVar } from 'aetherspace/utils/serverUtils'
 import { dbConnect, bulkUpsertMany } from '@aetherspace/mongoose/utils'
 import { TMongoBulkWriteResult } from '@aetherspace/mongoose/schemas'
@@ -86,5 +83,5 @@ export const syncUserBiosFromAirtable = aetherResolver(
       throw handleError(err)
     }
   },
-  SyncUserBiosFromAirtableAPIConfig
+  SyncUserBiosFromAirtableDataBridge
 )

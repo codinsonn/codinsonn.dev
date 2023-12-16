@@ -22,4 +22,4 @@ export const ShopifyUnitPriceMeasurement = aetherSchema('ShopifyUnitPriceMeasure
 })
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/UnitPriceMeasurement */
-export type TShopifyUnitPriceMeasurement = z.infer<typeof ShopifyUnitPriceMeasurement>
+export type ShopifyUnitPriceMeasurement = z.infer<typeof ShopifyUnitPriceMeasurement>

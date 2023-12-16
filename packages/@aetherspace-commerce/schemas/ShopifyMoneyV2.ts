@@ -16,4 +16,4 @@ export const ShopifyMoneyV2 = aetherSchema('ShopifyMoneyV2', {
 })
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/MoneyV2 */
-export type TShopifyMoneyV2 = z.infer<typeof ShopifyMoneyV2>
+export type ShopifyMoneyV2 = z.infer<typeof ShopifyMoneyV2>

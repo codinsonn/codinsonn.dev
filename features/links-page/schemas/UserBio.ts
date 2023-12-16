@@ -22,7 +22,7 @@ export const UserBioInput = aetherSchema('UserBioInput', {
 })
 
 /** -i- Arguments to retrieve UserBio data */
-export type TUserBioInput = AetherInput<typeof UserBioInput>
+export type UserBioInput = AetherInput<typeof UserBioInput>
 
 /** --- UserBio -------------------------------------------------------------------------------- */
 /** -i- Single Source of Truth for link-in-bio page's overall user data structure */
@@ -38,4 +38,4 @@ export const UserBio = aetherSchema('UserBio', {
 })
 
 /** -i- Single Source of Truth for link-in-bio page's overall user data structure */
-export type TUserBio = AetherInput<typeof UserBio>
+export type UserBio = AetherInput<typeof UserBio>

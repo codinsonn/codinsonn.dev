@@ -17,4 +17,4 @@ export const ResumeCTAData = aetherSchema('ResumeCTAData', {
 }).describe(d.ResumeCTAData)
 
 /** -i- The final CTA title and links for the resume to help people get in touch or get hired */
-export type TResumeCTAData = z.infer<typeof ResumeCTAData>
+export type ResumeCTAData = z.infer<typeof ResumeCTAData>

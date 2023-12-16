@@ -11,4 +11,4 @@ const d = `A resource that the metafield belongs to.`
 export const ShopifyMetafieldParentResource = z.union([ShopifyProduct, ShopifyProduct]).describe(d)
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/unions/MetafieldParentResource */
-export type TShopifyMetafieldParentResource = z.infer<typeof ShopifyMetafieldParentResource>
+export type ShopifyMetafieldParentResource = z.infer<typeof ShopifyMetafieldParentResource>

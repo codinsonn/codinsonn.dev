@@ -19,4 +19,4 @@ export const ResumeCardData = aetherSchema('ResumeCardData', {
 }).describe(d.ResumeCardData)
 
 /** -i- General data for the top card of the resume page */
-export type TResumeCardData = z.infer<typeof ResumeCardData>
+export type ResumeCardData = z.infer<typeof ResumeCardData>

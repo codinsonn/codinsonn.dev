@@ -22,4 +22,4 @@ export const ShopifyImageTransformInput = aetherSchema('ShopifyImageTransformInp
 })
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/input-objects/ImageTransformInput */
-export type TShopifyImageTransformInput = z.infer<typeof ShopifyImageTransformInput>
+export type ShopifyImageTransformInput = z.infer<typeof ShopifyImageTransformInput>

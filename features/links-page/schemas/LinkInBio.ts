@@ -19,4 +19,4 @@ export const LinkInBio = BaseLinkData.extendSchema('LinkInBio', {
 }).describe(d.LinkInBio)
 
 /** -i- Single source of truth for the actual link cards that renders under the bio icon links */
-export type TLinkInBio = AetherInput<typeof LinkInBio>
+export type LinkInBio = AetherInput<typeof LinkInBio>

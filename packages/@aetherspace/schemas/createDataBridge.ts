@@ -57,13 +57,13 @@ export const createDataBridge = <
   // -- Error Checks --
 
   if (!resolverName) throw new Error('Missing resolverName in createDataBridge() call')
-  if (!graphqlQuery) throw new Error('Missing graphqlQuery in createDataBridge() call')
+  // if (!graphqlQuery) throw new Error('Missing graphqlQuery in createDataBridge() call')
 
-  if (!graphqlQuery.includes(resolverName)) {
-    throw new Error(`Expected graphqlQuery to include the resolverName "${resolverName}" in createDataBridge() call`) // prettier-ignore
-  } else if (!graphqlQuery.includes(resolverArgsName)) {
-    throw new Error(`Expected graphqlQuery to include "${resolverArgsName}" in createDataBridge() call`) // prettier-ignore
-  }
+  // if (!graphqlQuery.includes(resolverName)) {
+  //   throw new Error(`Expected graphqlQuery to include the resolverName "${resolverName}" in createDataBridge() call`) // prettier-ignore
+  // } else if (!graphqlQuery.includes(resolverArgsName)) {
+  //   throw new Error(`Expected graphqlQuery to include "${resolverArgsName}" in createDataBridge() call`) // prettier-ignore
+  // }
 
   // -- Params to Args --
 

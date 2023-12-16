@@ -1,17 +1,14 @@
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
-// Schemas
-import { GetShopifyProductsAPIConfig } from '../schemas/GetShopifyProductsResolver'
-// Types
-import { TShopifyProduct } from '../schemas/ShopifyProduct'
-// Utils
+import { GetShopifyProductsDataBridge } from '../schemas/GetShopifyProductsDataBridge'
+import { ShopifyProduct } from '../schemas/ShopifyProduct'
 import { shopifyGraphQLRequest } from '../utils/serverUtils'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type TShopifyProductsGraphQLResponse = {
+type ShopifyProductsGraphQLResponse = {
   products: {
     edges: {
-      node: TShopifyProduct
+      node: ShopifyProduct
     }[]
   }
 }
@@ -25,7 +22,7 @@ export const getShopifyProducts = aetherResolver(async ({ args, parseArgs, withD
 
     // -- Request --
 
-    const graphQLResponse = await shopifyGraphQLRequest<TShopifyProductsGraphQLResponse>({
+    const graphQLResponse = await shopifyGraphQLRequest<ShopifyProductsGraphQLResponse>({
       variables: { first },
       query: `
         query getShopifyProducts($first: Int!) {
@@ -159,4 +156,4 @@ export const getShopifyProducts = aetherResolver(async ({ args, parseArgs, withD
     console.error('getShopifyProducts() error', error)
     throw error
   }
-}, GetShopifyProductsAPIConfig)
+}, GetShopifyProductsDataBridge)

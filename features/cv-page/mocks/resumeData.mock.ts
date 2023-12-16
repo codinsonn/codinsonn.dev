@@ -1,9 +1,8 @@
-// Types
-import { TResumeData } from '../schemas'
+import { ResumeData } from '../schemas'
 
 /* --- Mock Data ------------------------------------------------------------------------------- */
 
-export const dummyResumeData: TResumeData = {
+export const dummyResumeData: ResumeData = {
   id: 'codinsonn',
   slug: 'codinsonn',
   generalData: {

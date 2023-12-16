@@ -1,4 +1,4 @@
-import { z, aetherSchema } from 'aetherspace/schemas'
+import { z, aetherSchema, createDataBridge } from 'aetherspace/schemas'
 import { MongoBulkWriteResult } from '@aetherspace/mongoose/schemas'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
@@ -21,7 +21,7 @@ export const SyncUserBiosFromAirtableArgs = aetherSchema('SyncUserBiosFromAirtab
 }).describe(d.SyncUserBiosFromAirtableArgs)
 
 /** -i- Args for the syncUserBiosFromAirtable() resolver */
-export type TSyncUserBiosFromAirtableArgs = z.infer<typeof SyncUserBiosFromAirtableArgs>
+export type SyncUserBiosFromAirtableArgs = z.infer<typeof SyncUserBiosFromAirtableArgs>
 
 /** --- SyncUserBiosFromAirtableResponse ------------------------------------------------------- */
 /** -i- Response for the syncUserBiosFromAirtable() resolver */
@@ -35,13 +35,15 @@ export const SyncUserBiosFromAirtableResponse = aetherSchema('SyncUserBiosFromAi
 }).describe(d.SyncUserBiosFromAirtableResponse)
 
 /** -i- Response for the syncUserBiosFromAirtable() resolver */
-export type TSyncUserBiosFromAirtableResponse = z.infer<typeof SyncUserBiosFromAirtableResponse>
+export type SyncUserBiosFromAirtableResponse = z.infer<typeof SyncUserBiosFromAirtableResponse>
 
-/** --- syncUserBiosFromAirtableAPIConfig ------------------------------------------------------ */
+/** --- syncUserBiosFromAirtableDataBridge ----------------------------------------------------- */
 /** -i- Aetherspace API Config for syncUserBiosFromAirtable() */
-export const SyncUserBiosFromAirtableAPIConfig = {
+export const SyncUserBiosFromAirtableDataBridge = createDataBridge({
+  resolverName: 'syncUserBiosFromAirtable',
   argsSchema: SyncUserBiosFromAirtableArgs,
   responseSchema: SyncUserBiosFromAirtableResponse,
   apiPath: '/api/links/syncs/airtable',
   allowedMethods: ['GET', 'POST'],
-}
+  graphqlQuery: ``,
+})

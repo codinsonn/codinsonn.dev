@@ -37,4 +37,4 @@ export const ShopifyMetafield = aetherSchema('ShopifyMetafield', {
 })
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/Metafield */
-export type TShopifyMetafield = z.infer<typeof ShopifyMetafield>
+export type ShopifyMetafield = z.infer<typeof ShopifyMetafield>

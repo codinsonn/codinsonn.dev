@@ -1,14 +1,9 @@
 import React from 'react'
-// Navigation
 import { Link } from 'aetherspace/navigation'
-// Schemas
 import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
-// Primitives
 import { Text } from 'aetherspace/primitives'
 import { P } from 'aetherspace/html-elements'
-// Components
 import { AetherIcon } from 'aetherspace/components'
-// Styles
 import { twStyled, useTailwindStyles } from 'aetherspace/styles'
 
 /* --- Schemas --------------------------------------------------------------------------------- */

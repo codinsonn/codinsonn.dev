@@ -21,7 +21,7 @@ const UpdateResumeScreenProps = UpdateResumeScreenResponse.extendSchema('UpdateR
   ...dummyResumeData,
 })
 
-export type TUpdateResumeScreenProps = AetherProps<typeof UpdateResumeScreenProps>
+export type UpdateResumeScreenProps = AetherProps<typeof UpdateResumeScreenProps>
 
 /* --- Data Fetching Bridge -------------------------------------------------------------------- */
 
@@ -34,7 +34,7 @@ export const screenConfig = createDataBridge({
 
 /* --- <UpdateResumeScreen/> ------------------------------------------------------------------- */
 
-export const UpdateResumeScreen = (props: TUpdateResumeScreenProps) => {
+export const UpdateResumeScreen = (props: UpdateResumeScreenProps) => {
   // Data
   const [screenData, { error }] = useAetherRoute(props, screenConfig)
 

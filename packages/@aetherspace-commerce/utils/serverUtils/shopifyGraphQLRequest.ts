@@ -3,7 +3,7 @@ import { getEnvVar } from 'aetherspace/utils/serverUtils'
 
 /* --- Types ----------------------------------------------------------------------------------- */
 
-type TShopifyGraphQLRequestArgs = {
+type ShopifyGraphQLRequestArgs = {
   query: string
   variables?: any
   customEndpoint?: string
@@ -26,7 +26,7 @@ const SHOPIFY_HEADERS = {
 
 /** --- shopifyGraphQLRequest() ---------------------------------------------------------------- */
 /** -i- Performs and authenticated GraphQL request to your SHOPIFY_STOREFRONT_URL */
-export const shopifyGraphQLRequest = async <T>(args: TShopifyGraphQLRequestArgs): Promise<T> => {
+export const shopifyGraphQLRequest = async <T>(args: ShopifyGraphQLRequestArgs): Promise<T> => {
   try {
     // Args
     const { query, variables, customEndpoint, customHeaders } = args

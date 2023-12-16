@@ -73,4 +73,4 @@ export const ShopifyProduct = aetherSchema('ShopifyProduct', {
 })
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/Product */
-export type TShopifyProduct = z.infer<typeof ShopifyProduct>
+export type ShopifyProduct = z.infer<typeof ShopifyProduct>

@@ -31,7 +31,7 @@ const BioScreenProps = UserBio.extendSchema('BioScreenProps', {
   ...userBioMock,
 })
 
-export type TBioScreenProps = AetherProps<typeof BioScreenProps>
+export type BioScreenProps = AetherProps<typeof BioScreenProps>
 
 /* --- Data Fetching Bridge -------------------------------------------------------------------- */
 
@@ -44,7 +44,7 @@ export const screenConfig = createDataBridge({
 
 /* --- <BioScreen/> ---------------------------------------------------------------------------- */
 
-export const BioScreen = (props: TBioScreenProps) => {
+export const BioScreen = (props: BioScreenProps) => {
   // Data
   const [bioData, { error }] = useAetherRoute(props, screenConfig)
 

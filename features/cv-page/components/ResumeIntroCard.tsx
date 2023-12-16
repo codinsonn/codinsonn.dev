@@ -1,16 +1,10 @@
 import React from 'react'
-// Navigation
 import { Link } from 'aetherspace/navigation'
-// Schemas
 import { AetherProps } from 'aetherspace/schemas'
 import { ResumeCardData } from '../schemas'
-// Primitives
 import { View, Image, Text } from 'aetherspace/primitives'
-// SEO
 import { H1, H2, P } from 'aetherspace/html-elements'
-// Styles
 import { twStyled } from 'aetherspace/styles'
-// Mocks
 import { dummyResumeData } from '../mocks/resumeData.mock'
 
 /* --- <ResumeIntroCard/> ------------------------------------------------------------------------- */

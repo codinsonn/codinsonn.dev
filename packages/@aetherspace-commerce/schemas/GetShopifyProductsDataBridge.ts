@@ -1,5 +1,4 @@
-import { z, aetherSchema } from 'aetherspace/schemas'
-// Schemas
+import { z, aetherSchema, createDataBridge } from 'aetherspace/schemas'
 import { ShopifyProduct } from './ShopifyProduct'
 
 /** --- GetShopifyProductsArgs ----------------------------------------------------------------- */
@@ -9,7 +8,7 @@ export const GetShopifyProductsArgs = aetherSchema('GetShopifyProductsArgs', {
 })
 
 /** -i- The arguments to the getShopifyProduct() resolver */
-export type TGetShopifyProductsArgs = z.infer<typeof GetShopifyProductsArgs>
+export type GetShopifyProductsArgs = z.infer<typeof GetShopifyProductsArgs>
 
 /** --- GetShopifyProductsResponse ------------------------------------------------------------- */
 /** -i- The response from the getShopifyProduct() resolver */
@@ -19,13 +18,15 @@ export const GetShopifyProductsResponse = aetherSchema('GetShopifyProductsRespon
 })
 
 /** -i- The response from the getShopifyProduct() resolver */
-export type TGetShopifyProductsResponse = z.infer<typeof GetShopifyProductsResponse>
+export type GetShopifyProductsResponse = z.infer<typeof GetShopifyProductsResponse>
 
-/** --- GetShopifyProductsAPIConfig ------------------------------------------------------------ */
+/** --- GetShopifyProductsDataBridge ----------------------------------------------------------- */
 /** -i- The API config for the getShopifyProduct() resolver */
-export const GetShopifyProductsAPIConfig = {
+export const GetShopifyProductsDataBridge = createDataBridge({
+  resolverName: 'getShopifyProducts',
   argsSchema: GetShopifyProductsArgs,
   responseSchema: GetShopifyProductsResponse,
   apiPath: '/api/aetherspace/commerce/shopify/products',
   allowedMethods: ['GET', 'POST'],
-}
+  graphqlQuery: ``,
+})

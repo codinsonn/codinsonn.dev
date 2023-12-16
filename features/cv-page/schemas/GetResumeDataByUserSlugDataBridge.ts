@@ -16,14 +16,14 @@ export const GetResumeDataByUserSlugArgs = aetherSchema('GetResumeDataByUserSlug
 }).describe(d.GetResumeDataByUserSlugArgs)
 
 /** -i- Args for the getResumeDataByUserSlug() resolver */
-export type TGetResumeDataByUserSlugArgs = z.infer<typeof GetResumeDataByUserSlugArgs>
+export type GetResumeDataByUserSlugArgs = z.infer<typeof GetResumeDataByUserSlugArgs>
 
 /** --- GetResumeDataByUserSlugResponse -------------------------------------------------------- */
 /** -i- Response for the getResumeDataByUserSlug() resolver */
 export const GetResumeDataByUserSlugResponse = ResumeData.describe(d.GetResumeDataByUserSlugResponse) // prettier-ignore
 
 /** -i- Response for the getResumeDataByUserSlug() resolver */
-export type TGetResumeDataByUserSlugResponse = z.infer<typeof GetResumeDataByUserSlugResponse>
+export type GetResumeDataByUserSlugResponse = z.infer<typeof GetResumeDataByUserSlugResponse>
 
 /** --- GraphQL -------------------------------------------------------------------------------- */
 /** -i- Figure out which data you need at '/api/graphql' locally and apply it here */
@@ -228,7 +228,7 @@ export const GetResumeDataByUserSlugDataBridge = createDataBridge({
   resolverName: 'getResumeDataByUserSlug',
   argsSchema: GetResumeDataByUserSlugArgs,
   responseSchema: GetResumeDataByUserSlugResponse,
-  graphqlQuery: ResumeDataByUserSlugQuery,
   apiPath: '/api/resume/[slug]',
   allowedMethods: ['GET', 'POST'],
+  graphqlQuery: ResumeDataByUserSlugQuery,
 })
