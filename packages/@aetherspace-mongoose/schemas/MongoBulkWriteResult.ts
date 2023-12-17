@@ -20,4 +20,4 @@ export const MongoBulkWriteResult = aetherSchema('MongoBulkWriteResult', {
 }).describe(d.MongoBulkWriteResult)
 
 /** -i- https://www.mongodb.com/docs/manual/reference/method/db.collection.bulkWrite/ */
-export type TMongoBulkWriteResult = z.infer<typeof MongoBulkWriteResult>
+export type MongoBulkWriteResult = z.infer<typeof MongoBulkWriteResult>

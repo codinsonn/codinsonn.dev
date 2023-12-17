@@ -20,7 +20,7 @@ type AetherSchemaInput<Z extends z.ZodRawShape> = z.ZodObject<Z>
 //     someNumber: z.number(),
 // })
 
-// ⇣⇣⇣⇣⇣⇣⇣⇣ results of .introspect() executed during `aetherSchemaToMongoose(...)` ⇣⇣⇣⇣⇣⇣⇣⇣
+// ⇣⇣⇣⇣⇣⇣⇣⇣ results of .introspect() executed during `createMongooseDataModel(...)` ⇣⇣⇣⇣⇣⇣⇣⇣
 
 // {
 //     aetherType: 'AetherSchema',
@@ -48,7 +48,7 @@ type AetherSchemaInput<Z extends z.ZodRawShape> = z.ZodObject<Z>
 
 /* --- Example Output ---------------------------------------------------------------------------- */
 
-// ⇣⇣⇣⇣⇣⇣⇣⇣ Mongoose Schema created during `aetherSchemaToMongoose(...)` ⇣⇣⇣⇣⇣⇣⇣⇣
+// ⇣⇣⇣⇣⇣⇣⇣⇣ Mongoose Schema created during `createMongooseDataModel(...)` ⇣⇣⇣⇣⇣⇣⇣⇣
 
 // const mongooseSchema = new Schema({
 //     someString: {
@@ -67,7 +67,7 @@ type AetherSchemaInput<Z extends z.ZodRawShape> = z.ZodObject<Z>
 //     ...
 // })
 
-// ⇣⇣⇣⇣⇣⇣⇣⇣ Resulting model from `aetherSchemaToMongoose(...)` ⇣⇣⇣⇣⇣⇣⇣⇣
+// ⇣⇣⇣⇣⇣⇣⇣⇣ Resulting model from `createMongooseDataModel(...)` ⇣⇣⇣⇣⇣⇣⇣⇣
 
 // type SchemaDoc = Document & z.infer<SomeMongoCollectionSchema>
 // type SchemaModel = Model<SchemaDoc> & { aetherSchema: typeof SomeMongoCollectionSchema }
@@ -76,15 +76,15 @@ type AetherSchemaInput<Z extends z.ZodRawShape> = z.ZodObject<Z>
 // -i- https://mongoosejs.com/docs/guide.html#definition
 // -i- https://mongoosejs.com/docs/guide.html#models
 
-/** --- aetherSchemaToMongoose() ----------------------------------------------------------------- */
+/** --- createMongooseDataModel() ----------------------------------------------------------------- */
 /** -i- Turn an aetherSchema with fields defined with zod into a usable mongoose model */
-export const aetherSchemaToMongoose = <Z extends z.ZodRawShape>(
+export const createMongooseDataModel = <Z extends z.ZodRawShape>(
   schema: AetherSchemaInput<Z>,
   schemaOptions: SchemaOptions = {}
 ) => {
   // Error & return early if zod / aether schema is unknown
   if (!schema?.schemaName) {
-    throw new Error('aetherSchemaToMongoose() requires a named aetherSchema (did you pass a regular zod object instead?)') // prettier-ignore
+    throw new Error('createMongooseDataModel() requires a named aetherSchema (did you pass a regular zod object instead?)') // prettier-ignore
   }
 
   // Define resulting Interface

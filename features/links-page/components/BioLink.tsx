@@ -1,7 +1,7 @@
 import React from 'react'
 import { AetherProps } from 'aetherspace/schemas'
 import { Link, useAetherNav } from 'aetherspace/navigation'
-import { LinkInBio } from '../schemas'
+import { LinkInBio } from '../schemas/LinkInBio'
 import { twStyled } from 'aetherspace/styles'
 import { Image } from 'aetherspace/primitives'
 

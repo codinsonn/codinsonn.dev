@@ -127,12 +127,6 @@ export const registerAetherFormGenerator = (plop: PlopTypes.NodePlopAPI) => {
         },
       }
 
-      const addFormHookToIndex = {
-        type: 'append-last-line',
-        path: `${workspacePath}/hooks/index.ts`,
-        template: `export * from './${formHookName}'`,
-      }
-
       const openFilesInVSCode = {
         type: 'open-files-in-vscode',
         paths: [`${workspacePath}/hooks/${formHookName}.ts`],
@@ -140,15 +134,15 @@ export const registerAetherFormGenerator = (plop: PlopTypes.NodePlopAPI) => {
 
       // -- Generate with Schema Form State Schema --
 
-      if (schemaConfig) return [addSchemaFormState, addFormHookToIndex, openFilesInVSCode]
+      if (schemaConfig) return [addSchemaFormState, openFilesInVSCode]
 
       // -- Generate with Resolver Args Form State Schema --
 
-      if (dataBridgeConfig) return [addResolverFormState, addFormHookToIndex, openFilesInVSCode]
+      if (dataBridgeConfig) return [addResolverFormState, openFilesInVSCode]
 
       // -- Generate with Dummy Form State Schema --
 
-      return [addSimpleFormState, addFormHookToIndex, openFilesInVSCode]
+      return [addSimpleFormState, openFilesInVSCode]
     },
   })
 }

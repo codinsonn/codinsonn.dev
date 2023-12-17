@@ -1,6 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { PlopTypes } from '@turbo/gen'
-// Utils
 import {
   getWorkspaceOptions,
   matchMethods,
@@ -269,12 +268,6 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           },
         })
         extraFilesToOpen.push(`${workspacePath}/forms/${formHookName}.ts`)
-        extraActions.push({
-          type: 'append-last-line', // @ts-ignore
-          path: `${workspacePath}/forms/index.ts`,
-          template: `export * from './${formHookName}'\n`,
-          pattern: /^(.*\S)[\r\n]*$/,
-        })
       }
 
       // Add args schema?
@@ -297,11 +290,6 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           },
         } as PlopTypes.ActionType)
         extraFilesToOpen.push(`${workspacePath}/schemas/${ArgsSchemaName}.ts`)
-        extraActions.push({
-          type: 'append-last-line',
-          path: `${workspacePath}/schemas/index.ts`,
-          template: `export * from './${ArgsSchemaName}'\n`,
-        } as PlopTypes.ActionType)
       }
 
       // Add response schema?
@@ -322,11 +310,6 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           },
         } as PlopTypes.ActionType)
         extraFilesToOpen.push(`${workspacePath}/schemas/${ResSchemaName}.ts`)
-        extraActions.push({
-          type: 'append-last-line',
-          path: `${workspacePath}/schemas/index.ts`,
-          template: `export * from './${ResSchemaName}'\n`,
-        } as PlopTypes.ActionType)
       }
 
       // -- Data Bridge --
@@ -393,12 +376,6 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       return [
         dataBridgeStep,
         {
-          type: 'append-last-line',
-          path: `${workspacePath}/schemas/index.ts`,
-          template: `export * from './${resolverBridgeName}'\n`,
-          pattern: /^(.*\S)[\r\n]*$/,
-        },
-        {
           type: 'add',
           path: `${workspacePath}/resolvers/${resolverName}.ts`,
           templateFile: '../../packages/@aetherspace/generators/templates/basic-resolver.hbs',
@@ -407,12 +384,6 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
             ResolverName,
             jsDocResolverHeader,
           },
-        },
-        {
-          type: 'append-last-line',
-          path: `${workspacePath}/resolvers/index.ts`,
-          template: `export * from './${resolverName}'\n`,
-          pattern: /^(.*\S)[\r\n]*$/,
         },
         ...extraActions,
         {

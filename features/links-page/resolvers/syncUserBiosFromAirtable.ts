@@ -1,9 +1,13 @@
 import { SyncUserBiosFromAirtableDataBridge } from '../schemas/SyncUserBiosFromAirtableDataBridge'
-import { UserBioTable, UserIconsTable, LinksInBioTable } from '../schemas/tables'
-import { UserBioModel, IconLinkModel, LinkInBioModel } from '../schemas/models'
+import { UserBioTable } from '../models/UserBioTable'
+import { UserIconsTable } from '../models/UserIconsTable'
+import { LinkInBioTable } from '../models/LinkInBioTable'
+import { UserBioDataModel } from '../models/UserBioDataModel'
+import { IconLinkDataModel } from '../models/IconLinkDataModel'
+import { LinkInBioDataModel } from '../models/LinkInBioDataModel'
 import { aetherResolver, getEnvVar } from 'aetherspace/utils/serverUtils'
 import { dbConnect, bulkUpsertMany } from '@aetherspace/mongoose/utils'
-import { TMongoBulkWriteResult } from '@aetherspace/mongoose/schemas'
+import { MongoBulkWriteResult } from '@aetherspace/mongoose/schemas/MongoBulkWriteResult'
 
 /* --- Constants ------------------------------------------------------------------------------- */
 
@@ -29,7 +33,7 @@ export const syncUserBiosFromAirtable = aetherResolver(
       const [userIconRecords, userBioRecords, linksInBioRecords] = await Promise.all([
         UserIconsTable.fetchAllRecords(),
         UserBioTable.fetchAllRecords(),
-        LinksInBioTable.fetchAllRecords(),
+        LinkInBioTable.fetchAllRecords(),
       ])
 
       // -- Connect --
@@ -40,7 +44,7 @@ export const syncUserBiosFromAirtable = aetherResolver(
 
       const userIcons = userIconRecords.map(UserIconsTable.parseRecord)
 
-      const linksInBio = linksInBioRecords.map(LinksInBioTable.parseRecord)
+      const linksInBio = linksInBioRecords.map(LinkInBioTable.parseRecord)
 
       const userBios = userBioRecords.map((record) => {
         return UserBioTable.parseFields({
@@ -53,14 +57,14 @@ export const syncUserBiosFromAirtable = aetherResolver(
       // -- Sync --
 
       const [syncedIcons, syncedLinks, syncedBios] = await Promise.all([
-        bulkUpsertMany(IconLinkModel, userIcons, (doc) => ({ userSlug: doc.userSlug, id: doc.id })),
-        bulkUpsertMany(LinkInBioModel, linksInBio, (doc) => ({ userSlug: doc.userSlug, id: doc.id })), // prettier-ignore
-        bulkUpsertMany(UserBioModel, userBios, (doc) => ({ slug: doc.slug })),
+        bulkUpsertMany(IconLinkDataModel, userIcons, (doc) => ({ userSlug: doc.userSlug, id: doc.id })), // prettier-ignore
+        bulkUpsertMany(LinkInBioDataModel, linksInBio, (doc) => ({ userSlug: doc.userSlug, id: doc.id })), // prettier-ignore
+        bulkUpsertMany(UserBioDataModel, userBios, (doc) => ({ slug: doc.slug })),
       ])
 
       // -- Respond --
 
-      const countBulkEdits = (bulkEditResults: TMongoBulkWriteResult) => {
+      const countBulkEdits = (bulkEditResults: MongoBulkWriteResult) => {
         const { insertedCount, matchedCount, modifiedCount, upsertedCount } = bulkEditResults
         return insertedCount + modifiedCount || matchedCount + upsertedCount
       }

@@ -1,7 +1,5 @@
 import React from 'react'
-// Navigation
 import { AetherPage } from 'aetherspace/navigation'
-// Screens
 import * as ResumeScreen from '../../../screens/ResumeScreen'
 
 /* --- Config ---------------------------------------------------------------------------------- */
@@ -11,7 +9,7 @@ const screenConfig = ResumeScreen.screenConfig
 
 /* --- /cv/[slug] ------------------------------------------------------------------------------ */
 
-const PageScreen = (props: ResumeScreen.TResumeScreenProps) => (
+const PageScreen = (props: ResumeScreen.ResumeScreenProps) => (
   <AetherPage {...props} screen={ScreenComponent} screenConfig={screenConfig} />
 )
 

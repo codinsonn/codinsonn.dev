@@ -1,6 +1,6 @@
 import { z, aetherSchema } from 'aetherspace/schemas'
 import { ResumeCardData } from './ResumeCardData'
-import { SocialLinkData } from 'links-page/schemas'
+import { SocialLinkData } from 'links-page/schemas/SocialLinkData'
 import { ResumeProjectData } from './ResumeProjectData'
 import { ResumeWritingData } from './ResumeWritingData'
 import { ResumeSpeakingData } from './ResumeSpeakingData'

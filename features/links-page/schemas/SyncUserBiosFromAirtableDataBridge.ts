@@ -1,5 +1,5 @@
 import { z, aetherSchema, createDataBridge } from 'aetherspace/schemas'
-import { MongoBulkWriteResult } from '@aetherspace/mongoose/schemas'
+import { MongoBulkWriteResult } from '@aetherspace/mongoose/schemas/MongoBulkWriteResult'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
 

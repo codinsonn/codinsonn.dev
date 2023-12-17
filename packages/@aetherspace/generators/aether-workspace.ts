@@ -92,13 +92,13 @@ export const registerAetherWorkspaceGenerator = (plop: PlopTypes.NodePlopAPI) =>
 
       // -- Optionals --
 
-      addOptionalStructure('schemas', 'index.ts')
-      addOptionalStructure('resolvers', 'index.ts')
-      addOptionalStructure('components', 'index.ts')
-      addOptionalStructure('hooks', 'index.ts')
-      addOptionalStructure('screens', 'index.ts')
+      addOptionalStructure('schemas', '.gitkeep')
+      addOptionalStructure('resolvers', '.gitkeep')
+      addOptionalStructure('components', '.gitkeep')
+      addOptionalStructure('hooks', '.gitkeep')
+      addOptionalStructure('screens', '.gitkeep')
       addOptionalStructure('routes', '.gitkeep')
-      addOptionalStructure('utils', 'index.ts')
+      addOptionalStructure('utils', '.gitkeep')
 
       // -- Generate --
 

@@ -12,7 +12,7 @@ export const {{ResolverName}}Args = aetherSchema('{{ResolverName}}Args', {
 }){{argsDescriptionStatement}}
 
 {{jsDocArgsDescription}}
-export type T{{ResolverName}}Args = z.infer<typeof {{ResolverName}}Args>
+export type {{ResolverName}}Args = z.infer<typeof {{ResolverName}}Args>
 
 {{jsDocResponseHeader}}
 export const {{ResolverName}}Response = aetherSchema('{{ResolverName}}Response', {
@@ -20,7 +20,7 @@ export const {{ResolverName}}Response = aetherSchema('{{ResolverName}}Response',
 }){{responseDescriptionStatement}}
 
 {{jsDocResponseDescription}}
-export type T{{ResolverName}}Response = z.infer<typeof {{ResolverName}}Response>
+export type {{ResolverName}}Response = z.infer<typeof {{ResolverName}}Response>
 
 /** --- GraphQL -------------------------------------------------------------------------------- */
 /** -i- TODO: Figure out which data you need at '/api/graphql' locally and apply it here */

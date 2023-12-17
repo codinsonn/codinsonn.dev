@@ -6,7 +6,7 @@ import * as bioScreen from '../../screens/BioScreen'
 
 /* --- /bio/[slug] ----------------------------------------------------------------------------- */
 
-const PageScreen = (props: bioScreen.TBioScreenProps) => (
+const PageScreen = (props: bioScreen.BioScreenProps) => (
   <AetherPage {...props} screen={bioScreen.BioScreen} screenConfig={bioScreen.screenConfig} />
 )
 

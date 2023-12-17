@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'aetherspace/navigation'
 import { AetherProps } from 'aetherspace/schemas'
-import { ResumeCardData } from '../schemas'
+import { ResumeCardData } from '../schemas/ResumeCardData'
 import { View, Image, Text } from 'aetherspace/primitives'
 import { H1, H2, P } from 'aetherspace/html-elements'
 import { twStyled } from 'aetherspace/styles'

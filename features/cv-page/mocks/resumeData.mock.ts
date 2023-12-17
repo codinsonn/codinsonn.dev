@@ -1,4 +1,4 @@
-import { ResumeData } from '../schemas'
+import { ResumeData } from '../schemas/ResumeData'
 
 /* --- Mock Data ------------------------------------------------------------------------------- */
 

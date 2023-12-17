@@ -15,7 +15,7 @@ const {{ScreenName}}Props = {{ScreenName}}Response.extendSchema('{{ScreenName}}P
   segment: z.string().optional(),
 })
 
-export type T{{ScreenName}}Props = AetherProps<typeof {{ScreenName}}Props>
+export type {{ScreenName}}Props = AetherProps<typeof {{ScreenName}}Props>
 
 /* --- Data Fetching Bridge -------------------------------------------------------------------- */
 
@@ -28,7 +28,7 @@ export const screenConfig = createDataBridge({
 
 {{{screenTitleDivider}}}
 
-export const {{ScreenName}} = (props: T{{ScreenName}}Props) => {
+export const {{ScreenName}} = (props: {{ScreenName}}Props) => {
   // Data
   const [screenData, { error }] = useAetherRoute(props, screenConfig)
 

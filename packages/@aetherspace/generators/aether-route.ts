@@ -122,13 +122,6 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
         },
       }
 
-      const addScreenToIndex = {
-        type: 'append-last-line',
-        path: `${workspacePath}/screens/index.ts`,
-        template: `export { ${ScreenName}, T${ScreenName}Props } from './${ScreenName}'\n`,
-        pattern: /^(.*\S)[\r\n]*$/,
-      }
-
       const addSimpleRoutePath = {
         type: 'add',
         path: screenRoutePath,
@@ -157,36 +150,18 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
       // -- Generate without Fetching Setup --
 
       if (noFetcher) {
-        return [
-          addSimpleScreen,
-          addScreenToIndex,
-          addSimpleRoutePath,
-          linkRoutes,
-          openFilesInVSCode,
-        ]
+        return [addSimpleScreen, addSimpleRoutePath, linkRoutes, openFilesInVSCode]
       }
 
       // -- Generate with Linked Resolver Fetching Setup --
 
       if (dataBridgeConfig) {
-        return [
-          addLinkedResolverScreen,
-          addScreenToIndex,
-          addDynamicRoutePath,
-          linkRoutes,
-          openFilesInVSCode,
-        ]
+        return [addLinkedResolverScreen, addDynamicRoutePath, linkRoutes, openFilesInVSCode]
       }
 
       // -- Generate with Dummy Fetching Setup --
 
-      return [
-        addDynamicScreen,
-        addScreenToIndex,
-        addDynamicRoutePath,
-        linkRoutes,
-        openFilesInVSCode,
-      ]
+      return [addDynamicScreen, addDynamicRoutePath, linkRoutes, openFilesInVSCode]
     },
   })
 }

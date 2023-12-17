@@ -1,6 +1,0 @@
-export * from './BaseLinkData'
-export * from './UserBio'
-export * from './IconLink'
-export * from './LinkInBio'
-export * from './SocialLinkData'
-export * from './SyncUserBiosFromAirtableDataBridge'

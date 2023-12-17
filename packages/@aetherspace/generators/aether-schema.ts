@@ -95,11 +95,6 @@ export const registerAetherSchemaGenerator = (plop: PlopTypes.NodePlopAPI) => {
           },
         },
         {
-          type: 'append-last-line',
-          path: `${workspacePath}/schemas/index.ts`,
-          template: `export * from './${schemaName}'\n`,
-        },
-        {
           type: 'open-files-in-vscode',
           paths: [`${workspacePath}/schemas/${schemaName}.ts`],
         },

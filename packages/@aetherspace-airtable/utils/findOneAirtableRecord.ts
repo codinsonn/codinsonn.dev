@@ -1,5 +1,4 @@
 import Airtable from 'airtable'
-// Schemas
 import { z } from 'aetherspace/schemas'
 
 /** --- findOneAirtableRecord() ---------------------------------------------------------------- */

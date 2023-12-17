@@ -1,5 +1,5 @@
 import { z } from 'aetherspace/schemas'
-import { BaseLinkData } from 'links-page/schemas'
+import { BaseLinkData } from 'links-page/schemas/BaseLinkData'
 
 /* --- Descriptions ---------------------------------------------------------------------------- */
 

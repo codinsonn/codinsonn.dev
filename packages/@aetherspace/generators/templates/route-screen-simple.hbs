@@ -11,11 +11,11 @@ const {{ScreenName}}Props = aetherSchema('{{ScreenName}}Props', {
   greeting: z.string().optional().default('Hello {{ScreenName}} 👋'),
 })
 
-export type T{{ScreenName}}Props = AetherProps<typeof {{ScreenName}}Props>
+export type {{ScreenName}}Props = AetherProps<typeof {{ScreenName}}Props>
 
 {{{screenTitleDivider}}}
 
-export const {{ScreenName}} = (props: T{{ScreenName}}Props) => {
+export const {{ScreenName}} = (props: {{ScreenName}}Props) => {
   // Props
   const { greeting } = {{ScreenName}}Props.applyDefaults(props)
 

@@ -1,11 +1,14 @@
 import React from 'react'
 import { useAetherRoute } from 'aetherspace/navigation'
 import { z, aetherSchema, AetherProps, createDataBridge } from 'aetherspace/schemas'
-import { GetResumeDataByUserSlugDataBridge, ResumeData } from '../schemas'
+import { GetResumeDataByUserSlugDataBridge } from '../schemas/GetResumeDataByUserSlugDataBridge'
+import { ResumeData } from '../schemas/ResumeData'
 import { dummyResumeData } from '../mocks/resumeData.mock'
 import { View } from 'aetherspace/primitives'
 import { H1, H2 } from 'aetherspace/html-elements'
-import { ResumeContactSection, ResumeIntroCard, ResumeEntry } from '../components'
+import { ResumeContactSection } from '../components/ResumeContactSection'
+import { ResumeEntry } from '../components/ResumeEntry'
+import { ResumeIntroCard } from '../components/ResumeIntroCard'
 import { ResumeSkeleton } from '../components/ResumeSkeleton'
 import { twStyled } from 'aetherspace/styles'
 import { uppercaseFirstChar } from 'aetherspace/utils'
@@ -27,6 +30,8 @@ const ResumeScreenProps = ResumeData.extendSchema('ResumeScreenProps', {
   params: { slug: 'codinsonn' },
   ...dummyResumeData,
 })
+
+export type ResumeScreenParams = AetherProps<typeof ResumeScreenParams>
 
 export type ResumeScreenProps = AetherProps<typeof ResumeScreenProps>
 

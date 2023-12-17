@@ -8,11 +8,11 @@ export const {{SchemaName}} = aetherSchema('{{SchemaName}}', {
   test: z.string().default('hello world'),
 })
 
-export type T{{SchemaName}} = DeepPartial<AetherProps<typeof {{SchemaName}}>>
+export type {{SchemaName}} = DeepPartial<AetherProps<typeof {{SchemaName}}>>
 
 {{formHookDivider}}
 
-const {{formHookName}} = (initialValues: T{{SchemaName}}) => {
+const {{formHookName}} = (initialValues: {{SchemaName}}) => {
   const formState = useFormState({
     stateSchema: {{SchemaName}},
     initialValues,

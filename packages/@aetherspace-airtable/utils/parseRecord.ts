@@ -1,6 +1,4 @@
-// Types
 import type { Record as AirtableRecord } from 'airtable'
-// Schemas
 import { z } from 'aetherspace/schemas'
 
 /* --- Types ------------------------------------------------------------------------------------- */

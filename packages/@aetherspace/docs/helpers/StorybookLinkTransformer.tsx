@@ -29,6 +29,9 @@ const StorybookLinkTransformer = (props) => {
       // - Images -
       '/packages/@aetherspace/assets/AetherspaceLogo.svg': '/AetherspaceLogo.svg',
       '/.storybook/public/TransformToolsExampleRNSVG.png': '/TransformToolsExampleRNSVG.png',
+      '/.storybook/public/add-workspace.png': '/add-workspace.png',
+      '/.storybook/public/add-schema.png': '/add-schema.png',
+      '/.storybook/public/add-resolver.png': '/add-resolver.png',
       // - Hrefs -
       '?path=/packages/@aetherspace/README.md': '?path=/docs/aetherspace-quickstart--page',
       '?path=/packages/@aetherspace/core/README.md': '?path=/docs/aetherspace-core-concepts--page',

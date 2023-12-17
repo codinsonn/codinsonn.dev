@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'aetherspace/navigation'
 import { AetherProps, aetherSchema } from 'aetherspace/schemas'
-import { SocialLinkData } from 'links-page/schemas'
+import { SocialLinkData } from 'links-page/schemas/SocialLinkData'
 import { View, Text } from 'aetherspace/primitives'
 import { H2 } from 'aetherspace/html-elements'
 import { AetherIcon } from 'aetherspace/components'
