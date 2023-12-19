@@ -7,6 +7,11 @@ These conventions **build upon, hook into, or even simplify** some of the **alre
 
 The easiest way to opt in to these conventions is by using our [turborepo generators](https://turbo.build/repo/docs/core-concepts/monorepos/code-generation), explained in further detail on this page:
 
+- [1. Colocating code in `/features/` and `/packages/`](#1-colocating-code-in-features-and-packages)
+- [2. Start with Single Sources of Truth](#2-start-with-single-sources-of-truth)
+- [3. Use your schemas to create Resolvers and API's](#3-use-your-schemas-to-create-resolvers-and-apis)
+- [4. Integrate resolvers with Universal Routes](#4-integrate-resolvers-with-universal-routes)
+
 ## 1. Colocating code in `/features/` and `/packages/`
 
 Our **ultimate goal** is to **help you create a way of working that is as copy-pasteable as possible**, so that you can easily transfer full reusable (yet fully customisable) 'features' across codebases or between projects:
@@ -164,6 +169,9 @@ Any sort of mapping of `context`, `query` params, POST request `body` or headers
 - Ensure the `...DataBridge` object is exported from the `schemas/` folder, so it can be used elsewhere as well
 - Ensure the `...DataBridge` object contains `argsSchema` and `responseSchema`, as well as the `resolverName`
 - Use utils like `parseArgs()`, `withDefaults()`, ... from `aetherResolver()` to help with common resolver logic
+- Import your resolver in your desired path under `{workspace}/routes/api/...` 
+- Export `graphResolver` and wrap your resolver with `makeGraphQLResolver()` to add it to the GraphQL API
+- Export `GET`, `POST`, `PUT`, `DELETE` or `PATCH` with `makeNextRouteHandler()` to add it to the REST API
 
 > ▶ _So, what's the easiest way to add a new resolver to a workspace?_ ▼▼
 
@@ -178,7 +186,7 @@ yarn workspace aetherspace run add-resolver # run in repo root to add a new reso
 ```
 
 ```shell
->>> Modify "aetherspace-green-stack-starter" using custom generators
+>>> Modify "your-monorepo-name" using custom generators
 
 ? Where would you like to add this resolver? # features/some-feature  --  importable from: '@app/some-feature'
 ? What will you name the resolver function? (e.g. "doSomething") # updateSomeData
@@ -204,9 +212,57 @@ Opening files in VSCode...
   • Opened 3 files in VSCode (open-files-in-vscode)
 ```
 
+## 4. Integrate resolvers with Universal Routes
+
+> With your workspace, schemas and resolvers in place, we can now hook them up to our UI for data-fetching:
+
+✅ Automate away the need to manually (**re**)define routes for **Expo Router** and **Next.js**  
+✅ Set up your screen to fetch data from **from your GraphQL API**  
+✅ Integrate with typed form state management hooks for **your data resolver args schemas**  
+
+### Conventions for universal routing
+
+- Add screens under `screens/` folder in your feature or package workspace
+- Configure screens to hook into a GraphQL query by using `createDataBridge` to extend the resolver `DataBridge`
+- Call `useAetherRoute(props, screenConfig)` to merge props with data fetching for typed component data
+- Add routes just once under `routes/` folder in your feature or package workspace
+- Make sure your `route.ts` file uses `<AetherPage>` to wrap your screen component
+
+> ▶ _So, what's the easiest way to add a new universal route to a workspace?_ ▼▼
+
+### `yarn ats add-route` - Create a new universal route
+
+![add-route.png](/.storybook/public/add-route.png)
+
+> Note: If your resolvers apply our conventions and will allow you to pick them to automatically integrate one of those resolvers. If you don't have any resolvers yet, or don't need to do data fetching at all, you can still create a route and add a resolver or integrate with a query later.
+
+```shell-script
+yarn workspace aetherspace run add-route # run in repo root to add a new route
+```
+
+```shell
+>>> Modify "your-monorepo-name" using custom generators
+
+? Where would you like to add this new route? # features/some-feature  --  importable from: '@app/some-feature'
+? What should the screen component be called? # SomeScreen
+? What url do you want this route on? # /some-screen/[id]
+? Would you like to fetch initial data for this route from a resolver? # @app/some-feature >>> getSomeData()
+
+Running 'link-routes' script from '@aetherspace' workspace...
+Opening files in VSCode...
+
+>>> Changes made:
+  • /features/some-feature/screens/SomeScreen.tsx (add)
+  • /features/some-feature/routes/some-screen/[id]/index.tsx (add)
+  • Ran 'link-routes' script from '@aetherspace' workspace (link-routes)
+  • Opened 2 files in VSCode (open-files-in-vscode)
+```
+
 ---
 
-# Automations, designed for copy-paste ⚙️
+# Automations, designed for copy-paste ⚙️  
+
+---
 
 > Codegen in Aetherspace is focused on keeping your internal features and packages folders as transferrable between projects as possible. Therefore, it is limited to do only a few things:  
 

@@ -32,6 +32,7 @@ const StorybookLinkTransformer = (props) => {
       '/.storybook/public/add-workspace.png': '/add-workspace.png',
       '/.storybook/public/add-schema.png': '/add-schema.png',
       '/.storybook/public/add-resolver.png': '/add-resolver.png',
+      '/.storybook/public/add-route.png': '/add-route.png',
       // - Hrefs -
       '?path=/packages/@aetherspace/README.md': '?path=/docs/aetherspace-quickstart--page',
       '?path=/packages/@aetherspace/core/README.md': '?path=/docs/aetherspace-core-concepts--page',
