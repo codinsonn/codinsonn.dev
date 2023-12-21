@@ -45,5 +45,4 @@ export const SyncUserBiosFromAirtableDataBridge = createDataBridge({
   responseSchema: SyncUserBiosFromAirtableResponse,
   apiPath: '/api/links/syncs/airtable',
   allowedMethods: ['GET', 'POST'],
-  graphqlQuery: ``,
 })

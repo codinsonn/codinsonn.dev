@@ -1,7 +1,56 @@
-import { z, AetherParams, AetherProps } from './aetherSchemas'
+import { z, AetherParams, AetherProps, AetherSchemaType } from './aetherSchemas'
 import { fetchAetherProps } from '../navigation/fetchAetherProps'
 import type { HintedKeys } from '../types/typeHelpers'
 import { isEmpty } from '../utils/commonUtils'
+
+/** --- renderGraphqlQuery() ------------------------------------------------------------------- */
+/** -i- Accepts a resolverName, argsSchema and responseSchema and spits out a graphql query that stops at 3 levels of depth */
+export const renderGraphqlQuery = <SA extends z.ZodRawShape, SR extends z.ZodRawShape>({
+  resolverName,
+  resolverArgsName,
+  resolverType,
+  argsSchema,
+  responseSchema,
+  maxFieldDepth = 5,
+}: {
+  resolverName: string
+  resolverArgsName: string
+  resolverType: 'query' | 'mutation'
+  argsSchema: z.ZodObject<SA>
+  responseSchema: z.ZodObject<SR>
+  maxFieldDepth?: number
+}) => {
+  const argsSchemaName = argsSchema.schemaName
+
+  let query = `${resolverType} ${resolverName}($${resolverArgsName}: ${argsSchemaName}!) {\n  {{body}}\n}` // prettier-ignore
+  query = query.replace('{{body}}', `${resolverName}(args: $${resolverArgsName}) {\n{{fields}}\n  }`) // prettier-ignore
+  const responseSchemaDefs = responseSchema.introspect()
+
+  const renderFields = (schema: AetherSchemaType, depth: number) => {
+    const fieldKeys = Object.keys(schema.schema)
+    const fieldEntries = fieldKeys.map((fieldKey) => {
+      const fieldConfig = schema.schema[fieldKey] as AetherSchemaType
+      const fieldType = fieldConfig.type
+      const spacing = '  '.repeat(depth)
+
+      const isNonObjectLike = !['array', 'object'].includes(fieldType) // @ts-ignore
+      const isNonObjectArray = fieldType === 'array' && !['array', 'object'].includes(fieldConfig.schema.type) // prettier-ignore
+      const hasNoSubFields = isNonObjectLike || isNonObjectArray
+      if (hasNoSubFields) return `${spacing}${fieldKey}`
+      if (depth > maxFieldDepth) return null
+
+      let objectSchema = fieldConfig?.schema as AetherSchemaType
+      if (objectSchema.schema?.schemaName) objectSchema = objectSchema.schema as AetherSchemaType
+      return `${spacing}${fieldKey} {\n${renderFields(objectSchema, depth + 1)}\n${spacing}}`
+    })
+
+    return fieldEntries.filter(Boolean).join('\n')
+  }
+
+  const fields = renderFields(responseSchemaDefs, 2)
+  query = query.replace('{{fields}}', fields)
+  return query
+}
 
 /** --- createDataBridge() --------------------------------------------------------------------- */
 /** -i- Create a reusable bridge object between a resolver and a page */
@@ -28,7 +77,7 @@ export const createDataBridge = <
   responseToProps,
   apiPath,
   allowedMethods,
-  graphqlQuery,
+  graphqlQuery: customGraphqlQuery = '',
   refetchOnMount,
   backgroundColor,
   dynamic = 'auto',
@@ -44,26 +93,33 @@ export const createDataBridge = <
   responseToProps?: (response: RT) => PT
   apiPath?: string
   allowedMethods?: ('GET' | 'POST' | 'PUT' | 'DELETE')[]
-  graphqlQuery: string
+  graphqlQuery?: string
   refetchOnMount?: boolean
   backgroundColor?: string
   dynamic?: 'auto' | 'force-dynamic' | 'error' | 'force-static'
 }) => {
   // Vars & Flags
-  const constainsMutationKeyword = graphqlQuery.includes('mutation')
+  const constainsMutationKeyword = customGraphqlQuery?.includes?.('mutation')
   const resolverType = customResolverType || (constainsMutationKeyword ? 'mutation' : 'query')
   const isMutation = resolverType === 'mutation' || constainsMutationKeyword
 
   // -- Error Checks --
 
   if (!resolverName) throw new Error('Missing resolverName in createDataBridge() call')
-  // if (!graphqlQuery) throw new Error('Missing graphqlQuery in createDataBridge() call')
+  if (!argsSchema) throw new Error('Missing argsSchema in createDataBridge() call')
+  if (!responseSchema) throw new Error('Missing responseSchema in createDataBridge() call')
 
-  // if (!graphqlQuery.includes(resolverName)) {
-  //   throw new Error(`Expected graphqlQuery to include the resolverName "${resolverName}" in createDataBridge() call`) // prettier-ignore
-  // } else if (!graphqlQuery.includes(resolverArgsName)) {
-  //   throw new Error(`Expected graphqlQuery to include "${resolverArgsName}" in createDataBridge() call`) // prettier-ignore
-  // }
+  // -- Build default graphql query? --
+
+  const defaultGraphqlQuery = renderGraphqlQuery({
+    resolverName,
+    resolverArgsName,
+    resolverType,
+    argsSchema,
+    responseSchema,
+  })
+
+  const graphqlQuery = customGraphqlQuery || defaultGraphqlQuery
 
   // -- Params to Args --
 

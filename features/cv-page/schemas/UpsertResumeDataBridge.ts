@@ -39,5 +39,4 @@ export const UpsertResumeDataBridge = createDataBridge({
   responseSchema: UpsertResumeResponse,
   apiPath: '/api/resume/[slug]/upsert',
   allowedMethods: ['GET', 'POST'],
-  graphqlQuery: ``,
 })

@@ -10,7 +10,7 @@ const screenConfig = ResumeScreen.screenConfig
 
 /* --- /cv ------------------------------------------------------------------------------------- */
 
-const PageScreen = (props: ResumeScreen.TResumeScreenProps) => (
+const PageScreen = (props: ResumeScreen.ResumeScreenProps) => (
   <AetherPage
     {...props}
     {...dummyResumeData}

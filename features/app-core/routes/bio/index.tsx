@@ -5,7 +5,7 @@ import { userBioMock } from 'links-page/mocks/userBio.mock'
 
 /* --- /bio ------------------------------------------------------------------------------------ */
 
-const PageScreen = (props: bioScreen.TBioScreenProps) => (
+const PageScreen = (props: bioScreen.BioScreenProps) => (
   <AetherPage
     {...props}
     {...userBioMock}

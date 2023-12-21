@@ -28,5 +28,4 @@ export const GetShopifyProductsDataBridge = createDataBridge({
   responseSchema: GetShopifyProductsResponse,
   apiPath: '/api/aetherspace/commerce/shopify/products',
   allowedMethods: ['GET', 'POST'],
-  graphqlQuery: ``,
 })

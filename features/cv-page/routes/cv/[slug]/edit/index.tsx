@@ -11,7 +11,7 @@ const screenConfig = UpdateResumeScreen.screenConfig
 
 /* --- /cv/[slug]/edit ------------------------------------------------------------------------- */
 
-const PageScreen = (props: UpdateResumeScreen.TUpdateResumeScreenProps) => (
+const PageScreen = (props: UpdateResumeScreen.UpdateResumeScreenProps) => (
   <AetherPage {...props} screen={ScreenComponent} screenConfig={screenConfig} />
 )
 
