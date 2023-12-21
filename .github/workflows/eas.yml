@@ -20,7 +20,7 @@ jobs:
 
       - name: Setup Node
         if: ${{ steps.check-secrets.outputs.has-secrets == 'true' }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: 18.x
           cache: yarn
@@ -38,7 +38,7 @@ jobs:
       - name: Find yarn cache
         id: yarn-cache-path
         if: ${{ steps.check-secrets.outputs.has-secrets == 'true' }}
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "{dir}={dir::$(yarn cache dir)} >> $GITHUB_OUTPUT"
 
       - name: Restore cache
         if: ${{ steps.check-secrets.outputs.has-secrets == 'true' }}

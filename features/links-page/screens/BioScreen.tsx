@@ -1,13 +1,7 @@
 import React from 'react'
 import { Link, useAetherRoute, useAetherNav } from 'aetherspace/navigation'
 import { useAetherContext } from '../../../packages/@aetherspace/context'
-import {
-  z,
-  aetherSchema,
-  AetherProps,
-  createDataBridge,
-  renderGraphqlQuery,
-} from 'aetherspace/schemas'
+import { z, aetherSchema, AetherProps, createDataBridge } from 'aetherspace/schemas'
 import { GetUserBioBySlugDataBridge } from '../schemas/GetUserBioBySlugDataBridge'
 import { UserBio } from '../schemas/UserBio'
 import { View, Text, Image } from 'aetherspace/primitives'

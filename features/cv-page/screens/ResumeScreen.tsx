@@ -1,12 +1,6 @@
 import React from 'react'
 import { useAetherRoute } from 'aetherspace/navigation'
-import {
-  z,
-  aetherSchema,
-  AetherProps,
-  createDataBridge,
-  renderGraphqlQuery,
-} from 'aetherspace/schemas'
+import { z, aetherSchema, AetherProps, createDataBridge } from 'aetherspace/schemas'
 import { GetResumeDataByUserSlugDataBridge } from '../schemas/GetResumeDataByUserSlugDataBridge'
 import { ResumeData } from '../schemas/ResumeData'
 import { dummyResumeData } from '../mocks/resumeData.mock'
