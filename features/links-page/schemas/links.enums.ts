@@ -42,7 +42,7 @@ export const SocialLinkType = z.enum([
 export const SOCIAL_LINK_TYPE = SocialLinkType.enum
 
 /** -i- List of known social links */
-export type TSocialLinkType = z.infer<typeof SocialLinkType>
+export type SocialLinkType = z.infer<typeof SocialLinkType>
 
 /** -i- List of known social links */
-export type TSOCIAL_LINK_TYPE = TSocialLinkType
+export type SOCIAL_LINK_TYPE = SocialLinkType

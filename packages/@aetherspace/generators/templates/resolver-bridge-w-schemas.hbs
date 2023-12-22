@@ -1,0 +1,29 @@
+import { z, aetherSchema, createDataBridge } from 'aetherspace/schemas'
+{{{argsSchemaImportStatement}}}
+{{{resSchemaImportStatement}}}
+
+/* --- Descriptions ---------------------------------------------------------------------------- */
+
+const d = {
+  {{{descriptions}}}
+}
+
+/** --- GraphQL -------------------------------------------------------------------------------- */
+/** -i- TODO: Figure out which data you need at '/api/graphql' locally and apply it here */
+/** -i- GraphQL {{resolverType}} for the {{resolverName}}() resolver */
+export const {{ResolverName}}{{ResolverType}} = `
+  {{resolverType}} {{ResolverName}}{{ResolverType}}(${{resolverName}}Args: {{InputSchemaName}}) {
+    {{resolverName}}(args: ${{resolverName}}Args) {
+      ### Add fields here ###
+    }
+  }
+`
+
+{{jsDocResolverConfigHeader}}
+export const {{ResolverName}}DataBridge = createDataBridge({
+  resolverName: '{{resolverName}}',
+  resolverType: '{{resolverType}}',
+  argsSchema: {{ArgsSchemaName}}{{{inputSchemaTransforms}}},
+  responseSchema: {{ResSchemaName}},
+  graphqlQuery: {{ResolverName}}{{ResolverType}},{{{apiPathStatements}}}
+})

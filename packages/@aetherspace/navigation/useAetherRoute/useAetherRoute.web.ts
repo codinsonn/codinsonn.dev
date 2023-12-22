@@ -14,22 +14,22 @@ export const useAetherRoute = <
     params?: Record<string, unknown> & PARAMS
     searchParams?: Record<string, unknown> & PARAMS
     segment?: string
-  } = AetherProps<z.ZodObject<PROPS_DEF>>
+  } = AetherProps<z.ZodObject<PROPS_DEF>>,
 >(
   props: Partial<PROPS>,
   {
-    query,
+    graphqlQuery,
     getGraphqlVars,
     getGraphqlData,
-    paramSchema,
-    propSchema,
+    paramsSchema,
+    propsSchema, // eslint-disable-line @typescript-eslint/no-unused-vars
     refetchOnMount,
   }: {
-    query: string
+    graphqlQuery: string
     getGraphqlVars: (params: z.infer<z.ZodObject<PARAMS_DEF>>) => unknown
-    getGraphqlData: (query: string, variables: PARAMS) => Promise<PROPS>
-    paramSchema: z.ZodObject<PARAMS_DEF>
-    propSchema: z.ZodObject<PROPS_DEF>
+    getGraphqlData: (graphqlQuery: string, variables: PARAMS) => Promise<PROPS>
+    paramsSchema: z.ZodObject<PARAMS_DEF>
+    propsSchema: z.ZodObject<PROPS_DEF>
     refetchOnMount?: boolean
   }
 ) => {
@@ -37,7 +37,7 @@ export const useAetherRoute = <
   const { params: routeParams, segment, searchParams, ...screenDataProps } = props
 
   // Vars
-  const params = paramSchema.optional().parse({ ...searchParams, ...routeParams })
+  const params = paramsSchema.optional().parse({ ...searchParams, ...routeParams })
   const variables = getGraphqlVars(params!)
   const isServer = typeof window === 'undefined'
   const hasScreenProps = !isEmpty(screenDataProps)
@@ -46,7 +46,7 @@ export const useAetherRoute = <
   // -- Fetching --
 
   const swrCall = useSWR<PROPS>(
-    shouldFetch ? [query, variables] : null,
+    shouldFetch ? [graphqlQuery, variables] : null,
     ([gqlQuery, gqlParams]) => {
       return getGraphqlData(gqlQuery, gqlParams)
     }

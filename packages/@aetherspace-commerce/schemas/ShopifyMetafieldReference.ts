@@ -11,4 +11,4 @@ const d = `Returns the resource which is being referred to by a metafield.`
 export const ShopifyMetafieldReference = z.union([ShopifyProduct, ShopifyProduct]).describe(d)
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/unions/MetafieldReference */
-export type TShopifyMetafieldReference = z.infer<typeof ShopifyMetafieldReference>
+export type ShopifyMetafieldReference = z.infer<typeof ShopifyMetafieldReference>

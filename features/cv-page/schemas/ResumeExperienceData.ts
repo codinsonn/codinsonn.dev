@@ -17,10 +17,10 @@ const d = {
 export const ResumeExperienceData = BaseResumeListItem.extendSchema('ResumeExperienceData', {
   from: z.string().describe(d.from),
   to: z.string().describe(d.to),
-  title: z.string().optional().describe(d.title),
+  title: z.string().nullish().describe(d.title),
   company: z.string().describe(d.company),
-  location: z.string().optional().describe(d.location),
+  location: z.string().nullish().describe(d.location),
 }).describe(d.ResumeExperienceData)
 
 /** -i- Experience data for this resume */
-export type TResumeExperienceData = z.infer<typeof ResumeExperienceData>
+export type ResumeExperienceData = z.infer<typeof ResumeExperienceData>

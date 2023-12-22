@@ -16,4 +16,4 @@ export const ResumeWritingData = BaseResumeListItem.extendSchema('ResumeWritingD
 }).describe(d.ResumeWritingData)
 
 /** -i- Data for a project to be listed on the resume */
-export type TResumeWritingData = z.infer<typeof ResumeWritingData>
+export type ResumeWritingData = z.infer<typeof ResumeWritingData>

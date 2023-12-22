@@ -2,9 +2,7 @@ import React from 'react'
 import ContentLoader, { Circle, Rect } from 'react-content-loader/native'
 import { Platform } from 'react-native'
 import { SvgProps } from 'react-native-svg'
-// Components
 import { View } from 'aetherspace/primitives'
-// Hooks
 import { useLayoutInfo } from 'aetherspace/hooks'
 
 /* --- <ResumeSkeleton/> -------------------------------------------------------------------------- */

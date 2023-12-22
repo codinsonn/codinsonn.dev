@@ -1,20 +1,22 @@
 import React from 'react'
 import { AetherPage } from 'aetherspace/navigation'
-// Screens
 import * as bioScreen from 'links-page/screens/BioScreen'
+import { userBioMock } from 'links-page/mocks/userBio.mock'
 
-/* --- / --------------------------------------------------------------------------------------- */
+/* --- /links ---------------------------------------------------------------------------------- */
 
-const PageScreen = (
-  props: bioScreen.BioScreenProps & { searchParams: Record<string, unknown> }
-) => {
-  return (
-    <AetherPage {...props} screen={bioScreen.BioScreen} screenConfig={bioScreen.screenConfig} />
-  )
-}
+const PageScreen = (props: bioScreen.BioScreenProps) => (
+  <AetherPage
+    {...props}
+    {...userBioMock}
+    params={{ slug: 'codinsonn' }}
+    screen={bioScreen.BioScreen}
+    screenConfig={bioScreen.screenConfig}
+  />
+)
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
-export const dynamic = bioScreen.dynamic
+export const dynamic = bioScreen.screenConfig.dynamic
 
 export default PageScreen

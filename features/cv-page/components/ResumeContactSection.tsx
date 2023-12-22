@@ -1,19 +1,12 @@
 import React from 'react'
-// Navigation
 import { Link } from 'aetherspace/navigation'
-// Schemas
 import { AetherProps, aetherSchema } from 'aetherspace/schemas'
-import { SocialLinkData } from 'links-page/schemas'
-// Primitives
+import { SocialLinkData } from 'links-page/schemas/SocialLinkData'
 import { View, Text } from 'aetherspace/primitives'
 import { H2 } from 'aetherspace/html-elements'
-// Components
 import { AetherIcon } from 'aetherspace/components'
-// Styles
 import { twStyled, useTailwindStyles } from 'aetherspace/styles'
-// Utils
 import { isEmpty, uppercaseFirstChar } from 'aetherspace/utils'
-// Mocks
 import { dummyResumeData } from '../mocks/resumeData.mock'
 
 /* --- Schemas --------------------------------------------------------------------------------- */

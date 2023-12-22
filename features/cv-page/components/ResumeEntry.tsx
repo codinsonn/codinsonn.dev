@@ -1,14 +1,9 @@
 import React from 'react'
-// Navigation
 import { Link } from 'aetherspace/navigation'
-// Schemas
 import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
-// Primitives
 import { Text } from 'aetherspace/primitives'
 import { P } from 'aetherspace/html-elements'
-// Components
 import { AetherIcon } from 'aetherspace/components'
-// Styles
 import { twStyled, useTailwindStyles } from 'aetherspace/styles'
 
 /* --- Schemas --------------------------------------------------------------------------------- */
@@ -16,9 +11,9 @@ import { twStyled, useTailwindStyles } from 'aetherspace/styles'
 export const ResumeEntryProps = aetherSchema('ResumeEntryProps', {
   sideLabel: z.string(),
   title: z.string(),
-  subTitle: z.string().optional(),
-  linkUrl: z.string().optional(),
-  description: z.string().optional(),
+  subTitle: z.string().nullish(),
+  linkUrl: z.string().nullish(),
+  description: z.string().nullish(),
 })
 
 /* --- <ResumeEntry/> -------------------------------------------------------------------------- */

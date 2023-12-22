@@ -90,19 +90,29 @@ const SCHEMA_PRIMITIVE_MAPPER = Object.freeze({
 
 const aetherSchemaDefinitions = (aetherSchema: ResolverSchemaType, prefix = 'type') => {
   let schemaDefinitions = [] as string[]
+  // Normalizators
+  const normalizeSchemaName = (schemaName) => {
+    const isInputSchemaName = ['Input', 'Args', 'Arguments'].some((term) => schemaName.includes(term)) // prettier-ignore
+    if (prefix === 'input' && !isInputSchemaName) return `${schemaName}Input`
+    return schemaName
+  }
   // Definition factory
   const createDefinition = (gqlType) => (name, schemaConfig) => {
     const isNullable = [schemaConfig.isOptional, schemaConfig.isNullable].includes(true)
     const requiredState = isNullable ? '' : '!'
     const description = schemaConfig.description ? `"""\n        ${schemaConfig.description}\n        """\n        ` : '' // prettier-ignore
     if (gqlType === 'Schema' && schemaConfig?.schemaName) {
-      schemaDefinitions = [...schemaDefinitions, ...aetherSchemaDefinitions(schemaConfig)]
-      return [description, `${name}: ${schemaConfig.schemaName}${requiredState}`].join('')
+      schemaDefinitions = [...schemaDefinitions, ...aetherSchemaDefinitions(schemaConfig, prefix)]
+      const schemaName = normalizeSchemaName(schemaConfig?.schemaName)
+      return [description, `${name}: ${schemaName}${requiredState}`].join('')
     } else if (gqlType === 'Array') {
       const primitiveType = SCHEMA_PRIMITIVE_MAPPER[schemaConfig.schema.aetherType]
-      const arrayEntryType = primitiveType || schemaConfig.schema?.schemaName
+      const arrayEntryType = primitiveType || normalizeSchemaName(schemaConfig.schema?.schemaName)
       if (!primitiveType) {
-        schemaDefinitions = [...schemaDefinitions, ...aetherSchemaDefinitions(schemaConfig.schema)]
+        schemaDefinitions = [
+          ...schemaDefinitions,
+          ...aetherSchemaDefinitions(schemaConfig.schema, prefix),
+        ]
       }
       return [description, `${name}: [${arrayEntryType}]${requiredState}`].join('')
     }
@@ -129,8 +139,10 @@ const aetherSchemaDefinitions = (aetherSchema: ResolverSchemaType, prefix = 'typ
     AetherTuple: createDefinition('JSON'),
   })
   // Transform into usable graphql definitions
+  const finalSchemaName = normalizeSchemaName(aetherSchema?.schemaName)
+  const finalPrefix = finalSchemaName.includes('Input') ? 'input' : prefix
   const schemaDef = `
-    ${prefix} ${aetherSchema?.schemaName} {
+    ${finalPrefix} ${finalSchemaName} {
         ${Object.values(schemaMap).join('\n        ')}
     }
   `

@@ -1,5 +1,4 @@
 import mongoose, { ConnectOptions } from 'mongoose'
-// Utils
 import { getEnvVar } from 'aetherspace/utils'
 
 /* --- Constants & Caches ---------------------------------------------------------------------- */

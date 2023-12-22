@@ -1,6 +1,5 @@
 import { use, useEffect, useState } from 'react'
 import { SWRConfig, unstable_serialize, useSWRConfig } from 'swr'
-// Types
 import { AetherPageProps, AetherScreenConfig } from './AetherPage.types'
 
 /* --- Helpers --------------------------------------------------------------------------------- */
@@ -17,7 +16,7 @@ const getSSRData = () => {
 export const AetherPage = <SC extends AetherScreenConfig>(props: AetherPageProps<SC>) => {
   // Props
   const { params: routeParams, searchParams, screen, screenConfig, ...restProps } = props
-  const { query, getGraphqlVars, getGraphqlData } = screenConfig
+  const { graphqlQuery, getGraphqlVars, getGraphqlData } = screenConfig
 
   // State
   const [hydratedData, setHydratedData] = useState<Record<string, any> | null>(null)
@@ -30,7 +29,7 @@ export const AetherPage = <SC extends AetherScreenConfig>(props: AetherPageProps
 
   // Vars
   const variables = getGraphqlVars({ ...searchParams, ...routeParams })
-  const fallbackKey = unstable_serialize([query, variables])
+  const fallbackKey = unstable_serialize([graphqlQuery, variables])
   const isServer = typeof window === 'undefined'
 
   // -- Effects --
@@ -53,19 +52,19 @@ export const AetherPage = <SC extends AetherScreenConfig>(props: AetherPageProps
     return (
       <SWRConfig value={{ fallback }}>
         {renderHydrationData && <div id="ssr-data" data-ssr={JSON.stringify(hydrationData)} />}
-        <PageScreen {...restProps} {...hydrationData} />
+        <PageScreen params={routeParams} {...restProps} {...hydrationData} />
       </SWRConfig>
     )
   }
 
   // -- Server --
 
-  const ssrData = use(getGraphqlData(query, variables))
+  const ssrData = use(getGraphqlData(graphqlQuery, variables))
 
   return (
     <SWRConfig value={{ fallback: { [fallbackKey]: ssrData } }}>
       {!!ssrData && <div id="ssr-data" data-ssr={JSON.stringify(ssrData)} />}
-      <PageScreen {...restProps} {...ssrData} />
+      <PageScreen params={routeParams} {...restProps} {...ssrData} />
     </SWRConfig>
   )
 }

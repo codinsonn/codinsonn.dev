@@ -15,4 +15,4 @@ export const IconLink = SocialLinkData.extendSchema('IconLink', {
 }).describe(d.IconLink)
 
 /** -i- Single Source of Truth for link-in-bio page's icon links */
-export type TIconLink = AetherInput<typeof IconLink>
+export type IconLink = AetherInput<typeof IconLink>

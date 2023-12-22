@@ -21,4 +21,4 @@ export const ResumeCertificationData = BaseResumeListItem.extendSchema('ResumeCe
 }).describe(d.ResumeCertificationData)
 
 /** -i- Certification for this resume */
-export type TResumeCertificationData = z.infer<typeof ResumeCertificationData>
+export type ResumeCertificationData = z.infer<typeof ResumeCertificationData>

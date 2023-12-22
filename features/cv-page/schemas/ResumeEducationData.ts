@@ -22,4 +22,4 @@ export const ResumeEducationData = BaseResumeListItem.extendSchema('ResumeEducat
 }).describe(d.ResumeEducationData)
 
 /** -i- Data for the educations listed on this resume. */
-export type TResumeEducationData = z.infer<typeof ResumeEducationData>
+export type ResumeEducationData = z.infer<typeof ResumeEducationData>

@@ -498,7 +498,7 @@ type ShopifyImage {
   url: String!
 }
 
-type ShopifySelectedOptionInput {
+type ShopifySelectedOption {
   """The name of the option."""
   name: String!
 
@@ -597,7 +597,7 @@ type ShopifyProductVariant {
   requiresShipping: Boolean!
 
   """List of product options applied to the variant."""
-  selectedOptions: [ShopifySelectedOptionInput]!
+  selectedOptions: [ShopifySelectedOption]!
 
   """The SKU (stock keeping unit) associated with the variant."""
   sku: String
@@ -983,7 +983,7 @@ type UpsertResumeResponse {
 type Query {
   getResumeDataByUserSlug(args: GetResumeDataByUserSlugArgs!): ResumeData
   getShopifyProducts(args: GetShopifyProductsArgs): GetShopifyProductsResponse
-  getUserBio(args: UserBioInput!): UserBio
+  getUserBioBySlug(args: UserBioInput!): UserBio
   healthCheck(args: HealthCheckArgs): HealthCheckResponse
   syncUserBiosFromAirtable(args: SyncUserBiosFromAirtableArgs!): SyncUserBiosFromAirtableResponse
   upsertResume(args: UpsertResumeArgs!): UpsertResumeResponse

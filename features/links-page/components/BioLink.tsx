@@ -1,22 +1,19 @@
 import React from 'react'
-// Schemas
 import { AetherProps } from 'aetherspace/schemas'
-// Navigation
 import { Link, useAetherNav } from 'aetherspace/navigation'
-// Schemas
-import { LinkInBio } from '../schemas'
-// Styles
+import { LinkInBio } from '../schemas/LinkInBio'
 import { twStyled } from 'aetherspace/styles'
-// Primitives
 import { Image } from 'aetherspace/primitives'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
 const BioLinkProps = LinkInBio.nameSchema('BioLinkProps')
 
+type BioLinkProps = AetherProps<typeof BioLinkProps>
+
 /* --- <BioLink/> ------------------------------------------------------------------------------ */
 
-export const BioLink = (props: AetherProps<typeof BioLinkProps>) => {
+export const BioLink = (props: BioLinkProps) => {
   // Props
   const { linkTitle, subTitle, linkUrl, imageUrl } = props
 

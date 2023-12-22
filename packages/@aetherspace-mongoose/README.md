@@ -29,7 +29,7 @@ git merge with/mongoose
 
 ```tsx
 import { z, aetherSchema } from 'aetherspace/schemas'
-import { aetherSchemaToMongoose } from '@aetherspace/mongoose/schemas'
+import { createMongooseDataModel } from '@aetherspace/mongoose/schemas'
 
 /* --- Schemas ---- */
 
@@ -40,7 +40,7 @@ const MyCollectionSchema = aetherSchema('MyCollection', {
 
 /* --- Models ----- */
 
-export const MyCollectionModel = aetherSchemaToMongoose(MyCollectionSchema)
+export const MyCollectionModel = createMongooseDataModel(MyCollectionSchema)
 
 ```
 
@@ -48,12 +48,12 @@ export const MyCollectionModel = aetherSchemaToMongoose(MyCollectionSchema)
 
 `/features/{workspace}/schemas/models.ts`
 ```tsx
-import { aetherSchemaToMongoose } from '@aetherspace/mongoose/schemas'
+import { createMongooseDataModel } from '@aetherspace/mongoose/schemas'
 import { MyCollectionSchema } from './MyCollectionSchema.ts' // <- Much safer
 
 /* --- Models ----- */
 
-export const MyCollectionModel = aetherSchemaToMongoose(MyCollectionSchema)
+export const MyCollectionModel = createMongooseDataModel(MyCollectionSchema)
 ```
 
 ## Roadmap - More to come

@@ -18,4 +18,4 @@ export const ResumeSpeakingData = BaseResumeListItem.extendSchema('ResumeSpeakin
 }).describe(d.ResumeSpeakingData)
 
 /** -i- Data for a project to be listed on the resume */
-export type TResumeSpeakingData = z.infer<typeof ResumeSpeakingData>
+export type ResumeSpeakingData = z.infer<typeof ResumeSpeakingData>

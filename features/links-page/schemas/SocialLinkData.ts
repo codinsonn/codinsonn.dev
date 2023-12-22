@@ -20,4 +20,4 @@ export const SocialLinkData = BaseLinkData.partial()
   .describe(d.SocialLinkData)
 
 /** -i- Datastructure for one social link */
-export type TSocialLinkData = AetherInput<typeof SocialLinkData>
+export type SocialLinkData = AetherInput<typeof SocialLinkData>

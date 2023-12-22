@@ -1,9 +1,6 @@
-// Types
 import type { FieldSet, Table, Record as AirtableRecord, Base as AirtableBase } from 'airtable'
-import type { AetherFilter } from '../utils'
-// Schemas
 import { z } from 'aetherspace/schemas'
-// Utils
+import type { AetherFilter } from '../utils'
 import * as utils from '../utils'
 
 /* --- Types ------------------------------------------------------------------------------------- */

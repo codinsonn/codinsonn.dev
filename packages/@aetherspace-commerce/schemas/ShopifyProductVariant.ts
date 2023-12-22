@@ -59,4 +59,4 @@ export const ShopifyProductVariant = aetherSchema('ShopifyProductVariant', {
 })
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/ProductVariant */
-export type TShopifyProductVariant = z.infer<typeof ShopifyProductVariant>
+export type ShopifyProductVariant = z.infer<typeof ShopifyProductVariant>

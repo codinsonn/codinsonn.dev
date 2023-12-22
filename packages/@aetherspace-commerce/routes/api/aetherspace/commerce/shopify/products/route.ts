@@ -1,5 +1,5 @@
 // Resolvers
-import { getShopifyProducts } from '../../../../../../resolvers'
+import { getShopifyProducts } from '../../../../../../resolvers/getShopifyProducts'
 // Utils
 import { makeNextRouteHandler, makeGraphQLResolver } from 'aetherspace/utils/serverUtils'
 

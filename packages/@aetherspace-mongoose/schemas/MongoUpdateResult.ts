@@ -17,4 +17,4 @@ export const MongoUpdateResult = aetherSchema('MongoUpdateResult', {
 }).describe(d.MongoUpdateResult)
 
 /** -i- https://mongodb.github.io/node-mongodb-native/4.9/interfaces/UpdateResult.html */
-export type TMongoUpdateResult = z.infer<typeof MongoUpdateResult>
+export type MongoUpdateResult = z.infer<typeof MongoUpdateResult>

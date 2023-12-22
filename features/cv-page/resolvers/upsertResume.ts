@@ -1,13 +1,8 @@
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
-// Types
-import { TMongoUpdateResult } from '@aetherspace/mongoose/schemas'
-// Schemas
-import { UpsertResumeAPIConfig } from '../schemas/UpsertResumeResolver'
-// Models
-import { ResumeDataModel } from '../schemas/models'
-// Mocks
+import { MongoUpdateResult } from '@aetherspace/mongoose/schemas/MongoUpdateResult'
+import { UpsertResumeDataBridge } from '../schemas/UpsertResumeDataBridge'
+import { ResumeDataModel } from '../models/ResumeDataModel'
 import { dummyResumeData } from '../mocks/resumeData.mock'
-// Utils
 import { dbConnect } from '@aetherspace/mongoose/utils'
 
 /* --- Constants ------------------------------------------------------------------------------- */
@@ -38,7 +33,7 @@ export const upsertResume = aetherResolver(
 
       // -- Upsert --
 
-      const upsertResult = await ResumeDataModel.updateOne({ slug }, resumeData, { upsert: true }) as unknown as TMongoUpdateResult // prettier-ignore
+      const upsertResult = await ResumeDataModel.updateOne({ slug }, resumeData, { upsert: true }) as unknown as MongoUpdateResult // prettier-ignore
 
       // -- Respond --
 
@@ -53,5 +48,5 @@ export const upsertResume = aetherResolver(
       throw handleError(err)
     }
   },
-  UpsertResumeAPIConfig
+  UpsertResumeDataBridge
 )

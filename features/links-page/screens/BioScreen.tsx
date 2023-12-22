@@ -1,119 +1,59 @@
 import React from 'react'
-// Navigation
-import { Link, useAetherRoute, fetchAetherProps, useAetherNav } from 'aetherspace/navigation'
-// Context
+import { Link, useAetherRoute, useAetherNav } from 'aetherspace/navigation'
 import { useAetherContext } from '../../../packages/@aetherspace/context'
-// Schemas
-import { z, aetherSchema, AetherParams, AetherProps } from 'aetherspace/schemas'
-import { TUserBio, UserBio } from '../schemas'
-// Primitives
+import { z, aetherSchema, AetherProps, createDataBridge } from 'aetherspace/schemas'
+import { GetUserBioBySlugDataBridge } from '../schemas/GetUserBioBySlugDataBridge'
+import { UserBio } from '../schemas/UserBio'
 import { View, Text, Image } from 'aetherspace/primitives'
-// SEO
 import { H1 } from 'aetherspace/html-elements'
-// Forms
-// import { Button, CheckList, RadioGroup, TextInput } from 'aetherspace/forms'
-// Components
 import { BioSkeleton } from '../components/BioSkeleton'
 import BioLink from '../components/BioLink'
 import { AetherIcon } from 'aetherspace/components'
-// Hooks
 import { useTailwindStyles } from 'aetherspace/styles'
-// Utils
 import { isEmpty } from 'aetherspace/utils'
-// Mocks
 import { userBioMock } from '../mocks/userBio.mock'
 
-/* --- Descriptions ---------------------------------------------------------------------------- */
+/* --- Schemas & Types ------------------------------------------------------------------------- */
 
 const d = {
   slug: 'Slug of the user bio to fetch if data is not in props.',
 }
 
-/* --- Schemas & Types ------------------------------------------------------------------------- */
-
-const BioParamsSchema = aetherSchema('BioScreenParams', {
-  slug: z.string().default('codinsonn').describe(d.slug),
+const BioScreenParams = aetherSchema('BioScreenParams', {
+  slug: z.string().optional().describe(d.slug),
 })
 
-const BioScreenSchema = UserBio.extendSchema('BioScreenProps', {
-  params: BioParamsSchema.optional(),
+const BioScreenProps = UserBio.extendSchema('BioScreenProps', {
+  params: BioScreenParams.optional(),
   segment: z.string().optional(),
 }).example({
   params: { slug: 'codinsonn' },
-  segment: undefined,
   ...userBioMock,
 })
 
-export type BioScreenParams = AetherParams<typeof BioParamsSchema>
-export type BioScreenProps = AetherProps<typeof BioScreenSchema>
+export type BioScreenProps = AetherProps<typeof BioScreenProps>
 
-/* --- GraphQL & Data Fetching ----------------------------------------------------------------- */
+/* --- Data Fetching Bridge -------------------------------------------------------------------- */
 
-const getScreenDataQuery = `
-  query($getUserBioArgs: UserBioInput!) {
-    getUserBio(args: $getUserBioArgs) {
-      slug
-      title
-      titleLink
-      bioText
-      imageUrl
-      iconLinks {
-        id
-        linkUrl
-        linkIconKey
-        sortOrder
-        extraClasses
-      }
-      linksInBio {
-        id
-        linkUrl
-        linkTitle
-        subTitle
-        imageUrl
-        linkIconKey
-        isFeatured
-      }
-    }
-  }
-`
-
-const getBioScreenArgs = (params: BioScreenParams = {}) => ({
-  getUserBioArgs: BioParamsSchema.parse(params),
-})
-
-const getBioScreenProps = async (queryKey: string, queryVariables?: BioScreenParams) => {
-  const queryData = queryKey || getScreenDataQuery
-  const queryInput = queryVariables || getBioScreenArgs() // Use defaults if not defined
-  const { data } = await fetchAetherProps(queryData, queryInput)
-  return data.getUserBio as TUserBio // satisfies TUserBio
-}
-
-export const screenConfig = {
-  query: getScreenDataQuery,
-  getGraphqlVars: getBioScreenArgs,
-  getGraphqlData: getBioScreenProps,
-  paramSchema: BioParamsSchema,
-  propSchema: BioScreenSchema,
-  refetchOnMount: false,
+export const screenConfig = createDataBridge({
+  ...GetUserBioBySlugDataBridge,
+  paramsSchema: BioScreenParams,
+  propsSchema: BioScreenProps,
   backgroundColor: '#111827',
-}
-
-/* --- Segments -------------------------------------------------------------------------------- */
-
-export const dynamic = 'auto' // 'auto' | 'force-dynamic' | 'error' | 'force-static'
+})
 
 /* --- <BioScreen/> ---------------------------------------------------------------------------- */
 
 export const BioScreen = (props: BioScreenProps) => {
   // Data
   const [bioData, { error }] = useAetherRoute(props, screenConfig)
-  const { pathname } = useAetherNav()
-  const { colorScheme, toggleColorScheme } = useAetherContext()
 
-  // Vars
+  // Hooks
+  const { pathname, openLink } = useAetherNav()
+  const { toggleColorScheme } = useAetherContext()
+
+  // Vars & Flags
   const ICON_SIZE = 27
-
-  // Flags
   const isCustomBio = pathname?.includes('/bio/')
 
   // -- Styles --
@@ -168,7 +108,7 @@ export const BioScreen = (props: BioScreenProps) => {
             href={bioIcon.linkUrl!}
             tw={['px-1 xs:px-2 md:px-3', bioIcon.extraClasses]}
           >
-            <AetherIcon name={bioIcon.linkIconKey} size={ICON_SIZE} fill={ICON_COLOR} />
+            <AetherIcon name={bioIcon.linkIconKey!} size={ICON_SIZE} fill={ICON_COLOR} />
           </Link>
         ))}
       </View>
@@ -197,10 +137,14 @@ export const BioScreen = (props: BioScreenProps) => {
 
       <View tw="max-w-[600px] w-full lg:w-3/4 xl:w-2/4 mt-8 px-5 items-center">
         <Text tw="font-primary-light text-secondary text-center text-sm sm:text-base">
-          Ready for <Text tw="font-primary-regular">Organic leads</Text> from the Web,
+          Ready for{' '}
+          <Text tw="font-primary-regular" onPress={() => openLink('/_sitemap')}>
+            Organic leads
+          </Text>{' '}
+          from the Web,
         </Text>
         <Text tw="font-primary-light text-secondary text-center text-sm sm:text-base">
-          *and* <Text tw="font-primary-regular">Higher conversions</Text> on Mobile?
+          <Text tw="font-primary-regular">Higher conversions</Text> on Mobile?
         </Text>
         <View tw="h-3" />
         <Text tw="flex-row">
@@ -218,49 +162,6 @@ export const BioScreen = (props: BioScreenProps) => {
         </Text>
 
         <View tw="h-16" />
-
-        {/*/}
-
-        <Button
-          type="primary"
-          size="md"
-          iconSize={20}
-          link="https://github.com/Aetherspace/green-stack-starter-demo#readme"
-          prefixIconName="aetherspace-logo"
-          pressableClasses="rounded-md min-w-[300px]"
-        >
-          Universal App Starter
-        </Button>
-
-        <View tw="h-10" />
-
-        <TextInput
-          accessibilityLabel="Text input field"
-          accessibilityHint="Text input field"
-          value=""
-          placeholder="Email"
-          onChange={console.log}
-        />
-
-        <View tw="h-10" />
-
-        <CheckList onChange={console.log}>
-          <CheckList.Option value="value-1" label="Option 1" />
-          <CheckList.Option value="value-2" label="Option 2" />
-          <CheckList.Option value="value-3" label="Option 3" />
-        </CheckList>
-
-        <View tw="h-10" />
-
-        <RadioGroup onChange={console.log}>
-          <RadioGroup.Option value="value-1" label="Option 1" />
-          <RadioGroup.Option value="value-2" label="Option 2" />
-          <RadioGroup.Option value="value-3" label="Option 3" />
-        </RadioGroup>
-
-        <View tw="h-20" />
-
-        {/**/}
       </View>
     </View>
   )
@@ -268,7 +169,7 @@ export const BioScreen = (props: BioScreenProps) => {
 
 /* --- Documentation --------------------------------------------------------------------------- */
 
-export const getDocumentationProps = BioScreenSchema.introspect()
+export const getDocumentationProps = BioScreenProps.introspect()
 
 /* --- Exports --------------------------------------------------------------------------------- */
 

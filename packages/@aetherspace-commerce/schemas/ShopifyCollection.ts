@@ -39,4 +39,4 @@ export const ShopifyCollection = aetherSchema('ShopifyCollection', {
 }).describe(d.ShopifyCollection)
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/Collection */
-export type TShopifyCollection = z.infer<typeof ShopifyCollection>
+export type ShopifyCollection = z.infer<typeof ShopifyCollection>

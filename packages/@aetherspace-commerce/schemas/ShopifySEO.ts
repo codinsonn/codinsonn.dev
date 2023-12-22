@@ -15,4 +15,4 @@ export const ShopifySEO = aetherSchema('ShopifySEO', {
 })
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/SEO */
-export type TShopifySEO = z.infer<typeof ShopifySEO>
+export type ShopifySEO = z.infer<typeof ShopifySEO>

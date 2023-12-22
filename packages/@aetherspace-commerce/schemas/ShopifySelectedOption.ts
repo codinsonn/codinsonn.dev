@@ -15,11 +15,4 @@ export const ShopifySelectedOption = aetherSchema('ShopifySelectedOption', {
 })
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/objects/SelectedOption */
-export type TShopifySelectedOption = z.infer<typeof ShopifySelectedOption>
-
-/** --- ShopifySelectedOptionInput ------------------------------------------------------------- */
-/** -i- https://shopify.dev/docs/api/storefront/2023-04/input-objects/SelectedOptionInput */
-export const ShopifySelectedOptionInput = ShopifySelectedOption.nameSchema('ShopifySelectedOptionInput') // prettier-ignore
-
-/** -i- https://shopify.dev/docs/api/storefront/2023-04/input-objects/SelectedOptionInput */
-export type TShopifySelectedOptionInput = z.infer<typeof ShopifySelectedOptionInput>
+export type ShopifySelectedOption = z.infer<typeof ShopifySelectedOption>

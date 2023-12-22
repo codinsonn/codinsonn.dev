@@ -1,14 +1,14 @@
 // Resolvers
-import { getUserBio } from '../../../../resolvers'
+import { getUserBioBySlug } from '../../../../resolvers/getUserBioBySlug'
 // Utils
 import { makeNextRouteHandler, makeGraphQLResolver } from 'aetherspace/utils/serverUtils'
 
 /* --- /api/bio/[slug] ------------------------------------------------------------------------- */
 
-export const GET = makeNextRouteHandler(getUserBio)
+export const GET = makeNextRouteHandler(getUserBioBySlug)
 
-export const POST = makeNextRouteHandler(getUserBio)
+export const POST = makeNextRouteHandler(getUserBioBySlug)
 
 /* --- GraphQL --------------------------------------------------------------------------------- */
 
-export const graphResolver = makeGraphQLResolver(getUserBio)
+export const graphResolver = makeGraphQLResolver(getUserBioBySlug)

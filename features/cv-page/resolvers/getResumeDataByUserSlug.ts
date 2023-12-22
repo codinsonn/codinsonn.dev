@@ -1,11 +1,7 @@
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
-// Schemas
-import { GetResumeDataByUserSlugAPIConfig } from '../schemas/GetResumeDataByUserSlugResolver'
-// Models
-import { ResumeDataModel } from '../schemas/models'
-// Dummy
+import { GetResumeDataByUserSlugDataBridge } from '../schemas/GetResumeDataByUserSlugDataBridge'
+import { ResumeDataModel } from '../models/ResumeDataModel'
 // import { dummyResumeData } from '../mocks/resumeData.mock'
-// Utils
 import { dbConnect } from '@aetherspace/mongoose/utils'
 
 /** --- getResumeDataByUserSlug ---------------------------------------------------------------- */
@@ -31,5 +27,5 @@ export const getResumeDataByUserSlug = aetherResolver(
       throw handleError(err)
     }
   },
-  GetResumeDataByUserSlugAPIConfig
+  GetResumeDataByUserSlugDataBridge
 )

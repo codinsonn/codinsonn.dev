@@ -39,14 +39,14 @@ export type ResolverInputType<AT = any> = {
   [key: string]: AT[keyof AT] | unknown
 }
 
-export type ResolverExecutionParamsType<AT = any, RT = any> = {
+export type ResolverExecutionParamsType<AT = any, RT = any, RTI = any> = {
   args: AT
   logs: string[]
   addLog: (log: string) => void
   saveLogs: (logHandler?: (logs: string[]) => Promise<any>) => Promise<void>
   handleError: (err: any, sendResponse?: boolean) => unknown | void
   parseArgs: (args: AT) => AT
-  withDefaults: (response: RT) => RT
+  withDefaults: (response: RTI) => RT
   config: {
     logErrors?: boolean
     respondErrors?: boolean
@@ -70,9 +70,10 @@ export const aetherResolver = <
   AST extends z.ZodRawShape = any, // Args schema
   RST extends z.ZodRawShape = any, // Response schema
   AT = TSAT extends null ? z.ZodObject<AST>['_input'] : TSAT, // Args Type (Use override?)
-  RT = TSRT extends null ? z.ZodObject<RST>['_output'] : TSRT // Resp Type (Use override?)
+  RT = TSRT extends null ? z.ZodObject<RST>['_output'] : TSRT, // Resp Type (Use override?)
+  RTI = TSRT extends null ? z.ZodObject<RST>['_input'] : TSRT // Resp Type (Use override?)
 >(
-  resolverFn: (ctx: ResolverExecutionParamsType<AT, RT>) => Promise<RT | unknown>,
+  resolverFn: (ctx: ResolverExecutionParamsType<AT, RT, RTI>) => Promise<RT | unknown>,
   options: {
     paramKeys?: string
     argsSchema: z.ZodObject<AST>
@@ -128,7 +129,7 @@ export const aetherResolver = <
     }
     // Validation helpers
     const parseArgs = (args: AT) => argsSchema.parse(args) as AT
-    const withDefaults = (response: RT) => {
+    const withDefaults = (response: RTI) => {
       return responseSchema.applyDefaults(response as Record<string, unknown>) as RT
     }
     // Return resolver

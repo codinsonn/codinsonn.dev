@@ -15,4 +15,4 @@ export const ShopifyHasMetafieldsIdentifier = aetherSchema('ShopifyHasMetafields
 })
 
 /** -i- https://shopify.dev/docs/api/storefront/2023-04/input-objects/HasMetafieldsIdentifier */
-export type TShopifyHasMetafieldsIdentifier = z.infer<typeof ShopifyHasMetafieldsIdentifier>
+export type ShopifyHasMetafieldsIdentifier = z.infer<typeof ShopifyHasMetafieldsIdentifier>

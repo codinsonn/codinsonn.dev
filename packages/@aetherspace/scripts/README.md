@@ -1,8 +1,272 @@
-# Automations, designed for copy-paste ⚙️
+# Aetherspace's Recommended Way of Working
+
+> To get the best out of Aetherspace, we recommend a few conventions and workflows to follow.  
+> These are not enforced, but will make your life easier if you do.
+
+These conventions **build upon, hook into, or even simplify** some of the **already existing conventions present in Next.js and Expo Router.**  
+
+The easiest way to opt in to these conventions is by using our [turborepo generators](https://turbo.build/repo/docs/core-concepts/monorepos/code-generation), explained in further detail on this page:
+
+- [1. Colocating code in `/features/` and `/packages/`](#1-colocating-code-in-features-and-packages)
+- [2. Start with Single Sources of Truth](#2-start-with-single-sources-of-truth)
+- [3. Use your schemas to create Resolvers and API's](#3-use-your-schemas-to-create-resolvers-and-apis)
+- [4. Integrate resolvers with Universal Routes](#4-integrate-resolvers-with-universal-routes)
+
+## 1. Colocating code in `/features/` and `/packages/`
+
+Our **ultimate goal** is to **help you create a way of working that is as copy-pasteable as possible**, so that you can easily transfer full reusable (yet fully customisable) 'features' across codebases or between projects:
+
+✅ Schemas, types and data models  
+✅ Components, hooks, utils and styles  
+✅ Universal routes and navigation  
+✅ Data resolvers, REST and GraphQL API's  
+
+> All at the ease of copy-pasting a folder from one project to another.
+
+### Workspace benefits?
+
+💡 The added _benefit of using copy-paste over npm packages_ is that you can **easily make changes to the reusable code** in your project, **without having to publish a new version** of some package, possibly breaking usage in other / older projects when they update versions.
+
+💡 The added _benefit of using a monorepo with copy pastable workspaces_, is that a workspace essentially works as a local package, **allowing you to easily import from other workspaces** in the same monorepo the same way you would with a published NPM package, yet edit it without ever impacting other projects.
+
+Needless to say, if you still want to publish your workspaces as NPM packages, you can do that too. But we recommend you start with a monorepo workspace first, and only publish your workspaces when you're ready to share them with the world. 
+
+💡 The added _benefit of using a monorepo with [turborepo](https://turbo.build/repo)_, is that it will help you optimise build steps and dependency management before publishing your workspaces as NPM packages, if you chose to go that route.
+
+### Recommended workspace conventions
+
+- Add workspaces under `features/` or `packages/` folder in your monorepo root
+- Ensure they have a `package.json` file with a `name` and `version` field
+- Use `packages/` for workspaces that are more reusable in other projects as well
+- Use `features/` for workspaces that are likely a bit more specific to your project
+- Keep the `app-core/` workspace for your core features and _"glue" or "entrypoint" code that will never be reused_
+- Organise workspace code in `components/`, `screens/`, `routes/`, `resolvers/`, `schemas/`, `hooks/` & `utils/` folders
+
+> ▶ So, what's the easiest way to add a new workspace to your aetherspace monorepo? ▼▼
+
+### `yarn ats add-workspace` - Create a new workspace
+
+![add-workspace.png](/.storybook/public/add-workspace.png)
+
+```shell-script
+yarn workspace aetherspace run add-workspace # run in repo root to add a new workspace
+```
+
+```shell
+>>> Modify "your-monorepo-name" using custom generators
+
+? what type of workspace would you like to generate? # feature
+? What foldername do you want to give this workspace? # some-feature
+? What package name would you like to import from? (used for package.json) # @app/some-feature
+? Optional: What will this workspace contain? (optional extra folder setup) # schemas, resolvers, components, screens, routes
+? Optional: How would you shortly describe the package? (used for package.json) # An example generated feature workspace
+
+Opening files in VSCode...
+Running 'install' on workspace root
+
+>>> Changes made:
+  • /features/some-feature/package.json (add)
+  • /features/some-feature/schemas/.gitkeep (add)
+  • /features/some-feature/resolvers/.gitkeep (add)
+  • /features/some-feature/components/.gitkeep (add)
+  • /features/some-feature/screens/.gitkeep (add)
+  • /features/some-feature/routes/.gitkeep (add)
+  • Opened 1 files in VSCode (open-files-in-vscode)
+  • Ran 'install' on workspace root (install)
+```
+
+## 2. Start with Single Sources of Truth
+
+As explained in [the Aetherschema documentation](/packages/@aetherspace/schemas/README.md), we recommend you use [Zod](https://zod.dev/) to define your data structures.  
+(Ideally, at an early stage of building a new feature)
+
+### Why?
+
+> Think about all the places you'd have to (__re__)define your data structures if you want certain things for your project:
+
+✅ **Static type checks** and **in-editor hints**  
+✅ **GraphQL** input and response **definitions**  
+✅ **Resolver** input and response **validation**  
+✅ **State hooks** and **form validation**  
+✅ **Data models** and **database schemas**  
+✅ **Defining defaults** for fields that are missing  
+✅ **Documentation** and **field descriptions** for components / APIs  
+
+_The more places you need to define data structure in, the more likely you'll eventually make a mistake or forget to update one of them._  
+
+Even _if_ you don't run into issues immediately, it _is_ a lot of boring work to maintain and have to think about.
+
+### The benefits of using 'Single Sources of Truth'
+
+> Now imagine you could define the shape of all of these **in one place, one time.** Instead of 5 or more.
+
+💡 The added _benefit of using [Single Sources of Truth in Aetherspace](/packages/@aetherspace/schemas/README.md)_, is that our way of working facilitates **easy derivation of all other shape definitions** from your schema validator, **without having to maintain them separately**.
+
+💡 The added _benefit of using Zod as a basis and validator_, is that it is **built with Typescript in mind**. Anything you can do in typescript, you can do in Zod (and by extension Aetherspace schemas) as well.
+
+💡 The added _benefit of using `aetherSchema`, as a superset of `ZodObject`_, is that it **allows us to deeply introspect the schema**. Through this introspection, we can generate all other definitions from it, **and build time-saving automations & utils on top of them**.
+
+> **All it takes is importing `z` and `aetherSchema` from `'aetherspace/schemas'` instead of `'zod'`.**
+
+### Recommended schema conventions
+
+- Add schemas under `schemas/` folder in your feature or package workspace
+- Import `z` and `aetherSchema` from `'aetherspace/schemas'`
+- Use `aetherSchema()` instead of `z.object()` to define your schema and provide it with a name as the first argument
+
+> ▶ _So, what's the easiest way to add a new schema to a workspace?_ ▼▼
+
+### `yarn ats add-schema` - Create a new 'Single Source of Truth'
+
+![add-schema.png](/.storybook/public/add-schema.png)
+
+```shell-script
+yarn workspace aetherspace run add-schema # run in repo root to add a new schema
+```
+
+```shell
+>>> Modify "your-monorepo-name" using custom generators
+
+? Where would you like to add this schema? # features/some-feature  --  importable from: '@app/some-feature'
+? What is the schema name? # SomeData
+? Optional description: What data structure does this schema describe? # Some essential data in 'some-feature'
+? Optional examples: Would you like to add any common field definitions? # id, slug
+
+Opening files in VSCode...
+
+>>> Changes made:
+  • /features/some-feature/schemas/SomeData.ts (add)
+  • Opened 1 files in VSCode (open-files-in-vscode)
+```
+
+## 3. Use your schemas to create Resolvers and API's
+
+> Once you've defined your data structures, you can use them to generate resolvers and APIs:
+
+✅ A reusable function that **validates and parses** args & responses  
+✅ A **REST API** that **maps to a URL path**?  
+✅ A **GraphQL API** that **maps to a query or mutation**?  
+
+If you think about it, **a resolver is essentially a function that takes in some input, and returns some output.**
+
+> So, if you have a schema that defines the input and output of a resolver, you can **generate the resolver and API from the schema**.
+
+### The benefits of using `aetherResolver()`?
+
+Any sort of mapping of `context`, `query` params, POST request `body` or headers to a set of expected arguments (from our schema), are extra steps that can be abstracted away.
+
+💡 The added _benefit of using the `aetherResolver()` helper_, is that it ties together a schema for the args & response with the function that executes the business logic. This way we automatically have types and validation for the resolver args/response, and can generate the API from it.
+
+💡 The added _benefit of tying your args and response to a sort of `DataBridge` description object_, is that even if the resolver that uses it for validation and types contains server-only logic, if the object itself is exported from another file, that file can be used in the client and in other automations as well.
+
+💡 The added _benefit of having a reusable resolver "bundle" like that_, is that we can easily generate an executable GraphQL schema from it. Fully avoiding the need to define a GraphQL SDL schema yourself manually.
+
+### Recommended resolver conventions
+
+- Add resolvers under `resolvers/` folder in your feature or package workspace
+- Import `aetherResolver` from `'aetherspace/utils/serverUtils'`
+- Use `aetherResolver()` to wrap your resolver function, and provide a desciptive `DataBridge` as the second argument
+- Ensure the `...DataBridge` object is exported from the `schemas/` folder, so it can be used elsewhere as well
+- Ensure the `...DataBridge` object contains `argsSchema` and `responseSchema`, as well as the `resolverName`
+- Use utils like `parseArgs()`, `withDefaults()`, ... from `aetherResolver()` to help with common resolver logic
+- Import your resolver in your desired path under `{workspace}/routes/api/...` 
+- Export `graphResolver` and wrap your resolver with `makeGraphQLResolver()` to add it to the GraphQL API
+- Export `GET`, `POST`, `PUT`, `DELETE` or `PATCH` with `makeNextRouteHandler()` to add it to the REST API
+
+> ▶ _So, what's the easiest way to add a new resolver to a workspace?_ ▼▼
+
+### `yarn ats add-resolver` - Create a new resolver from args & response schemas
+
+![add-resolver.png](/.storybook/public/add-resolver.png)
+
+> Note: Because the generator notices that the `SomeData` schema already exists according to conventions, it will be a selectable option in the generator. The schema picker in this generator prompt also functions as an 'autocomplete', so you can type to filter the list of known schemas to find the specific one you're looking for.
+
+```shell-script
+yarn workspace aetherspace run add-resolver # run in repo root to add a new resolver
+```
+
+```shell
+>>> Modify "your-monorepo-name" using custom generators
+
+? Where would you like to add this resolver? # features/some-feature  --  importable from: '@app/some-feature'
+? What will you name the resolver function? (e.g. "doSomething") # updateSomeData
+? Optional description: What will this data resolver do? # Update some data
+? What else would you like to generate? (auto linked) # GraphQL mutation, POST & PUT route, Typed formState hook
+? Is this a GraphQL query or mutation? # GraphQL Mutation >>> for updating data
+? Which schema should we use for the resolver arguments? # @app/some-feature - SomeData
+? Which schema should we use for the resolver response? # @app/some-feature - SomeData
+? What API path would you like to use for REST? # /api/some/data/[id]
+? What should the form hook be called? # useSomeDataFormState
+
+Running 'collect-resolvers' script from '@aetherspace' workspace...
+Running 'link-routes' script from '@aetherspace' workspace...
+Opening files in VSCode...
+
+>>> Changes made:
+  • /features/some-feature/schemas/UpdateSomethingDataBridge.ts (add)
+  • /features/some-feature/resolvers/updateSomeData.ts (add)
+  • /features/some-feature/routes/api/some/data/[id]/route.ts (add)
+  • /features/some-feature/forms/useSomeDataFormState.ts (add)
+  • Ran 'collect-resolvers' script from '@aetherspace' workspace (collect-resolvers)
+  • Ran 'link-routes' script from '@aetherspace' workspace (link-routes)
+  • Opened 3 files in VSCode (open-files-in-vscode)
+```
+
+## 4. Integrate resolvers with Universal Routes
+
+> With your workspace, schemas and resolvers in place, we can now hook them up to our UI for data-fetching:
+
+✅ Automate away the need to manually (**re**)define routes for **Expo Router** and **Next.js**  
+✅ Set up your screen to fetch data from **from your GraphQL API**  
+✅ Integrate with typed form state management hooks for **your data resolver args schemas**  
+
+### Conventions for universal routing
+
+- Add screens under `screens/` folder in your feature or package workspace
+- Configure screens to hook into a GraphQL query by using `createDataBridge` to extend the resolver `DataBridge`
+- Call `useAetherRoute(props, screenConfig)` to merge props with data fetching for typed component data
+- Add routes just once under `routes/` folder in your feature or package workspace
+- Make sure your `route.ts` file uses `<AetherPage>` to wrap your screen component
+
+> ▶ _So, what's the easiest way to add a new universal route to a workspace?_ ▼▼
+
+### `yarn ats add-route` - Create a new universal route
+
+![add-route.png](/.storybook/public/add-route.png)
+
+> Note: If your resolvers apply our conventions and will allow you to pick them to automatically integrate one of those resolvers. If you don't have any resolvers yet, or don't need to do data fetching at all, you can still create a route and add a resolver or integrate with a query later.
+
+```shell-script
+yarn workspace aetherspace run add-route # run in repo root to add a new route
+```
+
+```shell
+>>> Modify "your-monorepo-name" using custom generators
+
+? Where would you like to add this new route? # features/some-feature  --  importable from: '@app/some-feature'
+? What should the screen component be called? # SomeScreen
+? What url do you want this route on? # /some-screen/[id]
+? Would you like to fetch initial data for this route from a resolver? # @app/some-feature >>> getSomeData()
+
+Running 'link-routes' script from '@aetherspace' workspace...
+Opening files in VSCode...
+
+>>> Changes made:
+  • /features/some-feature/screens/SomeScreen.tsx (add)
+  • /features/some-feature/routes/some-screen/[id]/index.tsx (add)
+  • Ran 'link-routes' script from '@aetherspace' workspace (link-routes)
+  • Opened 2 files in VSCode (open-files-in-vscode)
+```
+
+---
+
+# Automations, designed for copy-paste ⚙️  
+
+---
 
 > Codegen in Aetherspace is focused on keeping your internal features and packages folders as transferrable between projects as possible. Therefore, it is limited to do only a few things:  
 
-- Turborepo generators for easy creation of new routes, schemas and data-resolvers
+- [Turborepo generators](https://turbo.build/repo/docs/core-concepts/monorepos/code-generation) for easy creation of new schemas, data-resolvers and universal routes
 - Deduplicating file-based conventions (e.g. linking from modules to next.js & expo-router app dirs)
 - Creating barrel files to act as "registries" (e.g. abstracting imports and module linking)
 
