@@ -23,19 +23,28 @@ const availableSchemas = getAvailableSchemas('')
 
 const LINES = 100 - 13 // -i- JSDoc: 100 = max length, 13 = everything but the title & '-' lines
 
+const GraphQlResolverOption = 'GraphQL resolver'
+const GetApiRouteOption = 'GET api route'
+const PostApiRouteOption = 'POST api route'
+const PutApiRouteOption = 'PUT api route'
+const DeleteApiRouteOption = 'DELETE api route'
+const CustomSchemaOption = 'Custom Args & Response Schemas (skips schema pickers)'
+const FormHookOption = 'Typed formState hook (for resolver args)'
+
 const RESOLVER_GENERATABLES = Object.freeze({
-  'GraphQL resolver': 'graphResolver',
-  'GET api route': 'GET',
-  'POST api route': 'POST',
-  'PUT api route': 'PUT',
-  'Custom Args & Response Schemas (skips schema pickers)': 'schemas',
-  'Typed formState hook (for resolver args)': 'formHook',
+  [GraphQlResolverOption]: 'graphResolver',
+  [GetApiRouteOption]: 'GET',
+  [PostApiRouteOption]: 'POST',
+  [PutApiRouteOption]: 'PUT',
+  [DeleteApiRouteOption]: 'DELETE',
+  [CustomSchemaOption]: 'schemas',
+  [FormHookOption]: 'formHook',
   // "Typed fetching function, e.g. fetchResources()": 'fetch',
   // "Typed fetcher hook, e.g. useFetchResources()": 'fetchHook',
 })
 
-const GraphqlQueryOption = 'GraphQL Query >>> for retrieving data'
-const GraphqlMutationOption = 'GraphQL Mutation >>> for updating data'
+const GraphqlQueryOption = 'Query >>> for retrieving data'
+const GraphqlMutationOption = 'Mutation >>> for adding / updating / deleting data'
 
 const NewArgsSchemaOption = "I'd like to create a new schema for the resolver arguments"
 const NewResponseSchemaOption = "I'd like to create a new schema for the resolver response"
@@ -64,24 +73,39 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         message: 'Optional description: What will this data resolver do?',
       },
       {
+        type: 'list',
+        name: 'resolverTarget',
+        message: 'Will this resolver query or mutate data?',
+        choices: [GraphqlQueryOption, GraphqlMutationOption],
+        default: (data) => {
+          const { resolverName, resolverDescription } = data
+          const mutationTriggerWords = ['update', 'edit', 'delete', 'remove', 'add', 'create']
+          const checkingString = `${resolverName} ${resolverDescription}`.toLowerCase()
+          const isMutatable = mutationTriggerWords.some((word) => checkingString.includes(word))
+          return isMutatable ? GraphqlMutationOption : GraphqlQueryOption
+        },
+      },
+      {
         type: 'checkbox',
         name: 'generatables',
         message: 'What else would you like to generate related to this resolver? (auto linked)',
-        choices: Object.keys(RESOLVER_GENERATABLES),
-        default: Object.keys(RESOLVER_GENERATABLES).filter((opt) => {
-          return ['GraphQL', 'GET', 'POST'].some((allowedOpt) => opt.includes(allowedOpt))
-        }),
-      },
-      {
-        type: 'list',
-        name: 'resolverTarget',
-        message: 'Is this a GraphQL query or mutation?',
-        choices: [GraphqlQueryOption, GraphqlMutationOption],
-        default: (data) => {
-          const isMutatable = ['POST', 'PUT', 'DELETE'].some(includesOption(data.generatables))
-          return isMutatable ? GraphqlMutationOption : GraphqlQueryOption
+        choices: ({ resolverTarget }) => {
+          const isQuery = resolverTarget === GraphqlQueryOption
+          if (isQuery) return [GraphQlResolverOption, GetApiRouteOption, CustomSchemaOption]
+          return [
+            GraphQlResolverOption,
+            PostApiRouteOption,
+            PutApiRouteOption,
+            DeleteApiRouteOption,
+            CustomSchemaOption,
+            FormHookOption,
+          ]
         },
-        when: (data) => ['GraphQL'].some(includesOption(data.generatables)),
+        default: ({ resolverTarget }) => {
+          const isQuery = resolverTarget === GraphqlQueryOption
+          if (isQuery) return [GraphQlResolverOption, GetApiRouteOption]
+          return [GraphQlResolverOption, PostApiRouteOption, FormHookOption]
+        },
       },
       {
         type: 'autocomplete',
@@ -188,6 +212,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       const allowGET = allowedMethods.includes('GET')
       const allowPOST = allowedMethods.includes('POST')
       const allowPUT = allowedMethods.includes('PUT')
+      const allowDELETE = allowedMethods.includes('DELETE')
       const hasGraphResolver = generatables.includes('graphResolver')
 
       const jsDocResolverTitle = `/** --- ${resolverName} ${'-'.repeat(LINES - resolverName.length)} */` // prettier-ignore
@@ -229,6 +254,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           if (allowGET) addApiMethod('GET')
           if (allowPOST) addApiMethod('POST')
           if (allowPUT) addApiMethod('PUT')
+          if (allowDELETE) addApiMethod('DELETE')
         }
 
         // Add GraphQL resolver?
