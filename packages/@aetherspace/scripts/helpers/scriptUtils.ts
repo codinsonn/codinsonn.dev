@@ -1,5 +1,6 @@
 import glob from 'glob'
 import fs from 'fs'
+export * from '../../utils/stringUtils/stringUtils'
 
 /** --- excludeDirs() -------------------------------------------------------------------------- */
 /** -i- Filter function to exclude folders and directories */
@@ -9,7 +10,11 @@ export const excludeDirs = (pth) => pth.split('/').pop().includes('.')
 /** -i- Filter function to exclude node_modules folders */
 export const excludeModules = (pth) => !pth.includes('node_modules')
 
-/** --- parseWorkspaces() ----------------------------------------------------------------------- */
+/** --- normalizeName() ------------------------------------------------------------------------ */
+/** -i- Make sure only lowercase and uppercase letters are left in a given string */
+export const normalizeName = (str: string) => str.replace(/[^a-zA-Z]/g, '')
+
+/** --- parseWorkspaces() ---------------------------------------------------------------------- */
 /** -i- Figure out all info about all workspaces and return mapped linking info for use in scripts */
 export const parseWorkspaces = (folderLevel = '../../') => {
   // Get all workspace package.json paths
@@ -187,8 +192,6 @@ export const getAvailableDataBridges = (folderLevel = '../../') => {
 export const matchMethods = (methods: string[]) => (opt) => methods.includes(opt)
 
 export const camelToDash = (str: string) => str.replace(/[\w]([A-Z])/g, (m) => `${m[0]}-${m[1]}`).toLowerCase() // prettier-ignore
-
-export const uppercaseFirstChar = (str: string = '') => str.charAt(0).toUpperCase() + str.slice(1)
 
 export const includesOption = (strOpts: string[]) => (opt) => strOpts.join('').includes(opt)
 

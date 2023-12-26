@@ -81,6 +81,7 @@ export const createDataBridge = <
   refetchOnMount,
   backgroundColor,
   dynamic = 'auto',
+  ...restOptions
 }: {
   resolverName: RN
   resolverType?: 'query' | 'mutation'
@@ -92,16 +93,18 @@ export const createDataBridge = <
   paramsToArgs?: (navParams: any) => AT
   responseToProps?: (response: RT) => PT
   apiPath?: string
-  allowedMethods?: ('GET' | 'POST' | 'PUT' | 'DELETE')[]
+  allowedMethods?: ('GRAPHQL' | 'GET' | 'POST' | 'PUT' | 'DELETE')[]
   graphqlQuery?: string
   refetchOnMount?: boolean
   backgroundColor?: string
   dynamic?: 'auto' | 'force-dynamic' | 'error' | 'force-static'
+  isMutation?: boolean
 }) => {
   // Vars & Flags
   const constainsMutationKeyword = customGraphqlQuery?.includes?.('mutation')
   const resolverType = customResolverType || (constainsMutationKeyword ? 'mutation' : 'query')
-  const isMutation = resolverType === 'mutation' || constainsMutationKeyword
+  const isMutation =
+    restOptions.isMutation || resolverType === 'mutation' || constainsMutationKeyword
 
   // -- Error Checks --
 

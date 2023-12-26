@@ -29,8 +29,9 @@ export type GetResumeDataByUserSlugResponse = z.infer<typeof GetResumeDataByUser
 /** -i- API Config for getResumeDataByUserSlug() */
 export const GetResumeDataByUserSlugDataBridge = createDataBridge({
   resolverName: 'getResumeDataByUserSlug',
+  resolverType: 'query',
   argsSchema: GetResumeDataByUserSlugArgs,
   responseSchema: GetResumeDataByUserSlugResponse,
   apiPath: '/api/resume/[slug]',
-  allowedMethods: ['GET', 'POST'],
+  allowedMethods: ['GRAPHQL', 'GET', 'POST'],
 })

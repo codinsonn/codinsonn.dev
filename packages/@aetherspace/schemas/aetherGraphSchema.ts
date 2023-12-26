@@ -215,7 +215,7 @@ const aetherGraphSchema = (
     resolverName,
     argSchema: resolver?.argSchema,
     resSchema: resolver?.resSchema,
-    isMutation: !!resolver?.isMutation,
+    isMutation: resolver?.isMutation,
     resolver,
   }))
 
@@ -257,7 +257,7 @@ const aetherGraphSchema = (
       JSONObject: GraphQLJSONObject,
       ...customScalars,
       ...(hasQueries ? { Query: queryResolvers } : {}),
-      ...(hasMutations ? { Mutations: mutationResolvers } : {}),
+      ...(hasMutations ? { Mutation: mutationResolvers } : {}),
     },
   }
 }

@@ -35,8 +35,9 @@ export type UpsertResumeResponse = z.infer<typeof UpsertResumeResponse>
 /** -i- Aetherspace API Config for upsertResume() */
 export const UpsertResumeDataBridge = createDataBridge({
   resolverName: 'upsertResume',
+  resolverType: 'mutation',
   argsSchema: UpsertResumeArgs,
   responseSchema: UpsertResumeResponse,
   apiPath: '/api/resume/[slug]/upsert',
-  allowedMethods: ['GET', 'POST'],
+  allowedMethods: ['GRAPHQL', 'GET', 'POST'],
 })

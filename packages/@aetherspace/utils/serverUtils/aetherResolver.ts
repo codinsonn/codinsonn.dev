@@ -159,7 +159,7 @@ export const aetherResolver = <
 /** --- makeGraphQLResolver() ------------------------------------------------------------------ **/
 /** -i- Codegen: Build a graphQL resolver from aether an resolver */
 export const makeGraphQLResolver = <AT, RT, AST extends z.ZodRawShape, RST extends z.ZodRawShape>(
-  resolver: ((ctx?: ResolverInputType<AT>) => Promise<RT>) & { argSchema: z.ZodObject<AST>; resSchema: z.ZodObject<RST> },
+  resolver: ((ctx?: ResolverInputType<AT>) => Promise<RT>) & { argSchema: z.ZodObject<AST>; resSchema: z.ZodObject<RST>; isMutation?: boolean },
   options?: {
     config?: ResolverInputType['config']
   }
@@ -180,11 +180,13 @@ export const makeGraphQLResolver = <AT, RT, AST extends z.ZodRawShape, RST exten
       throw new GraphQLError(err.message || err.toString())
     }
   }
+  console.log('makeGraphQLResolver()', resolver.isMutation)
   return Object.assign(wrappedResolver, {
     argSchema: resolver.argSchema.introspect(),
     resSchema: resolver.resSchema.introspect(),
     ARGS_TYPE: resolver['ARGS_TYPE'] as AT,
     RESP_TYPE: resolver['RESP_TYPE'] as AT,
+    isMutation: resolver.isMutation,
   })
 }
 

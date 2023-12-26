@@ -9,6 +9,8 @@ import {
   validateNonEmptyNoSpaces,
   createAutocompleteSource,
   getAvailableSchemas,
+  normalizeName,
+  replaceMany,
 } from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
@@ -66,6 +68,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         name: 'resolverName',
         message: 'What will you name the resolver function? (e.g. "doSomething")',
         validate: validateNonEmptyNoSpaces,
+        transformer: normalizeName,
       },
       {
         type: 'input',
@@ -78,7 +81,8 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         message: 'Will this resolver query or mutate data?',
         choices: [GraphqlQueryOption, GraphqlMutationOption],
         default: (data) => {
-          const { resolverName, resolverDescription } = data
+          const { resolverDescription } = data
+          const resolverName = normalizeName(data.resolverName)
           const mutationTriggerWords = ['update', 'edit', 'delete', 'remove', 'add', 'create']
           const checkingString = `${resolverName} ${resolverDescription}`.toLowerCase()
           const isMutatable = mutationTriggerWords.some((word) => checkingString.includes(word))
@@ -118,9 +122,10 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         type: 'input',
         name: 'argsSchemaName',
         message: 'What will you call this new args schema?',
-        default: (data) => `${uppercaseFirstChar(data.resolverName)}Args`,
+        default: (data) => `${uppercaseFirstChar(normalizeName(data.resolverName))}Args`,
         validate: validateNonEmptyNoSpaces,
         when: (data) => data.argsSchemaTarget === NewArgsSchemaOption,
+        transformer: normalizeName,
       },
       {
         type: 'autocomplete',
@@ -137,39 +142,48 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         type: 'input',
         name: 'resSchemaName',
         message: 'What will you call this new response schema?',
-        default: (data) => `${uppercaseFirstChar(data.resolverName)}Response`,
-        validate: validateNonEmptyNoSpaces,
+        default: (data) => `${uppercaseFirstChar(normalizeName(data.resolverName))}Response`,
         when: (data) => data.resSchemaTarget === NewResponseSchemaOption,
+        validate: validateNonEmptyNoSpaces,
+        transformer: normalizeName,
       },
       {
         type: 'input',
         name: 'apiPath',
         message: 'What API path would you like to use for REST? (e.g. "/api/some/resolver/[slug]")',
         default: (data) => {
+          const resolverName = normalizeName(data.resolverName)
           const workspacePath = workspaceOptions[data.workspaceTarget]
           const workspaceName = workspacePath.split('/')[1].replace('-core', '').replace('-page', '') // prettier-ignore
-          return `/api/${workspaceName}/${camelToDash(data.resolverName)}`
+          return `/api/${workspaceName}/${camelToDash(resolverName)}`
         },
         when: (data) => ['api route', 'GraphQL'].some(includesOption(data.generatables)),
-        validate: validateNonEmptyNoSpaces,
+        validate: (input) => {
+          if (!input.startsWith('/api/')) return 'API paths must start with "/api/"'
+          if (!input.includes('/')) return 'API paths must include at least one "/"'
+          if (input.includes(' ')) return 'API paths cannot include spaces, use dashes "-" instead'
+          if (input.includes('//')) return 'API paths cannot include double slashes "//"'
+          if (input.includes('.')) return 'API paths cannot include periods "." or file extensions'
+          return validateNonEmptyNoSpaces(input)
+        },
       },
       {
         type: 'input',
         name: 'formHookName',
         message: 'What should the form hook be called?',
         default: (data) => {
-          const { resolverName } = data
-          let formHookName = `use${uppercaseFirstChar(resolverName)}Form`
-          formHookName = formHookName.replace('Edit', '').replace('Resolver', '').replace('Update', '') // prettier-ignore
-          return formHookName
+          const resolverName = normalizeName(data.resolverName)
+          const formHookName = `use${uppercaseFirstChar(normalizeName(resolverName))}Form`
+          return replaceMany(formHookName, ['Add', 'Create', 'Edit', 'Update', 'Delete', 'Resolver'], '') // prettier-ignore
         },
         when: (data) => ['formState hook'].some(includesOption(data.generatables)),
         validate: validateNonEmptyNoSpaces,
+        transformer: normalizeName,
       },
     ],
     actions: (data) => {
       // Args
-      const { workspaceTarget, resolverName, resolverTarget, apiPath, resolverDescription } = data || {} // prettier-ignore
+      const { workspaceTarget, apiPath, resolverTarget, resolverDescription } = data || {} // prettier-ignore
       const generatables = data!.generatables.map((option) => RESOLVER_GENERATABLES[option])
       const workspacePath = workspaceOptions[workspaceTarget]
       const resolverType = resolverTarget === GraphqlQueryOption ? 'query' : 'mutation'
@@ -179,6 +193,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
 
       // -- Vars --
 
+      const resolverName = normalizeName(data!.resolverName)
       const ResolverName = uppercaseFirstChar(resolverName)
       const resolverBridgeName = `${ResolverName}DataBridge`
       const descriptions = [] as string[]
@@ -190,7 +205,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       const jsDocArgsTitle = `/** --- ${argsSchemaName} ${argsSchemaLines} */`
       const jsDocArgsDescription = `/** -i- ${argsSchemaDescription} */`
       const jsDocArgsHeader = `${jsDocArgsTitle}\n${jsDocArgsDescription}`
-      const argsSchemaBody = [`test: z.string().default('Hello World'), // TODO: Add your own fields`] // prettier-ignore
+      const argsSchemaBody = [`exampleArg: z.string().default('Hello World'), // TODO: Add your own fields`] // prettier-ignore
       const argsDescriptionStatement = `.describe(d.${argsSchemaName})`
 
       const resSchemaDescription = `Response for the ${resolverName}() resolver`
@@ -200,20 +215,21 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       const jsDocResTitle = `/** --- ${resSchemaName} ${resSchemaLines} */`
       const jsDocResDescription = `/** -i- ${resSchemaDescription} */`
       const jsDocResHeader = `${jsDocResTitle}\n${jsDocResDescription}`
-      const resSchemaBody = [`test: z.string().default('Hello World'), // TODO: Add your own fields`] // prettier-ignore
+      const resSchemaBody = [`exampleField: z.string().default('Hello World'), // TODO: Add your own fields`] // prettier-ignore
       const resDescriptionStatement = `.describe(d.${resSchemaName})`
 
-      const apiConfigName = `${resolverName}APIConfig`
-      const jsDocResolverConfigTitle = `/** --- ${apiConfigName} ${'-'.repeat(LINES - apiConfigName.length)} */` // prettier-ignore
+      const apiBridgeName = `${resolverName}DataBridge`
+      const jsDocResolverConfigTitle = `/** --- ${apiBridgeName} ${'-'.repeat(LINES - apiBridgeName.length)} */` // prettier-ignore
       const jsDocResolverConfigDescription = `/** -i- Aetherspace API Config for ${resolverName}() */` // prettier-ignore
       const jsDocResolverConfigHeader = `${jsDocResolverConfigTitle}\n${jsDocResolverConfigDescription}` // prettier-ignore
+      const hasGraphResolver = generatables.includes('graphResolver')
       const apiPathStatements = [''] as string[]
-      const allowedMethods = generatables.filter(matchMethods(['GET', 'POST', 'PUT']))
+      const allowedMethods = generatables.filter(matchMethods(['GET', 'POST', 'PUT', 'DELETE'])) as string[] // prettier-ignore
+      if (hasGraphResolver) allowedMethods.unshift('GRAPHQL')
       const allowGET = allowedMethods.includes('GET')
       const allowPOST = allowedMethods.includes('POST')
       const allowPUT = allowedMethods.includes('PUT')
       const allowDELETE = allowedMethods.includes('DELETE')
-      const hasGraphResolver = generatables.includes('graphResolver')
 
       const jsDocResolverTitle = `/** --- ${resolverName} ${'-'.repeat(LINES - resolverName.length)} */` // prettier-ignore
       const jsDocResolverDescription = `/** -i- ${resolverDescription || 'TODO: Add description'} */` // prettier-ignore
@@ -247,7 +263,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         const resolverImportPath = `${traversalParts.join('/')}/resolvers/${resolverName}`
 
         // Figure out API statements
-        if (allowGET || allowPOST || allowPUT) {
+        if (allowGET || allowPOST || allowPUT || allowDELETE) {
           serverUtilImports.push('makeNextRouteHandler')
           const apiPathTitle = `/** --- ${apiPath} ${'-'.repeat(LINES - apiPath.length)} */\n`
           apiStatements.push(apiPathTitle)
@@ -280,7 +296,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
 
       // Add form hook?
       if (requiresFormHook) {
-        const { formHookName } = data || {}
+        const formHookName = normalizeName(data!.formHookName)
         const formHookDivider = `/* --- ${formHookName}() ${'-'.repeat(LINES - formHookName.length - 1)} */` // prettier-ignore
         extraActions.push({
           type: 'add',
@@ -298,7 +314,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
 
       // Add args schema?
       if (data!.argsSchemaName) {
-        const ArgsSchemaName = uppercaseFirstChar(data!.argsSchemaName)
+        const ArgsSchemaName = uppercaseFirstChar(normalizeName(data!.argsSchemaName))
         const jsDocTitle = `/* --- ${ArgsSchemaName} ${'-'.repeat(
           LINES - ArgsSchemaName.length
         )} */`
@@ -307,10 +323,10 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           path: `${workspacePath}/schemas/${ArgsSchemaName}.ts`,
           templateFile: '../../packages/@aetherspace/generators/templates/basic-schema.hbs',
           data: {
-            descriptions: descriptions.join('\n  '),
+            descriptions: `id: \`unique identifier\`,`,
             jsDocHeader: `${jsDocTitle}\n`,
             schemaName: ArgsSchemaName,
-            schemaBody: ``,
+            schemaBody: `id: z.string().id().describe(d.id), // TODO: Replace with your own fields`,
             describeStatement: ``,
             jsDocDescription: ``,
           },
@@ -320,17 +336,17 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
 
       // Add response schema?
       if (data!.resSchemaName) {
-        const ResSchemaName = uppercaseFirstChar(data!.resSchemaName)
+        const ResSchemaName = uppercaseFirstChar(normalizeName(data!.resSchemaName))
         const jsDocTitle = `/* --- ${ResSchemaName} ${'-'.repeat(LINES - ResSchemaName.length)} */`
         extraActions.push({
           type: 'add',
           path: `${workspacePath}/schemas/${ResSchemaName}.ts`,
           templateFile: '../../packages/@aetherspace/generators/templates/basic-schema.hbs',
           data: {
-            descriptions: descriptions.join('\n  '),
+            descriptions: `id: \`unique identifier\`,`,
             jsDocHeader: `${jsDocTitle}\n`,
             schemaName: ResSchemaName,
-            schemaBody: ``,
+            schemaBody: `id: z.string().id().nullish().describe(d.id), // TODO: Replace with your own fields`,
             describeStatement: ``,
             jsDocDescription: ``,
           },
@@ -367,8 +383,8 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       } as PlopTypes.ActionType
 
       if (isLinkedToSchemas) {
-        const ArgsSchemaName = uppercaseFirstChar(argsSchemaConfig?.schemaName || data!.argsSchemaName) // prettier-ignore
-        const ResSchemaName = uppercaseFirstChar(resSchemaConfig?.schemaName || data!.resSchemaName)
+        const ArgsSchemaName = uppercaseFirstChar(normalizeName(argsSchemaConfig?.schemaName || data!.argsSchemaName)) // prettier-ignore
+        const ResSchemaName = uppercaseFirstChar(normalizeName(resSchemaConfig?.schemaName || data!.resSchemaName)) // prettier-ignore
         const argsSchemaWorkspace = argsSchemaConfig?.workspaceName || '..'
         const resSchemaWorkspace = resSchemaConfig?.workspaceName || '..'
         const argsSchemaImportStatement = `import { ${ArgsSchemaName} } from '${argsSchemaWorkspace}/schemas/${ArgsSchemaName}'`
