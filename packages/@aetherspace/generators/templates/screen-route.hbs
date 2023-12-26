@@ -1,15 +1,15 @@
 import React from 'react'
 import { AetherPage } from 'aetherspace/navigation'
-import * as {{screenName}} from '{{screenImportPath}}'
+import * as {{screenModuleName}} from '{{screenImportPath}}'
 
 /* --- Config ---------------------------------------------------------------------------------- */
 
-const ScreenComponent = {{screenName}}.{{ScreenName}}
-const screenConfig = {{screenName}}.screenConfig
+const ScreenComponent = {{screenModuleName}}.{{ScreenName}}
+const screenConfig = {{screenModuleName}}.screenConfig
 
 {{{routePathDivider}}}
 
-const PageScreen = (props: {{screenName}}.{{ScreenName}}Props) => (
+const PageScreen = (props: {{screenModuleName}}.{{ScreenName}}Props) => (
   <AetherPage {...props} screen={ScreenComponent} screenConfig={screenConfig} />
 )
 
