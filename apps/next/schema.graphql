@@ -980,11 +980,14 @@ type UpsertResumeResponse {
   upsertedResume: ResumeData!
 }
 
+type Mutation {
+  syncUserBiosFromAirtable(args: SyncUserBiosFromAirtableArgs!): SyncUserBiosFromAirtableResponse
+  upsertResume(args: UpsertResumeArgs!): UpsertResumeResponse
+}
+
 type Query {
   getResumeDataByUserSlug(args: GetResumeDataByUserSlugArgs!): ResumeData
   getShopifyProducts(args: GetShopifyProductsArgs): GetShopifyProductsResponse
   getUserBioBySlug(args: UserBioInput!): UserBio
   healthCheck(args: HealthCheckArgs): HealthCheckResponse
-  syncUserBiosFromAirtable(args: SyncUserBiosFromAirtableArgs!): SyncUserBiosFromAirtableResponse
-  upsertResume(args: UpsertResumeArgs!): UpsertResumeResponse
 }

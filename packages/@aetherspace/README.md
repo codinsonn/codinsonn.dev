@@ -26,11 +26,11 @@ yarn dev:docs
 
 ## Up and running in minutes
 
-`packages/@aetherspace` houses a bunch of helpers that can be imported under the `aetherspace` namespace. These aim to make your cross-platform journey a breeze. All of it has been written in Typescript and is in the process of being documented in Storybook. Feel free to edit these to your liking, but here's what it you can do with it out of the box:
+`packages/@aetherspace` houses a bunch of helpers that can be imported under the `aetherspace` namespace. These aim to make your cross-platform journey a breeze. All of it has been written in Typescript and is documented in Storybook and the repo README's. Feel free to edit these to your liking if you make changes, but here's what it you can do with it out of the box:
 
 #### Write & style your components just once
 
-> 💚 Aetherspace primitives are ___built with [tailwind](), iOS, Android, web, node and ssr (+ media queries) in mind___.  
+> 💚 Aetherspace primitives are ___built with [tailwind](https://tailwindcss.com/), iOS, Android, web, node and ssr (+ media queries) in mind___.  
 > We mention media queries specifically because react-native-web does not support them out of the box. But we've got you covered.
 
 ```tsx
@@ -133,7 +133,8 @@ export const MyComponent = (props: AetherProps<typeof PropSchema>) => {
 #### Hook into automatic docgen
 
 > 📚 ___Documentation drives adoption___... and Storybook is a great way to do it.  
-> Just assign your `aetherSchema()` & `zod` powered prop definition as a __`getDocumentationProps` export__ and our scripts will __automatically turn it into Storybook controls.__
+> However, it can be a pain to set up and maintain the docs for every component manually. Luckily, we've already set it up for you.
+> On top of that, all you need to do is assign your `aetherSchema()` & `zod` powered prop definition as a __`getDocumentationProps` export__ and our scripts will __automatically turn it into Storybook controls.__
 
 `../../components/MyComponent.tsx`
 
@@ -243,11 +244,12 @@ Performing these 6 steps has provided us with a bunch of value in little time:
 
 <p>
   <a href="https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64#:~:text=%27Move%20fast%20%26%20build%20things%27%20with%20Zod%2C%20Expo%20%26%20Next.js" target="_blank">
-    <img alt="Intro Article on DEV" longdesc="Read the Intro Artical on DEV.to" src="https://img.shields.io/badge/dev.to-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white" />
+    <img alt="Intro Article on DEV" longdesc="Read the Intro Article on DEV.to" src="https://img.shields.io/badge/dev.to-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white" />
   </a>
 </p>
 
 - [Aetherspace Core Concepts](/packages/@aetherspace/core/README.md)
+- [Recommended way of working](/packages/@aetherspace/scripts/README.md)
 - [Single Sources of Truth for Front & Back-End with Zod](/packages/@aetherspace/schemas/README.md)
 - [Styling your components with Tailwind for Web & Mobile](/packages/@aetherspace/styles/README.md)
 - [Universal Routing with Expo and Next.js](/packages/@aetherspace/navigation/README.md)

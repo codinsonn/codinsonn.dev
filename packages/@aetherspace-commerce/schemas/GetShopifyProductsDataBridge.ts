@@ -24,8 +24,9 @@ export type GetShopifyProductsResponse = z.infer<typeof GetShopifyProductsRespon
 /** -i- The API config for the getShopifyProduct() resolver */
 export const GetShopifyProductsDataBridge = createDataBridge({
   resolverName: 'getShopifyProducts',
+  resolverType: 'query',
   argsSchema: GetShopifyProductsArgs,
   responseSchema: GetShopifyProductsResponse,
   apiPath: '/api/aetherspace/commerce/shopify/products',
-  allowedMethods: ['GET', 'POST'],
+  allowedMethods: ['GRAPHQL', 'GET', 'POST'],
 })

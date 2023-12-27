@@ -22,22 +22,10 @@ export const {{ResolverName}}Response = aetherSchema('{{ResolverName}}Response',
 {{jsDocResponseDescription}}
 export type {{ResolverName}}Response = z.infer<typeof {{ResolverName}}Response>
 
-/** --- GraphQL -------------------------------------------------------------------------------- */
-/** -i- TODO: Figure out which data you need at '/api/graphql' locally and apply it here */
-/** -i- GraphQL {{resolverType}} for the {{resolverName}}() resolver */
-export const {{ResolverName}}{{ResolverType}} = `
-  {{resolverType}} {{ResolverName}}{{ResolverType}}(${{resolverName}}Args: {{ResolverName}}Args) {
-    {{resolverName}}(args: ${{resolverName}}Args) {
-      ### Add fields here ###
-    }
-  }
-`
-
 {{jsDocResolverConfigHeader}}
 export const {{ResolverName}}DataBridge = createDataBridge({
   resolverName: '{{resolverName}}',
   resolverType: '{{resolverType}}',
   argsSchema: {{ResolverName}}Args,
-  responseSchema: {{ResolverName}}Response,
-  graphqlQuery: {{ResolverName}}{{ResolverType}},{{{apiPathStatements}}}
+  responseSchema: {{ResolverName}}Response,{{{apiPathStatements}}}
 })

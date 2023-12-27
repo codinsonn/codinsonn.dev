@@ -177,8 +177,8 @@ Similar to adding recurring features, removing features or packages from a fresh
 ## Getting started with Aetherspace
 
 - [Quickstart](/packages/@aetherspace/README.md)
+- [Recommended way of working](/packages/@aetherspace/scripts/README.md)
 - [Universal Routing](/packages/@aetherspace/navigation/README.md)
-- [Free and Premium Licenses](/LICENSE.md)
 
 ...
 

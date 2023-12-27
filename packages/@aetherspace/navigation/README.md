@@ -163,4 +163,4 @@ If you're wondering what the `screenConfig` should contain, how you should feed 
 - [Single Sources of Truth for your Web & Mobile apps](/packages/@aetherspace/schemas/README.md)
 - [Getting data from GraphQL into your Screens](/packages/@aetherspace/navigation/AetherPage/README.md)
 - [Aetherspace Core Concepts for cross-platform success](/packages/@aetherspace/core/README.md)
-- [Automation based on Single Sources of Truth and the File System](/packages/@aetherspace/scripts/README.md)
+- [Recommended way of working](/packages/@aetherspace/scripts/README.md)

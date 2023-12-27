@@ -9,6 +9,8 @@ import {
   validateNonEmptyNoSpaces,
   createAutocompleteSource,
   getAvailableSchemas,
+  normalizeName,
+  replaceMany,
 } from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
@@ -23,19 +25,28 @@ const availableSchemas = getAvailableSchemas('')
 
 const LINES = 100 - 13 // -i- JSDoc: 100 = max length, 13 = everything but the title & '-' lines
 
+const GraphQlResolverOption = 'GraphQL resolver'
+const GetApiRouteOption = 'GET api route'
+const PostApiRouteOption = 'POST api route'
+const PutApiRouteOption = 'PUT api route'
+const DeleteApiRouteOption = 'DELETE api route'
+const CustomSchemaOption = 'Custom Args & Response Schemas (skips schema pickers)'
+const FormHookOption = 'Typed formState hook (for resolver args)'
+
 const RESOLVER_GENERATABLES = Object.freeze({
-  'GraphQL resolver': 'graphResolver',
-  'GET api route': 'GET',
-  'POST api route': 'POST',
-  'PUT api route': 'PUT',
-  'Custom Args & Response Schemas (skips schema pickers)': 'schemas',
-  'Typed formState hook (for resolver args)': 'formHook',
+  [GraphQlResolverOption]: 'graphResolver',
+  [GetApiRouteOption]: 'GET',
+  [PostApiRouteOption]: 'POST',
+  [PutApiRouteOption]: 'PUT',
+  [DeleteApiRouteOption]: 'DELETE',
+  [CustomSchemaOption]: 'schemas',
+  [FormHookOption]: 'formHook',
   // "Typed fetching function, e.g. fetchResources()": 'fetch',
   // "Typed fetcher hook, e.g. useFetchResources()": 'fetchHook',
 })
 
-const GraphqlQueryOption = 'GraphQL Query >>> for retrieving data'
-const GraphqlMutationOption = 'GraphQL Mutation >>> for updating data'
+const GraphqlQueryOption = 'Query >>> for retrieving data'
+const GraphqlMutationOption = 'Mutation >>> for adding / updating / deleting data'
 
 const NewArgsSchemaOption = "I'd like to create a new schema for the resolver arguments"
 const NewResponseSchemaOption = "I'd like to create a new schema for the resolver response"
@@ -57,6 +68,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         name: 'resolverName',
         message: 'What will you name the resolver function? (e.g. "doSomething")',
         validate: validateNonEmptyNoSpaces,
+        transformer: normalizeName,
       },
       {
         type: 'input',
@@ -64,24 +76,40 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         message: 'Optional description: What will this data resolver do?',
       },
       {
-        type: 'checkbox',
-        name: 'generatables',
-        message: 'What else would you like to generate related to this resolver? (auto linked)',
-        choices: Object.keys(RESOLVER_GENERATABLES),
-        default: Object.keys(RESOLVER_GENERATABLES).filter((opt) => {
-          return ['GraphQL', 'GET', 'POST'].some((allowedOpt) => opt.includes(allowedOpt))
-        }),
-      },
-      {
         type: 'list',
         name: 'resolverTarget',
-        message: 'Is this a GraphQL query or mutation?',
+        message: 'Will this resolver query or mutate data?',
         choices: [GraphqlQueryOption, GraphqlMutationOption],
         default: (data) => {
-          const isMutatable = ['POST', 'PUT', 'DELETE'].some(includesOption(data.generatables))
+          const { resolverDescription } = data
+          const resolverName = normalizeName(data.resolverName)
+          const mutationTriggerWords = ['update', 'edit', 'delete', 'remove', 'add', 'create']
+          const checkingString = `${resolverName} ${resolverDescription}`.toLowerCase()
+          const isMutatable = mutationTriggerWords.some((word) => checkingString.includes(word))
           return isMutatable ? GraphqlMutationOption : GraphqlQueryOption
         },
-        when: (data) => ['GraphQL'].some(includesOption(data.generatables)),
+      },
+      {
+        type: 'checkbox',
+        name: 'generatables',
+        message: 'What would you like to generate linked to this resolver?',
+        choices: ({ resolverTarget }) => {
+          const isQuery = resolverTarget === GraphqlQueryOption
+          if (isQuery) return [GraphQlResolverOption, GetApiRouteOption, CustomSchemaOption]
+          return [
+            GraphQlResolverOption,
+            PostApiRouteOption,
+            PutApiRouteOption,
+            DeleteApiRouteOption,
+            CustomSchemaOption,
+            FormHookOption,
+          ]
+        },
+        default: ({ resolverTarget }) => {
+          const isQuery = resolverTarget === GraphqlQueryOption
+          if (isQuery) return [GraphQlResolverOption, GetApiRouteOption]
+          return [GraphQlResolverOption, PostApiRouteOption, FormHookOption]
+        },
       },
       {
         type: 'autocomplete',
@@ -94,9 +122,10 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         type: 'input',
         name: 'argsSchemaName',
         message: 'What will you call this new args schema?',
-        default: (data) => `${uppercaseFirstChar(data.resolverName)}Args`,
+        default: (data) => `${uppercaseFirstChar(normalizeName(data.resolverName))}Args`,
         validate: validateNonEmptyNoSpaces,
         when: (data) => data.argsSchemaTarget === NewArgsSchemaOption,
+        transformer: normalizeName,
       },
       {
         type: 'autocomplete',
@@ -113,39 +142,48 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         type: 'input',
         name: 'resSchemaName',
         message: 'What will you call this new response schema?',
-        default: (data) => `${uppercaseFirstChar(data.resolverName)}Response`,
-        validate: validateNonEmptyNoSpaces,
+        default: (data) => `${uppercaseFirstChar(normalizeName(data.resolverName))}Response`,
         when: (data) => data.resSchemaTarget === NewResponseSchemaOption,
+        validate: validateNonEmptyNoSpaces,
+        transformer: normalizeName,
       },
       {
         type: 'input',
         name: 'apiPath',
         message: 'What API path would you like to use for REST? (e.g. "/api/some/resolver/[slug]")',
         default: (data) => {
+          const resolverName = normalizeName(data.resolverName)
           const workspacePath = workspaceOptions[data.workspaceTarget]
           const workspaceName = workspacePath.split('/')[1].replace('-core', '').replace('-page', '') // prettier-ignore
-          return `/api/${workspaceName}/${camelToDash(data.resolverName)}`
+          return `/api/${workspaceName}/${camelToDash(resolverName)}`
         },
         when: (data) => ['api route', 'GraphQL'].some(includesOption(data.generatables)),
-        validate: validateNonEmptyNoSpaces,
+        validate: (input) => {
+          if (!input.startsWith('/api/')) return 'API paths must start with "/api/"'
+          if (!input.includes('/')) return 'API paths must include at least one "/"'
+          if (input.includes(' ')) return 'API paths cannot include spaces, use dashes "-" instead'
+          if (input.includes('//')) return 'API paths cannot include double slashes "//"'
+          if (input.includes('.')) return 'API paths cannot include periods "." or file extensions'
+          return validateNonEmptyNoSpaces(input)
+        },
       },
       {
         type: 'input',
         name: 'formHookName',
         message: 'What should the form hook be called?',
         default: (data) => {
-          const { resolverName } = data
-          let formHookName = `use${uppercaseFirstChar(resolverName)}Form`
-          formHookName = formHookName.replace('Edit', '').replace('Resolver', '').replace('Update', '') // prettier-ignore
-          return formHookName
+          const resolverName = normalizeName(data.resolverName)
+          const formHookName = `use${uppercaseFirstChar(normalizeName(resolverName))}Form`
+          return replaceMany(formHookName, ['Add', 'Create', 'Edit', 'Update', 'Delete', 'Resolver'], '') // prettier-ignore
         },
         when: (data) => ['formState hook'].some(includesOption(data.generatables)),
         validate: validateNonEmptyNoSpaces,
+        transformer: normalizeName,
       },
     ],
     actions: (data) => {
       // Args
-      const { workspaceTarget, resolverName, resolverTarget, apiPath, resolverDescription } = data || {} // prettier-ignore
+      const { workspaceTarget, apiPath, resolverTarget, resolverDescription } = data || {} // prettier-ignore
       const generatables = data!.generatables.map((option) => RESOLVER_GENERATABLES[option])
       const workspacePath = workspaceOptions[workspaceTarget]
       const resolverType = resolverTarget === GraphqlQueryOption ? 'query' : 'mutation'
@@ -155,6 +193,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
 
       // -- Vars --
 
+      const resolverName = normalizeName(data!.resolverName)
       const ResolverName = uppercaseFirstChar(resolverName)
       const resolverBridgeName = `${ResolverName}DataBridge`
       const descriptions = [] as string[]
@@ -166,7 +205,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       const jsDocArgsTitle = `/** --- ${argsSchemaName} ${argsSchemaLines} */`
       const jsDocArgsDescription = `/** -i- ${argsSchemaDescription} */`
       const jsDocArgsHeader = `${jsDocArgsTitle}\n${jsDocArgsDescription}`
-      const argsSchemaBody = [`test: z.string().default('Hello World'), // TODO: Add your own fields`] // prettier-ignore
+      const argsSchemaBody = [`exampleArg: z.string().default('Hello World'), // TODO: Add your own fields`] // prettier-ignore
       const argsDescriptionStatement = `.describe(d.${argsSchemaName})`
 
       const resSchemaDescription = `Response for the ${resolverName}() resolver`
@@ -176,19 +215,21 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       const jsDocResTitle = `/** --- ${resSchemaName} ${resSchemaLines} */`
       const jsDocResDescription = `/** -i- ${resSchemaDescription} */`
       const jsDocResHeader = `${jsDocResTitle}\n${jsDocResDescription}`
-      const resSchemaBody = [`test: z.string().default('Hello World'), // TODO: Add your own fields`] // prettier-ignore
+      const resSchemaBody = [`exampleField: z.string().default('Hello World'), // TODO: Add your own fields`] // prettier-ignore
       const resDescriptionStatement = `.describe(d.${resSchemaName})`
 
-      const apiConfigName = `${resolverName}APIConfig`
-      const jsDocResolverConfigTitle = `/** --- ${apiConfigName} ${'-'.repeat(LINES - apiConfigName.length)} */` // prettier-ignore
+      const apiBridgeName = `${resolverName}DataBridge`
+      const jsDocResolverConfigTitle = `/** --- ${apiBridgeName} ${'-'.repeat(LINES - apiBridgeName.length)} */` // prettier-ignore
       const jsDocResolverConfigDescription = `/** -i- Aetherspace API Config for ${resolverName}() */` // prettier-ignore
       const jsDocResolverConfigHeader = `${jsDocResolverConfigTitle}\n${jsDocResolverConfigDescription}` // prettier-ignore
+      const hasGraphResolver = generatables.includes('graphResolver')
       const apiPathStatements = [''] as string[]
-      const allowedMethods = generatables.filter(matchMethods(['GET', 'POST', 'PUT']))
+      const allowedMethods = generatables.filter(matchMethods(['GET', 'POST', 'PUT', 'DELETE'])) as string[] // prettier-ignore
+      if (hasGraphResolver) allowedMethods.unshift('GRAPHQL')
       const allowGET = allowedMethods.includes('GET')
       const allowPOST = allowedMethods.includes('POST')
       const allowPUT = allowedMethods.includes('PUT')
-      const hasGraphResolver = generatables.includes('graphResolver')
+      const allowDELETE = allowedMethods.includes('DELETE')
 
       const jsDocResolverTitle = `/** --- ${resolverName} ${'-'.repeat(LINES - resolverName.length)} */` // prettier-ignore
       const jsDocResolverDescription = `/** -i- ${resolverDescription || 'TODO: Add description'} */` // prettier-ignore
@@ -222,13 +263,14 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
         const resolverImportPath = `${traversalParts.join('/')}/resolvers/${resolverName}`
 
         // Figure out API statements
-        if (allowGET || allowPOST || allowPUT) {
+        if (allowGET || allowPOST || allowPUT || allowDELETE) {
           serverUtilImports.push('makeNextRouteHandler')
           const apiPathTitle = `/** --- ${apiPath} ${'-'.repeat(LINES - apiPath.length)} */\n`
           apiStatements.push(apiPathTitle)
           if (allowGET) addApiMethod('GET')
           if (allowPOST) addApiMethod('POST')
           if (allowPUT) addApiMethod('PUT')
+          if (allowDELETE) addApiMethod('DELETE')
         }
 
         // Add GraphQL resolver?
@@ -254,7 +296,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
 
       // Add form hook?
       if (requiresFormHook) {
-        const { formHookName } = data || {}
+        const formHookName = normalizeName(data!.formHookName)
         const formHookDivider = `/* --- ${formHookName}() ${'-'.repeat(LINES - formHookName.length - 1)} */` // prettier-ignore
         extraActions.push({
           type: 'add',
@@ -272,7 +314,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
 
       // Add args schema?
       if (data!.argsSchemaName) {
-        const ArgsSchemaName = uppercaseFirstChar(data!.argsSchemaName)
+        const ArgsSchemaName = uppercaseFirstChar(normalizeName(data!.argsSchemaName))
         const jsDocTitle = `/* --- ${ArgsSchemaName} ${'-'.repeat(
           LINES - ArgsSchemaName.length
         )} */`
@@ -281,10 +323,10 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
           path: `${workspacePath}/schemas/${ArgsSchemaName}.ts`,
           templateFile: '../../packages/@aetherspace/generators/templates/basic-schema.hbs',
           data: {
-            descriptions: descriptions.join('\n  '),
+            descriptions: `id: \`unique identifier\`,`,
             jsDocHeader: `${jsDocTitle}\n`,
             schemaName: ArgsSchemaName,
-            schemaBody: ``,
+            schemaBody: `id: z.string().id().describe(d.id), // TODO: Replace with your own fields`,
             describeStatement: ``,
             jsDocDescription: ``,
           },
@@ -294,17 +336,17 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
 
       // Add response schema?
       if (data!.resSchemaName) {
-        const ResSchemaName = uppercaseFirstChar(data!.resSchemaName)
+        const ResSchemaName = uppercaseFirstChar(normalizeName(data!.resSchemaName))
         const jsDocTitle = `/* --- ${ResSchemaName} ${'-'.repeat(LINES - ResSchemaName.length)} */`
         extraActions.push({
           type: 'add',
           path: `${workspacePath}/schemas/${ResSchemaName}.ts`,
           templateFile: '../../packages/@aetherspace/generators/templates/basic-schema.hbs',
           data: {
-            descriptions: descriptions.join('\n  '),
+            descriptions: `id: \`unique identifier\`,`,
             jsDocHeader: `${jsDocTitle}\n`,
             schemaName: ResSchemaName,
-            schemaBody: ``,
+            schemaBody: `id: z.string().id().nullish().describe(d.id), // TODO: Replace with your own fields`,
             describeStatement: ``,
             jsDocDescription: ``,
           },
@@ -341,8 +383,8 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       } as PlopTypes.ActionType
 
       if (isLinkedToSchemas) {
-        const ArgsSchemaName = uppercaseFirstChar(argsSchemaConfig?.schemaName || data!.argsSchemaName) // prettier-ignore
-        const ResSchemaName = uppercaseFirstChar(resSchemaConfig?.schemaName || data!.resSchemaName)
+        const ArgsSchemaName = uppercaseFirstChar(normalizeName(argsSchemaConfig?.schemaName || data!.argsSchemaName)) // prettier-ignore
+        const ResSchemaName = uppercaseFirstChar(normalizeName(resSchemaConfig?.schemaName || data!.resSchemaName)) // prettier-ignore
         const argsSchemaWorkspace = argsSchemaConfig?.workspaceName || '..'
         const resSchemaWorkspace = resSchemaConfig?.workspaceName || '..'
         const argsSchemaImportStatement = `import { ${ArgsSchemaName} } from '${argsSchemaWorkspace}/schemas/${ArgsSchemaName}'`

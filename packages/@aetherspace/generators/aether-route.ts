@@ -8,6 +8,7 @@ import {
   uppercaseFirstChar,
   validateNonEmptyNoSpaces,
   createAutocompleteSource,
+  normalizeName,
 } from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
@@ -18,7 +19,7 @@ import {
 /* --- Constants ------------------------------------------------------------------------------- */
 
 const workspaceOptions = getWorkspaceOptions('')
-const availableDataBridges = getAvailableDataBridges('')
+const availableDataBridges = getAvailableDataBridges('', 'query')
 
 const LINES = 100 - 12 // -i- 100 = max length, 12 = everything but the title & '-' lines
 
@@ -43,6 +44,7 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
         message: 'What should the screen component be called? (e.g. "TestScreen" = <TestScreen/> component)', // prettier-ignore
         default: 'SomeScreen',
         validate: validateNonEmptyNoSpaces,
+        transformer: normalizeName,
       },
       {
         type: 'input',
@@ -51,9 +53,14 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
         default: (data) => {
           const workspacePath = workspaceOptions[data.workspaceTarget]
           const workspaceName = workspacePath.split('/')[1].replace('-core', '').replace('-page', '') // prettier-ignore
-          return `/${workspaceName}/${camelToDash(data.screenName)}`
+          return `/${workspaceName}/${camelToDash(normalizeName(data.screenName))}`
         },
-        validate: validateNonEmptyNoSpaces,
+        validate: (input) => {
+          if (!input.startsWith('/')) return 'Route path must start with a "/"'
+          if (input.includes(' ')) return 'Route path cannot contain spaces'
+          if (input.includes('//')) return 'Route path cannot contain double slashes'
+          return validateNonEmptyNoSpaces(input)
+        },
       },
       {
         type: 'autocomplete',
@@ -68,7 +75,7 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
     ],
     actions: (data) => {
       // Args
-      const { workspaceTarget, screenName, fetcherBridge } = data || {}
+      const { workspaceTarget, fetcherBridge } = data || {}
       const workspacePath = workspaceOptions[workspaceTarget]
       const dataBridgeConfig = availableDataBridges[fetcherBridge]
 
@@ -77,6 +84,7 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
 
       // -- Vars --
 
+      const screenName = normalizeName(data!.screenName)
       const ScreenName = uppercaseFirstChar(screenName)
       const screenTitleDivider = `/* --- <${ScreenName}/> ${'-'.repeat(LINES - ScreenName.length - 3)} */` // prettier-ignore
 
@@ -103,6 +111,7 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
         data: {
           screenName,
           ScreenName,
+          screenModuleName: screenName,
           screenTitleDivider,
         },
       }
@@ -129,6 +138,7 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
         data: {
           screenName,
           ScreenName,
+          screenModuleName: screenName,
           screenImportPath,
           routePath,
           routePathDivider,

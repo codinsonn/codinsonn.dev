@@ -45,3 +45,14 @@ export const findTargetString = (source: string, search = '($target$)') => {
   const target = parts.pop()?.split(postTarget)?.[0]
   return target
 }
+
+/** --- replaceMany() -------------------------------------------------------------------------- */
+/** -i- Replaces every string you pass as the 2nd argument with the string in the 3rd argument */
+export const replaceMany = (source: string, targets: string[], replacement: string) => {
+  const allTargets = targets.flatMap((target) => [uppercaseFirstChar(target), lowercaseFirstChar(target)]) // prettier-ignore
+  let result = source
+  allTargets.forEach((searchStr) => {
+    result = result.replace(new RegExp(searchStr, 'g'), replacement)
+  })
+  return result
+}

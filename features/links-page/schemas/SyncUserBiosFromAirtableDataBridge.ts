@@ -41,8 +41,9 @@ export type SyncUserBiosFromAirtableResponse = z.infer<typeof SyncUserBiosFromAi
 /** -i- Aetherspace API Config for syncUserBiosFromAirtable() */
 export const SyncUserBiosFromAirtableDataBridge = createDataBridge({
   resolverName: 'syncUserBiosFromAirtable',
+  resolverType: 'mutation',
   argsSchema: SyncUserBiosFromAirtableArgs,
   responseSchema: SyncUserBiosFromAirtableResponse,
   apiPath: '/api/links/syncs/airtable',
-  allowedMethods: ['GET', 'POST'],
+  allowedMethods: ['GRAPHQL', 'GET', 'POST'],
 })

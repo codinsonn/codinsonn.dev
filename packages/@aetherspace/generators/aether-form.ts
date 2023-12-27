@@ -7,6 +7,7 @@ import {
   uppercaseFirstChar,
   createAutocompleteSource,
   validateNonEmptyNoSpaces,
+  normalizeName,
 } from '../scripts/helpers/scriptUtils'
 
 /* --- Disclaimer ------------------------------------------------------------------------------ */
@@ -20,14 +21,14 @@ const workspaceOptions = getWorkspaceOptions('')
 
 const availableSchemas = getAvailableSchemas('')
 
-const availableDataBridges = getAvailableDataBridges('')
+const availableDataBridges = getAvailableDataBridges('', 'mutation', true)
 
 const LINES = 100 - 12 // -i- 100 = max length, 12 = everything but the title & '-' lines
 
 const schemaTypeOptions = {
   ["No, I'll create my own form state schema"]: 'new',
   ['Yes, use an existing schema']: 'existing-schema',
-  ['Yes, use an existing data bridge to integrate with a resolver']: 'bridge',
+  ['Yes, use an existing data bridge to integrate state for a resolver']: 'bridge',
 }
 
 /** --- Resolver Generator --------------------------------------------------------------------- */
@@ -72,14 +73,16 @@ export const registerAetherFormGenerator = (plop: PlopTypes.NodePlopAPI) => {
           const schemaName = schemaConfig?.schemaName || bridgeConfig?.resolverName || 'useSomeFormState' // prettier-ignore
           let formHookName = `use${uppercaseFirstChar(schemaName)}FormState`
           formHookName = formHookName.replace('Edit', '').replace('Resolver', '').replace('Update', '') // prettier-ignore
-          return formHookName
+          return normalizeName(formHookName)
         },
         validate: validateNonEmptyNoSpaces,
+        transformer: normalizeName,
       },
     ],
     actions: (data) => {
       // Args
-      const { workspaceTarget, formHookName, schemaTarget, bridgeTarget } = data || {}
+      const { workspaceTarget, schemaTarget, bridgeTarget } = data || {}
+      const formHookName = normalizeName(data!.formHookName)
       const workspacePath = workspaceOptions[workspaceTarget]
       const dataBridgeConfig = availableDataBridges[bridgeTarget]
       const schemaConfig = availableSchemas[schemaTarget]

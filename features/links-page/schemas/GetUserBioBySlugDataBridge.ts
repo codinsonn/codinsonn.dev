@@ -5,8 +5,9 @@ import { UserBio, UserBioInput } from './UserBio'
 /** -i- API Config for getResumeDataByUserSlug() */
 export const GetUserBioBySlugDataBridge = createDataBridge({
   resolverName: 'getUserBioBySlug',
+  resolverType: 'query',
   argsSchema: UserBioInput,
   responseSchema: UserBio,
   apiPath: '/api/bio/[slug]',
-  allowedMethods: ['GET', 'POST'],
+  allowedMethods: ['GRAPHQL', 'GET', 'POST'],
 })
