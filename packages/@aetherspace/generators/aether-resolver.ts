@@ -92,7 +92,7 @@ export const registerAetherResolverGenerator = (plop: PlopTypes.NodePlopAPI) => 
       {
         type: 'checkbox',
         name: 'generatables',
-        message: 'What else would you like to generate related to this resolver? (auto linked)',
+        message: 'What would you like to generate linked to this resolver?',
         choices: ({ resolverTarget }) => {
           const isQuery = resolverTarget === GraphqlQueryOption
           if (isQuery) return [GraphQlResolverOption, GetApiRouteOption, CustomSchemaOption]

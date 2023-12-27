@@ -1,9 +1,11 @@
+<img src="/packages/@aetherspace/assets/AetherspaceLogo.svg" width="50" height="50" />
+
 # Aetherspace's Recommended Way of Working
 
 > To get the best out of Aetherspace, we recommend a few conventions and workflows to follow.  
 > These are not enforced, but will make your life easier if you do.
 
-These conventions **build upon, hook into, or even simplify** some of the **already existing conventions present in Next.js and Expo Router.**  
+These conventions **build upon, hook into, or even simplify** some of the **already existing conventions in the Next.js app dir and Expo Router.**  
 
 The easiest way to opt in to these conventions is by using our [turborepo generators](https://turbo.build/repo/docs/core-concepts/monorepos/code-generation), explained in further detail on this page:
 
@@ -35,11 +37,11 @@ Needless to say, if you still want to publish your workspaces as NPM packages, y
 
 ### Recommended workspace conventions
 
-- Add workspaces under `features/` or `packages/` folder in your monorepo root
+- Add workspaces under `features/` or `packages/` folders in your monorepo root
 - Ensure they have a `package.json` file with a `name` and `version` field
-- Use `packages/` for workspaces that are more reusable in other projects as well
-- Use `features/` for workspaces that are likely a bit more specific to your project
-- Keep the `app-core/` workspace for your core features and _"glue" or "entrypoint" code that will never be reused_
+- Use `packages/` for workspaces that are more generally reusable in other projects as well
+- Use `features/` for workspaces that are likely a bit more specific to the type of project or industry you're building for
+- Keep the `app-core/` workspace for your core features and _"glue" or "entrypoint" code that will never be reused_ elsewhere
 - Organise workspace code in `components/`, `screens/`, `routes/`, `resolvers/`, `schemas/`, `hooks/` & `utils/` folders
 
 > ▶ So, what's the easiest way to add a new workspace to your aetherspace monorepo? ▼▼
@@ -78,11 +80,11 @@ Running 'install' on workspace root
 ## 2. Start with Single Sources of Truth
 
 As explained in [the Aetherschema documentation](/packages/@aetherspace/schemas/README.md), we recommend you use [Zod](https://zod.dev/) to define your data structures.  
-(Ideally, at an early stage of building a new feature)
+Ideally, at an early stage of building a new feature.
 
 ### Why?
 
-> Think about all the places you'd have to (__re__)define your data structures if you want certain things for your project:
+> Think about all the places you'd have to (__re__)define your **data structures** if you want certain things for your project:
 
 ✅ **Static type checks** and **in-editor hints**  
 ✅ **GraphQL** input and response **definitions**  
@@ -141,15 +143,15 @@ Opening files in VSCode...
 
 ## 3. Use your schemas to create Resolvers and API's
 
-> Once you've defined your data structures, you can use them to generate resolvers and APIs:
+> Once you've defined your single sources of truth for data structures, you can use them to generate resolvers and APIs:
 
 ✅ A reusable function that **validates and parses** args & responses  
-✅ A **REST API** that **maps to a URL path**?  
-✅ A **GraphQL API** that **maps to a query or mutation**?  
+✅ A **REST API** that **maps to a URL path**  
+✅ A **GraphQL API** that **maps to a query or mutation**  
 
 If you think about it, **a resolver is essentially a function that takes in some input, and returns some output.**
 
-> So, if you have a schema that defines the input and output of a resolver, you can **generate the resolver and API from the schema**.
+> So, if you have a schema that defines the input and output of a resolver, you can **generate the skeleton of that resolver and API from the schemas**.
 
 ### The benefits of using `aetherResolver()`?
 
@@ -157,18 +159,18 @@ Any sort of mapping of `context`, `query` params, POST request `body` or headers
 
 💡 The added _benefit of using the `aetherResolver()` helper_, is that it ties together a schema for the args & response with the function that executes the business logic. This way we automatically have types and validation for the resolver args/response, and can generate the API from it.
 
-💡 The added _benefit of tying your args and response to a sort of `DataBridge` description object_, is that even if the resolver that uses it for validation and types contains server-only logic, if the object itself is exported from another file, that file can be used in the client and in other automations as well.
+💡 The added _benefit of tying your args and response to a sort of `DataBridge` description object_, is that even if the resolver that uses it contains server-only logic, if the object itself is exported from another file, that file can be used in the client and in other automations as well.
 
-💡 The added _benefit of having a reusable resolver "bundle" like that_, is that we can easily generate an executable GraphQL schema from it. Fully avoiding the need to define a GraphQL SDL schema yourself manually.
+💡 The added _benefit of having a reusable resolver "bundle" like that_, is that we can easily generate an executable GraphQL schema from it. Fully avoiding the need to define a GraphQL SDL schema or query string for the resolver manually.
 
 ### Recommended resolver conventions
 
+- Export a descriptive `{SomeName}DataBridge` object from the `{workspace}/schemas/` folder, so it can be used in the resolver (and elsewhere)
+- Ensure the `{SomeName}DataBridge` object contains `argsSchema` and `responseSchema`, as well as the `resolverName`
 - Add resolvers under `resolvers/` folder in your feature or package workspace
-- Import `aetherResolver` from `'aetherspace/utils/serverUtils'`
-- Use `aetherResolver()` to wrap your resolver function, and provide a desciptive `DataBridge` as the second argument
-- Ensure the `...DataBridge` object is exported from the `schemas/` folder, so it can be used elsewhere as well
-- Ensure the `...DataBridge` object contains `argsSchema` and `responseSchema`, as well as the `resolverName`
-- Use utils like `parseArgs()`, `withDefaults()`, ... from `aetherResolver()` to help with common resolver logic
+- Import `aetherResolver` from `'aetherspace/utils/serverUtils'` and use it to wrap your resolver function
+- Provide your `DataBridge` as the second argument to `aetherResolver()`
+- Use utils like `parseArgs()`, `withDefaults()`, ... provided by `aetherResolver()` to help with common resolver logic
 - Import your resolver in your desired path under `{workspace}/routes/api/...` 
 - Export `graphResolver` and wrap your resolver with `makeGraphQLResolver()` to add it to the GraphQL API
 - Export `GET`, `POST`, `PUT`, `DELETE` or `PATCH` with `makeNextRouteHandler()` to add it to the REST API
@@ -179,7 +181,7 @@ Any sort of mapping of `context`, `query` params, POST request `body` or headers
 
 ![add-resolver.png](/.storybook/public/add-resolver.png)
 
-> Note: Because the generator notices that the `SomeData` schema already exists according to conventions, it will be a selectable option in the generator. The schema picker in this generator prompt also functions as an 'autocomplete', so you can type to filter the list of known schemas to find the specific one you're looking for.
+> Note: Because the generator notices that the `SomeData` schema already exists according to our conventions, it will be a selectable option in the generator. The schema picker in this generator prompt also functions as an 'autocomplete', so you can type to filter the list of known schemas in your monorepo to find the specific one you're looking for.
 
 ```shell-script
 yarn workspace aetherspace run add-resolver # run in repo root to add a new resolver
@@ -191,8 +193,8 @@ yarn workspace aetherspace run add-resolver # run in repo root to add a new reso
 ? Where would you like to add this resolver? # features/some-feature  --  importable from: '@app/some-feature'
 ? What will you name the resolver function? (e.g. "doSomething") # updateSomeData
 ? Optional description: What will this data resolver do? # Update some data
-? What else would you like to generate? (auto linked) # GraphQL mutation, POST & PUT route, Typed formState hook
-? Is this a GraphQL query or mutation? # GraphQL Mutation >>> for updating data
+? Will this resolver query or mutate data? # Mutation >>> for adding / updating / deleting data
+? What would you like to generate linked to this resolver? # GraphQL mutation, POST & PUT route, Typed formState hook
 ? Which schema should we use for the resolver arguments? # @app/some-feature - SomeData
 ? Which schema should we use for the resolver response? # @app/some-feature - SomeData
 ? What API path would you like to use for REST? # /api/some/data/[id]
@@ -220,13 +222,13 @@ Opening files in VSCode...
 ✅ Set up your screen to fetch data from **from your GraphQL API**  
 ✅ Integrate with typed form state management hooks for **your data resolver args schemas**  
 
-### Conventions for universal routing
+### Recommended universal route conventions
 
-- Add screens under `screens/` folder in your feature or package workspace
+- Add screens under `screens/` folders in your feature or package workspaces
 - Configure screens to hook into a GraphQL query by using `createDataBridge` to extend the resolver `DataBridge`
-- Call `useAetherRoute(props, screenConfig)` to merge props with data fetching for typed component data
-- Add routes just once under `routes/` folder in your feature or package workspace
-- Make sure your `route.ts` file uses `<AetherPage>` to wrap your screen component
+- Call `useAetherRoute(props, screenConfig)` to merge component props with data fetching for typed component data
+- Add routes just once under `routes/` folders in your feature or package workspaces
+- Make sure your `route.ts` file uses the `<AetherPage>` component to wrap your screen component, and pass it the `screenConfig` to it
 
 > ▶ _So, what's the easiest way to add a new universal route to a workspace?_ ▼▼
 
@@ -234,7 +236,7 @@ Opening files in VSCode...
 
 ![add-route.png](/.storybook/public/add-route.png)
 
-> Note: If your resolvers apply our conventions and will allow you to pick them to automatically integrate one of those resolvers. If you don't have any resolvers yet, or don't need to do data fetching at all, you can still create a route and add a resolver or integrate with a query later.
+> Note: If your query resolvers apply our conventions, it will allow you to pick them to automatically integrate in your route. If you don't have any resolvers yet, or don't need to do data fetching at all, you can still create a route and add a resolver, or just integrate with a query later.
 
 ```shell-script
 yarn workspace aetherspace run add-route # run in repo root to add a new route
@@ -266,7 +268,7 @@ Opening files in VSCode...
 
 > Codegen in Aetherspace is focused on keeping your internal features and packages folders as transferrable between projects as possible. Therefore, it is limited to do only a few things:  
 
-- [Turborepo generators](https://turbo.build/repo/docs/core-concepts/monorepos/code-generation) for easy creation of new schemas, data-resolvers and universal routes
+- [Turborepo generators](https://turbo.build/repo/docs/core-concepts/monorepos/code-generation) for easy creation of new schemas, data-resolvers and universal routes (as described above this section)
 - Deduplicating file-based conventions (e.g. linking from modules to next.js & expo-router app dirs)
 - Creating barrel files to act as "registries" (e.g. abstracting imports and module linking)
 
