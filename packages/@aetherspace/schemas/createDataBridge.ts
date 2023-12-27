@@ -103,8 +103,7 @@ export const createDataBridge = <
   // Vars & Flags
   const constainsMutationKeyword = customGraphqlQuery?.includes?.('mutation')
   const resolverType = customResolverType || (constainsMutationKeyword ? 'mutation' : 'query')
-  const isMutation =
-    restOptions.isMutation || resolverType === 'mutation' || constainsMutationKeyword
+  const isMutation = restOptions.isMutation || resolverType === 'mutation' || constainsMutationKeyword // prettier-ignore
 
   // -- Error Checks --
 

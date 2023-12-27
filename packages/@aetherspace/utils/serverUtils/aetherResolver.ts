@@ -180,7 +180,6 @@ export const makeGraphQLResolver = <AT, RT, AST extends z.ZodRawShape, RST exten
       throw new GraphQLError(err.message || err.toString())
     }
   }
-  console.log('makeGraphQLResolver()', resolver.isMutation)
   return Object.assign(wrappedResolver, {
     argSchema: resolver.argSchema.introspect(),
     resSchema: resolver.resSchema.introspect(),

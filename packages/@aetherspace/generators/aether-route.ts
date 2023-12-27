@@ -104,11 +104,6 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
 
       // -- All Possible Steps --
 
-      console.log({
-        screenName,
-        ScreenName,
-        screenTitleDivider,
-      })
       const addSimpleScreen = {
         type: 'add',
         path: `${workspacePath}/screens/${ScreenName}.tsx`,
@@ -136,14 +131,6 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
         },
       }
 
-      console.log({
-        screenName,
-        ScreenName,
-        screenModuleName: screenName,
-        screenImportPath,
-        routePath,
-        routePathDivider,
-      })
       const addSimpleRoutePath = {
         type: 'add',
         path: screenRoutePath,

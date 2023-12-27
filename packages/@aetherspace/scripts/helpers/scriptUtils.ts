@@ -131,7 +131,8 @@ export const getAvailableSchemas = (folderLevel = '../../') => {
 /** -i- List all the available data bridges for generators to use */
 export const getAvailableDataBridges = (
   folderLevel = '../../',
-  filterGraphQL?: 'query' | 'mutation'
+  filterType?: 'query' | 'mutation',
+  allowNonGraphql = false
 ) => {
   // Get workspace imports
   const { workspaceImports } = parseWorkspaces(folderLevel)
@@ -162,8 +163,9 @@ export const getAvailableDataBridges = (
     // Filter out queries or mutations?
     const allowedMethodsLine = fileContents.match(/allowedMethods: \[(.+)\]/)?.[1]
     const hasGraphResolver = allowedMethodsLine?.includes('GRAPHQL')
+    if (!allowNonGraphql && !hasGraphResolver) return acc
     const resolverTypeLine = fileContents.match(/resolverType: '(\w+)'/)?.[1]
-    if (filterGraphQL && hasGraphResolver && resolverTypeLine !== filterGraphQL) return acc
+    if (filterType && resolverTypeLine !== filterType) return acc
 
     // Build the option to display in the CLI
     const dataBridgeOption = `${workspaceName} >>> ${resolverName}()`
