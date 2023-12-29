@@ -4,6 +4,7 @@ module.exports = [
   "@aetherspace/commerce",
   "@aetherspace/mongoose",
   "aetherspace",
+  "@aetherspace/clerk-auth",
   "config",
   "@green-stack/icons",
   "registries",

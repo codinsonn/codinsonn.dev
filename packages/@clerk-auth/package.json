@@ -1,0 +1,14 @@
+{
+    "name": "@aetherspace/clerk-auth",
+    "version": "0.0.1",
+    "private": true,
+    "license": "SEE LICENSE IN LICENSE.md",
+    "description": "Universal app authentication for aetherspace projects with clerk",
+    "scripts": {
+        "lint": "cd ../.. && eslint \"packages/@clerk-auth/**/*.{ts,tsx}\""
+    },
+    "dependencies": {
+        "@clerk/clerk-expo": "^0.19.27",
+        "@clerk/nextjs": "^4.29.1"
+    }
+}
