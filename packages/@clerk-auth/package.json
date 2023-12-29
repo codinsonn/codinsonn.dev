@@ -5,7 +5,7 @@
     "license": "SEE LICENSE IN LICENSE.md",
     "description": "Universal app authentication for aetherspace projects with clerk",
     "scripts": {
-        "lint": "cd ../.. && eslint \"packages/@clerk-auth/**/*.{ts,tsx}\""
+        "lint": "cd ../.. && eslint \"packages/@clerk-auth/**/*.{ts,tsx}\" --no-error-on-unmatched-pattern"
     },
     "dependencies": {
         "@clerk/clerk-expo": "^0.19.27",
