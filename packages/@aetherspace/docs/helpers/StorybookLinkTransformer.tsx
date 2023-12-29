@@ -42,7 +42,7 @@ const StorybookLinkTransformer = (props) => {
       '?path=/packages/@aetherspace/navigation/AetherPage/README.md': '?path=/docs/aetherspace-graphql-data-fetching--page', // prettier-ignore
       '?path=/packages/@aetherspace/forms/README.md': '?path=/docs/aetherspace-form-management--page', // prettier-ignore
       '?path=/packages/@aetherspace/components/AetherIcon/README.md': '?path=/docs/aetherspace-icon-management--page', // prettier-ignore
-      '?path=/packages/@aetherspace/scripts/README.md': '?path=/docs/aetherspace-automation--page',
+      '?path=/packages/@aetherspace/scripts/README.md': '?path=/docs/aetherspace-recommended-workflow--page', // prettier-ignore
       '?path=/packages/@aetherspace/schemas/README.md': '?path=/docs/aetherspace-single-sources-of-truth--page', // prettier-ignore
       '?path=/.github/workflows/README.md': '?path=/docs/aetherspace-deployment--page',
       '?path=/LICENSE.md': '?path=/docs/aetherspace-license--page',

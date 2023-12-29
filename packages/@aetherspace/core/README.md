@@ -1,3 +1,5 @@
+<img src="/packages/@aetherspace/assets/AetherspaceLogo.svg" width="50" height="50" />
+
 # Aetherspace Core Concepts
 
 To help you decide if Aetherspace is the right tool for you or your project,  
