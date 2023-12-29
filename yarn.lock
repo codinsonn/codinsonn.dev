@@ -6715,7 +6715,7 @@ base-64@1.0.0:
   resolved "https://registry.yarnpkg.com/base-64/-/base-64-1.0.0.tgz#09d0f2084e32a3fd08c2475b973788eee6ae8f4a"
   integrity sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg==
 
-base64-js@^1.0.2, base64-js@^1.1.2, base64-js@^1.2.3, base64-js@^1.3.1, base64-js@^1.5.1:
+base64-js@^1.0.2, base64-js@^1.1.2, base64-js@^1.2.3, base64-js@^1.3.0, base64-js@^1.3.1, base64-js@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
   integrity sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
@@ -10147,13 +10147,32 @@ expo-asset@~8.10.1:
     path-browserify "^1.0.0"
     url-parse "^1.5.9"
 
-expo-constants@^14.4.2, expo-constants@~14.0.0, expo-constants@~14.4.2:
+expo-auth-session@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/expo-auth-session/-/expo-auth-session-5.2.0.tgz#63668ae77dcfa2cb82c0ae99b13cf9b5fc2ede08"
+  integrity sha512-IihmXSBbytPUgUvq7Gj+v4Q8wcQNsAQ8Tbp5OklNLfO/6OZRDkGp/mM+aI0+tlmDrZabZ2cTLDVMBqi30b5eKg==
+  dependencies:
+    expo-constants "~15.0.0"
+    expo-crypto "~12.6.0"
+    expo-linking "~6.0.0"
+    expo-web-browser "~12.5.0"
+    invariant "^2.2.4"
+    qs "^6.11.0"
+
+expo-constants@^14.4.2, expo-constants@~14.0.0, expo-constants@~14.4.2, expo-constants@~14.5.0, expo-constants@~15.0.0:
   version "14.4.2"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-14.4.2.tgz#cac5e8b524069545739b8d8595ce96cc5be6578c"
   integrity sha512-nOB122DOAjk+KrJT69lFQAoYVQGQjFHSigCPVBzVdko9S1xGsfiOH9+X5dygTsZTIlVLpQJDdmZ7ONiv3i+26w==
   dependencies:
     "@expo/config" "~8.1.0"
     uuid "^3.3.2"
+
+expo-crypto@~12.6.0:
+  version "12.6.0"
+  resolved "https://registry.yarnpkg.com/expo-crypto/-/expo-crypto-12.6.0.tgz#2b648ab4832338122460f4444ff15de1d35dd026"
+  integrity sha512-wSq64eIJxk4lQBidtcW9wNF5AgO/UvV8W8mDhb7bo6P3xH41yvu/P4FcxevQY1taGA8VHD+fO+xQDrhPiHzFqQ==
+  dependencies:
+    base64-js "^1.3.0"
 
 expo-eas-client@~0.6.0:
   version "0.6.0"
@@ -10210,6 +10229,17 @@ expo-linking@5.0.2:
   dependencies:
     "@types/qs" "^6.9.7"
     expo-constants "~14.4.2"
+    invariant "^2.2.4"
+    qs "^6.11.0"
+    url-parse "^1.5.9"
+
+expo-linking@~6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/expo-linking/-/expo-linking-6.0.0.tgz#1d441b5bd8cff3ece4d10ad01ec0db1ca10f0ef9"
+  integrity sha512-BVj+9yfMfQg1r23uQOES3Y47XdigKV0Qg0jJ5zP+3SO/mZ98s3r5wASOGLhujvO9/SqOh/BdotcTsO9sasxCag==
+  dependencies:
+    "@types/qs" "^6.9.7"
+    expo-constants "~14.5.0"
     invariant "^2.2.4"
     qs "^6.11.0"
     url-parse "^1.5.9"
@@ -10320,6 +10350,14 @@ expo-web-browser@12.3.2:
   version "12.3.2"
   resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-12.3.2.tgz#45ac727a5d8462d7faa403ea2fa1db160ed8e4b5"
   integrity sha512-ohBf+vnRnGzlTleY8EQ2XQU0vRdRwqMJtKkzM9MZRPDOK5QyJYPJjpk6ixGhxdeoUG2Ogj0InvhhgX9NUn4jkg==
+  dependencies:
+    compare-urls "^2.0.0"
+    url "^0.11.0"
+
+expo-web-browser@~12.5.0:
+  version "12.5.0"
+  resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-12.5.0.tgz#69949c50ef0ef8d2889435ed9e595206cfbcf68b"
+  integrity sha512-3uDzP19DqcEicLOB4ZH6pGWzxlCQ8mLHSmWMmfXEBhZjooUkHUrysbzkNvQQa24ijy3uoUybX4jW0xPss594kA==
   dependencies:
     compare-urls "^2.0.0"
     url "^0.11.0"

@@ -20,6 +20,7 @@ setPublicEnvVars({
   APP_LINKS: process.env.NEXT_PUBLIC_APP_LINKS,
   BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
   DOCS_URL: process.env.NEXT_PUBLIC_DOCS_URL,
+  CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
 })
 
 /* --- <NextRootLayout/> ----------------------------------------------------------------------- */
