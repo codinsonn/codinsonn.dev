@@ -1,17 +1,17 @@
 import { useFormState } from 'aetherspace/forms/useFormState'
 import { DeepPartial } from 'aetherspace/types/typeHelpers'
 import { AetherProps } from 'aetherspace/schemas'
-import { {{SchemaName}} } from '{{schemaImportPath}}'
+import { UserSignUpState } from '../schemas/UserSignUpState'
 
 /* --- Schema & Types -------------------------------------------------------------------------- */
 
-export type {{SchemaName}}InitialValues = DeepPartial<AetherProps<typeof {{SchemaName}}>>
+export type UserSignUpStateInitialValues = DeepPartial<AetherProps<typeof UserSignUpState>>
 
-{{formHookDivider}}
+/* --- useUserSignUpFormState() ---------------------------------------------------------------- */
 
-const {{formHookName}} = (initialValues: {{SchemaName}}InitialValues) => {
+const useUserSignUpFormState = (initialValues: UserSignUpStateInitialValues) => {
   const formState = useFormState({
-    stateSchema: {{SchemaName}},
+    stateSchema: UserSignUpState,
     initialValues,
     applyDefaults: true,
   })
@@ -20,4 +20,4 @@ const {{formHookName}} = (initialValues: {{SchemaName}}InitialValues) => {
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
-export default {{formHookName}}
+export default useUserSignUpFormState

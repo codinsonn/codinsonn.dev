@@ -8,6 +8,8 @@ export const routeManifest = {
   ['/cv/[slug]/edit']: 'UpdateResumeScreen',
   ['/cv/[slug]']: 'ResumeScreen',
   ['/resume/[slug]']: 'ResumeScreen',
+  ['/sign-in']: 'SignInScreen',
+  ['/sign-up']: 'SignUpScreen',
 } as const
 
 // eslint-disable-next-line @typescript-eslint/ban-types

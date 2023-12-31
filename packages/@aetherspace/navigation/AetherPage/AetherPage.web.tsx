@@ -15,7 +15,7 @@ const getSSRData = () => {
 
 export const AetherPage = <SC extends AetherScreenConfig>(props: AetherPageProps<SC>) => {
   // Props
-  const { params: routeParams, searchParams, screen, screenConfig, ...restProps } = props
+  const { params: routeParams, searchParams, screen, screenConfig, skipFetching, ...restProps } = props // prettier-ignore
   const { graphqlQuery, getGraphqlVars, getGraphqlData } = screenConfig
 
   // State
@@ -28,7 +28,7 @@ export const AetherPage = <SC extends AetherScreenConfig>(props: AetherPageProps
   const PageScreen = screen
 
   // Vars
-  const variables = getGraphqlVars({ ...searchParams, ...routeParams })
+  const variables = getGraphqlVars ? getGraphqlVars({ ...searchParams, ...routeParams }) : {}
   const fallbackKey = unstable_serialize([graphqlQuery, variables])
   const isServer = typeof window === 'undefined'
 
@@ -36,11 +36,17 @@ export const AetherPage = <SC extends AetherScreenConfig>(props: AetherPageProps
 
   useEffect(() => {
     const ssrData = getSSRData()
-    if (ssrData) {
+    if (ssrData && !skipFetching) {
       mutate(fallbackKey, ssrData, false) // Save the SSR data to the SWR cache
       setHydratedData(ssrData) // Save the SSR data to state, removing the SSR data from the DOM
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // -- Skip Fetching? --
+
+  if (skipFetching) {
+    return <PageScreen params={routeParams} {...restProps} />
+  }
 
   // -- Browser --
 

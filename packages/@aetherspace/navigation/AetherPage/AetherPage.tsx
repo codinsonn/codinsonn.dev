@@ -7,7 +7,7 @@ import { AetherPageProps, AetherScreenConfig } from './AetherPage.types'
 
 export const AetherPage = <SC extends AetherScreenConfig>(props: AetherPageProps<SC>) => {
   // Props
-  const { params, screen, screenConfig, ...restProps } = props
+  const { params, screen, screenConfig, skipFetching, ...restProps } = props
 
   // Refs
   const scrollViewRef = useRef<ScrollView>(null)

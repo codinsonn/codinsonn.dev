@@ -5,10 +5,10 @@ import { z, AetherProps, aetherSchema } from 'aetherspace/schemas'
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
 // -i- TODO: Change this schemas to match your screen's props
-const {{ScreenName}}Props = aetherSchema('{{ScreenName}}Props', {
+const SignInScreenProps = aetherSchema('SignInScreenProps', {
   /* Add props here, e.g.: */
   /* params: SomeScreenParams.optional(), */
-  greeting: z.string().optional().default('Hello {{ScreenName}} 👋'),
+  greeting: z.string().optional().default('Hello SignInScreen 👋'),
 })
 
 /* --- Screen Config --------------------------------------------------------------------------- */
@@ -18,13 +18,13 @@ export const screenConfig = {
   // backgroundColor: '#your-primary-bg-color',
 }
 
-export type {{ScreenName}}Props = AetherProps<typeof {{ScreenName}}Props>
+export type SignInScreenProps = AetherProps<typeof SignInScreenProps>
 
-{{{screenTitleDivider}}}
+/* --- <SignInScreen/> ------------------------------------------------------------------------- */
 
-export const {{ScreenName}} = (props: {{ScreenName}}Props) => {
+export const SignInScreen = (props: SignInScreenProps) => {
   // Props
-  const { greeting } = {{ScreenName}}Props.applyDefaults(props)
+  const { greeting } = SignInScreenProps.applyDefaults(props)
 
   // -- Render --
 
@@ -37,8 +37,8 @@ export const {{ScreenName}} = (props: {{ScreenName}}Props) => {
 
 /* --- Documentation --------------------------------------------------------------------------- */
 
-export const getDocumentationProps = {{ScreenName}}Props.introspect()
+export const getDocumentationProps = SignInScreenProps.introspect()
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
-export default {{ScreenName}}
+export default SignInScreen

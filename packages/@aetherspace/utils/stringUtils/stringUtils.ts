@@ -8,11 +8,11 @@ export const camelToDash = (str: string) => str.replace(/[\w]([A-Z])/g, (m) => `
 
 /** --- uppercaseFirstChar() ------------------------------------------------------------------- */
 /** -i- Uppercase the first character of a string */
-export const uppercaseFirstChar = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
+export const uppercaseFirstChar = (str: string) => str ? str.charAt(0).toUpperCase() + str.slice(1) : str // prettier-ignore
 
 /** --- lowercaseFirstChar() ------------------------------------------------------------------- */
 /** -i- Lowercase the first character of a string */
-export const lowercaseFirstChar = (str: string) => str.charAt(0).toLowerCase() + str.slice(1)
+export const lowercaseFirstChar = (str: string) => str ? str.charAt(0).toLowerCase() + str.slice(1) : str // prettier-ignore
 
 /** --- getAssetKey() -------------------------------------------------------------------------- */
 /** -i- Transform a file path like '/imgs/someImage.png' into an object key like 'ImgsSomeImagePng' */

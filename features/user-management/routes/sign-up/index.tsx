@@ -1,15 +1,15 @@
 import React from 'react'
 import { AetherPage } from 'aetherspace/navigation'
-import * as {{screenName}} from '{{screenImportPath}}'
+import * as signUpScreen from '../../screens/SignUpScreen'
 
 /* --- Config ---------------------------------------------------------------------------------- */
 
-const ScreenComponent = {{screenModuleName}}.{{ScreenName}}
-const screenConfig = {{screenModuleName}}.screenConfig
+const ScreenComponent = signUpScreen.SignUpScreen
+const screenConfig = signUpScreen.screenConfig
 
-{{{routePathDivider}}}
+/* --- /sign-up ------------------------------------------------------------------------------ */
 
-const PageScreen = (props: {{screenModuleName}}.{{ScreenName}}Props) => (
+const PageScreen = (props: signUpScreen.SignUpScreenProps) => (
   <AetherPage
     {...props}
     screen={ScreenComponent} // @ts-ignore
@@ -20,6 +20,6 @@ const PageScreen = (props: {{screenModuleName}}.{{ScreenName}}Props) => (
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
-export const dynamic = {{screenName}}.screenConfig.dynamic
+export const dynamic = signUpScreen.screenConfig.dynamic
 
 export default PageScreen

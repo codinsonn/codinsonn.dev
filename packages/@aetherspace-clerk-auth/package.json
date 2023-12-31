@@ -11,5 +11,13 @@
         "@clerk/clerk-expo": "^0.19.27",
         "@clerk/nextjs": "^4.29.1",
         "expo-auth-session": "^5.2.0"
+    },
+    "aetherspace": {
+        "relatedWorkspaces": [
+            "aetherspace"
+        ],
+        "requiredEnvVars": [
+            "CLERK_PUBLISHABLE_KEY"
+        ]
     }
 }

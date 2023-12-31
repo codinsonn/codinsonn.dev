@@ -15,4 +15,5 @@ export type AetherPageProps<SC extends AetherScreenConfig> = {
   searchParams?: Record<string, any>
   screen: React.FC<Record<string, any>> | ((props: any) => JSX.Element | null)
   screenConfig: SC
+  skipFetching?: boolean
 }

@@ -1,0 +1,17 @@
+{
+    "name": "user-management",
+    "version": "0.0.1",
+    "private": true,
+    "license": "MIT",
+    "description": "User management resources and editable boilerplates",
+    "scripts": {
+        "lint": "cd ../.. && eslint \"features/user-management/**/*.{ts,tsx}\" --no-error-on-unmatched-pattern"
+    },
+    "dependencies": {},
+    "aetherspace": {
+        "relatedWorkspaces": [
+            "aetherspace"
+        ],
+        "requiredEnvVars": []
+    }
+}

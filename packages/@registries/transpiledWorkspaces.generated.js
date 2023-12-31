@@ -10,5 +10,6 @@ module.exports = [
   "registries",
   "app",
   "cv-page",
-  "links-page"
+  "links-page",
+  "user-management"
 ]
