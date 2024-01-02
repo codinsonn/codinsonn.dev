@@ -3,6 +3,7 @@ import { aetherStoryDocs } from 'aetherspace/schemas/utils'
 import { isEmpty } from 'aetherspace/utils/commonUtils'
 // -i- Auto generated with "yarn document-components"
 // Components hooking into the storybook auto-documentation script
+import { SignInScreen, getDocumentationProps as getSignInScreenProps } from '../../../../../features/user-management/screens/SignInScreen.tsx'
 import { SignUpScreen, getDocumentationProps as getSignUpScreenProps } from '../../../../../features/user-management/screens/SignUpScreen.tsx'
 // Mocks
 import StoryContextProviders from '../../../../../features/app-core/mocks/StoryContextProviders'
@@ -16,6 +17,39 @@ export const createDocs = (Component) => (args) => {
     </StoryContextProviders>
   )
 }
+
+## SignInScreen
+
+export const SignInScreenDocs = createDocs(SignInScreen)
+export const SignInScreenConfig = aetherStoryDocs({ SignInScreen }, getSignInScreenProps)
+
+`/features/user-management/screens/SignInScreen.tsx`
+```typescript
+import { SignInScreen } from 'user-management/screens/SignInScreen'
+```
+
+
+<Canvas>
+    <Story
+        name="SignInScreen"
+        args={SignInScreenConfig.args}
+        argTypes={SignInScreenConfig.argTypes}
+        parameters={{
+          backgrounds: {
+            default: 'light',
+            values: [
+              { name: 'light', value: '#FFFFFF' },
+              { name: 'dark', value: '#333333' },
+            ],
+          },
+        }}
+    >
+      {SignInScreenDocs.bind({})}
+    </Story>
+</Canvas>
+
+{!isEmpty(SignInScreenConfig.args) && <ArgsTable story="SignInScreen" />}
+
 
 ## SignUpScreen
 
@@ -48,6 +82,7 @@ import { SignUpScreen } from 'user-management/screens/SignUpScreen'
 </Canvas>
 
 {!isEmpty(SignUpScreenConfig.args) && <ArgsTable story="SignUpScreen" />}
+
 
 
 

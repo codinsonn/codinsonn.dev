@@ -3,11 +3,11 @@ import { Text, View } from 'aetherspace/primitives'
 import { TextInput, Button } from 'aetherspace/forms'
 import { AetherProps, aetherSchema } from 'aetherspace/schemas'
 import useUserSignupFormState from '../hooks/useUserSignUpFormState'
-import { useSignUp } from '@aetherspace/clerk-auth'
+import { useSignUp, useSession } from '@aetherspace/clerk-auth'
+import { useAetherNav } from 'aetherspace/navigation'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
-// -i- TODO: Change this schemas to match your screen's props
 const SignUpScreenProps = aetherSchema('SignUpScreenProps', {})
 
 export type SignUpScreenProps = AetherProps<typeof SignUpScreenProps>
@@ -24,6 +24,8 @@ export const screenConfig = {
 export const SignUpScreen = (props: SignUpScreenProps) => {
   // Hooks
   const { isLoaded, setActive, signUp } = useSignUp()
+  const { isSignedIn, session } = useSession()
+  const { openLink } = useAetherNav()
 
   // Forms
   const formState = useUserSignupFormState({})
@@ -34,9 +36,12 @@ export const SignUpScreen = (props: SignUpScreenProps) => {
     // Ignore if not loaded
     if (!isLoaded) return
 
-    console.log({ formState })
+    console.log('handleSignUpPressed()', { formState, isSignedIn })
 
     try {
+      // Remove the previous session if there is one
+      if (isSignedIn) await session.end()
+
       // Sign up
       await signUp.create({
         firstName: formState.values.firstName,
@@ -59,6 +64,8 @@ export const SignUpScreen = (props: SignUpScreenProps) => {
     // Ignore if not loaded
     if (!isLoaded) return
 
+    console.log('handleVerifyEmailPressed()', { formState })
+
     try {
       // Verify the email address
       const completedSignUp = await signUp.attemptEmailAddressVerification({
@@ -69,9 +76,15 @@ export const SignUpScreen = (props: SignUpScreenProps) => {
     } catch (error) {
       console.error(JSON.stringify(error, null, 4))
     }
+
+    // Navigate to the home page
+    openLink('/')
   }
 
   // -- Render --
+
+  // TODO: Add social (OAuth) sign up buttons?
+  // -i- https://clerk.com/docs/authentication/social-connections/oauth#social-connections-o-auth
 
   return (
     <View tw="w-full h-full min-h-full min-w-full items-center justify-center bg-primary">

@@ -4,12 +4,14 @@ import { z, AetherProps, aetherSchema } from 'aetherspace/schemas'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
-// -i- TODO: Change this schemas to match your screen's props
+// -i- TODO: Change this schema to match your screen's props (for types and documentation)
 const {{ScreenName}}Props = aetherSchema('{{ScreenName}}Props', {
   /* Add props here, e.g.: */
   /* params: SomeScreenParams.optional(), */
   greeting: z.string().optional().default('Hello {{ScreenName}} 👋'),
 })
+
+export type {{ScreenName}}Props = AetherProps<typeof {{ScreenName}}Props>
 
 /* --- Screen Config --------------------------------------------------------------------------- */
 
@@ -17,8 +19,6 @@ export const screenConfig = {
   dynamic: 'force-static' as const,
   // backgroundColor: '#your-primary-bg-color',
 }
-
-export type {{ScreenName}}Props = AetherProps<typeof {{ScreenName}}Props>
 
 {{{screenTitleDivider}}}
 
