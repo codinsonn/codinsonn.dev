@@ -2,7 +2,6 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next'
 import { ApolloServer } from '@apollo/server'
 import { writeFileSync } from 'fs'
 import { printSchema } from 'graphql'
-// Schemas
 import { schemaDefs, schema } from 'app/graphql/schema'
 
 /* --- Save schema ----------------------------------------------------------------------------- */
