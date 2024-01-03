@@ -3,7 +3,7 @@ import { Text, View } from 'aetherspace/primitives'
 import { TextInput, Button } from 'aetherspace/forms'
 import { AetherProps, aetherSchema } from 'aetherspace/schemas'
 import useUserSignupFormState from '../hooks/useUserSignUpFormState'
-import { useSignUp, useSession } from '@aetherspace/clerk-auth'
+import { useSignUp, useSession } from '@aetherspace/clerk-auth/hooks'
 import { useAetherNav } from 'aetherspace/navigation'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */

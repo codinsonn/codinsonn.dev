@@ -2,7 +2,7 @@
 import React from 'react'
 import ErrorBoundary from '../screens/ErrorBoundary'
 import { View } from 'aetherspace/primitives'
-import { AetherClerkProvider } from '../../../packages/@aetherspace-clerk-auth'
+import { AetherClerkProvider } from '@aetherspace/clerk-auth/context/ClerkProvider'
 
 /* --- <RootLayout/> --------------------------------------------------------------------------- */
 

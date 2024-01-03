@@ -43,7 +43,7 @@ export type ResolverExecutionParamsType<AT = any, RT = any, RTI = any> = {
   parseArgs: (args: AT) => AT
   withDefaults: (response: RTI) => RT
   context: Record<string, unknown>
-  user?: unknown
+  user?: Record<string, unknown> | null
   config: ResolverConfigType
   req?: NextApiRequest | Request | GetServerSidePropsContext['req']
   res?: NextApiResponse | Response | GetServerSidePropsContext['res']
@@ -101,7 +101,7 @@ export const aetherResolver = <
     // Context normalization
     const headerContext = getHeaderContext(req)
     const fullContext = { ...headerContext, ...config } // Always override header context with config
-    const user = fullContext?.user
+    const user = fullContext?.user as Record<string, unknown> | undefined | null
     // Error handling
     const handleError = (err, sendResponse = false) => {
       const isRichError = typeof err === 'object' && !!err.errors

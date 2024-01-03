@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'aetherspace/primitives'
 import { AetherProps, aetherSchema } from 'aetherspace/schemas'
-import { useSignIn, useSession } from '@aetherspace/clerk-auth'
+import { useSignIn, useSession } from '@aetherspace/clerk-auth/hooks'
 import { Button, TextInput } from 'aetherspace/forms'
 import useUserSignInFormState from '../hooks/useUserSignInFormState'
 import { useAetherNav } from 'aetherspace/navigation'
@@ -82,7 +82,7 @@ export const SignInScreen = (props: SignInScreenProps) => {
           />
         </View>
         <Button pressableClasses="px-4 mt-4 bg-blue-500 rounded-md" onPress={handleSignInPressed}>
-          <Text tw="text-white">Sign Up</Text>
+          <Text tw="text-white">Sign In</Text>
         </Button>
       </View>
       <View tw="h-12" />

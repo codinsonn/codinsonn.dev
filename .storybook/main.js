@@ -56,7 +56,8 @@ module.exports = {
         // Other aliases for web support (https://github.com/expo/expo/issues/21469#issuecomment-1576001543)
         config.resolve.alias['expo-asset'] = 'expo-asset-web'
         config.resolve.alias['aetherspace/navigation'] = require.resolve('./__mocks__/aetherspaceNavigation.tsx')
-        config.resolve.alias['@aetherspace/clerk-auth'] = require.resolve('./__mocks__/aetherspaceClerkAuth.tsx')
+        config.resolve.alias['@aetherspace/clerk-auth/schemas'] = require.resolve('./__mocks__/@aetherspace-clerk-auth/schemas/index.ts')
+        config.resolve.alias['@aetherspace/clerk-auth/hooks'] = require.resolve('./__mocks__/@aetherspace-clerk-auth/hooks/index.tsx')
         config.resolve.extensions.push('.ts', '.tsx')
         config.resolve.fallback = {
           ...config.resolve.fallback,

@@ -26,7 +26,8 @@ const collectResolvers = () => {
       // Skip files that don't export an aetherResolver
       const pathContents = fs.readFileSync(resolverPath, 'utf8')
       const exportsAetherResolver = pathContents.includes('makeGraphQLResolver')
-      const exportsGraphQLResolver = pathContents.includes('export const graphResolver')
+      const isCommented = pathContents.includes('// export const graphResolver')
+      const exportsGraphQLResolver = pathContents.includes('export const graphResolver') && !isCommented // prettier-ignore
       if (!exportsAetherResolver || !exportsGraphQLResolver) return acc
       // Find the resolver name
       const lines = pathContents.split('\n')
