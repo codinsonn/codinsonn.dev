@@ -3,7 +3,7 @@
 # Aetherspace's Recommended Way of Working
 
 > To get the best out of Aetherspace, we recommend a few conventions and workflows to follow.  
-> These are not enforced, but will make your life easier if you do.
+> These are not enforced, but will make your life as a full-product / universal app developer easier if you do.
 
 These conventions **build upon, hook into, or even simplify** some of the **already existing conventions in the Next.js app dir and Expo Router.**  
 
@@ -14,6 +14,8 @@ The easiest way to opt in to these conventions is by using our [turborepo genera
 - [3. Use your schemas to create Resolvers and API's](#3-use-your-schemas-to-create-resolvers-and-apis)
 - [4. Integrate resolvers with Universal Routes](#4-integrate-resolvers-with-universal-routes)
 
+<p style={{ padding: "12px" }} />  
+
 ## 1. Colocating code in `/features/` and `/packages/`
 
 Our **ultimate goal** is to **help you create a way of working that is as copy-pasteable as possible**, so that you can easily transfer full reusable (yet fully customisable) 'features' across codebases or between projects:
@@ -23,7 +25,7 @@ Our **ultimate goal** is to **help you create a way of working that is as copy-p
 ✅ Universal routes and navigation  
 ✅ Data resolvers, REST and GraphQL API's  
 
-> All at the ease of copy-pasting a folder from one project to another.
+> All at the ease of copy-pasting a workspace folder from one project to another.
 
 ### Workspace benefits?
 
@@ -76,6 +78,8 @@ Running 'install' on workspace root
   • Opened 1 files in VSCode (open-files-in-vscode)
   • Ran 'install' on workspace root (install)
 ```
+
+<p style={{ padding: "12px" }} />  
 
 ## 2. Start with Single Sources of Truth
 
@@ -140,6 +144,8 @@ Opening files in VSCode...
   • /features/some-feature/schemas/SomeData.ts (add)
   • Opened 1 files in VSCode (open-files-in-vscode)
 ```
+
+<p style={{ padding: "12px" }} />  
 
 ## 3. Use your schemas to create Resolvers and API's
 
@@ -214,6 +220,8 @@ Opening files in VSCode...
   • Opened 3 files in VSCode (open-files-in-vscode)
 ```
 
+<p style={{ padding: "12px" }} />  
+
 ## 4. Integrate resolvers with Universal Routes
 
 > With your workspace, schemas and resolvers in place, we can now hook them up to our UI for data-fetching:
@@ -260,6 +268,8 @@ Opening files in VSCode...
   • Opened 2 files in VSCode (open-files-in-vscode)
 ```
 
+<p style={{ padding: "12px" }} />  
+
 ---
 
 # Automations, designed for copy-paste ⚙️  
@@ -268,9 +278,9 @@ Opening files in VSCode...
 
 > Codegen in Aetherspace is focused on keeping your internal features and packages folders as transferrable between projects as possible. Therefore, it is limited to do only a few things:  
 
-- [Turborepo generators](https://turbo.build/repo/docs/core-concepts/monorepos/code-generation) for easy creation of new schemas, data-resolvers and universal routes (as described above this section)
-- Deduplicating file-based conventions (e.g. linking from modules to next.js & expo-router app dirs)
-- Creating barrel files to act as "registries" (e.g. abstracting imports and module linking)
+- [Turborepo generators](https://turbo.build/repo/docs/core-concepts/monorepos/code-generation) for easy creation of new schemas, resolvers and routes per workspace (as described above this section)
+- Deduplicating file-based conventions (linking from modules to next.js & expo-router app dirs)
+- Creating barrel files to act as "registries" (abstracting imports and module linking)
 
 The `packages/@registries` folder contains the results of all the automation scripts defined at `packages/@aetherspace/scripts`. These scripts are automatically run in development mode from the `withAutomation()` plugin in `apps/next/next.config.js`.
 
@@ -503,6 +513,35 @@ const withAutomation = () => {
     require('aetherspace/scripts/collect-assets')
 }
 ```
+
+## Other Recommendations
+
+### Terminal autocomplete with Fig
+
+If you're using a terminal autocomplete tool like [fig](https://fig.io/), you may want to add the following to your `~/.bashrc` or `~/.zshrc`:
+
+```shell-script
+# Aetherspace
+alias ats="yarn workspace aetherspace" # Will autocomplete available scripts and generators from 'packages/aetherspace'
+```
+
+### Doppler for managing secrets
+
+> We recommend [doppler](doppler.com) for managing and syncing secrets or env vars between services. You can find more information on how to set this up at [the doppler docs](https://docs.doppler.com/docs/github-actions).  
+
+<p style={{ padding: "12px" }} />  
+
+# Recommended plugins
+
+While the template itself already covers a lot of ground, we absolutely recommend you check out our mergeable plugin branches as well.
+
+You can include them when forking the repo from the official template:
+
+![GithubTemplateRepoWithPlugins.png](/.storybook/public/GithubTemplateRepoWithPlugins.png)
+
+> [Learn more](/.storybook/plugins/README.md) about the [available plugins](/.storybook/plugins/README.md) and how to apply them using git.
+
+<p style={{ padding: "12px" }} />  
 
 ## Learn more:
 

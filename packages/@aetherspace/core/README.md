@@ -3,7 +3,9 @@
 # Aetherspace Core Concepts
 
 To help you decide if Aetherspace is the right tool for you or your project,  
-I've written this page to explain the core opinions and benefits when using Aetherspace:
+I've written this page to explain the core opinions and benefits when using Aetherspace:  
+
+<p style={{ padding: "12px" }} />  
 
 ## Full-Product Universal Apps from the start
 
@@ -38,11 +40,13 @@ Therefore, using the helpful resources from `packages/@aetherspace` enables this
 ...while still being optimised for each platform you're targeting.
 
 > "Web vs. Native is dead. Web **and** Native is the future."  
-> - Evan Bacon, expo-router maintainer
+> - Evan Bacon, expo-router maintainer  
+
+<p style={{ padding: "12px" }} />  
 
 ## Take what works, make it better
 
-One way I achieve building universal apps from the start is by taking what works and making it better. We feel like it would be huge waste to throw away a decade of open-source learnings by rewriting everything from the ground up. Instead, I optimize by combining existing tools, patching in cross-platform support or expanding them with supersets.
+One way we achieve building universal apps from the start is by taking what works and making it better. We feel like it would be huge waste to throw away a decade of open-source learnings by rewriting everything from the ground up. Instead, we optimize by combining existing tools, patching in cross-platform support or expanding them with supersets.
 
 ### The GREEN stack
 
@@ -80,7 +84,9 @@ These are opinionated choices, but best-in-class ones that I'm convinced are her
 
 Note that all other tool decisions are completely up to you and can be installed in any workspace manually or, if available in the [premium version](/LICENSE.md), merged through handy plugin branches. That means you can bring your own preferred state management, testing, database, and other choices and still benefit from the universal setup.
 
-## Thinking in Single sources of truth
+<p style={{ padding: "12px" }} />  
+
+## Thinking in Single sources of truth  
 
 <p>
   <a href="https://zod.dev" target="_blank">
@@ -98,9 +104,11 @@ To further help keep things write-once and not repeat yourself, we’ve chosen Z
 
 Anything you can define in Typescript, you can define with Zod.
 
-Check out some examples on our [Schemas and Single Sources of Truth](/packages/@aetherspace/schemas/README.md) docs page.
+Check out some examples on our [Schemas and Single Sources of Truth](/packages/@aetherspace/schemas/README.md) docs page.  
 
-## Documentation drives adoption.
+<p style={{ padding: "12px" }} />  
+
+## Documentation drives adoption.  
 
 <p>
   <a href="https://main--62c9a236ee16e6611d719e94.chromatic.com/?path=/story/readme-md--page"  target="_blank">
@@ -116,13 +124,15 @@ Docs take time however, and it’s easy to get caught up putting a lot of effort
 
 And this is where Aetherspace, using single sources of truth and Storybook are a great match. Using Aetherspace, documentation becomes just a side-effect of you writing zod schemas to describe and type your component’s props. Our scripts will pick-up on that and generate storybook files with interactive controls and descriptions for you.
 
-You can read more about all of this in the [Single sources of truth](/packages/@aetherspace/schemas/README.md) and [Automations](/packages/@aetherspace/scripts/README.md) docs.
+You can read more about all of this in the [Single sources of truth](/packages/@aetherspace/schemas/README.md) and [Automations](/packages/@aetherspace/scripts/README.md) docs.  
+
+<p style={{ padding: "12px" }} />  
 
 ## Customisable, but designed for copy-paste:
 
 We want your fork of the Aetherspace template repo to evolve into your own personalised template repo you can use for most of your projects. However, not every project is the same, which is why the monorepo setup promotes colocating UI, business logic, routing and assets by `/features/` and `/packages/` workspaces. Ideally, you want to be able to merge or copy-paste these folders into a new project and have it just work out of the box.
 
-To facilitate this, I suggest you keep the following folder structure Aetherspace comes with:
+To facilitate this, we suggest you keep the following folder structure Aetherspace comes with:
 
 ```shell
 │── features/
@@ -174,7 +184,9 @@ A major benefit of going with copy-pastable or mergeable folders for recurring f
 
 > (Unless ofcourse you do want to bother with that: Then you can just publish your workspace as an NPM package for the world or the team to use, even outside of Aetherspace projects)
 
-Similar to adding recurring features, removing features or packages from a freshly forked repo then also becomes as simple as removing a folder.
+Similar to adding recurring features, removing features or packages from a freshly forked repo then also becomes as simple as removing a folder.  
+
+<p style={{ padding: "12px" }} />  
 
 ## Getting started with Aetherspace
 
@@ -182,6 +194,7 @@ Similar to adding recurring features, removing features or packages from a fresh
 - [Recommended way of working](/packages/@aetherspace/scripts/README.md)
 - [Universal Routing](/packages/@aetherspace/navigation/README.md)
 
+<p style={{ padding: "12px" }} />  
 ...
 
 ---
@@ -193,7 +206,7 @@ Similar to adding recurring features, removing features or packages from a fresh
 
 I firmly believe the opinionated toolbelt and core-concepts provided by the template repo will bring major benefits in terms of speed and efficiency.
 
-However, if you wish, you can actually ignore most of these core-concepts Aetherspace promotes and still benefit (only) from the universal setup.
+However, **if you wish, you can actually ignore most of these core-concepts** Aetherspace promotes, and still benefit from (only) the universal setup.
 
 For example:
 - You can avoid using `SWR`, `@expo/html-elements` or even `Zod` schemas yourself, even when keeping automations
@@ -202,7 +215,7 @@ For example:
 - Ignoring the `graphResolver` or other named exports is fine, but you'll need to bring your own GraphQL setup
 - If you don't care for docs at all, you can remove the `.storybook/` folder and disable all automations in `next.config.js`
 
-Though, if you do, you might be better served with a Tamagui or Solito starter instead.
+Though, if you do, you might be better served with a [Tamagui or Solito starter instead](https://dev.to/codinsonn/why-use-react-native-over-flutter-a-recap-57b0#:~:text=When%20to%20use%20an%20Expo%20%2B%20Next.js%20starter%3F).
 
 </details>
 

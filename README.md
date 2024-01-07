@@ -78,10 +78,10 @@ The core idea is writing your app code or features just once with Typescript and
 
 Aetherspace is an opinionated framework that fills in the gaps of working and building with the GREEN stack:
 
-- How should I handle responsive design?
-- How do I avoid web layout shift when react-native styling does not support media queries or classnames?
-- How can I expose / read public env vars across multiple platforms?
-- How do I take advantage of optimisations like `next/image` on web when that's not available in React-Native?
+- How should we handle responsive design?
+- How do we avoid web layout shift when react-native styling does not support media queries or classnames?
+- How can we expose / read public env vars across multiple platforms?
+- How do we take advantage of optimisations like `next/image` on web when that's not available in React-Native?
 - What's the best way to style and animate my UI elements for both web and mobile?
 
 Just to name a few.
@@ -313,7 +313,7 @@ If your project has required dependencies / SDKs / libraries that are either not
 
 See the [Core Concepts](/packages/@aetherspace/core/README.md) section
 
-#### How can I apply the same navigation and deeplinks between web and mobile?
+#### How can we apply the same navigation and deeplinks between web and mobile?
 
 Deeplinks on mobile come out of the box with Expo-Router, which Aetherspace's [Universal Routing](/packages/@aetherspace/navigation/README.md) uses under the hood.
 

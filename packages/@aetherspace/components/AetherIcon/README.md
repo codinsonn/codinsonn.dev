@@ -24,13 +24,13 @@ Instead, you'll want to:
 
 ## SVG icon libraries with `@green-stack/icons`
 
-[Solito Docs: Expo + Next.js Icon recipes](https://solito.dev/recipes/icons)
+[Expo + Next.js Icon recipes (from the 'Solito' docs)](https://solito.dev/recipes/icons)
 
 With the mergeable or copy-pastable `@green-stack/icons` package, you can use any of the following icon libraries in web or mobile, without any downsides:
 - `@nandorojo/iconic` ([NPM](https://github.com/nandorojo/react-native-iconic))
 - `@nandorojo/heroicons` ([NPM](https://github.com/nandorojo/react-native-heroicons))
 
-We'll be gathering more similar SVG icon libraries with react-native support under `/packages/@green-stack-icons`. Which functions mostly as a collection of these cross-platform enabled iconsets gathered in one place... But it also has a handy script for turning your own folder of `.svg` icons into your own custom set of React-Native SVG components:
+We'll be gathering more similar SVG icon libraries with react-native support under `/packages/@green-stack-icons`. Which functions mostly as a collection of these cross-platform enabled iconsets gathered in one place... But it also has a handy script for turning your own folder of `.svg` icons into your own custom set of React-Native SVG components, which might be the ideal happy path:
 
 ```bash
 yarn workspace @green-stack/icons regenerate
@@ -53,15 +53,19 @@ This will enable:
 - Each workspace to define their own icons, optimising the feature or package for copy-paste
 - An importable list of all registered icons for e.g. building an IconPicker component
 
-Example registration (in e.g. `feature/{workspace}/icons/registry.tsx`)
+Example icon registration in a workspace (e.g. `feature/{workspace}/icons/registry.tsx`)
 
 ```tsx
 import { AetherImage } from 'aetherspace/primitives'
 import { registerIconRenderer } from 'aetherspace/utils'
 
+// -i- Export an 'iconRegistry' object with all your icons
 export const iconRegistry = {
-  // Make sure components have 'size' & 'fill' props
+
+  // - Using regular components... (recommended) -
+  // -!- Make sure components have 'size' & 'fill' props
   'some-icon-key': MySvgComponent,
+
   // - OR, if you don't need to change the color through props -
   'some-img-icon': ({ size, ...restIconProps }) => (
     <AetherImage
@@ -71,13 +75,15 @@ export const iconRegistry = {
       {...restIconProps}
     />
   )
-  // - OR -
+
+  // - OR, using an icon library -
   ...registerIconRenderer(
     ['caret-up', 'caret-down', ...] as const,
     ({ name, size, fill, ...restIconProps }) => (
       <ThirdPartyIconLib name={name} size={size} color={fill} {...restIconProps} />
     ),
   ),
+
 }
 ```
 
@@ -169,10 +175,10 @@ The one major downside of using this approach though, is that colors won't be ed
 
 Icon fonts typically require the entire font file to be loaded. This can affect the app's performance, particularly during initial load when these fonts are larger than necessary. This makes even less sense when only a few icons are used.
 
-Therefore, we generally don't recommed using icon fonts like `@expo/vector-icons` or `react-native-vector-icons` in Aetherspace.
-Our recommended way to do icons remains using SVGs, either as React components or as images, but don't import them from barrel files.
+Therefore, we generally don't recommed using icon fonts like `@expo/vector-icons` or `react-native-vector-icons` in Aetherspace.  
+**Our recommended way to do icons remains using SVGs**, either as React components or as images, **but don't import them from barrel files.**
 
 ## Continue learning:
 
-- [Automations based on Schemas and the Filesystem](/packages/@aetherspace/scripts/README.md)
+- [Recommended ways of working](/packages/@aetherspace/scripts/README.md)
 - [Single Sources of Truth for your Web & Mobile apps](/packages/@aetherspace/schemas/README.md)
