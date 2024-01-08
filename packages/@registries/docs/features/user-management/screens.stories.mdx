@@ -5,6 +5,7 @@ import { isEmpty } from 'aetherspace/utils/commonUtils'
 // Components hooking into the storybook auto-documentation script
 import { SignInScreen, getDocumentationProps as getSignInScreenProps } from '../../../../../features/user-management/screens/SignInScreen.tsx'
 import { SignUpScreen, getDocumentationProps as getSignUpScreenProps } from '../../../../../features/user-management/screens/SignUpScreen.tsx'
+import { UserInfoScreen, getDocumentationProps as getUserInfoScreenProps } from '../../../../../features/user-management/screens/UserInfoScreen.tsx'
 // Mocks
 import StoryContextProviders from '../../../../../features/app-core/mocks/StoryContextProviders'
 
@@ -82,6 +83,40 @@ import { SignUpScreen } from 'user-management/screens/SignUpScreen'
 </Canvas>
 
 {!isEmpty(SignUpScreenConfig.args) && <ArgsTable story="SignUpScreen" />}
+
+
+## UserInfoScreen
+
+export const UserInfoScreenDocs = createDocs(UserInfoScreen)
+export const UserInfoScreenConfig = aetherStoryDocs({ UserInfoScreen }, getUserInfoScreenProps)
+
+`/features/user-management/screens/UserInfoScreen.tsx`
+```typescript
+import { UserInfoScreen } from 'user-management/screens/UserInfoScreen'
+```
+
+
+<Canvas>
+    <Story
+        name="UserInfoScreen"
+        args={UserInfoScreenConfig.args}
+        argTypes={UserInfoScreenConfig.argTypes}
+        parameters={{
+          backgrounds: {
+            default: 'light',
+            values: [
+              { name: 'light', value: '#FFFFFF' },
+              { name: 'dark', value: '#333333' },
+            ],
+          },
+        }}
+    >
+      {UserInfoScreenDocs.bind({})}
+    </Story>
+</Canvas>
+
+{!isEmpty(UserInfoScreenConfig.args) && <ArgsTable story="UserInfoScreen" />}
+
 
 
 

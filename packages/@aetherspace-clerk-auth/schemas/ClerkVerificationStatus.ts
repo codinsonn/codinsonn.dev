@@ -14,7 +14,7 @@ const d = {
   nonce: `The nonce pertaining to the verification.`,
 }
 
-/** --- ClerkVerificationStatus ----------------------------------------------------------- */
+/** --- ClerkVerificationStatus ---------------------------------------------------------------- */
 /** -i- The state of the verification process of a sign-in or sign-up attempt.: https://clerk.com/docs/references/javascript/verification */
 export const ClerkVerificationStatus = aetherSchema('ClerkVerificationStatus', {
   status: ClerkVerificationStatusOptions.nullish().describe(d.status),

@@ -7,7 +7,7 @@ import { GetRequestContextResponse } from '../schemas/GetRequestContextResponse'
 export const getRequestContext = aetherResolver(
   async ({ args, parseArgs, withDefaults, handleError, context, user }) => {
     try {
-      const clerkUser = context?.user as GetRequestContextResponse['user']
+      const clerkUser = (user || context?.user) as GetRequestContextResponse['user']
 
       // -- Get user from DB --
 

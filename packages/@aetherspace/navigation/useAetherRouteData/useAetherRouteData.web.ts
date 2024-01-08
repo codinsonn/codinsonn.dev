@@ -1,7 +1,8 @@
 import useSWR from 'swr'
 import { AetherProps, z } from 'aetherspace/schemas'
-import { isEmpty } from 'aetherspace/utils'
+import { getGlobal, isEmpty } from 'aetherspace/utils'
 import { AetherFetcherOptions } from '../fetchAetherProps/fetchAetherProps.types'
+import { useAetherContext } from '../../context/AetherContextManager/useAetherContext'
 
 /** --- useAetherRouteData() ----------------------------------------------------------------------- */
 /** -i- Get the route data and params for any route related screen */
@@ -40,6 +41,9 @@ export const useAetherRouteData = <
   // Props
   const { params: routeParams, segment, searchParams, ...screenDataProps } = props
 
+  // Context
+  const { getAuthToken: getContextToken } = useAetherContext()
+
   // Vars
   const params = paramsSchema.optional().parse({ ...searchParams, ...routeParams })
   const variables = getGraphqlVars(params!)
@@ -51,9 +55,20 @@ export const useAetherRouteData = <
 
   const swrCall = useSWR<PROPS>(
     shouldFetch ? [graphqlQuery, variables] : null,
-    ([gqlQuery, gqlParams]) => {
-      return getGraphqlData(gqlQuery, { variables: gqlParams, headers })
-    }
+    Object.assign(
+      async ([gqlQuery, gqlParams], config?: AetherFetcherOptions) => {
+        const getAuthToken = getContextToken || getGlobal('getAuthToken')
+        const configHeaders = config?.headers || {}
+        const finalHeaders = { ...configHeaders, ...headers }
+        if (!finalHeaders.Authorization && typeof getAuthToken === 'function') {
+          const token = await getAuthToken()
+          if (token) finalHeaders.Authorization = `Bearer ${token}`
+        }
+        return getGraphqlData(gqlQuery, { ...config, variables: gqlParams, headers: finalHeaders })
+      },
+      // -i- Mark as 'aetherFetcher' so any SWR middleware knows the call structure to manipulate
+      { isAetherFetcher: true }
+    )
   )
 
   // -- Data --

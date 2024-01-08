@@ -11,8 +11,8 @@ The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](
 scalar JSONObject
 
 input GetRequestContextArgs {
-  """Echoes back the input"""
-  echo: String
+  """Returns extra debug info"""
+  debug: String
 }
 
 type ClerkActor {
@@ -329,7 +329,7 @@ type ClerkUserProperties {
   """
   A getter boolean to check if the user has uploaded an image or one was copied from OAuth. Returns false if Clerk is displaying an avatar for the user.
   """
-  hasImage: Boolean!
+  hasImage: Boolean
 
   """Information about the user's primary email address."""
   primaryEmailAddress: ClerkUserEmailAdress
@@ -342,10 +342,10 @@ type ClerkUserProperties {
   """
   An array of all the EmailAddress objects associated with the user. Includes the primary.
   """
-  emailAdresses: [ClerkUserEmailAdress]!
+  emailAddresses: [ClerkUserEmailAdress]!
 
   """A getter boolean to check if the user has verified an email address."""
-  hasVerifiedEmailAddress: Boolean!
+  hasVerifiedEmailAddress: Boolean
 
   """Information about the user's primary phone number."""
   primaryPhoneNumber: ClerkUserPhoneNumber
@@ -361,7 +361,7 @@ type ClerkUserProperties {
   phoneNumbers: [ClerkUserPhoneNumber]!
 
   """A getter boolean to check if the user has verified a phone number."""
-  hasVerifiedPhoneNumber: Boolean!
+  hasVerifiedPhoneNumber: Boolean
 
   """
   An array of all the ExternalAccount objects associated with the user via OAuth. Note: This includes both verified & unverified external accounts.
@@ -369,41 +369,41 @@ type ClerkUserProperties {
   externalAccounts: [ClerkExternalAccount]!
 
   """A getter for the user's list of verified external accounts."""
-  verifiedExternalAccounts: [ClerkExternalAccount]!
+  verifiedExternalAccounts: [ClerkExternalAccount]
 
   """A getter for the user's list of unverified external accounts."""
-  unverifiedExternalAccounts: [ClerkExternalAccount]!
+  unverifiedExternalAccounts: [ClerkExternalAccount]
 
   """
   A list of OrganizationMemberships representing the list of organizations the user is member with.
   """
-  organizationMemberships: [ClerkOrganizationMembership]!
+  organizationMemberships: [ClerkOrganizationMembership]
 
   """A boolean indicating whether the user has a password on their account."""
-  passwordEnabled: Boolean!
+  passwordEnabled: Boolean
 
   """
   A boolean indicating whether the user has enabled TOTP by generating a TOTP secret and verifying it via an authenticator app.
   """
-  totpEnabled: Boolean!
+  totpEnabled: Boolean
 
   """
   A boolean indicating whether the user has enabled two-factor authentication.
   """
-  twoFactorEnabled: Boolean!
+  twoFactorEnabled: Boolean
 
   """A boolean indicating whether the user has enabled Backup codes."""
-  backupCodeEnabled: Boolean!
+  backupCodeEnabled: Boolean
 
   """
   A boolean indicating whether the organization creation is enabled for the user or not.
   """
-  createOrganizationEnabled: Boolean!
+  createOrganizationEnabled: Boolean
 
   """
   A boolean indicating whether the user is able to delete their own account or not.
   """
-  deleteSelfEnabled: Boolean!
+  deleteSelfEnabled: Boolean
 
   """
   Date when the user last signed in. May be empty if the user has never signed in.

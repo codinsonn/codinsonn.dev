@@ -1,9 +1,11 @@
 /* --- Types ----------------------------------------------------------------------------------- */
 
+import { AetherFetcherOptions } from '../fetchAetherProps'
+
 export type AetherScreenConfig = {
   graphqlQuery: string
   getGraphqlVars: (navParams: any) => any
-  getGraphqlData: (queryKey: string, queryVariables?: any) => Promise<any>
+  getGraphqlData: (queryKey: string, fetcherOptions?: AetherFetcherOptions) => Promise<any>
   paramsSchema: unknown
   propsSchema: unknown
   refetchOnMount?: boolean

@@ -99,8 +99,8 @@ export const registerAetherRouteGenerator = (plop: PlopTypes.NodePlopAPI) => {
       const DataBridgeName = dataBridgeConfig?.bridgeName
       let dataBridgeImportPath = bridgePath?.replace('.ts', '')
       const isWorkspaceBridge = bridgeWsPath === workspacePath
-      const bridgeImportRoot = isWorkspaceBridge ? '../' : workspaceName
-      dataBridgeImportPath = bridgePath?.replace(bridgeWsPath, bridgeImportRoot)
+      const bridgeImportRoot = isWorkspaceBridge ? '..' : workspaceName
+      dataBridgeImportPath = bridgePath?.replace(bridgeWsPath, bridgeImportRoot)?.replace('.ts', '')
 
       // -- All Possible Steps --
 

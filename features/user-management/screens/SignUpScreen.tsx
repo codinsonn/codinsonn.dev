@@ -36,8 +36,6 @@ export const SignUpScreen = (props: SignUpScreenProps) => {
     // Ignore if not loaded
     if (!isLoaded) return
 
-    console.log('handleSignUpPressed()', { formState, isSignedIn })
-
     try {
       // Remove the previous session if there is one
       if (isSignedIn) await session.end()
@@ -64,8 +62,6 @@ export const SignUpScreen = (props: SignUpScreenProps) => {
     // Ignore if not loaded
     if (!isLoaded) return
 
-    console.log('handleVerifyEmailPressed()', { formState })
-
     try {
       // Verify the email address
       const completedSignUp = await signUp.attemptEmailAddressVerification({
@@ -78,7 +74,7 @@ export const SignUpScreen = (props: SignUpScreenProps) => {
     }
 
     // Navigate to the home page
-    openLink('/')
+    openLink('/me')
   }
 
   // -- Render --

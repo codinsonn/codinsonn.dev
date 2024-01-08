@@ -13,7 +13,7 @@ export default authMiddleware({
     // Create the request context header (to pass things like auth, user, etc. to the API)
     const headerContext = await createRequestContext(req, { auth, evt })
     const extraHeaders = {
-      'x-custom-header': 'custom-value',
+      // 'x-custom-header': 'custom-value',
     }
 
     // Execute the request handler (and pass the request context header)

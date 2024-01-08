@@ -8,6 +8,7 @@ export const routeManifest = {
   ['/cv/[slug]/edit']: 'UpdateResumeScreen',
   ['/cv/[slug]']: 'ResumeScreen',
   ['/resume/[slug]']: 'ResumeScreen',
+  ['/me']: 'UserInfoScreen',
   ['/sign-in']: 'SignInScreen',
   ['/sign-up']: 'SignUpScreen',
 } as const

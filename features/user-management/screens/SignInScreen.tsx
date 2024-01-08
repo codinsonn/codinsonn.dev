@@ -37,8 +37,6 @@ export const SignInScreen = (props: SignInScreenProps) => {
     // Ignore if not loaded
     if (!isLoaded) return
 
-    console.log('handleSignInPressed()', { formState, isSignedIn })
-
     try {
       // Remove the previous session if there is one
       if (isSignedIn) await session.end()
@@ -53,7 +51,7 @@ export const SignInScreen = (props: SignInScreenProps) => {
       await setActive({ session: completedSignIn.createdSessionId })
 
       // Navigate to home
-      openLink('/')
+      openLink('/me')
     } catch (error) {
       console.error(JSON.stringify(error, null, 4))
     }

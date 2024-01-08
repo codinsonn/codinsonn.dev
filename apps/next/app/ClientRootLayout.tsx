@@ -1,14 +1,11 @@
 'use client'
-// Analytics
+import { useEffect } from 'react'
 import { Analytics } from '@vercel/analytics/react'
-// Config
 import tailwindConfig from 'app/tailwind.config'
-// Context
 import { AetherContextManager } from 'aetherspace/context'
-// Hooks
+import { useAuth } from '@aetherspace/clerk-auth/hooks'
 import useLoadFonts from 'app/hooks/useLoadFonts'
-// Utils
-import { setPublicEnvVars } from 'aetherspace/utils'
+import { setPublicEnvVars, setGlobal } from 'aetherspace/utils'
 
 /* --- Public Env Vars ------------------------------------------------------------------------- */
 
@@ -29,16 +26,32 @@ const NextClientRootLayout = (props: { children: React.ReactNode }) => {
   // Props
   const { children } = props
 
+  // Auth
+  const { getToken } = useAuth()
+
   // -- Fonts --
 
   useLoadFonts()
+
+  // -- Effects --
+
+  useEffect(() => {
+    setGlobal('getAuthToken', getToken)
+  }, [getToken])
 
   // -- Render --
 
   return (
     <>
       <Analytics />
-      <AetherContextManager assets={{}} icons={{}} twConfig={tailwindConfig} isNextJS isAppDir>
+      <AetherContextManager
+        assets={{}}
+        icons={{}}
+        twConfig={tailwindConfig}
+        getAuthToken={getToken}
+        isAppDir
+        isNextJS
+      >
         {children}
       </AetherContextManager>
     </>
