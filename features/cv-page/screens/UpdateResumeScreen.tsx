@@ -1,12 +1,12 @@
 import React from 'react'
-import { useAetherRoute } from 'aetherspace/navigation'
+import { useAetherRouteData } from 'aetherspace/navigation'
 import { z, AetherProps, createDataBridge } from 'aetherspace/schemas'
-import { GetResumeDataByUserSlugDataBridge } from '../schemas/GetResumeDataByUserSlugDataBridge.ts'
+import { GetResumeDataByUserSlugDataBridge } from '../schemas/GetResumeDataByUserSlugDataBridge'
 import { View } from 'aetherspace/primitives'
 import { H1, P } from 'aetherspace/html-elements'
-import useResumeDataForm from '../forms/useResumeDataForm.ts'
-import { dummyResumeData } from '../mocks/resumeData.mock.ts'
-import { isEmpty } from 'aetherspace/utils/commonUtils/commonUtils.ts'
+import useResumeDataForm from '../forms/useResumeDataForm'
+import { dummyResumeData } from '../mocks/resumeData.mock'
+import { isEmpty } from 'aetherspace/utils/commonUtils/commonUtils'
 
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
@@ -36,7 +36,7 @@ export const screenConfig = createDataBridge({
 
 export const UpdateResumeScreen = (props: UpdateResumeScreenProps) => {
   // Data
-  const [screenData, { error }] = useAetherRoute(props, screenConfig)
+  const [screenData, { error }] = useAetherRouteData(props, screenConfig)
 
   // Forms
   const formState = useResumeDataForm(screenData)

@@ -12,7 +12,7 @@ export const dummyResumeData: ResumeData = {
     location: 'Ghent, Belgium or Remote',
     website: 'https://codinsonn.dev',
     pronouns: 'he/him',
-    about: `Freelance Engineer helping you build your entire app for Web and Mobile in a write-once way, with GraphQL, React-Native, Expo, and Next.js`,
+    about: `Freelance Full-Stack Typescript Engineer helping you build your entire app for Web and Mobile in a write-once way, with GraphQL, React-Native, Expo, Next.js and rich docs for easy handovers.`,
   },
   contactLinks: [
     {

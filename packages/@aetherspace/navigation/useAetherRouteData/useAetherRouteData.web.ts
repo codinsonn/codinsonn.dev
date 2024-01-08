@@ -1,12 +1,11 @@
 import useSWR from 'swr'
-// Schemas
-import { AetherProps, z } from '../../schemas'
-// Utils
-import { isEmpty } from '../../utils'
+import { AetherProps, z } from 'aetherspace/schemas'
+import { isEmpty } from 'aetherspace/utils'
+import { AetherFetcherOptions } from '../fetchAetherProps/fetchAetherProps.types'
 
-/** --- useAetherRoute() ----------------------------------------------------------------------- */
+/** --- useAetherRouteData() ----------------------------------------------------------------------- */
 /** -i- Get the route data and params for any route related screen */
-export const useAetherRoute = <
+export const useAetherRouteData = <
   PARAMS_DEF extends z.ZodRawShape,
   PROPS_DEF extends z.ZodRawShape,
   PARAMS = z.ZodObject<PARAMS_DEF>['_input'],
@@ -24,13 +23,18 @@ export const useAetherRoute = <
     paramsSchema,
     propsSchema, // eslint-disable-line @typescript-eslint/no-unused-vars
     refetchOnMount,
+    headers,
   }: {
     graphqlQuery: string
     getGraphqlVars: (params: z.infer<z.ZodObject<PARAMS_DEF>>) => unknown
-    getGraphqlData: (graphqlQuery: string, variables: PARAMS) => Promise<PROPS>
+    getGraphqlData: (
+      graphqlQuery: string,
+      fetcherOptions: AetherFetcherOptions<PARAMS>
+    ) => Promise<PROPS>
     paramsSchema: z.ZodObject<PARAMS_DEF>
     propsSchema: z.ZodObject<PROPS_DEF>
     refetchOnMount?: boolean
+    headers?: Record<string, string>
   }
 ) => {
   // Props
@@ -48,7 +52,7 @@ export const useAetherRoute = <
   const swrCall = useSWR<PROPS>(
     shouldFetch ? [graphqlQuery, variables] : null,
     ([gqlQuery, gqlParams]) => {
-      return getGraphqlData(gqlQuery, gqlParams)
+      return getGraphqlData(gqlQuery, { variables: gqlParams, headers })
     }
   )
 
@@ -64,4 +68,4 @@ export const useAetherRoute = <
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
-export default useAetherRoute
+export default useAetherRouteData

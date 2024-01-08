@@ -153,9 +153,9 @@ import { Link } from 'aetherspace/nagivation'
 In Screens, you can access the route parameters via the `useRoute` hook from `aetherspace/navigation`:
 
 ```tsx
-import { useAetherRoute } from 'aetherspace/navigation'
+import { useAetherRouteData } from 'aetherspace/navigation'
 
-const [/*screenData*/, { params }] = useAetherRoute(props, screenConfig)
+const [/*screenData*/, { params }] = useAetherRouteData(props, screenConfig)
 console.log(params.slug) // -> 'codinsonn' for e.g. '/bio/codinsonn' if route is defined as '/bio/[slug]'
 ```
 

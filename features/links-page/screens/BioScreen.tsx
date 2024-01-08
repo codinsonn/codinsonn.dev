@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useAetherRoute, useAetherNav } from 'aetherspace/navigation'
+import { Link, useAetherRouteData, useAetherNav } from 'aetherspace/navigation'
 import { useAetherContext } from 'aetherspace/context'
 import { z, aetherSchema, AetherProps, createDataBridge } from 'aetherspace/schemas'
 import { GetUserBioBySlugDataBridge } from '../schemas/GetUserBioBySlugDataBridge'
@@ -46,7 +46,7 @@ export const screenConfig = createDataBridge({
 
 export const BioScreen = (props: BioScreenProps) => {
   // Data
-  const [bioData, { error }] = useAetherRoute(props, screenConfig)
+  const [bioData, { error }] = useAetherRouteData(props, screenConfig)
 
   // Hooks
   const { pathname, openLink } = useAetherNav()

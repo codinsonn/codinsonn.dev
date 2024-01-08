@@ -234,7 +234,7 @@ Opening files in VSCode...
 
 - Add screens under `screens/` folders in your feature or package workspaces
 - Configure screens to hook into a GraphQL query by using `createDataBridge` to extend the resolver `DataBridge`
-- Call `useAetherRoute(props, screenConfig)` to merge component props with data fetching for typed component data
+- Call `useAetherRouteData(props, screenConfig)` to merge component props with data fetching for typed component data
 - Add routes just once under `routes/` folders in your feature or package workspaces
 - Make sure your `route.ts` file uses the `<AetherPage>` component to wrap your screen component, and pass it the `screenConfig` to it
 

@@ -173,7 +173,7 @@ Any fields you edit or add to your argument or response schemas will be made ava
 To actually get the data from your GraphQL resolvers into the specific screens for specific routes on both Expo & Next.js, you'll need to use a combination of the following helpers & components from `aetherspace/navigation`:
 
 - `fetchAetherProps`, to create a fetcher to actually get the data from your GraphQL API
-- `useAetherRoute`, used to get the current route's data from expo-router or Next.js router & props
+- `useAetherRouteData`, used to get the current route's data from expo-router or Next.js router & props
 - `AetherPage`, used to wrap your page component in a Next.js app-dir page under `/routes/`
 
 Check out the [Recommended Way of Working docs](/packages/@aetherspace/scripts/README.md) for more details and ways to simplify this process.
@@ -229,7 +229,7 @@ export const screenConfig = {
 
 export const HomeScreen = (props: AetherProps<typeof HomePropsSchema>) => {
   // Props & Screen Data Fetching (from screenConfig 👇)
-  const [pageData, { error, isLoading, ...swrUtils }] = useAetherRoute(props, screenConfig)
+  const [pageData, { error, isLoading, ...swrUtils }] = useAetherRouteData(props, screenConfig)
   const { customGreeting, alive, kicking, baseURL = BASE_URL } = pageData
 
   // ...
@@ -276,7 +276,7 @@ In the generated screen component file, you can then replace the boilerplate `he
 
 ## Creating a "DataBridge" for Linking Routes to GraphQL Query Resolvers
 
-Like you saw in the example above, we use a `screenConfig` object to bundle the GraphQL query, variables, and data fetcher together. This is then used by the `useAetherRoute` hook to fetch the data for the screen.
+Like you saw in the example above, we use a `screenConfig` object to bundle the GraphQL query, variables, and data fetcher together. This is then used by the `useAetherRouteData` hook to fetch the data for the screen.
 
 Ideally, these are extendable and composable, so that you can create a "DataBridge" between your GraphQL API and your routes. This is what the `createDataBridge()` function is for:
 
