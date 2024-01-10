@@ -9,7 +9,7 @@
 # `@aetherspace/mongoose` - Aetherspace Plugin
 
 Prerequisites:
-- [Sponsor Aetherspace on Github]() or get access to it some other way
+- [Sponsor Aetherspace on Github](https://github.com/Aetherspace/green-stack-starter-demo#readme) or get access to it some other way
 - Fork or generate a new repository from the official or free [aetherspace/green-stack-starter](https://github.com/Aetherspace/green-stack-starter#readme) github repo
 - Choose the "✅ Include all branches" option during the fork / generation process
 

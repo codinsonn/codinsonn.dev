@@ -1,4 +1,6 @@
-# Schemas as Single Sources of Truth 📐
+<img src="/packages/@aetherspace/assets/AetherspaceLogo.svg" width="50" height="50" />
+
+# Schemas as Single Sources of Truth in Aetherspace
 
 ```ts
 import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
