@@ -10,6 +10,426 @@ The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](
 """
 scalar JSONObject
 
+input GetRequestContextArgs {
+  """Returns extra debug info"""
+  debug: String
+}
+
+type ClerkActor {
+  """
+  issuer - the Frontend API URL of your instance (e.g. https://clerk.your-site.com if production instance, https://your-site.clerk.accounts.dev if development instance).
+  """
+  iss: String!
+
+  """
+  session ID - the ID of the current impersonated user session (e.g. sess_123).
+  """
+  sid: String!
+
+  """
+  subject - the ID of the impersonated user of the session (e.g. user_123).
+  """
+  sub: String!
+}
+
+type ClerkSessionClaims {
+  """
+  authorized party - the Origin header that was included in the original Frontend API request made from the user. Most commonly, it will be the URL of the application (e.g. https://example.com). This claim could be omitted if, for privacy-related reasons, Origin is empty or null.
+  """
+  azp: String
+
+  """
+  expiration time - the time after which the token will expire, as a Unix timestamp. Determined using the Token lifetime JWT template setting in the Clerk Dashboard.
+  """
+  exp: Float!
+
+  """
+  issued at - the time at which the token was issued, as a Unix timestamp (e.g. 1516239022).
+  """
+  iat: Float!
+
+  """
+  issuer - the Frontend API URL of your instance (e.g. https://clerk.your-site.com if production instance, https://your-site.clerk.accounts.dev if development instance).
+  """
+  iss: String!
+
+  """
+  not before - the time before which the token is considered invalid, as a Unix timestamp. Determined using the Allowed Clock Skew JWT template setting in the Clerk Dashboard.
+  """
+  nbf: Float!
+
+  """session ID - the ID of the current session (e.g. sess_123)."""
+  sid: String!
+
+  """subject - the ID of the current user of the session (e.g. user_123)."""
+  sub: String!
+
+  """
+  organization ID - the ID of the currently active organization that the user belongs to. Only present if the user is a member of an organization.
+  """
+  org_id: String
+
+  """
+  organization slug - the slug of the currently active organization that the user belongs to. Only present if the user is a member of an organization.
+  """
+  org_slug: String
+
+  """
+  organization role - the role of the user in the currently active organization. Only present if the user is a member of an organization.
+  """
+  org_role: String
+
+  """
+  actor - will only be included if the user is impersonating another user. See user impersonation for more information: https://clerk.com/docs/custom-flows/user-impersonation#jwt-claims
+  """
+  act: ClerkActor
+}
+
+type ClerkAuthReqContext {
+  """
+  https://clerk.com/docs/backend-requests/resources/session-tokens#default-session-claims
+  """
+  sessionClaims: ClerkSessionClaims
+
+  """The ID of the current session (e.g. sess_123)."""
+  session_id: String
+
+  """The ID of the current user of the session (e.g. user_123)."""
+  user_id: String
+
+  """Whether the current request is a public route (e.g. /api/graphql)."""
+  isPublicRoute: Boolean
+
+  """Whether the current request is an API route (e.g. /api/context)."""
+  isApiRoute: Boolean
+}
+
+type ClerkMiddlewareEvt {
+  """The source of the current auth context (e.g. /middleware)"""
+  sourcePage: String
+}
+
+type ClerkVerificationStatus {
+  """The state of the verification."""
+  status: String
+
+  """The strategy pertaining to the parent sign-up or sign-in attempt."""
+  strategy: String!
+
+  """The redirect URL for an external verification."""
+  externalVerificationRedirectURL: String
+
+  """The number of attempts related to the verification."""
+  attempts: Float!
+
+  """The last error the verification attempt ran into."""
+  error: String
+
+  """The time the verification will expire at."""
+  expireAt: Float!
+
+  """The nonce pertaining to the verification."""
+  nonce: String
+}
+
+type ClerkLinkReference {
+  """A unique identifier for the linked resource."""
+  id: ID!
+
+  """The type of linked resource."""
+  type: String!
+}
+
+type ClerkUserEmailAdress {
+  """A unique identifier for this clerk user's email address."""
+  id: ID!
+
+  """The value of this clerk user's email address."""
+  emailAddress: String!
+
+  """
+  The state of the verification process of a sign-in or sign-up attempt.: https://clerk.com/docs/references/javascript/verification
+  """
+  verification: ClerkVerificationStatus
+
+  """
+  An object containing information about any other identification that might be linked to this email address.
+  """
+  linkedTo: [ClerkLinkReference]!
+}
+
+type ClerkUserPhoneNumber {
+  """A unique identifier for this clerk user's phone number."""
+  id: ID!
+
+  """
+  The value of this phone number, in E.164 format: https://en.wikipedia.org/wiki/E.164
+  """
+  phoneNumber: String!
+
+  """
+  Set to true if this phone number is reserved for multi-factor authentication (2FA). Set to false otherwise.
+  """
+  reservedForSecondFactor: Boolean!
+
+  """
+  Set to true if this phone number is the default second factor. Set to false otherwise. A user must have exactly one default second factor, if multi-factor authentication (2FA) is enabled.
+  """
+  defaultSecondFactor: Boolean!
+
+  """
+  An object holding information on the verification of this phone number.
+  """
+  verification: ClerkVerificationStatus
+
+  """
+  An object containing information about any other identification that might be linked to this phone number.
+  """
+  linkedTo: [ClerkLinkReference]!
+}
+
+type ClerkExternalAccount {
+  """A unique identifier for this external account."""
+  id: ID!
+
+  """The identification with which this external account is associated."""
+  identificationId: ID!
+
+  """The provider name e.g. google"""
+  provider: String!
+
+  """The unique ID of the user in the provider."""
+  providerUserId: String!
+
+  """The provided email address of the user."""
+  emailAddress: String!
+
+  """The scopes that the user has granted access to."""
+  approvedScopes: [String]!
+
+  """The provided first name of the user."""
+  firstName: String!
+
+  """The provided last name of the user."""
+  lastName: String!
+
+  """The provided avatar URL of the user."""
+  avatarUrl: String!
+
+  """The provided username of the user."""
+  username: String
+
+  """
+  A descriptive label to differentiate multiple external accounts of the same user for the same provider.
+  """
+  label: String
+
+  """
+  An object holding information on the verification of this external account.
+  """
+  verification: ClerkVerificationStatus
+}
+
+type ClerkPublicUserData {
+  """The user's first name."""
+  firstName: String
+
+  """The user's last name."""
+  lastName: String
+
+  """Holds the users profile image or avatar."""
+  imageUrl: String
+
+  """
+  A getter boolean to check if the user has uploaded an image or one was copied from OAuth. Returns false if Clerk is displaying an avatar for the user.
+  """
+  hasImage: Boolean!
+
+  """The user's identifier."""
+  identifier: String!
+
+  """A unique identifier for the user, assigned by clerk"""
+  userId: ID
+}
+
+type ClerkOrganization {
+  """The unique identifier of the related organization."""
+  id: ID!
+
+  """The name of the related organization."""
+  name: String!
+
+  """
+  The organization slug. If supplied, it must be unique for the instance.
+  """
+  slug: String
+
+  """Holds the organization logo or default logo."""
+  imageUrl: String
+
+  """
+  A getter boolean to check if the organization has an uploaded image. Returns false if Clerk is displaying an avatar for the organization.
+  """
+  hasImage: Boolean!
+
+  """The number of members the associated organization contains."""
+  membersCount: Float!
+
+  """The number of pending invitations to users to join the organization."""
+  pendingInvitationsCount: Float!
+
+  """
+  A getter boolean to check if the admin of the organization can delete it.
+  """
+  adminDeleteEnabled: Boolean!
+
+  """Date of the time the organization was created."""
+  createdAt: Date!
+}
+
+type ClerkOrganizationMembership {
+  """A unique identifier for this organization membership."""
+  id: ID!
+
+  """The role of the current user in the organization."""
+  role: String!
+
+  """Public information about the user that this membership belongs to."""
+  publicUserData: ClerkPublicUserData!
+
+  """The Organization object the membership belongs to."""
+  organization: ClerkOrganization!
+
+  """Date of the time the membership was created."""
+  createdAt: Date!
+
+  """Date of the time the membership was last updated."""
+  updatedAt: Date!
+}
+
+type ClerkUserProperties {
+  """A unique identifier for the user, assigned by clerk"""
+  id: ID!
+
+  """The user's first name."""
+  firstName: String
+
+  """The user's last name."""
+  lastName: String
+
+  """The user's full name."""
+  fullName: String
+
+  """The user's username."""
+  username: String
+
+  """Holds the users profile image or avatar."""
+  imageUrl: String
+
+  """
+  A getter boolean to check if the user has uploaded an image or one was copied from OAuth. Returns false if Clerk is displaying an avatar for the user.
+  """
+  hasImage: Boolean
+
+  """Information about the user's primary email address."""
+  primaryEmailAddress: ClerkUserEmailAdress
+
+  """
+  The unique identifier for the EmailAddress that the user has set as primary.
+  """
+  primaryEmailAddressId: ID
+
+  """
+  An array of all the EmailAddress objects associated with the user. Includes the primary.
+  """
+  emailAddresses: [ClerkUserEmailAdress]!
+
+  """A getter boolean to check if the user has verified an email address."""
+  hasVerifiedEmailAddress: Boolean
+
+  """Information about the user's primary phone number."""
+  primaryPhoneNumber: ClerkUserPhoneNumber
+
+  """
+  The unique identifier for the PhoneNumber that the user has set as primary.
+  """
+  primaryPhoneNumberId: ID
+
+  """
+  An array of all the PhoneNumber objects associated with the user. Includes the primary.
+  """
+  phoneNumbers: [ClerkUserPhoneNumber]!
+
+  """A getter boolean to check if the user has verified a phone number."""
+  hasVerifiedPhoneNumber: Boolean
+
+  """
+  An array of all the ExternalAccount objects associated with the user via OAuth. Note: This includes both verified & unverified external accounts.
+  """
+  externalAccounts: [ClerkExternalAccount]!
+
+  """A getter for the user's list of verified external accounts."""
+  verifiedExternalAccounts: [ClerkExternalAccount]
+
+  """A getter for the user's list of unverified external accounts."""
+  unverifiedExternalAccounts: [ClerkExternalAccount]
+
+  """
+  A list of OrganizationMemberships representing the list of organizations the user is member with.
+  """
+  organizationMemberships: [ClerkOrganizationMembership]
+
+  """A boolean indicating whether the user has a password on their account."""
+  passwordEnabled: Boolean
+
+  """
+  A boolean indicating whether the user has enabled TOTP by generating a TOTP secret and verifying it via an authenticator app.
+  """
+  totpEnabled: Boolean
+
+  """
+  A boolean indicating whether the user has enabled two-factor authentication.
+  """
+  twoFactorEnabled: Boolean
+
+  """A boolean indicating whether the user has enabled Backup codes."""
+  backupCodeEnabled: Boolean
+
+  """
+  A boolean indicating whether the organization creation is enabled for the user or not.
+  """
+  createOrganizationEnabled: Boolean
+
+  """
+  A boolean indicating whether the user is able to delete their own account or not.
+  """
+  deleteSelfEnabled: Boolean
+
+  """
+  Date when the user last signed in. May be empty if the user has never signed in.
+  """
+  lastSignInAt: Date
+
+  """Date when the user was first created."""
+  createdAt: Date!
+
+  """Date when the user was last updated."""
+  updatedAt: Date!
+}
+
+type GetRequestContextResponse {
+  """The auth context provided by clerk in middleware.ts"""
+  auth: ClerkAuthReqContext
+
+  """The 'evt' object provider by clerk's authMiddleware >> afterAuth()"""
+  evt: ClerkMiddlewareEvt
+
+  """
+  The User object holds all of the information for a single user of your application and provides a set of methods to manage their account. Each user has a unique authentication identifier which might be their email address, phone number, or a username. More info: https://clerk.com/docs/references/javascript/user/user#properties
+  """
+  user: ClerkUserProperties
+}
+
 input GetResumeDataByUserSlugArgs {
   """
   the unique slug for a user's resume. Can be used to find and retrieve the resume data with
@@ -986,6 +1406,7 @@ type Mutation {
 }
 
 type Query {
+  getRequestContext(args: GetRequestContextArgs): GetRequestContextResponse
   getResumeDataByUserSlug(args: GetResumeDataByUserSlugArgs!): ResumeData
   getShopifyProducts(args: GetShopifyProductsArgs): GetShopifyProductsResponse
   getUserBioBySlug(args: UserBioInput!): UserBio

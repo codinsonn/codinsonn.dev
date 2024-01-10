@@ -1,6 +1,6 @@
 import React from 'react'
 // Navigation
-import { useAetherRoute } from 'aetherspace/navigation'
+import { useAetherRouteData } from 'aetherspace/navigation'
 // Schemas
 import { z, aetherSchema, AetherProps, createDataBridge } from 'aetherspace/schemas'
 // Components
@@ -49,7 +49,7 @@ export const screenConfig = createDataBridge({
 
 export const {{ScreenName}} = (props: {{ScreenName}}Props) => {
   // Data
-  const [screenData, { error }] = useAetherRoute(props, screenConfig)
+  const [screenData, { error }] = useAetherRouteData(props, screenConfig)
 
   // -- Guards --
 

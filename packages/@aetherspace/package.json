@@ -14,6 +14,7 @@
             "config"
         ],
         "requiredEnvVars": [
+            "APP_SECRET",
             "APP_LINKS",
             "BACKEND_URL",
             "EXPO_ACCESS_TOKEN",
@@ -45,6 +46,7 @@
         "@expo/html-elements": "^0.5.1",
         "@graphql-tools/schema": "^10.0.0",
         "axios": "^1.4.0",
+        "crypto-js": "^4.2.0",
         "graphql": "^16.7.1",
         "graphql-request": "^6.1.0",
         "graphql-type-json": "^0.3.2",

@@ -1,9 +1,11 @@
 /* --- Types ----------------------------------------------------------------------------------- */
 
+import { AetherFetcherOptions } from '../fetchAetherProps'
+
 export type AetherScreenConfig = {
   graphqlQuery: string
   getGraphqlVars: (navParams: any) => any
-  getGraphqlData: (queryKey: string, queryVariables?: any) => Promise<any>
+  getGraphqlData: (queryKey: string, fetcherOptions?: AetherFetcherOptions) => Promise<any>
   paramsSchema: unknown
   propsSchema: unknown
   refetchOnMount?: boolean
@@ -15,4 +17,5 @@ export type AetherPageProps<SC extends AetherScreenConfig> = {
   searchParams?: Record<string, any>
   screen: React.FC<Record<string, any>> | ((props: any) => JSX.Element | null)
   screenConfig: SC
+  skipFetching?: boolean
 }

@@ -87,7 +87,7 @@ const Document = (props: { children: React.ReactNode }) => {
         <meta name="msapplication-TileColor" content="#069570" />
         <meta name="theme-color" content="#ffffff" />
         {/* - Title & Keywords - */}
-        <title>Thorr Stevens | Full-Product Engineer for Startups and ECommerce</title>
+        <title>Thorr Stevens | Full-Product Universal App Engineer for Startups</title>
         <meta name="application-name" content="codinsonn.dev" />
         <meta name="author" content="Thorr Stevens" />
         <meta name="creator" content="Thorr Stevens" />

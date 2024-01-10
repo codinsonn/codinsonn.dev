@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAetherRoute } from 'aetherspace/navigation'
+import { useAetherRouteData } from 'aetherspace/navigation'
 import { z, aetherSchema, AetherProps, createDataBridge } from 'aetherspace/schemas'
 import { GetResumeDataByUserSlugDataBridge } from '../schemas/GetResumeDataByUserSlugDataBridge'
 import { ResumeData } from '../schemas/ResumeData'
@@ -48,7 +48,7 @@ export const screenConfig = createDataBridge({
 
 export const ResumeScreen = (props: ResumeScreenProps) => {
   // Props & Data
-  const [screenData, { error }] = useAetherRoute(props, screenConfig)
+  const [screenData, { error }] = useAetherRouteData(props, screenConfig)
   const {
     generalData,
     contactLinks,

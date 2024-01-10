@@ -19,10 +19,11 @@ export const getResumeDataByUserSlug = aetherResolver(
       // -- Logic --
 
       const resumeData = await ResumeDataModel.findOne({ slug })
+      if (!resumeData) throw handleError('Resume data not found', true)
 
       // -- Respond --
 
-      return withDefaults(resumeData!)
+      return withDefaults(resumeData!.toObject())
     } catch (err) {
       throw handleError(err)
     }

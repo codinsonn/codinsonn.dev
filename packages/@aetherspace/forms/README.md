@@ -1,6 +1,8 @@
 # Form Management in Aetherspace
 
-One of our overall goals is to enable the use of Zod schemas as the ultimate source of truth for your app's datastructure, validation and types. We've extended this concept to include form management as well.
+One of our overall goals is to enable the use of **Zod schemas as the ultimate source of truth for your app's datastructure, validation and types.**  
+
+_We've extended this concept to include form management as well:_
 
 ```tsx
 import { useFormState } from 'aetherspace/forms'
@@ -39,14 +41,14 @@ formState.values.twoFactorCode // number
 Alternatively, you can use `formState.getValue('some-key')` to get a specific value from the form state. The 'some-key' argument is any key in the Zod schema you provided as `stateSchema` and the available keys will he hinted by your IDE.
 
 ```tsx
-// Hinted keys: 'username' | 'email' | 'password' | 'twoFactorCode'
 formState.getValue('username') // string
+//                   ?^  Hinted keys: 'username' | 'email' | 'password' | 'twoFactorCode'
 ```
 
 Updating the formState values can similarly be done in two ways:
 
 ```tsx
-// Update a single value in the form state by (hinted) key
+// Update a single value in the form state by its hinted key
 formState.handleChange('username', 'codinsonn.dev') // OK
 formState.handleChange('twoFactorCode', 'some-string') // ERROR
 ```

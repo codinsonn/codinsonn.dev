@@ -1,5 +1,5 @@
 import { z, AetherParams, AetherProps, AetherSchemaType } from './aetherSchemas'
-import { fetchAetherProps } from '../navigation/fetchAetherProps'
+import { fetchAetherProps, AetherFetcherOptions } from '../navigation/fetchAetherProps'
 import type { HintedKeys } from '../types/typeHelpers'
 import { isEmpty } from '../utils/commonUtils'
 
@@ -140,15 +140,20 @@ export const createDataBridge = <
   const defaultResponseToProps = (response: RT) => response
   const responseToPropsFn = (responseToProps || defaultResponseToProps) as (response: RT) => PT
 
-  const getGraphqlData = async (queryKey: string, queryVariables?: AT) => {
-    const queryData = queryKey || graphqlQuery // @ts-ignore
-    const hasQueryVariables = !isEmpty(queryVariables) && !isEmpty(queryVariables[resolverArgsName])
-    const finalVariables = !hasQueryVariables ? null : queryVariables
-    const queryInput = finalVariables || getGraphqlVars({} as UT)
-    const result = await fetchAetherProps(queryData, queryInput)
-    const data = result.data
-    return responseToPropsFn(data[resolverName] as RT)
-  }
+  const getGraphqlData = Object.assign(
+    async (queryKey: string, fetcherOptions?: AetherFetcherOptions<AT>) => {
+      const { variables: queryVariables, headers } = fetcherOptions || {}
+      const queryData = queryKey || graphqlQuery // @ts-ignore
+      const hasQueryVariables = !isEmpty(queryVariables) && !isEmpty(queryVariables[resolverArgsName]) // prettier-ignore
+      const finalVariables = !hasQueryVariables ? null : queryVariables
+      const queryInput = finalVariables || getGraphqlVars({} as UT)
+      const result = await fetchAetherProps(queryData, { variables: queryInput, headers })
+      const data = result.data
+      return responseToPropsFn(data[resolverName] as RT)
+    },
+    // -i- Mark as 'aetherFetcher' so any SWR middleware knows the second arg is a fetcherOptions object
+    { isAetherFetcher: true }
+  )
 
   // -- Return Data Bridge --
 
@@ -162,6 +167,7 @@ export const createDataBridge = <
     propsSchema,
     paramsToArgs: paramsToArgsFn,
     getGraphqlVars,
+    /** -i- Fetcher to use with SWR */
     getGraphqlData,
     responseToProps: responseToPropsFn,
     apiPath,

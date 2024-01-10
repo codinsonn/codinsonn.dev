@@ -59,3 +59,4 @@ jobs:
           ENV: staging
           BACKEND_URL: ${{ secrets.BACKEND_URL }}
           NEXT_PUBLIC_APP_LINKS: ${{ secrets.NEXT_PUBLIC_APP_LINKS }}
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}

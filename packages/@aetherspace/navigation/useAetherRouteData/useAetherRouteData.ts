@@ -1,14 +1,13 @@
 import useSWR from 'swr'
-// Navigation
 import { useRouteParams } from '../useRouteParams'
-// Schemas
-import { z, AetherProps } from '../../schemas'
-// Utils
-import { isEmpty } from '../../utils'
+import { z, AetherProps } from 'aetherspace/schemas'
+import { getGlobal, isEmpty } from 'aetherspace/utils'
+import { AetherFetcherOptions } from '../fetchAetherProps'
+import { useAetherContext } from '../../context/AetherContextManager/useAetherContext'
 
-/** --- useAetherRoute() ----------------------------------------------------------------------- */
+/** --- useAetherRouteData() ----------------------------------------------------------------------- */
 /** -i- Get the route data and params for any route related screen */
-export const useAetherRoute = <
+export const useAetherRouteData = <
   PARAMS_DEF extends z.ZodRawShape,
   PROPS_DEF extends z.ZodRawShape,
   PARAMS = z.ZodObject<PARAMS_DEF>['_input'],
@@ -25,13 +24,18 @@ export const useAetherRoute = <
     paramsSchema,
     propsSchema,
     refetchOnMount,
+    headers,
   }: {
     graphqlQuery: string
     getGraphqlVars: (params: z.infer<z.ZodObject<PARAMS_DEF>>) => unknown
-    getGraphqlData: (graphqlQuery: string, variables: PARAMS) => Promise<PROPS>
+    getGraphqlData: (
+      graphqlQuery: string,
+      fetcherOptions: AetherFetcherOptions<PARAMS>
+    ) => Promise<PROPS>
     paramsSchema: z.ZodObject<PARAMS_DEF>
     propsSchema: z.ZodObject<PROPS_DEF>
     refetchOnMount?: boolean
+    headers?: Record<string, string>
   }
 ) => {
   // Props
@@ -39,6 +43,7 @@ export const useAetherRoute = <
 
   // Hooks
   const { params: navParams } = useRouteParams(props)
+  const { getAuthToken: getContextToken } = useAetherContext()
 
   // Vars
   const params = paramsSchema.optional().parse({ ...routeParams, ...navParams })
@@ -49,9 +54,20 @@ export const useAetherRoute = <
 
   const swrCall = useSWR<PROPS>(
     shouldFetch ? [graphqlQuery, variables] : null,
-    ([gqlQuery, gqlParams]) => {
-      return getGraphqlData(gqlQuery, gqlParams)
-    }
+    Object.assign(
+      async ([gqlQuery, gqlParams], config?: AetherFetcherOptions) => {
+        const getAuthToken = getContextToken || getGlobal('getAuthToken')
+        const configHeaders = config?.headers || {}
+        const finalHeaders = { ...configHeaders, ...headers }
+        if (!finalHeaders.Authorization && typeof getAuthToken === 'function') {
+          const token = await getAuthToken()
+          if (token) finalHeaders.Authorization = `Bearer ${token}`
+        }
+        return getGraphqlData(gqlQuery, { ...config, variables: gqlParams, headers: finalHeaders })
+      },
+      // -i- Mark as 'aetherFetcher' so any SWR middleware knows the call structure to manipulate
+      { isAetherFetcher: true }
+    )
   )
 
   // -- Data --
@@ -66,4 +82,4 @@ export const useAetherRoute = <
 
 /* --- Exports --------------------------------------------------------------------------------- */
 
-export default useAetherRoute
+export default useAetherRouteData

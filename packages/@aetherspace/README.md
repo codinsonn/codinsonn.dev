@@ -2,20 +2,26 @@
 
 # GREEN stack quickstart ⚡
 
-> Welcome to Aetherspace! Set up your Web, iOS & Android app in minutes, and blow away the competition with write-once components that run on all platforms. Powered by GraphQL, React, Expo & Next.js
+> Welcome to Aetherspace! Set up your Web, iOS & Android app in minutes, and blow away the competition with write-once components that run on all platforms. Powered by GraphQL, React, Expo & Next.js  
+
+<p style={{ padding: "12px" }} />  
 
 ## Kickstart for Web & Mobile with Aetherspace
 
 Generate a new repo from the [Aetherspace template](https://github.com/Aetherspace/green-stack-starter-demo) and (optionally) include all branches.
 
+![GithubTemplateRepo.png](/.storybook/public/GithubTemplateRepo.png)
+
+![GithubTemplateRepoWithPlugins.png](/.storybook/public/GithubTemplateRepoWithPlugins.png)
+
 Github will then generate a copy of the template repo for you to customize.
 It comes out of the box with setup for:
 
-- Next.js web app (File based routing, Serverside rendering, Static site generation, ...)
-- Expo mobile app (Android & iOS with Expo and react-native)
+- Next.js web app (File based app dir routing, Serverside rendering, Static site generation, ...)
+- Expo mobile app (Android & iOS with Expo-Router and react-native)
 - A REST & GraphQL API (with Apollo Server & Next.js API routes)
-- Documentation for both Aetherspace and the example components
-- [Automation](/packages/@aetherspace/scripts/README.md) scripts to automatically generate API & component documentation
+- Documentation for Aetherspace and its components + docgen as a side effect of our [recommended way of working](/packages/@aetherspace/scripts/README.md)
+- [Generators and Automation scripts](/packages/@aetherspace/scripts/README.md) to automatically generate API & component documentation
 - Github actions for mobile deployments, linting your code & building your documentation
 
 **When you're ready to start developing, run `yarn install` to install all dependencies, followed by:**
@@ -23,6 +29,8 @@ It comes out of the box with setup for:
 ```shell-script
 yarn dev:docs
 ```
+
+<p style={{ padding: "12px" }} />  
 
 ## Up and running in minutes
 
@@ -69,7 +77,7 @@ export const MyBlogPost = (props: { paragraphs: string[] }) => (
 
 #### Test on _Web, iOS, Android & Storybook_
 
-> ⏳ Automatically wait for your **Next.js** server to start before starting up **Expo** & **Storybook**
+> ⏳ To start everything, but automatically wait for your **Next.js** server to start before starting up **Expo** & **Storybook**:
 
 ```shell-script
 yarn dev:docs
@@ -108,7 +116,7 @@ expo-app:start: Your native app is running at exp://192.168.0.168:19000
 
 #### Define your data as _actual_ **single sources of truth**
 
-> 📐 Our `aetherSchema()` structure builder enables you to __build for Typescript first (with [Zod](https://zod.dev))__, but enables you to optionally ___generate documentation, validation logic, GraphQL typedefs___ and ___data resolvers___ from them as well.
+> 📐 Our `aetherSchema()` structure builder enables you to __build for Typescript first__ (with [Zod](https://zod.dev)), but enables you to optionally __generate documentation, validation logic, GraphQL typedefs__ and __data resolvers from__ those __schemas__ as well.
 
 ```tsx
 import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
@@ -224,7 +232,9 @@ next-app:dev: ✅ packages/@registries/resolvers.generated.ts
 
 `/api/graphql` will then use the `resolvers.generated.ts` barrel file to build its graphql API from.
 
-[example >>> GraphQL](https://aetherspace-green-stack-starter.vercel.app/api/graphql) (e.g. in `/api/graphql`)
+[example >>> GraphQL](https://aetherspace-green-stack-starter.vercel.app/api/graphql) (e.g. in `/api/graphql`)  
+
+<p style={{ padding: "12px" }} />  
 
 ## Powerful results 💪
 
@@ -234,19 +244,15 @@ Performing these 6 steps has provided us with a bunch of value in little time:
 - Hybrid UI component that is optimized for SEO, media queries and Web-Vitals on Web
 - Storybook documentation without having to explicitly create it ourselves
 ---
-- 🤝 A single source of truth for all our props, args, responses, docs, types & defaults
+- 🤝 A single source of truth for all our props, args, responses, docs, types, defaults and validation
 ---
 - A Back-end resolver function we can call from other data resolvers or API routes
 - A GraphQL API powered by Apollo-Server, with automatically inferred type definitions
 - A Next.js powered REST API
 
-## Learn more:
+<p style={{ padding: "12px" }} />  
 
-<p>
-  <a href="https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64#:~:text=%27Move%20fast%20%26%20build%20things%27%20with%20Zod%2C%20Expo%20%26%20Next.js" target="_blank">
-    <img alt="Intro Article on DEV" longdesc="Read the Intro Article on DEV.to" src="https://img.shields.io/badge/dev.to-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white" />
-  </a>
-</p>
+## Learn more:
 
 - [Aetherspace Core Concepts](/packages/@aetherspace/core/README.md)
 - [Recommended way of working](/packages/@aetherspace/scripts/README.md)
@@ -255,3 +261,9 @@ Performing these 6 steps has provided us with a bunch of value in little time:
 - [Universal Routing with Expo and Next.js](/packages/@aetherspace/navigation/README.md)
 - [Writing flexible data resolvers with Schemas](/packages/@aetherspace/navigation/AetherPage/README.md)
 - [Automation based on Schemas: Storybook, GraphQL & More](/packages/@aetherspace/scripts/README.md)
+
+<p>
+  <a href="https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64#:~:text=%27Move%20fast%20%26%20build%20things%27%20with%20Zod%2C%20Expo%20%26%20Next.js" target="_blank">
+    <img alt="Intro Article on DEV" longdesc="Read the Intro Article on DEV.to" src="https://img.shields.io/badge/dev.to-0A0A0A?style=for-the-badge&logo=devdotto&logoColor=white" />
+  </a>
+</p>

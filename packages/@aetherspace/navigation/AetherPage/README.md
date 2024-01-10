@@ -173,10 +173,12 @@ Any fields you edit or add to your argument or response schemas will be made ava
 To actually get the data from your GraphQL resolvers into the specific screens for specific routes on both Expo & Next.js, you'll need to use a combination of the following helpers & components from `aetherspace/navigation`:
 
 - `fetchAetherProps`, to create a fetcher to actually get the data from your GraphQL API
-- `useAetherRoute`, used to get the current route's data from expo-router or Next.js router & props
+- `useAetherRouteData`, used to get the current route's data from expo-router or Next.js router & props
 - `AetherPage`, used to wrap your page component in a Next.js app-dir page under `/routes/`
 
-We have a full working example of this in the Aetherspace demo app:
+Check out the [Recommended Way of Working docs](/packages/@aetherspace/scripts/README.md) for more details and ways to simplify this process.
+
+Additionally we have a full working example of this in the Aetherspace demo app:
 - [/features/app-core/screens/HomeScreen.tsx#L39-L83](https://github.com/Aetherspace/green-stack-starter-demo/blob/main/features/app-core/screens/HomeScreen.tsx#L39-L83)
 - [/features/app-core/routes/index.tsx](https://github.com/Aetherspace/green-stack-starter-demo/blob/main/features/app-core/routes/index.tsx)
 
@@ -200,11 +202,14 @@ const getHomeScreenArgs = (params: HomeScreenParams = {}) => ({
   healthCheckArgs: HomeParamsSchema.parse(params),
 })
 
-/** -i- Function to actually fetch the data for this screen, where queryKey is likely the GQL query */
-const getHomeScreenData = async (queryKey: string, queryVariables?: HomeScreenParams) => {
-  const queryData = queryKey || getScreenDataQuery
+/** -i- Function to actually fetch the data for this screen, where queryKey is likely the GraphQL query */
+const getHomeScreenData = async (queryKey: string, fetcherOptions?: AetherFetcherOptions<HomeScreenParams> = {}) => {
+  // -i- Recommended boilerplate for graphql data fetchers like this
+  const { variables: queryVariables, headers } = fetcherOptions
+  const queryData = queryKey || getScreenDataQuery // Will be used to identify & cache the data with SWR
   const queryInput = queryVariables || getHomeScreenArgs() // Use defaults if not defined
-  const { data } = await fetchAetherProps(queryData, queryInput)
+  // -i- Actual data fetching and mapping response data to screen props
+  const { data } = await fetchAetherProps(queryData, { variables: queryInput, headers })
   const { alive, kicking, echo } = data?.healthCheck || {}
   return { alive, kicking, customGreeting: echo } as HomeScreenProps
 }
@@ -224,7 +229,7 @@ export const screenConfig = {
 
 export const HomeScreen = (props: AetherProps<typeof HomePropsSchema>) => {
   // Props & Screen Data Fetching (from screenConfig 👇)
-  const [pageData] = useAetherRoute(props, screenConfig)
+  const [pageData, { error, isLoading, ...swrUtils }] = useAetherRouteData(props, screenConfig)
   const { customGreeting, alive, kicking, baseURL = BASE_URL } = pageData
 
   // ...
@@ -271,7 +276,7 @@ In the generated screen component file, you can then replace the boilerplate `he
 
 ## Creating a "DataBridge" for Linking Routes to GraphQL Query Resolvers
 
-Like you saw in the example above, we use a `screenConfig` object to bundle the GraphQL query, variables, and data fetcher together. This is then used by the `useAetherRoute` hook to fetch the data for the screen.
+Like you saw in the example above, we use a `screenConfig` object to bundle the GraphQL query, variables, and data fetcher together. This is then used by the `useAetherRouteData` hook to fetch the data for the screen.
 
 Ideally, these are extendable and composable, so that you can create a "DataBridge" between your GraphQL API and your routes. This is what the `createDataBridge()` function is for:
 
@@ -280,18 +285,18 @@ Ideally, these are extendable and composable, so that you can create a "DataBrid
 ```tsx
 const screenConfig = createDataBridge({
   ...SomeResolverDataBridge, // <- Resolver DataBridge we're extending for our route
-  paramsSchema: ResumeScreenParams,
-  propsSchema: ResumeScreenProps,
-  graphqlQuery: someCustomQueryWithLessFields, // <- Override the GraphQL query if needed
+  paramsSchema: SomeScreenParams, // <- Params schema for the route (must be built using aetherschema & zod)
+  propsSchema: SomeScreenProps, // <- Props schema for the route (must be built using aetherschema & zod)
+  graphqlQuery: someCustomQueryWithLessFields, // <- Override GraphQL query? (optional, only if you want some of the fields)
   backgroundColor: '#111827',
 })
 ```
 
-> Further notes: **In the route generator, you can actually already select a resolver to use as a DataBridge for your route**. This will automatically generate the `createDataBridge()` call for you, and will also generate the `ResumeScreenParams` and `ResumeScreenProps` schemas for you.
+> Further notes: **In the route generator, you can actually already select a resolver to use as a DataBridge for your route**. This will automatically generate the `createDataBridge()` call for you, and will also generate the `SomeScreenParams` and `SomeScreenProps` schemas for you.
 
 ## Using Unions & Tuples
 
-Since **GraphQL does not support Union and Tuple types out of the box**, we have only added support for transforming your zod tuples and union fields into GraphQL JSON types. These will act as a sort of catch-all for types we don't yet know how to handle in a type-safe way. However, since zod is the extra barrier of validation, this should not really be a problem. 
+Since **GraphQL does not support Union and Tuple types out of the box**, we have only added support for transforming your zod tuples and union fields into GraphQL JSON types. These will act as a sort of catch-all for types we don't yet know how to handle in a Graphql type-safe way. However, since zod is the extra barrier of validation, this should not really be a problem. 
 
 If you really want a type-safe GraphQL schema as well, you can try to avoid them in your resolver arguments and responses by going for a more flat or object based structure instead.
 

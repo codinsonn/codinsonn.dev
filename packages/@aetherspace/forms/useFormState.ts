@@ -19,6 +19,10 @@ export type AetherFormInputBaseProps<T> = {
   onFocus?: () => void
 }
 
+export type AetherFormTextInputBaseProps<T> = Omit<AetherFormInputBaseProps<T>, 'onChange'> & {
+  onChangeText: (value: T) => void
+}
+
 export type AetherFormState<T = Record<string, any>, K extends keyof T = keyof T> = {
   /** -i- The current values of the form */
   values: T
@@ -33,9 +37,9 @@ export type AetherFormState<T = Record<string, any>, K extends keyof T = keyof T
   /** -i- Sets the form state to the provided values */
   setValues: (values: T) => void
   /** -i- Sets a single value in the form state */
-  handleChange: (key: K, value: T[K]) => void
+  handleChange: <KEY extends K>(key: K, value: T[KEY]) => void
   /** -i- Returns a handler that sets a single value in the form state */
-  getChangeHandler: (key: K) => (value: T[K]) => void
+  getChangeHandler: <KEY extends K>(key: KEY) => (value: T[KEY]) => void
   /** -i- Validates the form state, sets errors if not, and returns whether it is valid or not */
   validate: (showErrors?: boolean) => boolean
   /** -i- Updates the form errors */
@@ -43,15 +47,17 @@ export type AetherFormState<T = Record<string, any>, K extends keyof T = keyof T
   /** -i- Resets the form state to its default values */
   resetForm: () => void
   /** -i- Spreadable function that returns the props to add to an input to hook it up to the form state */
-  getInputProps: (key: K) => AetherFormInputBaseProps<T[K]>
+  getInputProps: <KEY extends K>(key: KEY) => AetherFormInputBaseProps<T[KEY]>
+  /** -i- Spreadable function that returns the props to add to a text input to hook it up to the form state */
+  getTextInputProps: <KEY extends K>(key: KEY) => AetherFormTextInputBaseProps<T[KEY]>
   /** -i- Transform the values of the form (simply returns it if no transformer was provided) */
   transformValues: (values: T) => Record<K | HintedKeys, unknown>
   /** -i- Returns a single value from the form state */
-  getValue: (key: K) => T[K]
+  getValue: <KEY extends K>(key: KEY) => T[KEY]
   /** -i- Returns the errors for a single value from the form state */
-  getErrors: (key: K) => string[]
+  getErrors: <KEY extends K>(key: KEY) => string[]
   /** -i- Returns whether a single value from the form state has errors */
-  hasErrors: (key: K) => boolean
+  hasErrors: <KEY extends K>(key: KEY) => boolean
 }
 
 export type AetherFormStateOptions<S extends z.ZodRawShape, T extends z.infer<z.ZodObject<S>>> = {
@@ -71,7 +77,10 @@ export type AetherFormStateOptions<S extends z.ZodRawShape, T extends z.infer<z.
 
 /** --- useFormState() ------------------------------------------------------------------------- */
 /** -i- Returns a set of form management tools to handle form state, including validation, errors and even the required props to add to inputs */
-export const useFormState = <S extends z.ZodRawShape, T extends z.infer<z.ZodObject<S>>>(
+export const useFormState = <
+  S extends z.ZodRawShape,
+  T extends z.infer<z.ZodObject<S>> = z.infer<z.ZodObject<S>>,
+>(
   options: AetherFormStateOptions<S, T>
 ): AetherFormState<T> => {
   // Types
@@ -99,7 +108,7 @@ export const useFormState = <S extends z.ZodRawShape, T extends z.infer<z.ZodObj
 
   // -- Methods --
 
-  const getValue = (key: K) => values[key]
+  const getValue = <KEY extends K>(key: KEY) => values[key]
 
   const getErrors = (key: K) => errors[key] ?? []
 
@@ -132,21 +141,29 @@ export const useFormState = <S extends z.ZodRawShape, T extends z.infer<z.ZodObj
 
   // -- Handlers --
 
-  const handleChange = (key: K, value: T[K]) => {
+  const handleChange = <KEY extends K>(key: KEY, value: T[KEY]) => {
     setValues((currentValues) => ({ ...currentValues, [key]: value }))
   }
 
-  const getChangeHandler = (key: K) => (value: T[K]) => handleChange(key, value)
+  const getChangeHandler = <KEY extends K>(key: KEY) => (value: T[KEY]) => handleChange(key, value) // prettier-ignore
 
   // -- Input Props --
 
-  const getInputProps = (key: K) => ({
+  const getInputProps = <KEY extends K>(key: KEY) => ({
     value: values[key],
-    onChange: (value: T[K]) => handleChange(key, value),
+    onChange: (value: T[KEY]) => handleChange(key, value),
     onBlur: () => validateOnBlur && validate(),
     onFocus: () => validateOnBlur && validate(),
     hasError: hasErrors(key),
   })
+
+  const getTextInputProps = <KEY extends K>(key: KEY) => {
+    const { onChange: _, ...inputProps } = getInputProps(key)
+    return {
+      ...inputProps,
+      onChangeText: (value: T[KEY]) => handleChange(key, value),
+    }
+  }
 
   // -- Effects --
 
@@ -175,6 +192,7 @@ export const useFormState = <S extends z.ZodRawShape, T extends z.infer<z.ZodObj
     updateErrors,
     resetForm,
     getInputProps,
+    getTextInputProps,
     transformValues,
     getValue,
     getErrors,

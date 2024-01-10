@@ -1,15 +1,16 @@
 'use client'
 import React from 'react'
-// Screens
 import ErrorBoundary from '../screens/ErrorBoundary'
-// Primitives
 import { View } from 'aetherspace/primitives'
+import { AetherClerkProvider } from '@aetherspace/clerk-auth/context/ClerkProvider'
 
 /* --- <RootLayout/> --------------------------------------------------------------------------- */
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <ErrorBoundary>
-    <View tw="flex flex-col min-h-full w-full">{children}</View>
+    <AetherClerkProvider>
+      <View tw="flex flex-col min-h-full w-full">{children}</View>
+    </AetherClerkProvider>
   </ErrorBoundary>
 )
 

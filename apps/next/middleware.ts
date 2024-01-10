@@ -1,17 +1,39 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
+import { authMiddleware } from '@clerk/nextjs'
+import { createMiddlewareHeaderContext } from 'aetherspace/utils/serverUtils'
+import { createRequestContext } from '@aetherspace/clerk-auth/utils/createRequestContext'
 
-// -i- currently not supported in Next 13.4.4
-// -i- https://github.com/vercel/next.js/discussions/45384
+/* --- Middleware ------------------------------------------------------------------------------ */
 
-export async function middleware(request: NextRequest) {
-  const response = NextResponse.next()
+// -i- https://clerk.com/docs/references/nextjs/auth-middleware
+// -i- https://nextjs.org/docs/app/api-reference/functions/next-request
+export default authMiddleware({
+  publicRoutes: ['/api/graphql'],
+  async afterAuth(auth, req, evt) {
+    // Create the request context header (to pass things like auth, user, etc. to the API)
+    const headerContext = await createRequestContext(req, { auth, evt })
+    const extraHeaders = {
+      // 'x-custom-header': 'custom-value',
+    }
 
-  // Allow CORS for /api routes
-  if (request.nextUrl.pathname.startsWith('/api')) {
-    response.headers.append('Access-Control-Allow-Origin', '*')
-    response.headers.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-    response.headers.append('Access-Control-Allow-Headers', 'Content-Type')
-  }
+    // Execute the request handler (and pass the request context header)
+    const res = NextResponse.next({
+      request: {
+        headers: await createMiddlewareHeaderContext(req, headerContext, extraHeaders),
+      },
+    })
 
-  return response
+    // Allow CORS for /api routes
+    if (req.nextUrl.pathname.startsWith('/api')) {
+      res.headers.append('Access-Control-Allow-Origin', '*')
+      res.headers.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+      res.headers.append('Access-Control-Allow-Headers', 'Content-Type')
+    }
+
+    return res
+  },
+})
+
+export const config = {
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 }

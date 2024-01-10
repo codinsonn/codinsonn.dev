@@ -1,0 +1,24 @@
+{
+    "name": "@aetherspace/clerk-auth",
+    "version": "0.0.1",
+    "private": true,
+    "license": "SEE LICENSE IN LICENSE.md",
+    "description": "Universal app authentication for aetherspace projects with clerk",
+    "scripts": {
+        "lint": "cd ../.. && eslint \"packages/@aetherspace-clerk-auth/**/*.{ts,tsx}\" --no-error-on-unmatched-pattern"
+    },
+    "dependencies": {
+        "@clerk/clerk-expo": "^0.19.27",
+        "@clerk/nextjs": "^4.29.1",
+        "expo-auth-session": "^5.2.0",
+        "expo-secure-store": "~12.3.1"
+    },
+    "aetherspace": {
+        "relatedWorkspaces": [
+            "aetherspace"
+        ],
+        "requiredEnvVars": [
+            "CLERK_PUBLISHABLE_KEY"
+        ]
+    }
+}

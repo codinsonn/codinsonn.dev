@@ -57,7 +57,7 @@ export const AetherButtonBaseProps = aetherSchema('AetherButtonProps', {
 })
 
 // Types
-export type TAetherButtonProps = AetherProps<typeof AetherButtonBaseProps> & {
+export type AetherButtonProps = AetherProps<typeof AetherButtonBaseProps> & {
   children?: React.ReactNode
   pressableProps?: ComponentProps<typeof Pressable>
   textProps?: ComponentProps<typeof Text>
@@ -74,7 +74,7 @@ export type TAetherButtonProps = AetherProps<typeof AetherButtonBaseProps> & {
 
 /* --- <AetherButton/> ------------------------------------------------------------------------- */
 
-const AetherButton = (props: TAetherButtonProps) => {
+const AetherButton = (props: AetherButtonProps) => {
   // Props
   const {
     type,

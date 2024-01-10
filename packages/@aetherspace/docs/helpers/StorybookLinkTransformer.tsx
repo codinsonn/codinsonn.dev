@@ -33,6 +33,8 @@ const StorybookLinkTransformer = (props) => {
       '/.storybook/public/add-schema.png': '/add-schema.png',
       '/.storybook/public/add-resolver.png': '/add-resolver.png',
       '/.storybook/public/add-route.png': '/add-route.png',
+      '/.storybook/public/GithubTemplateRepo.png': '/GithubTemplateRepo.png',
+      '/.storybook/public/GithubTemplateRepoWithPlugins.png': '/GithubTemplateRepoWithPlugins.png',
       // - Hrefs -
       '?path=/packages/@aetherspace/README.md': '?path=/docs/aetherspace-quickstart--page',
       '?path=/packages/@aetherspace/core/README.md': '?path=/docs/aetherspace-core-concepts--page',
@@ -45,6 +47,7 @@ const StorybookLinkTransformer = (props) => {
       '?path=/packages/@aetherspace/scripts/README.md': '?path=/docs/aetherspace-recommended-workflow--page', // prettier-ignore
       '?path=/packages/@aetherspace/schemas/README.md': '?path=/docs/aetherspace-single-sources-of-truth--page', // prettier-ignore
       '?path=/.github/workflows/README.md': '?path=/docs/aetherspace-deployment--page',
+      '?path=/.storybook/plugins/README.md': '?path=/story/aetherspace-plugin-branches--page',
       '?path=/LICENSE.md': '?path=/docs/aetherspace-license--page',
     })
   }, [])

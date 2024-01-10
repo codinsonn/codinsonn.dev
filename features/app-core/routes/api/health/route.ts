@@ -1,8 +1,6 @@
 import * as OS from 'os'
 import type { NextApiRequest } from 'next'
-// Schemas
 import { z, aetherSchema } from 'aetherspace/schemas'
-// Utils
 import {
   aetherResolver,
   AetherArguments,
