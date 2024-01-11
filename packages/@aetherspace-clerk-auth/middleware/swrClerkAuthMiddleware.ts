@@ -1,6 +1,6 @@
 import { Middleware } from 'swr'
 import { getEnvList, getEnvVar, getGlobal, setGlobal } from 'aetherspace/utils'
-import { AetherFetcherOptions } from 'aetherspace/navigation'
+import type { AetherFetcherOptions } from 'aetherspace/navigation'
 import axios from 'axios'
 
 /** --- swrClerkAuthMiddleware() --------------------------------------------------------------- */

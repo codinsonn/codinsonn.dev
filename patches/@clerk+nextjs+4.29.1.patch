@@ -1,0 +1,38 @@
+diff --git a/node_modules/@clerk/nextjs/dist/cjs/app-router/client/ClerkProvider.js b/node_modules/@clerk/nextjs/dist/cjs/app-router/client/ClerkProvider.js
+index 4f25392..b77dacc 100644
+--- a/node_modules/@clerk/nextjs/dist/cjs/app-router/client/ClerkProvider.js
++++ b/node_modules/@clerk/nextjs/dist/cjs/app-router/client/ClerkProvider.js
+@@ -38,11 +38,12 @@ var import_react = __toESM(require("react"));
+ var import_NextOptionsContext = require("../../client-boundary/NextOptionsContext");
+ var import_useSafeLayoutEffect = require("../../client-boundary/useSafeLayoutEffect");
+ var import_mergeNextClerkPropsWithEnv = require("../../utils/mergeNextClerkPropsWithEnv");
+-var import_useAwaitableNavigate = require("./useAwaitableNavigate");
++// var import_useAwaitableNavigate = require("./useAwaitableNavigate");
+ const ClientClerkProvider = (props) => {
+   const { __unstable_invokeMiddlewareOnAuthStateChange = true } = props;
+   const router = (0, import_navigation.useRouter)();
+-  const navigate = (0, import_useAwaitableNavigate.useAwaitableNavigate)();
++  // const navigate = (0, import_useAwaitableNavigate.useAwaitableNavigate)();
++  const navigate = router.push;
+   (0, import_useSafeLayoutEffect.useSafeLayoutEffect)(() => {
+     window.__unstable__onBeforeSetActive = () => {
+       if (__unstable_invokeMiddlewareOnAuthStateChange) {
+diff --git a/node_modules/@clerk/nextjs/dist/esm/app-router/client/ClerkProvider.js b/node_modules/@clerk/nextjs/dist/esm/app-router/client/ClerkProvider.js
+index 79a81db..7a5ba43 100644
+--- a/node_modules/@clerk/nextjs/dist/esm/app-router/client/ClerkProvider.js
++++ b/node_modules/@clerk/nextjs/dist/esm/app-router/client/ClerkProvider.js
+@@ -5,11 +5,12 @@ import React from "react";
+ import { ClerkNextOptionsProvider } from "../../client-boundary/NextOptionsContext";
+ import { useSafeLayoutEffect } from "../../client-boundary/useSafeLayoutEffect";
+ import { mergeNextClerkPropsWithEnv } from "../../utils/mergeNextClerkPropsWithEnv";
+-import { useAwaitableNavigate } from "./useAwaitableNavigate";
++// import { useAwaitableNavigate } from "./useAwaitableNavigate";
+ const ClientClerkProvider = (props) => {
+   const { __unstable_invokeMiddlewareOnAuthStateChange = true } = props;
+   const router = useRouter();
+-  const navigate = useAwaitableNavigate();
++  // const navigate = useAwaitableNavigate();
++  const navigate = router.push;
+   useSafeLayoutEffect(() => {
+     window.__unstable__onBeforeSetActive = () => {
+       if (__unstable_invokeMiddlewareOnAuthStateChange) {

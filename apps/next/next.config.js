@@ -70,7 +70,7 @@ const nextConfig = {
     images: {
         domains: ['i3.ytimg.com'],
     },
-    webpack: (config, { isServer }) => {
+    webpack: (config, { dev, isServer }) => {
         // -i- Run aetherspace automation scripts in DEV mode
         if (!isServer && process.env.NODE_ENV === 'development') withAutomation()
         // Enable top level await in API handlers
@@ -87,6 +87,23 @@ const nextConfig = {
         config.plugins.push(new FilterWarningsPlugin({
             exclude: [/the request of a dependency is an expression/],
         }))
+
+        // -i- Uncomment the following lines to debug with console logs during `next build` -i-
+
+        // if (!dev && !isServer) {
+        //     config.optimization.minimizer = config.optimization.minimizer.map(plugin => {
+        //         if (plugin.constructor.name === 'TerserPlugin') {
+        //             plugin.options.terserOptions = {
+        //                 ...plugin.options.terserOptions,
+        //                 // Prevent discarding or mangling of console statements
+        //                 compress: { ...plugin.options.terserOptions.compress, drop_console: false },
+        //                 mangle: { ...plugin.options.terserOptions.mangle, reserved: ['console'] },
+        //             }
+        //         }
+        //         return plugin;
+        //     })
+        // }
+
         // Return config
         return config
     },
