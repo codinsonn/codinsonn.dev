@@ -1,4 +1,6 @@
-<img src="/packages/@aetherspace/assets/AetherspaceLogo.svg" width="50" height="50" />
+<a href="https://github.com/Aetherspace/green-stack-starter-demo#readme" target="_blank">
+  <img src="/packages/@aetherspace/assets/AetherspaceLogo.svg" width="50" height="50" />
+</a>
 
 # Aetherspace Core Concepts
 
@@ -206,9 +208,9 @@ Similar to adding recurring features, removing features or packages from a fresh
 
 ---
 
-I firmly believe the opinionated toolbelt and core-concepts provided by the template repo will bring major benefits in terms of speed and efficiency.
+I firmly believe the opinionated toolbelt and core-concepts will bring major benefits in terms of speed and efficiency.
 
-However, **if you wish, you can actually ignore most of these core-concepts** Aetherspace promotes, and still benefit from (only) the universal setup.
+However, **if you wish, you can actually ignore most of these core-concepts**, and still benefit from (only) the universal setup.
 
 For example:
 - You can avoid using `SWR`, `@expo/html-elements` or even `Zod` schemas yourself, even when keeping automations

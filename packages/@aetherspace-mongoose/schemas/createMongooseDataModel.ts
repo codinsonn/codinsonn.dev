@@ -78,7 +78,11 @@ type AetherSchemaInput<Z extends z.ZodRawShape> = z.ZodObject<Z>
 
 /** --- createMongooseDataModel() ----------------------------------------------------------------- */
 /** -i- Turn an aetherSchema with fields defined with zod into a usable mongoose model */
-export const createMongooseDataModel = <Z extends z.ZodRawShape>(
+export const createMongooseDataModel = <
+  Z extends z.ZodRawShape,
+  SchemaDoc = Document & z.infer<AetherSchemaInput<Z>>,
+  SchemaModel = Model<SchemaDoc> & { aetherSchema: AetherSchemaInput<Z> },
+>(
   schema: AetherSchemaInput<Z>,
   schemaOptions: SchemaOptions = {}
 ) => {
@@ -87,13 +91,10 @@ export const createMongooseDataModel = <Z extends z.ZodRawShape>(
     throw new Error('createMongooseDataModel() requires a named aetherSchema (did you pass a regular zod object instead?)') // prettier-ignore
   }
 
-  // Define resulting Interface
-  type SchemaDoc = Document & z.infer<AetherSchemaInput<Z>>
-  type SchemaModel = Model<SchemaDoc> & { aetherSchema: typeof schema }
-
   // Check for existing model before creating a new one
   const existingModel = mongoose.models[schema.schemaName] as SchemaModel
   if (existingModel) {
+    // @ts-ignore
     existingModel.aetherSchema = schema
     return existingModel
   }
@@ -141,6 +142,7 @@ export const createMongooseDataModel = <Z extends z.ZodRawShape>(
   const schemaModel = model<SchemaDoc>(schema.schemaName, mongooseSchema) as SchemaModel
 
   // Attach schema to model
+  // @ts-ignore
   schemaModel.aetherSchema = schema
 
   // Return model

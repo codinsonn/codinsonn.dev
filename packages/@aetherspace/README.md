@@ -1,4 +1,6 @@
-<img src="/packages/@aetherspace/assets/AetherspaceLogo.svg" width="50" height="50" />
+<a href="https://github.com/Aetherspace/green-stack-starter-demo#readme" target="_blank">
+  <img src="/packages/@aetherspace/assets/AetherspaceLogo.svg" width="50" height="50" />
+</a>
 
 # GREEN stack quickstart ⚡
 
@@ -20,8 +22,8 @@ It comes out of the box with setup for:
 - Next.js web app (File based app dir routing, Serverside rendering, Static site generation, ...)
 - Expo mobile app (Android & iOS with Expo-Router and react-native)
 - A REST & GraphQL API (with Apollo Server & Next.js API routes)
-- Documentation for Aetherspace and its components + docgen as a side effect of our [recommended way of working](/packages/@aetherspace/scripts/README.md)
 - [Generators and Automation scripts](/packages/@aetherspace/scripts/README.md) to automatically generate API & component documentation
+- Documentation for Aetherspace and its components (with docgen being a side effect of our [recommended way of working](/packages/@aetherspace/scripts/README.md))
 - Github actions for mobile deployments, linting your code & building your documentation
 
 **When you're ready to start developing, run `yarn install` to install all dependencies, followed by:**
