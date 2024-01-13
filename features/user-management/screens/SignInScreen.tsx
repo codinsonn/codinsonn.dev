@@ -9,7 +9,9 @@ import { useAetherNav } from 'aetherspace/navigation'
 /* --- Schemas & Types ------------------------------------------------------------------------- */
 
 // -i- TODO: Change this schemas to match your screen's props
-const SignInScreenProps = aetherSchema('SignInScreenProps', {})
+export const SignInScreenProps = aetherSchema('SignInScreenProps', {})
+
+export type SignInScreenProps = AetherProps<typeof SignInScreenProps>
 
 /* --- Screen Config --------------------------------------------------------------------------- */
 
@@ -17,8 +19,6 @@ export const screenConfig = {
   dynamic: 'force-static' as const,
   backgroundColor: '#111827',
 }
-
-export type SignInScreenProps = AetherProps<typeof SignInScreenProps>
 
 /* --- <SignInScreen/> ------------------------------------------------------------------------- */
 

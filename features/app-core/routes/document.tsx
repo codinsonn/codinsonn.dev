@@ -1,10 +1,7 @@
 /* eslint-disable @next/next/no-head-element */
 import React from 'react'
-// Layouts
 import RootLayout from './layout'
-// Styles
 import ServerStylesInjector from './ssr-style-injector'
-// Constants
 import { getBaseUrl } from 'aetherspace/utils/envUtils'
 
 /* --- Styles ---------------------------------------------------------------------------------- */

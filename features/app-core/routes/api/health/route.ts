@@ -1,6 +1,6 @@
 import * as OS from 'os'
 import type { NextApiRequest } from 'next'
-import { z, aetherSchema } from 'aetherspace/schemas'
+import { z, aetherSchema, createDataBridge } from 'aetherspace/schemas'
 import {
   aetherResolver,
   AetherArguments,
@@ -72,10 +72,14 @@ export const HealthCheckResponse = HealthCheckArgs.extendSchema('HealthCheckResp
 
 /* --- Config ---------------------------------------------------------------------------------- */
 
-const resolverConfig = {
+const resolverConfig = createDataBridge({
+  resolverName: 'healthCheck',
+  resolverType: 'query',
   argsSchema: HealthCheckArgs,
   responseSchema: HealthCheckResponse,
-}
+  apiPath: '/api/health',
+  allowedMethods: ['GRAPHQL', 'GET', 'POST'],
+})
 
 /* --- Constants ------------------------------------------------------------------------------- */
 

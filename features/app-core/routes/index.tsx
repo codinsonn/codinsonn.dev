@@ -3,7 +3,7 @@ import { AetherPage } from 'aetherspace/navigation'
 import * as bioScreen from 'links-page/screens/BioScreen'
 import { userBioMock } from 'links-page/mocks/userBio.mock'
 
-/* --- /links ---------------------------------------------------------------------------------- */
+/* --- / --------------------------------------------------------------------------------------- */
 
 const PageScreen = (props: bioScreen.BioScreenProps) => (
   <AetherPage

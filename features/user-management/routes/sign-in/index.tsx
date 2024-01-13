@@ -10,12 +10,7 @@ const screenConfig = SignInScreen.screenConfig
 /* --- /sign-in -------------------------------------------------------------------------------- */
 
 const PageScreen = (props: SignInScreen.SignInScreenProps) => (
-  <AetherPage
-    {...props}
-    screen={ScreenComponent} // @ts-ignore
-    screenConfig={screenConfig}
-    skipFetching
-  />
+  <AetherPage {...props} screen={ScreenComponent} screenConfig={screenConfig} skipFetching />
 )
 
 /* --- Exports --------------------------------------------------------------------------------- */
