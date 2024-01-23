@@ -8,9 +8,9 @@
 import { z, aetherSchema, AetherProps } from 'aetherspace/schemas'
 ```
 
-A core feature of Aetherspace as a starter template is taking what works and making it better. `aetherSchema()` is a tiny wrapper around `zod.object()`. You can use it to define your datastructures just once for the entire monorepo.
+A core feature of Aetherspace as a starter template is taking what works and making it better. This is why we invented `aetherSchema()` as a tiny wrapper around `zod.object()`. You can use it to define your datastructures just once for the entire monorepo.
 
-> `zod` is a schema validation library built with Typescript in mind. By extending it with `aetherSchema()`, we can leverage its powerful features to create single sources of truth for GraphQL, Next.js and Storybook as well.
+> `zod` is a schema validation library built with Typescript in mind. By extending it with `aetherSchema()`, we can leverage its powerful features to create single sources of truth for GraphQL, API Routes, Database Models and Storybook Docs as well.
 
 <br/>
 
@@ -362,6 +362,16 @@ const someSchema = aetherSchema('SomeSchema', {
 ## Possible Next Steps
 
 - Read the [official zod docs at zod.dev](https://zod.dev/) (or watch an [intro video](https://www.youtube.com/watch?v=L6BE-U3oy80))
-- [Writing flexible data resolvers with Schemas](/packages/@aetherspace/navigation/AetherPage/README.md)
-- [Form State Management in Aetherspace with Zod](/packages/@aetherspace/forms/README.md)
-- [Automation based on Schemas: Storybook & GraphQL](/packages/@aetherspace/scripts/README.md)
+- Learn to [**write flexible data resolvers with args & response schemas**](/packages/@aetherspace/navigation/AetherPage/README.md)
+- Learn to [**use your schemas for Form State Management in Aetherspace**](/packages/@aetherspace/forms/README.md)
+- Learn [how schemas enable automatic Storybook & GraphQL codegen](/packages/@aetherspace/scripts/README.md)
+
+## Previously
+
+- [Recommended way of working](/packages/@aetherspace/scripts/README.md) (and the generators that will help with that).
+
+## Other Topics
+
+- [Styling your components with Tailwind for Web & Mobile](/packages/@aetherspace/styles/README.md)
+- [Universal Routing with Expo and Next.js](/packages/@aetherspace/navigation/README.md)
+

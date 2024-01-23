@@ -13,19 +13,13 @@
     <img alt="Test in Expo GO" longdesc="Test in Expo GO" src="https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37" />
   </a>
   <a href="https://main--63e8ae7f443d84f16518d4e5.chromatic.com/?path=/story/readme-md--page">
-    <img alt="Docs with Storybook" longdesc="Documentated with Storybook" src="https://img.shields.io/badge/-Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=fff" />
+    <img alt="Docs with Storybook" longdesc="Documented with Storybook" src="https://img.shields.io/badge/-Read_the_Docs-FF4785?style=for-the-badge&logo=storybook&logoColor=fff" />
   </a>
 </p>
 
-> This project was bootstrapped with [Aetherspace](https://github.com/sponsors/codinsonn), the Evergreen repo setup for all your full-stack cross platform app development needs \{...💚\} Enabling the project to be built for Web, iOS, Android, PWA, Static, SSR, API routes and GraphQL all at once 👇 ... while also documenting your code automatically with Storybook.
+> This project was bootstrapped with [Aetherspace](https://github.com/Aetherspace/green-stack-starter), the Evergreen repo setup for all your full-stack cross platform app development needs \{...💚\} Enabling the project to be built for Web, iOS, Android, PWA, Static, SSR, API routes and GraphQL all at once 👇 ... while also documenting your code automatically with Storybook.
 
-### Getting started ⚡️
-
-Install packages: `yarn install`
-
-Run on web & mobile: `yarn dev`
-
-Run with Storybook docs: `yarn dev:docs`
+<p style={{ padding: "4px" }} />  
 
 ---
 
@@ -37,7 +31,7 @@ Run with Storybook docs: `yarn dev:docs`
 # Aetherspace - GREEN stack starter template for cross platform React app development
 
 > 🐦 [Anouncement post](https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64)  
-> ⚡️ [Quickstart example](https://main--63e8ae7f443d84f16518d4e5.chromatic.com/?path=/story/aetherspace-quickstart--page)  
+> ⚡️ [Quickstart example](https://main--62c9a236ee16e6611d719e94.chromatic.com/?path=/story/aetherspace-quickstart--page)  
 > 📚 [Core Concepts](/packages/@aetherspace/core/README.md)
 
 ### Table of contents
@@ -56,7 +50,7 @@ In short GREEN stands for these 5 core technologies:
 
 - **G**raphQL for typed and self documenting APIs
 - **R**eact & React-Native for write-once UI
-- **E**vergreen components (extendable, themable, with docs, types & tests)
+- **E**vergreen components (extendable, themable, with docs & types)
 - **E**xpo for easy mobile development, deployment and testing
 - **N**ext.js for web, SEO, Static & Server rendering, API & Web-Vitals
 
@@ -78,10 +72,10 @@ The core idea is writing your app code or features just once with Typescript and
 
 Aetherspace is an opinionated framework that fills in the gaps of working and building with the GREEN stack:
 
-- How should we handle responsive design?
-- How do we avoid web layout shift when react-native styling does not support media queries or classnames?
-- How can we expose / read public env vars across multiple platforms?
-- How do we take advantage of optimisations like `next/image` on web when that's not available in React-Native?
+- How should I handle responsive design?
+- How do I avoid web layout shift when react-native styling does not support media queries or classnames?
+- How can I expose / read public env vars across multiple platforms?
+- How do I take advantage of optimisations like `next/image` on web when that's not available in React-Native?
 - What's the best way to style and animate my UI elements for both web and mobile?
 
 Just to name a few.
@@ -169,10 +163,10 @@ For every app you're building in this monorepo, you'll need a few folders:
 - `/features/{app}-core` - Where most of your core app specific UI, logic and screens will live.
   Should list app dependencies not listed elsewhere.
 
-In each of these folders own a `package.json` file, where a `name` property should be specified to identify that workspace. This name can then be referenced during installs via e.g.
+In each of these folders there's a `package.json` file, where a `name` property should be specified to identify that workspace. This name can then be referenced during installs via e.g.
 
 ```shell-script
-yarn workspace next add {package-name}
+yarn workspace app add {package-name}
 ```
 
 #### To install Expo modules for the specific Expo SDK you're using:
@@ -313,7 +307,7 @@ If your project has required dependencies / SDKs / libraries that are either not
 
 See the [Core Concepts](/packages/@aetherspace/core/README.md) section
 
-#### How can we apply the same navigation and deeplinks between web and mobile?
+#### How can I apply the same navigation and deeplinks between web and mobile?
 
 Deeplinks on mobile come out of the box with Expo-Router, which Aetherspace's [Universal Routing](/packages/@aetherspace/navigation/README.md) uses under the hood.
 
@@ -343,6 +337,38 @@ Check out the [License](/LICENSE.md) and its FAQ section.
 </details>
 
 ---
+
+<p style={{ padding: "4px" }} />  
+
+### Getting started ⚡️
+
+Generate a new repo from the [Aetherspace template](https://github.com/Aetherspace/green-stack-starter-demo) and (optionally) include all branches.
+
+![GithubTemplateRepo.png](/.storybook/public/GithubTemplateRepo.png)
+
+![GithubTemplateRepoWithPlugins.png](/.storybook/public/GithubTemplateRepoWithPlugins.png)
+
+Set this repo as the upstream if you want to include the git commit history:
+
+```
+git remote add upstream git@github.com:Aetherspace/green-stack-starter.git
+git fetch upstream
+git pull --rebase upstream main
+```
+
+Install packages: `yarn install`
+
+Run on web & mobile: `yarn dev`
+
+Run with Storybook docs: `yarn dev:docs`
+
+---
+
+Continue with >>> <b><a href="https://main--62c9a236ee16e6611d719e94.chromatic.com/?path=/docs/aetherspace-quickstart--page">Quickstart</a></b> > <b><a href="https://main--62c9a236ee16e6611d719e94.chromatic.com/?path=/docs/aetherspace-core-concepts--page">Core Concepts</a></b> > <b><a href="https://main--62c9a236ee16e6611d719e94.chromatic.com/?path=/docs/aetherspace-recommended-workflow--page">Recommended Way of Working</a></b>
+
+---
+
+...
 
 Thorr / [@codinsonn.dev](https://codinsonn.dev)'s personal website & app.  
 
