@@ -3,12 +3,17 @@ import { authMiddleware } from '@clerk/nextjs'
 import { createMiddlewareHeaderContext } from 'aetherspace/utils/serverUtils'
 import { createRequestContext } from '@aetherspace/clerk-auth/utils/createRequestContext'
 
+/* --- Public Routes --------------------------------------------------------------------------- */
+
+const PUBLIC_ROUTES = ['/', '/links', '/bio', '/cv', '/resume', '/sign-in', '/sign-up']
+
 /* --- Middleware ------------------------------------------------------------------------------ */
 
 // -i- https://clerk.com/docs/references/nextjs/auth-middleware
 // -i- https://nextjs.org/docs/app/api-reference/functions/next-request
 export default authMiddleware({
-  publicRoutes: ['/api/graphql'],
+  publicRoutes: ['/api/graphql', ...PUBLIC_ROUTES],
+  ignoredRoutes: [...PUBLIC_ROUTES],
   async afterAuth(auth, req, evt) {
     // Create the request context header (to pass things like auth, user, etc. to the API)
     const headerContext = await createRequestContext(req, { auth, evt })
