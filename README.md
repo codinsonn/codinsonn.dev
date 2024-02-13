@@ -1,6 +1,6 @@
 <img src="/packages/@aetherspace/assets/AetherspaceLogo.svg" width="50" height="50" />
 
-# Thorr ⚡️ codinsonn.dev - Personal Website
+# Thorr ⚡️ codinsonn.dev - Personal Website & App
 
 <p>
   <a href="https://codinsonn.dev">
@@ -17,7 +17,7 @@
   </a>
 </p>
 
-> This project was bootstrapped with [Aetherspace](https://github.com/Aetherspace/green-stack-starter), the Evergreen repo setup for all your full-stack cross platform app development needs \{...💚\} Enabling the project to be built for Web, iOS, Android, PWA, Static, SSR, API routes and GraphQL all at once 👇 ... while also documenting your code automatically with Storybook.
+> This project was bootstrapped with [Aetherspace](https://github.com/Aetherspace/green-stack-starter-demo), the Evergreen repo setup for all your **full-product, universal app** development needs \{...💚\} Enabling the project to be built for Web, iOS, Android, PWA, Static, SSR, API routes and GraphQL at write-once efficiency, while also documenting your code automatically with Zod & Storybook.
 
 <p style={{ padding: "4px" }} />  
 

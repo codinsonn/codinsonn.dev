@@ -6,7 +6,7 @@ import { useServerInsertedHTML } from 'next/navigation'
 import RootLayout from './layout'
 import { getInjectableMediaQueries } from 'aetherspace/styles'
 
-/* --- <ServerStylesInjector> ------------------------------------------------------------------------------ */
+/* --- <ServerStylesInjector> ------------------------------------------------------------------ */
 
 const ServerStylesInjector = (props: { children: React.ReactNode }) => {
   // Props
