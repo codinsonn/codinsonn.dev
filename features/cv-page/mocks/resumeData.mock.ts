@@ -121,12 +121,12 @@ export const dummyResumeData: ResumeData = {
   features: [],
   workExperience: [
     {
-      title: 'Lead Full-Stack Consultant',
+      title: 'Lead Full-Stack Consultant - Freelance',
       company: 'Talentguide',
       from: '2023',
-      to: 'Now',
+      to: '2024',
       linkUrl: 'https://talentguide.com',
-      description: `Currently scaling the already built AI powered MVP for Talentguide to a production ready app. Mostly front-end web and back-end + cloud work, while the AI / ML core is constantly being improved by the client's internal team. Currently planning on building the Mobile version of the app with Aetherspace.`,
+      description: `Helped scale the AI powered MVP for Talentguide to a production-ready app (part-time) while the team searched for a full-time lead dev. Mostly front-end web and back-end + cloud work, while the client's internal team is constantly improving the AI / ML core.`,
     },
     {
       title: 'Full-Product Typescript Engineer',
