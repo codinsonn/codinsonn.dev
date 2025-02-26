@@ -39,20 +39,28 @@ export const dummyResumeData: ResumeData = {
   ],
   projects: [
     {
+      title: 'HR Tech - AI App Teaser & Onboarding Flows',
+      client: 'Talentguide',
+      year: '2024',
+      linkUrl: 'https://talentguide.com',
+      collaborators: 'Miles Ahead Capital',
+      description: `Helped Talentguide develop their chart visualisation and build a Teaser + extended customer onboarding flow. Preview the AI tool, sign-up and invite team members, APIs and Handoff from other HR tools. Also worked on other critical infrastructure like integrating Stripe payments and building + sending emails with react-email and Azure Communications.`,
+    },
+    {
       title: 'Commerce Aggregation App',
       client: 'Incubator of a large US retailer',
       year: '2023',
       linkUrl: '',
       collaborators: '',
-      description: `6mo, NY, Built with Expo, React-native & Next.js, but can't say more sadly`,
+      description: `6 month-long Mobile App MVP Project, partly executed on premise in the New York HQ. Built with Expo, React-native & Next.js. Aimed at revolutionizing collaborative grocery shopping with a modern UI, multi-modal and household-centric approach. Can't say more, sadly.`,
     },
     {
       title: 'Cancer Companion App',
-      client: 'My Cancer Companion by Dr. Eric Lim, Thoracic Surgeon',
+      client: "'My Cancer Companion' by Dr. Eric Lim, Thoracic Surgeon",
       year: '2022',
       linkUrl: 'https://www.mycancercompanion.com/',
       collaborators: '',
-      description: `My Cancer Companion is an app I helped build providing the best, most up-to-date, and authoritative information for people with lung cancer. Cool features I worked on include Symptom logging (charts), Personalised recommendations, and Appointment management (calendars). Helped build this with Expo, React-Native, and Nest.js in Belgium and London.`,
+      description: `My Cancer Companion is a Mobile app I helped build to provide the best, most up-to-date, and authoritative information for people with lung cancer. Exciting features I worked on include Symptom logging (charts), Personalised recommendations (content-engine), and Appointment management (calendars). Helped build this with Expo, React-Native, and Nest.js in Belgium and London.`,
     },
     {
       title: 'React renderer for a B2B eCommerce CMS',
@@ -65,15 +73,31 @@ export const dummyResumeData: ResumeData = {
   ],
   sideProjects: [
     {
-      title: 'Aetherspace GREEN stack starter',
+      title: 'Free GREEN stack starter',
       client: 'Github, Open-Source',
       year: 'Ongoing',
       linkUrl: 'https://github.com/Aetherspace/green-stack-starter-demo#readme',
       collaborators: '',
-      description: `Kickstart your next project with Aetherspace: A Zod & Typescript-first approach to building cross-platform experiences with GraphQL, React-Native, Expo & Next.js, in a write-once way. So far, I've created and maintained this resource over the course of 3 years.`,
+      description: `Free / Demo version of the FullProduct.dev Universal App Starterkit. A Zod & Typescript-first approach to building cross-platform experiences with GraphQL, React-Native, Expo & Next.js, in a write-once way. So far, I've created and maintained this resource over the course of 3 years.`,
+    },
+    {
+      title: 'FullProduct.dev ⚡️ Universal App Starterkit',
+      client: 'Aetherspace Digital',
+      year: 'Ongoing',
+      linkUrl: 'https://fullproduct.dev',
+      collaborators: '',
+      description: `Kickstart your next project with FullProduct.dev: A Zod & Typescript-first approach to building Universal App experiences with GraphQL, React-Native, Expo & Next.js, in a write-once way. Well-documented productisation of my way of working.`,
     },
   ],
   writing: [
+    {
+      title: 'Zod and the Joy of Single Sources of Truth',
+      year: '2024',
+      publisher: 'dev.to',
+      linkUrl: 'https://dev.to/codinsonn/the-joy-of-single-sources-of-truth-277o',
+      collaborators: 'Builds upon the wonderful work of Colin Hacks and Zod.dev',
+      description: `In this article, I'll build up to more advanced use cases of Zod, and how it can be used as a single source of truth for not just types and validation, but any datastructure definition in your entire codebase.`,
+    },
     {
       title: 'How to choose cross-platform tech',
       year: '2023',
@@ -92,6 +116,14 @@ export const dummyResumeData: ResumeData = {
     },
   ],
   speaking: [
+    {
+      title: 'Zod and the Joy of Single Sources of Truth',
+      year: '2024',
+      event: 'Devs.Ghent (iO)',
+      location: 'Ghent, Belgium',
+      linkUrl: 'https://dev.to/codinsonn/the-joy-of-single-sources-of-truth-277o',
+      description: `A talk about advanced use cases of Zod, and how it can be used as a single source of truth for not just types and validation, but any datastructure definition in your entire codebase.`,
+    },
     {
       title: 'Full-Product Universal Apps with Aetherspace',
       year: '2023',
@@ -132,8 +164,8 @@ export const dummyResumeData: ResumeData = {
       title: 'Full-Product Typescript Engineer',
       from: '2022',
       to: '2023',
-      company: 'Bothrs',
-      location: 'Ghent, Belgium (also: New York & London)',
+      company: 'Bothrs / Nimble',
+      location: 'Ghent, Belgium ( + occasional trips to New York, London)',
       linkUrl: 'https://www.bothrs.com/',
       description: `Built some cool Mobile Apps with Web features using Expo, React-Native, and Next.js here. Often the initial MVP or incubator project was built & validated by our smaller teams, while the client scaled up their team to take over. Included clients in the US, UK, Healthcare, and ECommerce sectors.`,
     },
@@ -147,13 +179,13 @@ export const dummyResumeData: ResumeData = {
       description: `Worked on a wide variety of projects here. Mostly Front-end work for their in-house ECommerce CMS that powers the likes of Dockx Rental and Denderwood. Aside from that, I also worked on some advanced web-based configurators for Daikin EU here, and even some Mobile apps with React-Native and Expo.`,
     },
     {
-      title: 'Back-End, Web & Mobile Developer',
+      title: 'Back-End + Web + Mobile Developer',
       from: '2017',
-      to: '2016',
+      to: '2018',
       company: 'Tildepost',
       location: 'Bredene, Belgium',
       linkUrl: '',
-      description: `As the only engineer for the entire startup, I was building the project for all platforms with Expo, React-Native, and Node.js`,
+      description: `As the only engineer for the entire startup, I maintained and added core features for all platforms with Expo, React-Native and Node.js`,
     },
   ],
   volunteering: [
@@ -167,7 +199,7 @@ export const dummyResumeData: ResumeData = {
       description: '',
     },
     {
-      title: 'GREEN stack template repo',
+      title: 'Free GREEN stack template repo',
       from: '2020',
       to: 'Now',
       company: 'Aetherspace Digital',

@@ -1,7 +1,7 @@
 import { aetherResolver } from 'aetherspace/utils/serverUtils'
 import { GetResumeDataByUserSlugDataBridge } from '../schemas/GetResumeDataByUserSlugDataBridge'
 import { ResumeDataModel } from '../models/ResumeDataModel'
-// import { dummyResumeData } from '../mocks/resumeData.mock'
+import { dummyResumeData } from '../mocks/resumeData.mock'
 import { dbConnect } from '@aetherspace/mongoose/utils'
 
 /** --- getResumeDataByUserSlug ---------------------------------------------------------------- */
@@ -14,16 +14,19 @@ export const getResumeDataByUserSlug = aetherResolver(
 
       // -- Connect --
 
-      await dbConnect()
+      // await dbConnect()
 
       // -- Logic --
 
-      const resumeData = await ResumeDataModel.findOne({ slug })
-      if (!resumeData) throw handleError('Resume data not found', true)
+      // const resumeData = await ResumeDataModel.findOne({ slug })
+      // if (!resumeData) throw handleError('Resume data not found', true)
 
       // -- Respond --
 
-      return withDefaults(resumeData!.toObject())
+      // return withDefaults(resumeData!.toObject())
+
+      return withDefaults(dummyResumeData)
+
     } catch (err) {
       throw handleError(err)
     }

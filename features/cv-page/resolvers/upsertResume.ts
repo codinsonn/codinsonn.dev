@@ -9,6 +9,9 @@ import { dbConnect } from '@aetherspace/mongoose/utils'
 
 const MONGODB_URI = process.env.MONGODB_URI
 
+/* --- Links ----------------------------------------------------------------------------------- */
+/* -i- http://localhost:3000/api/resume/codisonn/upsert?authKey=codinsonn-db.aeqqm8l.mongodb.net/codinsonn */
+
 /** --- upsertResume --------------------------------------------------------------------------- */
 /** -i- Inserts or updates a resume based on the slug */
 export const upsertResume = aetherResolver(

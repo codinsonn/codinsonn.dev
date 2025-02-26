@@ -1,6 +1,6 @@
-import { TUserBio } from '../schemas'
+import type { UserBio } from '../schemas/UserBio'
 
-export const userBioMock: TUserBio = {
+export const userBioMock: UserBio = {
   slug: 'codinsonn',
   title: '@codinsonn',
   titleLink: 'https://www.instagram.com/codinsonn.dev/',
@@ -25,22 +25,22 @@ export const userBioMock: TUserBio = {
     },
     {
       id: '4',
-      linkUrl: '...',
+      linkUrl: 'https://fullproduct.dev',
       linkIconKey: 'ReactIcon',
     },
     {
       id: '5',
-      linkUrl: '...',
+      linkUrl: 'https://codelyfans.myshopify.com',
       linkIconKey: 'ShopifyIcon',
     },
     {
       id: '6',
-      linkUrl: '...',
+      linkUrl: 'https://www.redbubble.com/people/AetherspaceOne/shop',
       linkIconKey: 'RedbubbleIcon',
     },
     {
       id: '7',
-      linkUrl: '...',
+      linkUrl: 'https://www.behance.net/ThorrStevens',
       linkIconKey: 'BehanceIcon',
     },
   ],
@@ -48,7 +48,7 @@ export const userBioMock: TUserBio = {
     {
       id: '1',
       linkUrl: 'https://www.youtube.com/watch?v=njhgS-erQbo',
-      linkTitle: 'An intro to Aetherspace and the GREEN stack',
+      linkTitle: 'Intro to FullProduct.dev and the GREEN stack',
       subTitle: 'Recorded conference talk at Newline.gent',
       imageUrl: '/img/NewlineTalk.jpeg',
       isFeatured: true,

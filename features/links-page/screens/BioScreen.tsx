@@ -153,7 +153,15 @@ export const BioScreen = (props: BioScreenProps) => {
             tw="font-primary-regular text-primary text-sm"
             asText
           >
-            Free template repo
+            Free template
+          </Link>
+          <Text tw="font-primary-regular text-primary text-sm">{' / '}</Text>
+          <Link
+            href="https://fullproduct.dev"
+            tw="font-primary-regular text-primary text-sm"
+            asText
+          >
+            Paid Starterkit
           </Link>
           <Text tw="font-primary-regular text-primary text-sm">{' / '}</Text>
           <Link href="/resume" tw="font-primary-black text-primary underline text-sm" asText>

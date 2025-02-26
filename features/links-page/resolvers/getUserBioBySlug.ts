@@ -3,6 +3,7 @@ import { GetUserBioBySlugDataBridge } from '../schemas/GetUserBioBySlugDataBridg
 import { UserBioTable } from '../models/UserBioTable'
 import { UserIconsTable } from '../models/UserIconsTable'
 import { LinkInBioTable } from '../models/LinkInBioTable'
+import { userBioMock } from '../mocks/userBio.mock'
 
 /** --- getUserBioBySlug() --------------------------------------------------------------- */
 /** -i- Fetch all the bio page info for a specific user by their url slug */
@@ -12,19 +13,22 @@ export const getUserBioBySlug = aetherResolver(
       // Args
       const { slug } = parseArgs(args)
 
-      // Fetch bio info from airtable
-      const [userBio, iconLinks, linksInBio] = await Promise.all([
-        UserBioTable.aetherQueries.findOne({ slug }),
-        UserIconsTable.aetherQueries.find({ userSlug: slug }),
-        LinkInBioTable.aetherQueries.find({ userSlug: slug }),
-      ])
+      // // Fetch bio info from airtable
+      // const [userBio, iconLinks, linksInBio] = await Promise.all([
+      //   UserBioTable.aetherQueries.findOne({ slug }),
+      //   UserIconsTable.aetherQueries.find({ userSlug: slug }),
+      //   LinkInBioTable.aetherQueries.find({ userSlug: slug }),
+      // ])
 
-      // Result
-      return withDefaults({
-        ...userBio,
-        iconLinks,
-        linksInBio,
-      })
+      // // Result
+      // return withDefaults({
+      //   ...userBio,
+      //   iconLinks,
+      //   linksInBio,
+      // })
+
+      return withDefaults({ ...userBioMock })
+
     } catch (error) {
       // -!- Temporary mock for local offline debugging
       // if (process.env.NODE_ENV !== 'production') return userBioMock
