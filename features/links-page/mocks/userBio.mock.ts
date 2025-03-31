@@ -5,7 +5,7 @@ export const userBioMock: UserBio = {
   title: '@codinsonn',
   titleLink: 'https://www.instagram.com/codinsonn.dev/',
   bioText:
-    'Dev Memes & GREEN stack dreams { ...💚 } Helping you take React apps cross-platform 👾 ⚡️ 🤖 Typescript ⚡️ GraphQL ⚡️ React-Native ⚡️ Expo ⚡️ Next.js',
+    'Full-Product universal app dev 🤖 Build for Web and App Stores in a write-once way 👾 GQL ⚡️ React-Native ⚡️ Expo ⚡️ Next.js ⚡️ Zod ⚡️ TS',
   imageUrl: '/img/CodelyFansLogoPic160x160.jpeg',
   iconLinks: [
     {
@@ -15,7 +15,7 @@ export const userBioMock: UserBio = {
     },
     {
       id: '2',
-      linkUrl: 'https://github.com/sponsors/codinsonn',
+      linkUrl: 'https://github.com/codinsonn',
       linkIconKey: 'GithubIcon',
     },
     {
@@ -47,19 +47,27 @@ export const userBioMock: UserBio = {
   linksInBio: [
     {
       id: '1',
-      linkUrl: 'https://www.youtube.com/watch?v=njhgS-erQbo',
-      linkTitle: 'Intro to FullProduct.dev and the GREEN stack',
-      subTitle: 'Recorded conference talk at Newline.gent',
-      imageUrl: '/img/NewlineTalk.jpeg',
-      isFeatured: true,
-    },
-    {
-      id: '2',
       linkUrl: 'https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64',
       linkTitle: "'Move fast & build things', with Zod, Expo & Next.js",
       subTitle: 'Summary of the Full-Stack meetup on DEV.to',
       imageUrl: '/img/FSMeetup.jpeg',
       isFeatured: true,
     },
+    {
+      id: '2',
+      linkUrl: 'https://fullproduct.dev',
+      linkTitle: 'Intro to FullProduct.dev and the GREEN stack',
+      subTitle: 'Universal App Starterkit',
+      imageUrl: '/img/full-product-dot-dev-logo.png',
+      isFeatured: true,
+    },
+    // {
+    //   id: '3',
+    //   linkUrl: 'https://www.youtube.com/watch?v=njhgS-erQbo',
+    //   linkTitle: 'Intro to FullProduct.dev and the GREEN stack',
+    //   subTitle: 'Recorded conference talk at Newline.gent',
+    //   imageUrl: '/img/NewlineTalk.jpeg',
+    //   isFeatured: true,
+    // },
   ],
 }
