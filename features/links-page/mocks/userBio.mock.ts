@@ -55,9 +55,9 @@ export const userBioMock: UserBio = {
     },
     {
       id: '2',
-      linkUrl: 'https://fullproduct.dev',
+      linkUrl: 'https://fullproduct.dev/blog/maximize-efficiency-building-universal-apps?v=cdnsn',
       linkTitle: 'Intro to FullProduct.dev and the GREEN stack',
-      subTitle: 'Universal App Starterkit',
+      subTitle: 'Maximise Dev Efficiency, ship fast and stand out',
       imageUrl: '/img/full-product-dot-dev-logo.png',
       isFeatured: true,
     },

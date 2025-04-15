@@ -73,7 +73,7 @@ export const dummyResumeData: ResumeData = {
   ],
   sideProjects: [
     {
-      title: 'Free GREEN stack starter',
+      title: 'Free GREEN stack Expo + Next.js starter',
       client: 'Github, Open-Source',
       year: 'Ongoing',
       linkUrl: 'https://github.com/Aetherspace/green-stack-starter-demo#readme',
@@ -82,7 +82,7 @@ export const dummyResumeData: ResumeData = {
     },
     {
       title: 'FullProduct.dev ⚡️ Universal App Starterkit',
-      client: 'Aetherspace Digital',
+      // client: 'Aetherspace Digital',
       year: 'Ongoing',
       linkUrl: 'https://fullproduct.dev',
       collaborators: '',
@@ -90,6 +90,14 @@ export const dummyResumeData: ResumeData = {
     },
   ],
   writing: [
+    {
+      title: '6  tips to Maximise Efficiency when building Universal Apps',
+      year: '2025',
+      publisher: 'fullproduct.dev',
+      linkUrl: 'https://fullproduct.dev/blog/maximize-efficiency-building-universal-apps?v=cv',
+      collaborators: '',
+      description: `I wasn't always the best at shipping fast. Though I did learn to work smarter and deliver more in less time. These 6 tips and tricks will help when building for Web and App Stores.`,
+    },
     {
       title: 'Zod and the Joy of Single Sources of Truth',
       year: '2024',
@@ -117,6 +125,14 @@ export const dummyResumeData: ResumeData = {
   ],
   speaking: [
     {
+      title: 'How to Maximise Efficiency when building Universal Apps',
+      year: '2025',
+      event: 'React Native Belgium - Meetup #2',
+      location: 'In The Pocket, Ghent',
+      linkUrl: 'https://fullproduct.dev/blog/maximize-efficiency-building-universal-apps?v=cv',
+      description: `Talk about all the different ways you can work smarter instead of harder as a Universal App developer.`,
+    },
+    {
       title: 'Zod and the Joy of Single Sources of Truth',
       year: '2024',
       event: 'Devs.Ghent (iO)',
@@ -125,7 +141,7 @@ export const dummyResumeData: ResumeData = {
       description: `A talk about advanced use cases of Zod, and how it can be used as a single source of truth for not just types and validation, but any datastructure definition in your entire codebase.`,
     },
     {
-      title: 'Full-Product Universal Apps with Aetherspace',
+      title: 'How to efficiëntly build Full-Product Universal Apps',
       year: '2023',
       event: 'Newline 2023',
       location: 'Ghent, Belgium',
@@ -138,7 +154,7 @@ export const dummyResumeData: ResumeData = {
       event: 'Meetup.com',
       location: 'Ghent, Belgium',
       linkUrl: 'https://dev.to/codinsonn/how-to-compete-with-elons-twitter-a-dev-perspective-4j64',
-      description: `What would it take for a startup to build the new Twitter? From going cross-platform from the start to the importance of docs when scaling your team, we explored how Aetherspace and the GREEN stack can help you compete with the likes of Elon Musk.`,
+      description: `What would it take for a startup to build the new Twitter? From going cross-platform from the start to the importance of docs when scaling your team, we explored how FullProduct.dev and the GREEN stack can help you compete with the likes of Elon Musk.`,
     },
   ],
   awards: [
