@@ -64,9 +64,9 @@ export const dummyResumeData: ResumeData = {
     },
     {
       title: 'React renderer for a B2B eCommerce CMS',
-      client: 'Marlon, Dockx, Denderwood',
-      year: '2020',
-      linkUrl: 'https://www.mycancercompanion.com/',
+      client: 'Marlon, iO Digital, Dockx, Denderwood',
+      year: '2018',
+      linkUrl: 'https://www.iodigital.com/en',
       collaborators: '',
       description: `Helped set up the server-side renderer and React component engine for Marlon's in-house B2B CMS. This project involved both internal work spread over 3 years on the admin side of things, and customer-facing React components that worked on servers and browsers alike. Including: Carts, Checkouts, Product Details, Maps, Interactive Logo Pickers, and Advanced Datagrids. Just to name a few.`,
     },
