@@ -211,7 +211,7 @@ export const dummyResumeData: ResumeData = {
       to: '2020',
       company: 'date-fns',
       location: 'Github, Open-Source',
-      linkUrl: 'https://date-fns.org/#:~:text=%40TatiFKNavarro-,%40codinsonn,-%40waseemahmad31',
+      linkUrl: 'https://date-fns.org/#:~:text=codinsonn',
       description: '',
     },
     {
