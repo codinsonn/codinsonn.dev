@@ -1,4 +1,4 @@
-<a href="https://github.com/Aetherspace/green-stack-starter-demo#readme" target="_blank">
+<a href="https://github.com/FullProduct-dev/green-stack-starter-demo#readme" target="_blank">
   <img src="/packages/@aetherspace/assets/AetherspaceLogo.svg" width="50" height="50" />
 </a>
 
@@ -10,7 +10,7 @@
 
 ## Kickstart for Web & Mobile with Aetherspace
 
-Generate a new repo from the [Aetherspace template](https://github.com/Aetherspace/green-stack-starter-demo) and (optionally) include all branches.
+Generate a new repo from the [Aetherspace template](https://github.com/FullProduct-dev/green-stack-starter-demo) and (optionally) include all branches.
 
 ![GithubTemplateRepo.png](/.storybook/public/GithubTemplateRepo.png)
 

@@ -17,7 +17,7 @@
   </a>
 </p>
 
-> This project was bootstrapped with [Aetherspace](https://github.com/Aetherspace/green-stack-starter-demo), the Evergreen repo setup for all your **full-product, universal app** development needs \{...💚\} Enabling the project to be built for Web, iOS, Android, PWA, Static, SSR, API routes and GraphQL at write-once efficiency, while also documenting your code automatically with Zod & Storybook.
+> This project was bootstrapped with [Aetherspace](https://github.com/FullProduct-dev/green-stack-starter-demo), the Evergreen repo setup for all your **full-product, universal app** development needs \{...💚\} Enabling the project to be built for Web, iOS, Android, PWA, Static, SSR, API routes and GraphQL at write-once efficiency, while also documenting your code automatically with Zod & Storybook.
 
 <p style={{ padding: "4px" }} />  
 
@@ -342,7 +342,7 @@ Check out the [License](/LICENSE.md) and its FAQ section.
 
 ### Getting started ⚡️
 
-Generate a new repo from the [Aetherspace template](https://github.com/Aetherspace/green-stack-starter-demo) and (optionally) include all branches.
+Generate a new repo from the [Aetherspace template](https://github.com/FullProduct-dev/green-stack-starter-demo) and (optionally) include all branches.
 
 ![GithubTemplateRepo.png](/.storybook/public/GithubTemplateRepo.png)
 
@@ -351,7 +351,7 @@ Generate a new repo from the [Aetherspace template](https://github.com/Aetherspa
 Set this repo as the upstream if you want to include the git commit history:
 
 ```
-git remote add upstream git@github.com:Aetherspace/green-stack-starter.git
+git remote add upstream git@github.com:FullProduct-dev/green-stack-starter.git
 git fetch upstream
 git pull --rebase upstream main
 ```

@@ -1,4 +1,4 @@
-<a href="https://github.com/Aetherspace/green-stack-starter-demo#readme" target="_blank">
+<a href="https://github.com/FullProduct-dev/green-stack-starter-demo#readme" target="_blank">
   <img src="/packages/@aetherspace/assets/AetherspaceLogo.svg" width="50" height="50" />
 </a>
 
@@ -17,7 +17,7 @@
 # `@green-stack/icons` - Aetherspace Plugin
 
 Prerequisites:
-- Fork or generate a new repository from the official or free [aetherspace/green-stack-starter](https://github.com/Aetherspace/green-stack-starter-demo#readme) github repo
+- Fork or generate a new repository from the official or free [aetherspace/green-stack-starter](https://github.com/FullProduct-dev/green-stack-starter-demo#readme) github repo
 - Choose the "✅ Include all branches" option during the fork / generation process
 
 ```shell

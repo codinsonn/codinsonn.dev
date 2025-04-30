@@ -179,8 +179,8 @@ To actually get the data from your GraphQL resolvers into the specific screens f
 Check out the [Recommended Way of Working docs](/packages/@aetherspace/scripts/README.md) for more details and ways to simplify this process.
 
 Additionally we have a full working example of this in the Aetherspace demo app:
-- [/features/app-core/screens/HomeScreen.tsx#L39-L83](https://github.com/Aetherspace/green-stack-starter-demo/blob/main/features/app-core/screens/HomeScreen.tsx#L39-L83)
-- [/features/app-core/routes/index.tsx](https://github.com/Aetherspace/green-stack-starter-demo/blob/main/features/app-core/routes/index.tsx)
+- [/features/app-core/screens/HomeScreen.tsx#L39-L83](https://github.com/FullProduct-dev/green-stack-starter-demo/blob/main/features/app-core/screens/HomeScreen.tsx#L39-L83)
+- [/features/app-core/routes/index.tsx](https://github.com/FullProduct-dev/green-stack-starter-demo/blob/main/features/app-core/routes/index.tsx)
 
 ```tsx
 /* --- GraphQL & Data Fetching ----------------------------------------------------------------- */

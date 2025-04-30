@@ -149,7 +149,7 @@ export const BioScreen = (props: BioScreenProps) => {
         <View tw="h-3" />
         <Text tw="flex-row">
           <Link
-            href="https://github.com/Aetherspace/green-stack-starter-demo#move-fast-and-build-things"
+            href="https://github.com/FullProduct-dev/green-stack-starter-demo#move-fast-and-build-things"
             tw="font-primary-regular text-primary text-sm"
             asText
           >
